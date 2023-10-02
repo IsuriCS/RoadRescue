@@ -159,11 +159,7 @@ public class CustomerServlet extends HttpServlet {
             resp.addHeader("Access-Control-Allow-Headers", "Content-Type");
 
             System.out.println("customer check three");
-         /*   PreparedStatement pst = connection.prepareStatement("INSERT  into customer values(?,?,?,?)");
-            pst.setString(1, customerId);
-            pst.setString(2, customerName);
-            pst.setString(3, customerAddress);
-            pst.setDouble(4, customerSalary);*/
+
 
             if (result){
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
