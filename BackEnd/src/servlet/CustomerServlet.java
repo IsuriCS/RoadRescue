@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 @WebServlet(urlPatterns = "/customer")
 public class CustomerServlet extends HttpServlet {
@@ -22,7 +23,6 @@ public class CustomerServlet extends HttpServlet {
     @Resource(name = "java:comp/env/thogakade/pool")
     DataSource ds;
 
-    /*CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);*/
     CustomerController customer=new CustomerController();
 
     @Override
@@ -40,16 +40,20 @@ public class CustomerServlet extends HttpServlet {
 
                     CustomerModel searchCustomer = customer.search(connection, searchId);
                     if (searchCustomer!=null) {
-                        String cstId = searchCustomer.getId();
-                        String cstName = searchCustomer.getName();
-                        String cstAddress = searchCustomer.getAddress();
-                        double cstSalary = searchCustomer.getSalary();
+                        int customerId = searchCustomer.getCustomerId();
+                        String fName = searchCustomer.getfName();
+                        String lName = searchCustomer.getlName();
+                        String contactNum = searchCustomer.getContactNum();
+                        String email = searchCustomer.getEmail();
+                        Timestamp timestamp = searchCustomer.getTimestamp();
 
                         JsonObjectBuilder customerData = Json.createObjectBuilder();
-                        customerData.add("id",cstId);
-                        customerData.add("name",cstName);
-                        customerData.add("address",cstAddress);
-                        customerData.add("salary",cstSalary);
+                        customerData.add("customerId",customerId);
+                        customerData.add("fName",fName);
+                        customerData.add("lName",lName);
+                        customerData.add("contactNum",contactNum);
+                        customerData.add("email", email);
+                        customerData.add("timestamp", timestamp.toString());
 
                         JsonObjectBuilder searchResponse = Json.createObjectBuilder();
                         searchResponse.add("status",200);
@@ -136,36 +140,29 @@ public class CustomerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        System.out.println("customer check one");
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
-        String customerId = jsonObject.getString("id");
-        String customerName = jsonObject.getString("name");
-        String customerAddress = jsonObject.getString("address");
-        double customerSalary = Double.parseDouble(jsonObject.getString("salary"));
-
-
+        String fName = jsonObject.getString("fName");
+        String lName = jsonObject.getString("lName");
+        String contactNum = jsonObject.getString("contactNum");
+        String email = jsonObject.getString("email");
 
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
         try {
             Connection connection = ds.getConnection();
-            CustomerModel customerDTO = new CustomerModel(customerId, customerName, customerAddress, customerSalary);
+            CustomerModel customerDTO = new CustomerModel(fName, lName, contactNum, email);
             boolean result = customer.add(connection, customerDTO);
 
             resp.addHeader("Access-Control-Allow-Origin","*");
             resp.addHeader("Access-Control-Allow-Methods", "DELETE, PUT");
             resp.addHeader("Access-Control-Allow-Headers", "Content-Type");
 
-            System.out.println("customer check three");
-
-
             if (result){
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 resp.setStatus(HttpServletResponse.SC_CREATED);
                 objectBuilder.add("status",200);
-                objectBuilder.add("message","Successfully Add...!");
+                objectBuilder.add("message","Successfully Added...!");
                 objectBuilder.add("data","");
                 writer.print(objectBuilder.build());
             }
@@ -194,7 +191,7 @@ public class CustomerServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String cstId = req.getParameter("cstId");
+        String cstId = req.getParameter("customerId");
         resp.setContentType("application/json");
         PrintWriter writer = resp.getWriter();
 
@@ -208,14 +205,14 @@ public class CustomerServlet extends HttpServlet {
             if (result) {
                 JsonObjectBuilder response = Json.createObjectBuilder();
                 response.add("status",200);
-                response.add("message","Customer Deleted..!x!");
+                response.add("message","Customer Deleted!");
                 response.add("data","");
                 writer.print(response.build());
             }else {
                 JsonObjectBuilder response = Json.createObjectBuilder();
                 resp.setStatus(HttpServletResponse.SC_OK);
                 response.add("status",400);
-                response.add("message","Wrong Id Insert");
+                response.add("message","Wrong ID!");
                 response.add("data","");
                 writer.print(response.build());
             }
@@ -243,16 +240,16 @@ public class CustomerServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
-        String customerId = jsonObject.getString("id");
-        String customerName = jsonObject.getString("name");
-        String customerAddress = jsonObject.getString("address");
-        double customerSalary = Double.parseDouble(jsonObject.getString("salary"));
+        String fName = jsonObject.getString("fName");
+        String lName = jsonObject.getString("lName");
+        String contactNum = jsonObject.getString("contactNum");
+        String email = jsonObject.getString("email");
 
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
         try {
             Connection connection = ds.getConnection();
-            CustomerModel customerDTO = new CustomerModel(customerId, customerName, customerAddress, customerSalary);
+            CustomerModel customerDTO = new CustomerModel(fName, lName, contactNum, email);
             boolean result = customer.update(connection, customerDTO);
 
             /*PreparedStatement stm = connection.prepareStatement("UPDATE customer SET name=?,address=?,salary=? where id=?");
