@@ -1,0 +1,220 @@
+:root{
+    --button-color:#23A6F0;
+    --background-color1:#252B42;
+    --background-color2: #3B4055;
+    --font-color1:white;
+
+    --h1:58px;
+    --h2:40px;
+    --h3:36px;
+    --h3:34px;
+    --h5:20px;
+    --h6:16px;
+
+    --semi-bold:600;
+    --bold:800;
+
+}
+body{
+    font-family: 'Montserrat',sans-serif; 
+    background-color:var(--background-color1);
+}
+
+/* ***************************************HEADER*********************************** */
+header{
+    margin-left: 90px;
+    margin-right: 90px;
+    
+    /* height: 91px; */
+    display: flex; 
+}
+
+nav{
+    width: 100%;
+    /* height: 91px; */
+    
+}
+header img{
+    width: 103px;
+    height: 55px;
+    flex-shrink: 0;
+}
+
+nav ul{
+    list-style: none;
+    display: inline-flex;
+    gap: 21px;
+
+}
+
+nav ul li{
+    font-weight: var(--semi-bold);
+}
+
+nav ul.right{
+    margin-top: 0px;
+    float: right;
+}
+
+nav ul.right li{
+    
+    align-self: center;
+}
+nav ul.left {
+   float: left;
+}
+
+nav ul li a{
+    
+    text-decoration: none;
+    color: white;
+}
+/* ***************************************BUTTON*********************************** */
+.button{
+    font-weight: var(--semi-bold);
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    background: var(--primary-color, #23A6F0);
+    display: inline-flex;
+    padding: 15px 25px;
+    align-items: center;
+    gap: 15px;
+}
+
+/* ***************************************SECTION*********************************** */
+main section{
+    
+    size:fixed;
+    max-height: 75vh;
+    width: auto;
+  
+}
+
+main section:nth-child(odd){
+    background-color: var(--background-color1);
+}
+
+main section:nth-child(even) {
+    background-color: var(--background-color2);
+}
+
+/* ***************************************Home*********************************** */
+.home{
+    background-image: url("/src/img/homebackground.png");
+    background-repeat: no-repeat;
+    background-size:100vw 100vh ;
+
+    
+    padding: 80px 162px 80px 162px;
+    display: grid;
+    grid-template-columns:36vw 40vw;
+    grid-column-gap: 8%;
+    grid-template-rows: 1fr 1fr 1fr ;
+    grid-template-areas: 
+    "headtext mainImg"
+    "subtext mainImg"
+    "requestServiceButton .";
+    
+    
+}
+
+.headtext{
+    font-size: var(--h1);
+    font-weight: 800;
+    color: var(--font-color1);
+    grid-area:headtext ;
+    
+}
+
+.subtext {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--font-color1);
+    grid-area: subtext;
+    
+}
+
+.requestServiceButton {
+   
+    border-radius: 50%;
+    padding-top: 22px;
+    grid-area: requestServiceButton;
+    
+}
+
+.mainImg {
+    height: fit-content;
+    width: 40vw;
+    display: flex;
+    flex-grow:1 ;
+    justify-content: center;
+    align-content: center;
+    grid-area: mainImg;
+    padding-top:14vh ;
+  
+}
+
+.mainImg>img{
+    max-width: 50vw;
+    max-height: 50vh;
+}
+
+/* ***************************************About Us*********************************** */
+.aboutUs{
+    background-image: url("/src/img/aboutUsBackground.png");
+    background-repeat: no-repeat;
+    background-size: 100vw auto;
+    padding: 150px 10% 200px 10%;
+    display: block;
+}
+
+.aboutUs > .container{
+    width: 100%;
+    height:auto;
+    display: grid;
+    grid-template-columns: auto;
+    
+    grid-template-areas:
+        "c1 image";
+
+    align-items: center;
+    color: var(--font-color1);
+}
+
+.aboutUs > .container>.c1{
+    padding-right: 7%;
+}
+.aboutUs>.container>.c1>#p1{
+    font-size: 20px;
+    align-self: end;
+    grid-area: p1;
+   
+    margin-bottom: 0;
+}
+
+.aboutUs>.container> .c1 >h1{
+    height: fit-content;
+    margin: 15px 0 15px 0;
+    font-size: 40px;
+    grid-area: heading;
+    
+}
+
+.aboutUs>.container> .c1>#p2{
+    font-size: 16px;
+    margin-top: 0;
+    grid-area: p2;
+    
+}
+
+.aboutUs>.container>img{
+    border-radius: 25%;
+    max-width: 100%;
+    max-height: auto;
+    grid-area: image;
+   
+}
