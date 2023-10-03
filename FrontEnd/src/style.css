@@ -101,7 +101,7 @@ main section:nth-child(even) {
 
 /* ***************************************Home*********************************** */
 .home{
-    background-image: url("/src/img/homebackground.png");
+    background-image: url("img/homebackground.png");
     background-repeat: no-repeat;
     background-size:100vw 100vh ;
 
@@ -121,7 +121,7 @@ main section:nth-child(even) {
 
 .headtext{
     font-size: var(--h1);
-    font-weight: 800;
+    font-weight: var(--bold);
     color: var(--font-color1);
     grid-area:headtext ;
     
@@ -165,7 +165,7 @@ main section:nth-child(even) {
 
 /* ***************************************About Us*********************************** */
 .aboutUs{
-    background-image: url("/src/img/aboutUsBackground.png");
+    background-image: url("img/aboutUsBackground.png");
     background-repeat: no-repeat;
     background-size: 100vw auto;
     padding: 150px 10% 200px 10%;
