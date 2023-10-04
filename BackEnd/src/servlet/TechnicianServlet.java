@@ -1,6 +1,6 @@
 package servlet;
 
-import controllers.TechnicianController;
+import controllers.ControllerImpl.TechnicianController;
 import models.TechnicianModel;
 
 import javax.annotation.Resource;
@@ -71,7 +71,9 @@ public class TechnicianServlet extends HttpServlet {
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
         String id = jsonObject.getString("id");
-        String name = jsonObject.getString("name");
+        String fName = jsonObject.getString("fName");
+        String lName = jsonObject.getString("lName");
+        String contact = jsonObject.getString("contact");
         String expertise = jsonObject.getString("expertise");
         String status = jsonObject.getString("status");
         int didJobs = Integer.parseInt(jsonObject.getString("didJobs"));
@@ -82,7 +84,8 @@ public class TechnicianServlet extends HttpServlet {
 
         try {
             Connection connection = ds.getConnection();
-            TechnicianModel technicianModel = new TechnicianModel(id, name, expertise, status, didJobs);
+            TechnicianModel technicianModel = new TechnicianModel(fName,lName, contact, status);
+            //System.out.println(technicianModel.toString());
             boolean result = technician.add(connection, technicianModel);
 
             if (result) {
@@ -120,7 +123,9 @@ public class TechnicianServlet extends HttpServlet {
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
         String id = jsonObject.getString("id");
-        String name = jsonObject.getString("name");
+        String fName = jsonObject.getString("fName");
+        String lName = jsonObject.getString("lName");
+        String contact = jsonObject.getString("contact");
         String expertise = jsonObject.getString("expertise");
         String status = jsonObject.getString("status");
         int didJobs = Integer.parseInt(jsonObject.getString("didJobs"));
@@ -130,7 +135,7 @@ public class TechnicianServlet extends HttpServlet {
 
         try {
             Connection connection = ds.getConnection();
-            TechnicianModel technicianModel = new TechnicianModel(id, name, expertise, status, didJobs);
+            TechnicianModel technicianModel = new TechnicianModel(id, fName,lName, contact,expertise, status, didJobs);
             boolean updateResult = technician.update(connection, technicianModel);
 
             if (updateResult) {

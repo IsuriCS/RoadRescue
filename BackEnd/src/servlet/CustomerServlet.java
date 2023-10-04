@@ -1,7 +1,7 @@
 package servlet;
 
 
-import controllers.CustomerController;
+import controllers.ControllerImpl.CustomerController;
 import models.CustomerModel;
 
 import javax.annotation.Resource;
