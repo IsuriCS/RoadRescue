@@ -537,3 +537,9 @@ footer .fgrid {
 footer .fgrid > .logo > img {
     height: 30vh;
 }
+/* ***************************************TimeLine*********************************** */
+
+.timeline {
+    position: relative;
+
+}
