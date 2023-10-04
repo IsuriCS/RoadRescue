@@ -138,7 +138,9 @@ public class TechnicianServlet extends HttpServlet {
             TechnicianModel technicianModel = new TechnicianModel(id, fName,lName, contact,expertise, status, didJobs);
             boolean updateResult = technician.update(connection, technicianModel);
 
+
             if (updateResult) {
+                System.out.println("technician update successful");
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 resp.setStatus(HttpServletResponse.SC_OK);
                 objectBuilder.add("status", 200);
