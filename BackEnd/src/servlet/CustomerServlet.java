@@ -22,7 +22,6 @@ public class CustomerServlet extends HttpServlet {
     @Resource(name = "java:comp/env/thogakade/pool")
     DataSource ds;
 
-    /*CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);*/
     CustomerController customer=new CustomerController();
 
     @Override
@@ -154,9 +153,6 @@ public class CustomerServlet extends HttpServlet {
             CustomerModel customerDTO = new CustomerModel(customerId, customerName, customerAddress, customerSalary);
             boolean result = customer.add(connection, customerDTO);
 
-            resp.addHeader("Access-Control-Allow-Origin","*");
-            resp.addHeader("Access-Control-Allow-Methods", "DELETE, PUT");
-            resp.addHeader("Access-Control-Allow-Headers", "Content-Type");
 
             System.out.println("customer check three");
 
