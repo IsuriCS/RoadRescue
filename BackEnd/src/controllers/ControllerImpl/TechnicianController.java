@@ -1,12 +1,9 @@
-package controllers;
+package controllers.ControllerImpl;
 
-import dao.CrudUtil;
+import controllers.dao.CrudUtil;
 import models.TechnicianModel;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,23 +15,25 @@ public class TechnicianController {
         JsonArrayBuilder technicianArray = Json.createArrayBuilder();
 
         while (rst.next()) {
-            TechnicianModel technicianModel = new TechnicianModel(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getInt(5));
+            TechnicianModel technicianModel = new TechnicianModel(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4),rst.getTimestamp(5), rst.getString(6));
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
             objectBuilder.add("id",technicianModel.getId());
-            objectBuilder.add("name",technicianModel.getName());
-            objectBuilder.add("expertise",technicianModel.getExpertise());
+            objectBuilder.add("fName",technicianModel.getfName());
+            objectBuilder.add("lName",technicianModel.getlName());
+            objectBuilder.add("contact",technicianModel.getContact());
+            objectBuilder.add("timestamp", (JsonValue) technicianModel.getTimestamp());
             objectBuilder.add("status",technicianModel.getStatus());
-            objectBuilder.add("didJobs",technicianModel.getDidJobs());
+            technicianArray.add(objectBuilder.build());
         }
         return technicianArray.build();
     }
 
     public boolean add(Connection connection,TechnicianModel technicianModel) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeUpdate(connection,"INSERT into technician values(?,?,?,?,?)",technicianModel.getId(),technicianModel.getName(),technicianModel.getExpertise(),technicianModel.getStatus(),technicianModel.getDidJobs());
+        return CrudUtil.executeUpdate(connection,"INSERT into technician values(?,?,?,?)",technicianModel.getfName(),technicianModel.getlName(),technicianModel.getContact(),technicianModel.getStatus());
     }
 
     public boolean update(Connection connection,TechnicianModel technicianModel) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeUpdate(connection,"UPDATE technician SET name=?,expertise=?,status=?,didJob=? WHERE id=?",technicianModel.getName(),technicianModel.getExpertise(),technicianModel.getStatus(),technicianModel.getDidJobs(),technicianModel.getId());
+        return CrudUtil.executeUpdate(connection,"UPDATE technician SET f_name=?,l_name=?,contact_num=? WHERE id=?",technicianModel.getfName(),technicianModel.getlName(),technicianModel.getContact(),technicianModel.getId());
     }
 
     public boolean delete(Connection connection,String techId) throws SQLException, ClassNotFoundException {
