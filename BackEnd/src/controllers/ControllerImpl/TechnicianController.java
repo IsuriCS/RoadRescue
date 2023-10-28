@@ -21,7 +21,7 @@ public class TechnicianController {
             objectBuilder.add("fName",technicianModel.getfName());
             objectBuilder.add("lName",technicianModel.getlName());
             objectBuilder.add("contact",technicianModel.getContact());
-            objectBuilder.add("timestamp", (JsonValue) technicianModel.getTimestamp());
+            objectBuilder.add("timestamp", Json.createValue(technicianModel.getTimestamp().toString()));
             objectBuilder.add("status",technicianModel.getStatus());
             technicianArray.add(objectBuilder.build());
         }
@@ -29,14 +29,16 @@ public class TechnicianController {
     }
 
     public boolean add(Connection connection,TechnicianModel technicianModel) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeUpdate(connection,"INSERT into technician values(?,?,?,?)",technicianModel.getfName(),technicianModel.getlName(),technicianModel.getContact(),technicianModel.getStatus());
+        return CrudUtil.executeUpdate(connection,"INSERT into technician (f_name, l_name, contact_num, timestamp, availability_status) values(?,?,?,?,?)",
+                technicianModel.getfName(),technicianModel.getlName(),technicianModel.getContact(),technicianModel.getTimestamp(),technicianModel.getStatus());
     }
 
     public boolean update(Connection connection,TechnicianModel technicianModel) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeUpdate(connection,"UPDATE technician SET f_name=?,l_name=?,contact_num=? WHERE id=?",technicianModel.getfName(),technicianModel.getlName(),technicianModel.getContact(),technicianModel.getId());
+        System.out.println(technicianModel.toString());
+        return CrudUtil.executeUpdate(connection,"UPDATE technician SET f_name=?,l_name=?,contact_num=? WHERE technician_id=?",technicianModel.getfName(),technicianModel.getlName(),technicianModel.getContact(),technicianModel.getId());
     }
 
     public boolean delete(Connection connection,String techId) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeUpdate(connection,"DELETE FROM technician WHERE id=?",techId);
+        return CrudUtil.executeUpdate(connection,"DELETE FROM technician WHERE technician_id=?",techId);
     }
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/">
     <Resource
-            name="thogakade/pool"
+            name="road_rescue/pool"
             type="javax.sql.DataSource"
             driverClassName="com.mysql.jdbc.Driver"
-            url="jdbc:mysql://localhost:3306/thogakade"
+            url="jdbc:mysql://localhost:3306/road_rescue"
             username="root"
             password="1234"
             maxTotal="15"

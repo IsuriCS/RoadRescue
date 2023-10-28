@@ -15,11 +15,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 @WebServlet(urlPatterns = "/technician")
 public class TechnicianServlet extends HttpServlet {
 
-    @Resource(name = "")
+    @Resource(name = "java:comp/env/road_rescue/pool")
     DataSource ds;
 
     TechnicianController technician = new TechnicianController();
@@ -84,7 +85,7 @@ public class TechnicianServlet extends HttpServlet {
 
         try {
             Connection connection = ds.getConnection();
-            TechnicianModel technicianModel = new TechnicianModel(fName,lName, contact, status);
+            TechnicianModel technicianModel = new TechnicianModel(null,fName,lName, contact,new Timestamp(System.currentTimeMillis()), status);
             //System.out.println(technicianModel.toString());
             boolean result = technician.add(connection, technicianModel);
 
@@ -178,7 +179,7 @@ public class TechnicianServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String techId = req.getParameter("techId");
+            String techId = req.getParameter("techId");
         resp.setContentType("application/json");
         PrintWriter writer = resp.getWriter();
 
