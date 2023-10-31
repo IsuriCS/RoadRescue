@@ -538,8 +538,9 @@ footer .fgrid > .logo > img {
     height: 30vh;
 }
 /* ***************************************TimeLine*********************************** */
-
-.timeline {
-    position: relative;
-
+.HIWtimeline {
+    height: 200vh;
+    background-image: url("../img/HIWsp.png");
+    background-repeat: no-repeat;
+    background-size: 100vw;
 }
