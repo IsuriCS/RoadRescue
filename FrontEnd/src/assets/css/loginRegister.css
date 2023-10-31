@@ -1,0 +1,13 @@
+body {
+    background: #515568;
+    height: inherit;
+}
+
+.navbar {
+    width: 94%;
+    background: #253555;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: clamp(0px, 1vw, 25px) 3%;
+}
