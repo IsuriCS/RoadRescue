@@ -121,6 +121,7 @@
     <div class="profile">
         <div class="profilePic">
             <img src="../../assets/images/profile.svg" alt="profile">
+            <img src="../../assets/images/edit.svg" alt="edit">
         </div>
 
         <div class="profileContent">
@@ -132,12 +133,12 @@
                 <hr>
                 <div>
                     <label class="form-label">Technician First Name</label>
-                    <input  type="text" type="text" class="form-controller" readonly>
+                    <input id="techFName" type="text" type="text" class="form-controller" readonly>
                 </div>
                 <hr>
                 <div>
                     <label class="form-label">Technician Last Name</label>
-                    <input type="text" type="text" class="form-controller" >
+                    <input id="techLName" type="text" type="text" class="form-controller" >
                 </div>
                 <hr>
             </div>
@@ -150,18 +151,28 @@
                 <hr>
                 <div>
                     <label class="form-label">Registered Date </label>
-                    <input  type="text" type="text" class="form-controller" readonly>
+                    <input  id="techRegDate" type="text" type="text" class="form-controller" readonly>
                 </div>
                 <hr>
                 <div>
                     <label class="form-label">Expertise Areas</label>
-                    <input type="text" type="text" class="form-controller" >
+                    <!--<input id="expertiseAreas" type="text" type="text" class="form-controller" >-->
+                    <select id="expertiseAreas" name="expertiseAreas">
+                        <option value="Diagnostic">Diagnostic</option>
+                        <option value="Transmission">Transmission</option>
+                        <option value="Oil Change">Oil Change</option>
+                    </select>
                 </div>
                 <hr>
             </div>
         </div>
 
-        <div class="saveBtnArea">save button</div>
+        <div class="saveBtnArea">
+            <button type="button">
+                <img src="../../assets/images/edit.svg" alt="edit">
+                Edit Profile
+            </button>
+        </div>
     </div>
 </section>
 

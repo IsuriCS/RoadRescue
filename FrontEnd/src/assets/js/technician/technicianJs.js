@@ -1,3 +1,10 @@
+loadTechnician();
+
+function loadTechnician(){
+
+}
+
+
 const toggleProfileMenu = () => {
     var loader = document.getElementById("profileMenu");
     loader.classList.toggle("hide");
