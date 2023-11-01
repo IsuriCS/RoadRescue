@@ -39,7 +39,7 @@
     <main>
       <div class="form-container">
         <div class="user-form">
-          <h1>Log in Road-Rescue</h1>
+
 
           <form onsubmit="submitLogin(event, this)">
             <input
@@ -50,7 +50,14 @@
               required
             />
             <a href="#opt" onclick="sendOTP('SIGN_IN')">Send OTP</a>
-            <input id="opt" name="opt" placeholder="OTP" type="text" onkeypress="return onlyNumberKey(event)" required />
+            <input
+              id="opt"
+              name="opt"
+              placeholder="OTP"
+              type="text"
+              onkeypress="return onlyNumberKey(event)"
+              required
+            />
             <button type="submit">Log In</button>
           </form>
 
