@@ -1,6 +1,6 @@
 package controllers.ControllerImpl;
 
-import controllers.dao.CrudUtil;
+import dto.CrudUtil;
 import models.TechnicianModel;
 
 import javax.json.*;
