@@ -21,7 +21,6 @@ main {
   padding: 20px 0;
 
   border-radius: 30px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,17 +53,41 @@ main {
 }
 
 #phone,
-#opt {
+#opt ,
+#garageName,
+#category{
   width: 90%;
   padding: 12px 5%;
   border: none;
   border-radius: 10px;
-
   font-size: var(--h4);
-
   font-weight: 700;
 }
 
+#garageName,
+#category{
+  margin-top: 40px;
+}
+
+select:required:invalid {
+  color: gray;
+}
+
+option[value=""][disabled] {
+  display: none;
+}
+
+option {
+  color: black;
+}
+#category{
+  width:100%;
+}
+
+select{
+  border: 0px;
+    outline: 0px;
+}
 .form-group {
   width: 100%;
   margin-top: 40px;
