@@ -15,11 +15,11 @@ body {
   --h6: clamp(9px, 0.5vw, 25px);
 
   --m1: clamp(20px, 50%, 30px);
-  --m2: clamp();
+ /* --m2: clamp();
   --m3: clamp();
   --m4: clamp();
   --m5: clamp();
-  --m6: clamp();
+  --m6: clamp();*/
 }
 
 .darkBackground {
