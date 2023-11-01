@@ -30,18 +30,15 @@ public class AdminServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         try {
             Connection connection = ds.getConnection();
-            System.out.println("1");
             JsonArray allFAQs = faq.getAll(connection);
             JsonObjectBuilder response = Json.createObjectBuilder();
             response.add("status",200);
             response.add("message","Successfully get all FAQs.");
             response.add("data",allFAQs);
             writer.print(response.build());
-            System.out.println("2");
             connection.close();
 
         } catch (SQLException e) {
-            System.out.println("3");
             JsonObjectBuilder response = Json.createObjectBuilder();
             resp.setStatus(HttpServletResponse.SC_OK);
             response.add("status",500);
@@ -49,7 +46,6 @@ public class AdminServlet extends HttpServlet {
             response.add("data",e.getLocalizedMessage());
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            System.out.println("4");
             JsonObjectBuilder response = Json.createObjectBuilder();
             resp.setStatus(HttpServletResponse.SC_OK);
             response.add("status",500);

@@ -43,4 +43,13 @@ public class FAQModel {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
+    @Override
+    public String toString() {
+        return "FAQModel{" +
+                "faqId='" + faqId + '\'' +
+                ", question='" + question + '\'' +
+                ", answer='" + answer + '\'' +
+                '}';
+    }
 }

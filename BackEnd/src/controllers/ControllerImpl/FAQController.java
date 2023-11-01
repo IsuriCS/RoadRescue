@@ -36,7 +36,7 @@ public class FAQController {
 
 
     public boolean update(Connection connection, FAQModel updateFAQ) throws SQLException, ClassNotFoundException {
-         return CrudUtil.executeUpdate(connection,"UPDATE faq SET answer=? WHERE question=?",updateFAQ.getAnswer(),updateFAQ.getQuestion());
+        return CrudUtil.executeUpdate(connection,"UPDATE faq SET answer=? WHERE question=?",updateFAQ.getAnswer(),updateFAQ.getQuestion());
 
     }
 
