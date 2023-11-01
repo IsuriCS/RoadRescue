@@ -131,7 +131,7 @@ body {
   align-items: center;
 }
 
-.navActions > button,
+.navActions > #button,
 .activityButton {
   color: white;
   text-decoration: none;
@@ -152,13 +152,13 @@ body {
   margin: 0 10px 0 10px;
 }
 
-.navActions > button:hover,
+.navActions > #button:hover,
 .activityButton:hover {
   background: #0088d7;
   filter: drop-shadow(0 0 20px #001039);
 }
 
-.navActions > button > img,
+.navActions > #button > img,
 .activityButton > img {
   width: clamp(20px, 2vw, 34px);
   height: clamp(20px, 2vw, 34px);

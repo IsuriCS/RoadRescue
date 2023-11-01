@@ -22,14 +22,13 @@
     <body>
         <div class="navbar">
             <div class="logo">
-                <img src="./images/logo.png" alt="logo" />
+                <img src="../../assets/img/RRLogo.png" alt="logo" />
             </div>
 
             <div class="navActions">
-                <button style="padding: 10px 20px">
-                    Are You a Service Provider
-                    <img style="margin-right: 0; margin-left: 20px; width: 20px" src="./images/arrow.svg" />
-                </button>
+                <a id="button" href="../Customer/signup.html" style="padding: 17px 20px">Register as Customer
+                    <img style="margin-right: 0; margin-left: 20px; width: 20px" src="../../assets/img/arrow.svg" />
+                </a>
             </div>
         </div>
 
@@ -48,12 +47,21 @@
                             <input id="firstName" name="firstName" placeholder="First Name" type="text" required />
                             <input id="lastName" name="lastName" placeholder="Last Name" type="text" required />
                         </div>
+                        <input id="garageName" name="garageName" placeholder="Garage Name" type="text" required />
+                        
+                        <select required class="category" id="category">
+                            <option  disabled selected value="">Service Category</option>
+                            <option value="garageo">Garage Owner</option>
+                            <option value="mp">Maintainance Personnel</option>
+                            
+                        </select>
+
                         <button type="submit">Register</button>
                     </form>
 
                     <h3 class="hr-line"><span>Already have an Account? </span></h3>
 
-                    <a id="login" href="signin.html">Log In</a>
+                    <a id="login" href="login.html">Log In</a>
                 </div>
             </div>
         </main>
@@ -66,8 +74,8 @@
         </footer>
     </body>
 
-    <script src="js/main.js"></script>
-    <script src="js/signup.js"></script>
+    <script src="../Customer/js/main.js"></script>
+    <script src="../Customer/js/signup.js"></script>
     <script src="jQuery/jquery-3.6.0.min.js"></script>
 
 </html>
