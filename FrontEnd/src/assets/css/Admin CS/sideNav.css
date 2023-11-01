@@ -5,12 +5,15 @@ body{
 }
 
 main{
+  max-height: 71vh;
+  z-index: -2;
+  background-color: #515568;
   display: flex;
   flex-direction: row;
 }
 .sidenav {
   height: 80vh;
-  width: 25%;
+  width: 23%;
   position: relative;
   z-index: -1;
   top: 0;
@@ -73,14 +76,34 @@ cursor: pointer;
 }
 
 main>.content{
+  flex-grow: 3;
   color: #111;
 }
 
+main >.content>.content-box{
+  background-color: #253555;
+  margin: 2vh;
+  border: white solid;
+  border-radius: 30px;
+  min-width: 90%;
+  height: 75%;
+  padding: 5vh;
+  color: white;
+}
+
+main > .content > .content-box >.info {
+  margin: 5vh;
+  font-size: 20px;
+}
+
 footer{
+  
   position: fixed;
   bottom: 0;
 }
-
+footer .social{
+  width: 21%;
+}
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
