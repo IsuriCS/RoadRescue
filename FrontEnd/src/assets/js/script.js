@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
             // Toggle a 'clicked' class on the question to change its background color
             question.classList.toggle("clicked");
 
+
+
         });
     });
 });
