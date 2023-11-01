@@ -1,0 +1,87 @@
+body{
+  display: flex;
+  flex-direction: column;
+
+}
+
+main{
+  display: flex;
+  flex-direction: row;
+}
+.sidenav {
+  height: 80vh;
+  width: 25%;
+  position: relative;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  background-color:#728AB0;
+  overflow-x: hidden;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidenav> img{
+  width: 30%;
+  
+}
+.sidenav ul{
+  width: 100%;
+  padding-left: 0;
+}
+.sidenav>ul li{
+  list-style: none;
+  
+}
+.sidenav>ul li a {
+display:block;
+cursor: pointer;
+  padding: 5vh;
+  width: -webkit-fill-available;
+  padding: 6px 6px 6px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #010101;
+  display: block;
+}
+.sidenav>ul>li>.sideNavLink.active{
+ 
+  margin-right: 1vw;
+  background: #fff;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  color: #111;
+  border-radius: 0 50vh 50vh 0;
+}
+
+.sidenav a span{
+  font-size: 150%;
+}
+.sidenav a h4 {
+  
+  margin: auto;
+}
+.sidenav>a:hover {
+  background: #d8d5d5;
+  color: #d8d5d5;
+}
+
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+}
+
+main>.content{
+  color: #111;
+}
+
+footer{
+  position: fixed;
+  bottom: 0;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
