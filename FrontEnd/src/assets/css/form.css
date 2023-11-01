@@ -31,6 +31,7 @@ main {
 .user-form h1 {
     font-family: "Montserrat", sans-serif;
     font-size: var(--h1);
+    text-align: center;
 }
 
 .user-form > form {
@@ -98,7 +99,7 @@ main {
 }
 
 #phone,
-
+#nic,
 #opt ,
 #garageName,
 #category{
@@ -110,8 +111,10 @@ main {
   font-weight: 700;
 }
 
+#phone,
 #garageName,
-#category{
+#category,
+#nic{
   margin-top: 40px;
 }
 
@@ -161,7 +164,7 @@ select{
 .user-form > form > button {
   margin-top: 30px;
   width: 50%;
-
+  margin: 5vh;
   cursor: pointer;
   padding: 15px 0;
   border: none;
