@@ -52,14 +52,7 @@ main {
 
     font-size: var(--h4);
     font-weight: 700;
-
-  width: 100%;
-  min-height: 90vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: linear-gradient(180deg, #253555 64.58%, #636a7a 100%);
+  
 }
 
 .form-container {
