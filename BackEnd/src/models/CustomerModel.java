@@ -1,61 +1,95 @@
 package models;
 
-public class CustomerModel {
-    private String id;
-    private String name;
-    private String address;
-    private double salary;
+import java.sql.Timestamp;
 
-    public CustomerModel(String id, String name, String address, double salary) {
-        this.setId(id);
-        this.setName(name);
-        this.setAddress(address);
-        this.setSalary(salary);
+public class CustomerModel {
+    private int customerId;
+    private String fName;
+    private String lName;
+    private String contactNum;
+    private String email;
+    private Timestamp timestamp;
+
+    public CustomerModel(int customerId, String fName, String lName, String contactNum, String email) {
+        this.customerId = customerId;
+        this.setfName(fName);
+        this.setlName(lName);
+        this.setContactNum(contactNum);
+        this.setEmail(email);
+        this.timestamp = new Timestamp(System.currentTimeMillis());
+    }
+
+    public CustomerModel(String fName, String lName, String contactNum, String email) {
+        this.setfName(fName);
+        this.setlName(lName);
+        this.setContactNum(contactNum);
+        this.setEmail(email);
+        this.timestamp = new Timestamp(System.currentTimeMillis());
+    }
+
+    public CustomerModel(int customerId, String fName, String lName, String email) {
+        this.customerId = customerId;
+        this.setfName(fName);
+        this.setlName(lName);
+        this.setEmail(email);
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
     public CustomerModel() {
     }
 
-
-    public String getId() {
-        return id;
+    public int getCustomerId() {
+        return this.customerId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getfName() {
+        return fName;
     }
 
-    public String getName() {
-        return name;
+    public void setfName(String fName) {
+        this.fName = fName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getlName() {
+        return lName;
     }
 
-    public String getAddress() {
-        return address;
+    public void setlName(String lName) {
+        this.lName = lName;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public String getContactNum() {
+        return contactNum;
     }
 
-    public double getSalary() {
-        return salary;
+    public void setContactNum(String contactNum) {
+        this.contactNum = contactNum;
     }
 
-    public void setSalary(double salary) {
-        this.salary = salary;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", salary=" + salary +
+        return "CustomerModel{" +
+                "fName='" + fName + '\'' +
+                ", lName='" + lName + '\'' +
+                ", contactNum='" + contactNum + '\'' +
+                ", email='" + email + '\'' +
+                ", timestamp=" + timestamp +
                 '}';
     }
 }
