@@ -23,7 +23,7 @@ public class CustomerSupportServlet extends HttpServlet {
 
 
    CustomerSupportTicketController cusSupportTicket =new CustomerSupportTicketController();
-   @Resource(name="java:comp/env/road_rescue/pool")
+   @Resource(name="java:comp/env/roadRescue")
    DataSource ds;
 
     @Override

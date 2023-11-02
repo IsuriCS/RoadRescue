@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context path="/">
-<<<<<<< HEAD
+<!--<<<<<<< HEAD
     <Resource
             name="road_rescue/pool"
             type="javax.sql.DataSource"
@@ -11,7 +11,7 @@
             maxTotal="15"
             initialSize="15"
     ></Resource>
-=======
+=======-->
 	<Resource
 			name="roadRescue"
 			auth="Container"
@@ -22,7 +22,6 @@
 			driverClassName="com.mysql.jdbc.Driver"
 			url="jdbc:mysql://localhost:3306/road_rescue"
 			username="root"
-			password=""
+			password="1234"
 	/>
->>>>>>> 59ea7fa81a52bc2ae2478a3fd28096133b7a88c4
 </Context>
