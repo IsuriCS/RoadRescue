@@ -457,3 +457,21 @@ body {
 
     }
 }
+
+/* Dash board toggle */
+.navActions{
+    width: 37vw;
+}
+.AvailableToggel{
+    border-radius: 9px;
+    background-color: #9295A1;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    
+}
+.AvailableToggel>p{
+    font-weight: 500;
+}
+.activetog{
+    background-color: #0088d7;
+}
