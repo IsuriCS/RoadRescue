@@ -187,6 +187,7 @@ public class CustomerSupportServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("System has not support ticket delete option.");
         super.doDelete(req, resp);
     }
 }
