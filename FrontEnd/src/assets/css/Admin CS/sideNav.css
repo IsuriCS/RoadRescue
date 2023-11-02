@@ -48,9 +48,9 @@ cursor: pointer;
   width: -webkit-fill-available;
   padding: 6px 6px 6px 32px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 3vh;
   color: #010101;
-  gap: 20px;
+  gap: 3vh;
  
 }
 .sidenav>ul>li>.sideNavLink.active{
@@ -123,6 +123,12 @@ cursor: pointer;
   gap: 5px;
 
  
+}
+
+.content> .content-box> .info> textarea{
+  width: 100%;
+  height: 15vh;
+  font-size: 3vh;
 }
 
 .content> .content-box >.button> button{
