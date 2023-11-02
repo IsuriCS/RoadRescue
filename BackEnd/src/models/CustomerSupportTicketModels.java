@@ -1,18 +1,18 @@
 package models;
 
-public class CustomerSupportTicket {
+public class CustomerSupportTicketModels {
     private int ticketId;
     private int customerId;
     private int supportMemberId;
 
 
-    public CustomerSupportTicket(int ticketId, int customerId, int supportMemberId) {
+    public CustomerSupportTicketModels(int ticketId, int customerId, int supportMemberId) {
         this.ticketId = ticketId;
         this.customerId = customerId;
         this.supportMemberId = supportMemberId;
     }
 
-    public CustomerSupportTicket() {
+    public CustomerSupportTicketModels() {
     }
 
     public int getTicketId() {
