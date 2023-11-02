@@ -114,6 +114,7 @@ cursor: pointer;
 #main > .content > .content-box > .info > div > p{
   margin: 1vh;
   margin-left: 0;
+
 }
 
 #main> .content> .content-box > .button{
@@ -147,7 +148,7 @@ cursor: pointer;
     justify-content: space-between;
     align-items: center;
     /* width: 180px; */
-    padding: 20px 25px;
+    padding: 2vh 1vw;
     margin: 0 10px 0 10px;
     /* height: 20%; */
 }
