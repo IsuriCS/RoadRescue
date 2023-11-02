@@ -144,7 +144,7 @@ public class OTPServlet extends HttpServlet {
             try {
                 connection.close();
             } catch (SQLException e) {
-
+                System.out.println("otp sevlet eke methanin awla paninne");
             }
         }
 
