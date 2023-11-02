@@ -20,7 +20,7 @@ import java.sql.SQLException;
 @WebServlet(urlPatterns = "/Admin")
 public class AdminServlet extends HttpServlet {
 
-    @Resource(name = "java:comp/env/road_rescue/pool")
+    @Resource(name = "java:comp/env/roadRescue")
     DataSource ds;
 
     FAQController faq= new FAQController();
