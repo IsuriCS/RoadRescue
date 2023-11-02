@@ -97,6 +97,11 @@ cursor: pointer;
   padding-top: 0;
   padding-bottom: 0;
 }
+.content > .content-box > .topRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
 #main > .content > .content-box >.info {
   display: flex;
@@ -172,4 +177,32 @@ footer .social{
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+}
+
+
+/* top row div */
+#button{
+  color: white;
+    text-decoration: none;
+  
+    font-weight: 700;
+    font-size: var(--h4);
+  
+    cursor: pointer;
+    background: #23a6f0;
+    border-radius: 10px;
+    border: none;
+  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    padding: 1vh 1vw;
+    margin: 30px 10px 0 10px;
+    height: auto;
+}
+
+#button:hover{
+  background: #0088d7;
+    filter: drop-shadow(0 0 20px #001039);
 }
