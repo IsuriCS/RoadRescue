@@ -23,11 +23,7 @@ table{
     color: black;
     padding: 1vh;
  }
- tr{
-    
-    display: flex;
- }
-
+ 
  tbody>tr:nth-child(odd){
     background-color:#D9D9D9;
  }
