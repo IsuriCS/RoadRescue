@@ -2,7 +2,7 @@ package controllers.ControllerImpl;
 
 
 import dto.CrudUtil;
-import models.CustomerSupportTicket;
+import models.CustomerSupportTicketModels;
 import models.SupportTicket;
 
 import javax.json.Json;
@@ -22,7 +22,7 @@ public class CustomerSupportTicketController {
         return CrudUtil.executeUpdate(connection,"UPDATE support_ticket SET status=? WHERE ticket_id=?","closed",ticketId);
     }
 
-    public boolean add(Connection connection, SupportTicket supportTicket, CustomerSupportTicket customerSupportTicket) throws SQLException, ClassNotFoundException, ParseException {
+    public boolean add(Connection connection, SupportTicket supportTicket, CustomerSupportTicketModels customerSupportTicket) throws SQLException, ClassNotFoundException, ParseException {
 
         // Custommergen or cs Report thanedi hadena support ticket eka
 
