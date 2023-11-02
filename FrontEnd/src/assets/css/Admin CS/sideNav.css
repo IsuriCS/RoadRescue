@@ -78,8 +78,10 @@ cursor: pointer;
  */
 
 #main>.content{
+ 
   flex-grow: 3;
-  color: #111;
+  width: max-content;
+  color: #f8e9e9;
 }
 
 #main >.content>.content-box{
@@ -96,9 +98,21 @@ cursor: pointer;
 }
 
 #main > .content > .content-box >.info {
+  display: flex;
+  flex-direction: column;
   margin: 5vh;
   font-size: 20px;
   margin-bottom: 0;
+}
+
+#main > .content > .content-box > .info > div{
+   display: flex;
+   flex-direction: row;
+}
+
+#main > .content > .content-box > .info > div > p{
+  margin: 12px;
+  margin-left: 0;
 }
 
 #main> .content> .content-box > .button{
