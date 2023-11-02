@@ -28,6 +28,7 @@ $(".close").click(function () {
 
 
 
+<<<<<<< HEAD
 // ----------------------- Profile ----------------------
 
 // const profile = () => {
@@ -185,5 +186,19 @@ const profileSubmit = (e, formData) => {
         }, error: function (ob, textStatus, error) {
             alert(textStatus);
         }
+=======
+const availability = () => {
+    const button1 = document.getElementById('button1');
+    const button2 = document.getElementById('button2');
+
+    button1.addEventListener('click', () => {
+        button1.classList.remove('activetog');
+        button2.classList.add('activetog');
+    });
+
+    button2.addEventListener('click', () => {
+        button2.classList.remove('activetog');
+        button1.classList.add('activetog');
+>>>>>>> 0d00c915518bdcf35adbf3247d9ca96c96c1af35
     });
 };
