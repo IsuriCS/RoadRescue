@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 @WebServlet(urlPatterns = "/technician")
 public class TechnicianServlet extends HttpServlet {
 
-    @Resource(name = "java:comp/env/road_rescue/pool")
+    @Resource(name = "java:comp/env/roadRescue")
     DataSource ds;
 
     TechnicianController technician = new TechnicianController();

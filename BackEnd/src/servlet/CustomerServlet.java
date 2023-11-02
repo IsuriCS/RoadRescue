@@ -87,7 +87,7 @@ public class CustomerServlet extends HttpServlet {
             try {
                 connection.close();
             } catch (SQLException e) {
-
+                System.out.println("connection eka close kara ganna widiyak nathiwa inne ");
             }
         }
     }
