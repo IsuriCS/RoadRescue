@@ -38,6 +38,7 @@ public class CustomerSupportServlet extends HttpServlet {
             response.add("message","Successfully get all support tickets.");
             response.add("data",allPendingSupportTicket);
             writer.print(response.build());
+            connection.close();
         } catch (SQLException e) {
             JsonObjectBuilder response = Json.createObjectBuilder();
             response.add("status",500);
