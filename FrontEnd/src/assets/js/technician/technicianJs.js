@@ -186,4 +186,5 @@ const profileSubmit = (e, formData) => {
         }, error: function (ob, textStatus, error) {
             alert(textStatus);
         }
-
+    })
+}
