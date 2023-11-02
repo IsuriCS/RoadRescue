@@ -1,11 +1,9 @@
 package servlet;
 
-<<<<<<< HEAD
+
 import controllers.CustomerSupportTicketController;
-=======
-import controllers.ControllerImpl.CustomerSupportTicketController;
->>>>>>> ce610b52e8cff5a4b6b1960d2977a4c3b6fbf406
-import models.CustomerSupportTicket;
+
+import models.CustomerSupportTicketModels;
 import models.SupportTicket;
 
 import javax.annotation.Resource;
@@ -22,23 +20,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> ce610b52e8cff5a4b6b1960d2977a4c3b6fbf406
 @WebServlet(urlPatterns = "/customerSupport")
 public class CustomerSupportServlet extends HttpServlet {
-
-
-<<<<<<< HEAD
-    CustomerSupportTicketController cusSupportTicket = new CustomerSupportTicketController();
-    @Resource(name = "java:comp/env/road_rescue/pool")
-    DataSource ds;
-=======
    CustomerSupportTicketController cusSupportTicket =new CustomerSupportTicketController();
    @Resource(name="java:comp/env/roadRescue")
    DataSource ds;
->>>>>>> ce610b52e8cff5a4b6b1960d2977a4c3b6fbf406
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -48,40 +36,23 @@ public class CustomerSupportServlet extends HttpServlet {
             Connection connection = ds.getConnection();
             JsonArray allPendingSupportTicket = cusSupportTicket.getAllPendingSupportTicket(connection);
             JsonObjectBuilder response = Json.createObjectBuilder();
-<<<<<<< HEAD
-            response.add("status", 200);
-            response.add("message", "Successfully get all support tickets.");
-            response.add("data", allPendingSupportTicket);
-            writer.print(response.build());
-        } catch (SQLException e) {
-            JsonObjectBuilder response = Json.createObjectBuilder();
-            response.add("status", 500);
-            response.add("message", "SQLException");
-            response.add("data", e.getLocalizedMessage());
-=======
             response.add("status",200);
             response.add("message","Successfully get all support tickets.");
             response.add("data",allPendingSupportTicket);
             writer.print(response.build());
+            connection.close();
         } catch (SQLException e) {
             JsonObjectBuilder response = Json.createObjectBuilder();
             response.add("status",500);
             response.add("message","SQLException");
             response.add("data",e.getLocalizedMessage());
->>>>>>> ce610b52e8cff5a4b6b1960d2977a4c3b6fbf406
             writer.print(response.build());
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             JsonObjectBuilder response = Json.createObjectBuilder();
-<<<<<<< HEAD
-            response.add("status", 500);
-            response.add("message", "ClassNotFoundException");
-            response.add("data", e.getLocalizedMessage());
-=======
             response.add("status",500);
             response.add("message","ClassNotFoundException");
             response.add("data",e.getLocalizedMessage());
->>>>>>> ce610b52e8cff5a4b6b1960d2977a4c3b6fbf406
             writer.print(response.build());
             e.printStackTrace();
         }
@@ -103,12 +74,8 @@ public class CustomerSupportServlet extends HttpServlet {
         String status = jsonObject.getString("status");
 
 
-<<<<<<< HEAD
-        SupportTicket supportTicket = new SupportTicket(ticketId, title, description, status, createdDate);
-=======
         SupportTicket supportTicket = new SupportTicket(ticketId,title,description,status,createdDate);
->>>>>>> ce610b52e8cff5a4b6b1960d2977a4c3b6fbf406
-        CustomerSupportTicket customerSupportTicket = new CustomerSupportTicket(ticketId, tickerOwner, customerSupport);
+        CustomerSupportTicketModels customerSupportTicket = new CustomerSupportTicketModels(ticketId, tickerOwner, customerSupport);
 
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
@@ -121,18 +88,6 @@ public class CustomerSupportServlet extends HttpServlet {
             if (result) {
                 JsonObjectBuilder response = Json.createObjectBuilder();
                 resp.setStatus(HttpServletResponse.SC_OK);
-<<<<<<< HEAD
-                response.add("status", 200);
-                response.add("message", "Customer Support ticket created successfully.");
-                response.add("data", "");
-                writer.print(response.build());
-            } else {
-                JsonObjectBuilder response = Json.createObjectBuilder();
-                resp.setStatus(HttpServletResponse.SC_OK);
-                response.add("status", 400);
-                response.add("message", "Customer Support ticket created failed.");
-                response.add("data", "");
-=======
                 response.add("status",200);
                 response.add("message","Customer Support ticket created successfully.");
                 response.add("data","");
@@ -143,50 +98,31 @@ public class CustomerSupportServlet extends HttpServlet {
                 response.add("status",400);
                 response.add("message","Customer Support ticket created failed.");
                 response.add("data","");
->>>>>>> ce610b52e8cff5a4b6b1960d2977a4c3b6fbf406
                 writer.print(response.build());
             }
             connection.close();
         } catch (SQLException e) {
             JsonObjectBuilder response = Json.createObjectBuilder();
             resp.setStatus(HttpServletResponse.SC_OK);
-<<<<<<< HEAD
-            response.add("status", 500);
-            response.add("message", "SQLException error.");
-            response.add("data", e.getLocalizedMessage());
-=======
             response.add("status",500);
             response.add("message","SQLException error.");
             response.add("data",e.getLocalizedMessage());
->>>>>>> ce610b52e8cff5a4b6b1960d2977a4c3b6fbf406
             writer.print(response.build());
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             JsonObjectBuilder response = Json.createObjectBuilder();
             resp.setStatus(HttpServletResponse.SC_OK);
-<<<<<<< HEAD
-            response.add("status", 500);
-            response.add("message", "ClassNotFoundException error.");
-            response.add("data", e.getLocalizedMessage());
-=======
             response.add("status",500);
             response.add("message","ClassNotFoundException error.");
             response.add("data",e.getLocalizedMessage());
->>>>>>> ce610b52e8cff5a4b6b1960d2977a4c3b6fbf406
             writer.print(response.build());
             e.printStackTrace();
         } catch (ParseException e) {
             JsonObjectBuilder response = Json.createObjectBuilder();
             resp.setStatus(HttpServletResponse.SC_OK);
-<<<<<<< HEAD
-            response.add("status", 400);
-            response.add("message", "ParseException error. Convert string type date to Timestamp type ");
-            response.add("data", e.getLocalizedMessage());
-=======
             response.add("status",400);
             response.add("message","ParseException error. Convert string type date to Timestamp type ");
             response.add("data",e.getLocalizedMessage());
->>>>>>> ce610b52e8cff5a4b6b1960d2977a4c3b6fbf406
             writer.print(response.build());
             e.printStackTrace();
         }
@@ -214,18 +150,7 @@ public class CustomerSupportServlet extends HttpServlet {
             if (result) {
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 resp.setStatus(HttpServletResponse.SC_OK);
-<<<<<<< HEAD
-                objectBuilder.add("status", 200);
-                objectBuilder.add("message", "Support ticket is closed");
-                objectBuilder.add("data", "");
-                writer.print(objectBuilder.build());
-            } else {
-                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                resp.setStatus(HttpServletResponse.SC_OK);
-                objectBuilder.add("status", 400);
-                objectBuilder.add("message", "Support ticket isn't closed (client side error).");
-                objectBuilder.add("data", "");
-=======
+
                 objectBuilder.add("status",200);
                 objectBuilder.add("message","Support ticket is closed");
                 objectBuilder.add("data","");
@@ -236,35 +161,23 @@ public class CustomerSupportServlet extends HttpServlet {
                 objectBuilder.add("status",400);
                 objectBuilder.add("message","Support ticket isn't closed (client side error).");
                 objectBuilder.add("data","");
->>>>>>> ce610b52e8cff5a4b6b1960d2977a4c3b6fbf406
                 writer.print(objectBuilder.build());
             }
         } catch (SQLException e) {
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
             resp.setStatus(HttpServletResponse.SC_OK);
-<<<<<<< HEAD
-            objectBuilder.add("status", 500);
-            objectBuilder.add("message", "SQLException error.");
-            objectBuilder.add("data", e.getLocalizedMessage());
-=======
+
             objectBuilder.add("status",500);
             objectBuilder.add("message","SQLException error.");
             objectBuilder.add("data",e.getLocalizedMessage());
->>>>>>> ce610b52e8cff5a4b6b1960d2977a4c3b6fbf406
             writer.print(objectBuilder.build());
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
             resp.setStatus(HttpServletResponse.SC_OK);
-<<<<<<< HEAD
-            objectBuilder.add("status", 500);
-            objectBuilder.add("message", "ClassNotFoundException error.");
-            objectBuilder.add("data", e.getLocalizedMessage());
-=======
             objectBuilder.add("status",500);
             objectBuilder.add("message","ClassNotFoundException error.");
             objectBuilder.add("data",e.getLocalizedMessage());
->>>>>>> ce610b52e8cff5a4b6b1960d2977a4c3b6fbf406
             writer.print(objectBuilder.build());
             e.printStackTrace();
         }
@@ -277,8 +190,5 @@ public class CustomerSupportServlet extends HttpServlet {
         super.doDelete(req, resp);
     }
 }
-<<<<<<< HEAD
 
 
-=======
->>>>>>> ce610b52e8cff5a4b6b1960d2977a4c3b6fbf406
