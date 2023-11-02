@@ -39,14 +39,15 @@
         </div>
 <!-- ******************************************body************************************************ -->
        
-        <main>
+        <div id="main">
+            <!-- *************side bar************* -->
             <div class="sidenav">
                 <img src="../../assets/img/pic.png" alt="Profile Picture">
                 <h1>Sapna Nethmini</h1>
                 <ul>
                     <li>
                        
-                        <a href="login.html" class="sideNavLink" onclick="clickOption(this)" >
+                        <a href="dashboard.html" class="sideNavLink" onclick="clickOption(this)" >
                             <span class="material-symbols-outlined">
                                 home
                             </span>
@@ -54,23 +55,23 @@
                         </a>
                     </li>
                     <li>
-                        <a href="login.html" class="sideNavLink active" onclick="clickOption(this)"><span class="material-symbols-outlined">
-                                home
-                            </span>
+                        <a href="users.html" class="sideNavLink " ><span class="material-symbols-outlined">
+                            group
+                        </span>
                             Users
                         </a>
                     </li>
                     <li>
-                        <a href="login.html" class="sideNavLink" onclick="clickOption(this)"><span class="material-symbols-outlined">
-                                home
-                            </span>
+                        <a href="report.html" class="sideNavLink active" ><span class="material-symbols-outlined">
+                            receipt_long
+                        </span>
                             Support Tickets
                         </a>
                     </li>
                     <li>
-                        <a href="login.html" class="sideNavLink" onclick="clickOption(this)"><span class="material-symbols-outlined">
-                                home
-                            </span>
+                        <a href="profile.html" class="sideNavLink" onclick="clickOption(this)"><span class="material-symbols-outlined">
+                            person
+                        </span>
                             Profile
                         </a>
                     </li>
@@ -80,10 +81,30 @@
                 
                 
             </div>
+
+            <!-- *************content************** -->
             <div class="content">
-                <h1>asnndskjndk</h1>
+                <div class="content-box">
+                    <h1>Reports > G - 005</h1>
+                    <div class="info">
+                        <p>User id :</p>
+                        <p>Report Date and Time :</p>
+                        <p>Problem :</p>
+                        <p>Description :</p>
+                        <p>Solution:</p>
+                        <textarea rows="7" cols="163" style="border-radius: 12px;"></textarea>
+                    </div>
+
+                    <div class="button">
+                        <button>Create Support Ticket</button>
+                        <button>Send</button>
+                    </div>
+                </div>
+
+               
             </div>
-        </main>
+
+        </div>
 
 
 
