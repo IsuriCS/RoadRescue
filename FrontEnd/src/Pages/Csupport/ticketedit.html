@@ -16,8 +16,6 @@
         <!-- CSS Stylesheets -->
         <link rel="stylesheet" href="../../assets/css/customerStyle.css" />
         <link rel="stylesheet" href="../../assets/css/Admin CS/sideNav.css" />
-        <link rel="stylesheet" href="../../assets/css/Admin CS/table.css" />
-
 
         <title>Road Rescue</title>
     </head>
@@ -64,18 +62,18 @@
                         </a>
                     </li>
                     <li>
-                        <a href="supportTicket.html" class="sideNavLink active"><span class="material-symbols-outlined">
+                        <a href="supportTicket.html" class="sideNavLink "><span class="material-symbols-outlined">
                                 receipt_long
                             </span>
                             Support Tickets
                         </a>
                     </li>
                     <li>
-                        <a href="profile.html" class="sideNavLink" onclick="clickOption(this)"><span
+                        <a href="profile.html" class="sideNavLink active" onclick="clickOption(this)"><span
                                 class="material-symbols-outlined">
                                 person
                             </span>
-                            Profile
+                            ticket edit
                         </a>
                     </li>
                 </ul>
@@ -89,57 +87,8 @@
             <div class="content">
                 <div class="content-box">
                     <h1>
-                        Support Ticket
+                        Profile
                     </h1>
-                    <div>
-                        <table class="ticketTable" >
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Created Date</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr data-href="login.html">
-                                
-                                    <td id="TicketID">cq121</td>
-                                    <td id="ticketTitle">Maria Anders</td>
-                                    <td id="ticketDate">2120.13.23</td>
-                                    <td>
-                                        <div id="solved" class="status active">
-                                            <p>solved</p>
-                                        </div>
-                                        <div id="Pending" class="status">
-                                            <p>Pending</p>
-                                        </div>
-                                    </td>
-                                
-                                
-                                
-                                </tr>
-                                <tr data-href="login.html">
-                                
-                                    <td id="TicketID">cq121</td>
-                                    <td id="ticketTitle">Maria Anders</td>
-                                    <td id="ticketDate">2120.13.23</td>
-                                    <td>
-                                        <div id="solved" class="status active">
-                                            <p>solved</p>
-                                        </div>
-                                        <div id="Pending" class="status">
-                                            <p>Pending</p>
-                                        </div>
-                                    </td>
-                                
-                                
-                                
-                                </tr>
-                            </tbody>
-    
-                        </table>
-                    </div>
                 </div>
             </div>
 
