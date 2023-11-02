@@ -37,7 +37,6 @@ public class CustomerSupportServlet extends HttpServlet {
             Connection connection = ds.getConnection();
             JsonArray allPendingSupportTicket = cusSupportTicket.getAllPendingSupportTicket(connection);
             JsonObjectBuilder response = Json.createObjectBuilder();
-
             response.add("status",200);
             response.add("message","Successfully get all support tickets.");
             response.add("data",allPendingSupportTicket);
@@ -74,7 +73,6 @@ public class CustomerSupportServlet extends HttpServlet {
         String description = jsonObject.getString("description");
         String solution = jsonObject.getString("solution");
         String status = jsonObject.getString("status");
-
         SupportTicket supportTicket = new SupportTicket(ticketId,title,description,status,createdDate);
         CustomerSupportTicketModels customerSupportTicket = new CustomerSupportTicketModels(ticketId, tickerOwner, customerSupport);
 
@@ -99,7 +97,6 @@ public class CustomerSupportServlet extends HttpServlet {
                 response.add("status",400);
                 response.add("message","Customer Support ticket created failed.");
                 response.add("data","");
-
                 writer.print(response.build());
             }
             connection.close();
