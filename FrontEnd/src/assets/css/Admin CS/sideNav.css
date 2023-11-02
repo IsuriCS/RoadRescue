@@ -4,18 +4,18 @@ body{
 
 }
 
-main{
+#main{
   max-height: 71vh;
-  z-index: -2;
+  z-index: 0;
   background-color: #515568;
   display: flex;
   flex-direction: row;
 }
 .sidenav {
-  height: 80vh;
+  height: 67vh;
   width: 23%;
   position: relative;
-  z-index: -1;
+  z-index: 0;
   top: 0;
   left: 0;
   background-color:#728AB0;
@@ -36,10 +36,12 @@ main{
 }
 .sidenav>ul li{
   list-style: none;
-  
+
 }
 .sidenav>ul li a {
-display:block;
+display: flex;
+  flex-direction: row;
+  align-items: center;
 cursor: pointer;
   padding: 5vh;
   width: -webkit-fill-available;
@@ -47,7 +49,8 @@ cursor: pointer;
   text-decoration: none;
   font-size: 25px;
   color: #010101;
-  display: block;
+  gap: 20px;
+ 
 }
 .sidenav>ul>li>.sideNavLink.active{
  
@@ -59,47 +62,87 @@ cursor: pointer;
   border-radius: 0 50vh 50vh 0;
 }
 
+
+
 .sidenav a span{
   font-size: 150%;
 }
-.sidenav a h4 {
-  
-  margin: auto;
-}
+
 .sidenav>a:hover {
-  background: #d8d5d5;
+  background: #06396b;
   color: #d8d5d5;
 }
 
-.main {
+/* #main {
   margin-left: 200px; /* Same as the width of the sidenav */
-}
+ */
 
-main>.content{
+#main>.content{
   flex-grow: 3;
   color: #111;
 }
 
-main >.content>.content-box{
+#main >.content>.content-box{
   background-color: #253555;
   margin: 2vh;
   border: white solid;
   border-radius: 30px;
   min-width: 90%;
-  height: 75%;
+  height: 94%;
   padding: 5vh;
   color: white;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
-main > .content > .content-box >.info {
+#main > .content > .content-box >.info {
   margin: 5vh;
   font-size: 20px;
+  margin-bottom: 0;
+}
+
+#main> .content> .content-box > .button{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 5px;
+
+ 
+}
+
+.content> .content-box >.button> button{
+  color: white;
+    text-decoration: none;
+  
+    font-weight: 700;
+    font-size: var(--h4);
+  
+    cursor: pointer;
+    background: #23a6f0;
+    border-radius: 10px;
+    border: none;
+  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* width: 180px; */
+    padding: 20px 25px;
+    margin: 0 10px 0 10px;
+    /* height: 20%; */
+}
+
+#main .content .content-box .button button:hover {
+  background: #0088d7;
+    filter: drop-shadow(0 0 20px #001039);
+}
+.info> textarea{
+  margin: 12px;
 }
 
 footer{
   
-  position: fixed;
-  bottom: 0;
+  /* position: fixed;
+  bottom: 0; */
 }
 footer .social{
   width: 21%;
