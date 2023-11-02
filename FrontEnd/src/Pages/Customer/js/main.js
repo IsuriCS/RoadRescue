@@ -425,6 +425,8 @@ const notificationAlert = () => {
 };
 
 // -------------------- OTP ----------------------
+
+let randomOTP=0;
 const sendOTP = (from) => {
   const mobileNo = $('#phone').val();
   if (!mobileNo) {
@@ -444,6 +446,8 @@ const sendOTP = (from) => {
     data: JSON.stringify(data),
     success: function (res) {
       if (res.status == 200) {
+        randomOTP=res.data;
+        console.log(randomOTP);
         alert(res.message);
       } else {
         alert(res.data);

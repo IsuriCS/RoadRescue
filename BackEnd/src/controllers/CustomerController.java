@@ -53,7 +53,7 @@ public class CustomerController {
     public JsonObject getCustomerByMobileNo(Connection connection, String mobileNo) throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.executeQuery(connection, "SELECT * FROM customer WHERE contact_num=?", mobileNo);
         if (rst.next()) {
-            int customerId = rst.getInt("customer_id"); // Assuming the column name is "customerId"
+            int customerId = rst.getInt("customer_id");        // Assuming the column name is "customerId"
             String fName = rst.getString("f_name");           // Assuming the column name is "fName"
             String lName = rst.getString("l_name");           // Assuming the column name is "lName"
             String contactNum = rst.getString("contact_num"); // Assuming the column name is "contactNum"

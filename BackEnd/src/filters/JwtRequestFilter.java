@@ -43,7 +43,7 @@ public class JwtRequestFilter implements Filter {
         HttpServletRequest servletRequest = (HttpServletRequest) request;
         HttpServletResponse servletResponse = (HttpServletResponse) response;
         String uri = servletRequest.getRequestURI();
-        if (uri.contains("/otp") || uri.matches(REGEX_DEAULT_URL)) {
+        if (uri.contains("/otp") || uri.matches(REGEX_DEAULT_URL)||uri.contains("/customerSupport")||uri.contains("/Admin")||uri.contains("/technician")) {
             chain.doFilter(request, response);
             return;
         }
@@ -51,6 +51,7 @@ public class JwtRequestFilter implements Filter {
             chain.doFilter(request, response);
             return;
         }
+
         String jwtToken = extractTokenFromRequest(servletRequest);
         JsonObject customer = null;
         if (jwtToken != null && !jwtToken.isEmpty()) {
