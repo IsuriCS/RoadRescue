@@ -9,3 +9,11 @@ function clickOption(link) {
     // Add the "active" class to the clicked link
     link.classList.add("active");
 }
+
+// supportTicket.html table row click
+const tableRows = document.querySelectorAll('tr[data-href]');
+tableRows.forEach(row => {
+    row.addEventListener('click', () => {
+        window.location.href = row.getAttribute('data-href');
+    });
+});
