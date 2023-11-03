@@ -17,6 +17,8 @@
         <link rel="stylesheet" href="../../assets/css/customerStyle.css" />
         <link rel="stylesheet" href="../../assets/css/Admin CS/sideNav.css" />
         <link rel="stylesheet" href="../../assets/css/Admin CS/table.css" />
+        <link rel="stylesheet" href="../../assets/css/Admin CS/admin.css" />
+
 
 
         <title>Road Rescue</title>
@@ -97,31 +99,70 @@
                 <div class="content-box">
                     <h1>System > Edit FAQ</h1>
 
-                    <!-- <div>
-                            <table class="ticketTable">
-                                <h2>Reports</h2>
-                                <thead>
-                                    <tr>
-                                        <th>User ID</th>
-                                        <th>Title</th>
-                                       
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr data-href="report.html">
-                        
-                                        <td id="userID">cq121</td>
-                                        <td id="title">Maria Anders</td>
+                    <input type="text" placeholder="newQuestion">
+                    <textarea name="answer" id="answer" placeholder="newAnswer"></textarea>
+                    <button id="button" onclick="addFAQ" >Add</button>
 
-                        
-                                    </tr>
-                                    
-                        
-                                 
-                                </tbody>
-                        
-                            </table>
-                        </div> -->
+                    <section class="faq" id="faq">
+                        <h1>Current FAQ</h1>
+                        <div class="faq-item active">
+                            <button class="question">Do we need to share our location?
+                                <div>
+                                    <span class="material-symbols-outlined">
+                                        edit
+                                    </span>
+                                    <span class="material-symbols-outlined">
+                                        remove
+                                    </span>
+                                    <span class="material-symbols-outlined">
+                                        expand_circle_down
+                                    </span>
+                                </div></button>
+                            <div class="answer">
+                                <p>Yes, After you log in to Road Rescue or request for the service we will automatically track your location
+                                    to
+                                    provide you
+                                    better and faster service.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item active">
+                            <button class="question">Can we choose service provider near us ?<div>
+                                <span class="material-symbols-outlined">
+                                    edit
+                                </span>
+                                <span class="material-symbols-outlined">
+                                    remove
+                                </span>
+                                <span class="material-symbols-outlined">
+                                    expand_circle_down
+                                </span>
+                            </div></button>
+                            <div class="answer">
+                                <p>Yes, After you log in to the system you will see nearby garage list. Then you can select service provider
+                                    you
+                                    want and
+                                    send service request them.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item active">
+                            <button class="question">Can we track technician location ?<div>
+                                <span class="material-symbols-outlined">
+                                    edit
+                                </span>
+                                <span class="material-symbols-outlined">
+                                    remove
+                                </span>
+                                <span class="material-symbols-outlined">
+                                    expand_circle_down
+                                </span>
+                            </div></button>
+                            <div class="answer">
+                                <p>Yes, After a service peovider accepts your request you can trac their location.</p>
+                            </div>
+                        </div>
+                    
+                    </section>
+                    </table>
                 </div>
 
 
@@ -150,7 +191,7 @@
         </footer>
     </body>
 
-    <!-- <script src="../Customer/js/main.js"></script> -->
+    <script src="../../assets/js/admin.js"></script>
     <script src="../../assets/js/CustomerSupport.js"></script>
     <script src="jQuery/jquery-3.6.0.min.js"></script>
 
