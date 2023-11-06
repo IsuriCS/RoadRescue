@@ -1,6 +1,6 @@
 package controllers;
 
-import dto.CrudUtil;
+import utils.CrudUtil;
 import models.OtpModel;
 
 import java.sql.Connection;

@@ -1,6 +1,6 @@
 package controllers;
 
-import dto.CrudUtil;
+import utils.CrudUtil;
 import models.CustomerModel;
 
 import javax.json.Json;
