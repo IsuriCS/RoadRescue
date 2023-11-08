@@ -47,7 +47,7 @@
                 <ul>
                     <li>
 
-                        <a href="dashboard.html" class="sideNavLink" onclick="clickOption(this)">
+                        <a href="dashboard.html" class="sideNavLink " onclick="clickOption(this)">
                             <span class="material-symbols-outlined">
                                 home
                             </span>
@@ -62,18 +62,22 @@
                         </a>
                     </li>
                     <li>
+<<<<<<< HEAD
                         <a href="supportTicket.html" class="sideNavLink " onclick="loadSupportTickets()"><span class="material-symbols-outlined">
+=======
+                        <a href="supportTicket.html" class="sideNavLink active"><span class="material-symbols-outlined">
+>>>>>>> 22f831dbeefaebb70287de5145ef8e17f884130b
                                 receipt_long
                             </span>
                             Support Tickets
                         </a>
                     </li>
                     <li>
-                        <a href="profile.html" class="sideNavLink active" onclick="clickOption(this)"><span
+                        <a href="profile.html" class="sideNavLink" onclick="clickOption(this)"><span
                                 class="material-symbols-outlined">
                                 person
                             </span>
-                            ticket edit
+                            Profile
                         </a>
                     </li>
                 </ul>
@@ -86,14 +90,43 @@
             <!-- *************content************** -->
             <div class="content">
                 <div class="content-box">
-                    <h1>
-                        Profile
-                    </h1>
+                    <div class="topRow">
+                        <h1>Reports > 001</h1>
+                        <button id="button">Set Solved</button>
+                    </div>
+                    
+
+                    <div class="info">
+                        <div>
+                            <p>ID :</p>
+                            <p id="ticketID">a</p>
+                        </div>
+                        <div>
+                            <p>Created By :</p>
+                            <p id="CustomerSupportID">b</p>
+                        </div>
+                        <div>
+                            <p>Ticket Owner :</p>
+                            <p id="userID">b</p>
+                        </div>
+                        <div>
+                            <p>Title :</p>
+                            <p id="title">b</p>
+                        </div>
+                        <div>
+                            <p>Description :</p>
+                            <p id="description">b</p>
+                        </div>
+
+                        <p style="margin: 1vh; margin-left: 0;">Solution:</p>
+                        <textarea style="border-radius: 12px;"></textarea>
+                    </div>
+
+                    
                 </div>
+
+
             </div>
-
-
-        </div>
 
         </div>
 

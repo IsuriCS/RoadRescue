@@ -298,7 +298,7 @@ body {
     width: 8%;
     top: 8%;
     border-radius: 100%;
-    border: 0.15em solid black;
+    /* border: 0.15em solid black; */
 }
 
 .profilePic>img:nth-child(2){
@@ -340,9 +340,9 @@ body {
 }
 
 .form-label{
-    font-size: 1rem;
+    font-size: 2.3vh;
     font-weight: 600;
-    margin: 7% 15% 0 4%;
+    margin: 7% 10% 0 4%;
 }
 
 .form-controller{
@@ -456,4 +456,22 @@ body {
     .statusButtonContainer{
 
     }
+}
+
+/* Dash board toggle */
+.navActions{
+    width: 37vw;
+}
+.AvailableToggel{
+    border-radius: 9px;
+    background-color: #9295A1;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    
+}
+.AvailableToggel>p{
+    font-weight: 500;
+}
+.activetog{
+    background-color: #0088d7;
 }
