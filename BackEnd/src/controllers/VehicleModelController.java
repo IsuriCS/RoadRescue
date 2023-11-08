@@ -1,6 +1,6 @@
 package controllers;
 
-import dto.CrudUtil;
+import utils.CrudUtil;
 
 import javax.json.Json;
 import javax.json.JsonArray;

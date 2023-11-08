@@ -1,4 +1,6 @@
+const API_URL = "http://localhost:8082";
 function clickOption(link) {
+    console.log("hi")
     var elements = document.querySelectorAll(".sideNavLink");
 
     // Remove the "active" class from all links
@@ -17,3 +19,24 @@ tableRows.forEach(row => {
         window.location.href = row.getAttribute('data-href');
     });
 });
+
+
+/*
+var ticketId=null;
+
+function loadSupportTickets(){
+    console.log("call")
+    $.ajax({
+        url:API_URL+"/RoadRescue/customerSupport",
+        method: "GET",
+        success: function (res) {
+            if (res.status==200){
+                ticketId=res.data.ticketId;
+                console.log(ticketId);
+                alert("hye");
+            }
+        }
+    });
+}
+
+console.log(ticketId);*/

@@ -71,7 +71,7 @@ public class TechnicianServlet extends HttpServlet {
 
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
-        String id = jsonObject.getString("id");
+        String id = jsonObject.getString("techId");
         String fName = jsonObject.getString("fName");
         String lName = jsonObject.getString("lName");
         String contact = jsonObject.getString("contact");
@@ -123,7 +123,7 @@ public class TechnicianServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
-        String id = jsonObject.getString("id");
+        String id = jsonObject.getString("techId");
         String fName = jsonObject.getString("fName");
         String lName = jsonObject.getString("lName");
         String contact = jsonObject.getString("contact");
