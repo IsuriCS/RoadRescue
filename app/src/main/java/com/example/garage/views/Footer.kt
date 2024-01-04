@@ -20,8 +20,8 @@ import com.example.garage.R
 
 @Composable
 fun Footer(
-    navigationToDashboardScreen:()->Unit,
-    navigationToProfileScreen:()->Unit,
+//    navigationToDashboardScreen:()->Unit,
+//    navigationToProfileScreen:()->Unit,
 ){
     Row (
         horizontalArrangement = Arrangement.SpaceEvenly,

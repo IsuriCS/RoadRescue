@@ -45,9 +45,9 @@ fun TrackLocationScreen(
         drawerContent = {
             ModalDrawerSheet(
                 content = {
-                    SidebarContent {
+                   /* SidebarContent {
                         scope.launch { drawerState.close() }
-                    }
+                    }*/
                 }
             )
         }
@@ -58,9 +58,9 @@ fun TrackLocationScreen(
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Column {
-                    Header {
+                    /*Header {
                         scope.launch { drawerState.open() }
-                    }
+                    }*/
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
                         text = "Track Location",
@@ -74,9 +74,9 @@ fun TrackLocationScreen(
                             //locationViewModel
                         )
                     }
-                    //HelpBox()
+                    HelpBox()
                 }
-               Footer(navigationToDashboardScreen,navigationToProfileScreen)
+              // Footer(navigationToDashboardScreen,navigationToProfileScreen)
             }
         }
     }

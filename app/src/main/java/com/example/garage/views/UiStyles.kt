@@ -49,3 +49,7 @@ val backgroundModifier = Modifier
 val cardModifier = Modifier
     .fillMaxWidth()
     .padding(horizontal = 16.dp, vertical = 8.dp)
+
+
+val rowModifier=Modifier
+    .fillMaxWidth()

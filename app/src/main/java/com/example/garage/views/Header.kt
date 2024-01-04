@@ -17,9 +17,10 @@ import androidx.compose.ui.unit.dp
 import com.example.garage.R
 
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Header(menuClicked:()->Unit) {
+fun Header(/*menuClicked:()->Unit*/) {
     CenterAlignedTopAppBar(
         title = {
             Icon(
@@ -32,7 +33,7 @@ fun Header(menuClicked:()->Unit) {
         navigationIcon = {
             IconButton(
                 onClick = {
-                    menuClicked()
+                   // menuClicked()
                 }
             ) {
                 Icon(
