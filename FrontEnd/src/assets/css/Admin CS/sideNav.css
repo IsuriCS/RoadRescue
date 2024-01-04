@@ -14,7 +14,7 @@ body{
 }
 .sidenav {
   height: 67vh;
-  width: 22vw;
+  width: 15vw;
   position: relative;
   z-index: 0;
   top: 0;
@@ -44,11 +44,10 @@ display: flex;
   flex-direction: row;
   align-items: center;
 cursor: pointer;
-  padding: 5vh;
   width: -webkit-fill-available;
-  padding: 6px 6px 6px 32px;
+  padding: 1vh 1vw 1vh 1vw;
   text-decoration: none;
-  font-size: 3vh;
+  font-size: 2.3vh;
   color: #010101;
   gap: 3vh;
  
@@ -171,9 +170,9 @@ footer{
   /* position: fixed;
   bottom: 0; */
 }
-footer .social{
+/* footer .social{
   width: 19vw;
-}
+} */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
