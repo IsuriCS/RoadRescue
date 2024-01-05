@@ -1,6 +1,7 @@
 package com.example.garage.views
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -50,3 +51,10 @@ val cardModifier = Modifier
     .fillMaxWidth()
     .padding(horizontal = 16.dp, vertical = 8.dp)
 
+val defaultBackground =Modifier
+    .fillMaxSize()
+    .background(Color(0xFFD3EFFF))
+
+val cardDefaultModifier=Modifier
+    .fillMaxWidth(0.84f)
+    .fillMaxHeight(0.85f)

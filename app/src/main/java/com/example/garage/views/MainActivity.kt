@@ -26,9 +26,11 @@ class MainActivity : ComponentActivity() {
 //                    Footer()
                   //HelpBox()
                     //SidebarContent()
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         GarageDashboard("Tharindu Dakshina", Period.of(1,2,3),2500f)
-                    }
+                    }*/
+
+                    garageProfile()
                 }
             }
         }

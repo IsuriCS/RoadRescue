@@ -1,6 +1,5 @@
 package com.example.garage.views
 
-import android.graphics.LinearGradient
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -49,10 +48,7 @@ fun GarageDashboard(
     )*/
 
     Column (
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFD3EFFF))
-        ,
+        modifier = defaultBackground,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
 
