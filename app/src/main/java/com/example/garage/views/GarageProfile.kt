@@ -19,6 +19,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -49,7 +51,9 @@ import com.example.garage.R
 fun garageProfile(
     garageName:String,
     garageId:String,
-    ownerName:String
+    ownerName:String,
+    garageContactNumber:String,
+    garageContactEmail:String
 ){
     Column(
         modifier = defaultBackground,
@@ -61,90 +65,136 @@ fun garageProfile(
             colors = CardDefaults.cardColors(containerColor = Color(0xFFB6C7E3)),
             border = BorderStroke(width = 2.dp, Color.White),
         ){
+            Column {
 
-            Row (modifier = Modifier
-                .weight(1f)
-            ){
-                    // set profile pitcher
-                Card(
-                    shape = CircleShape,
-                    border = BorderStroke(width = 2.dp, color = Color.White),
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(8.dp)
-                        .fillMaxHeight(0.2f)
-                ) {
-
-                    Image(
-                        painter = painterResource(id = R.drawable.user_fill),
-                        contentDescription ="my pitcher",
-                        contentScale = ContentScale.FillBounds,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(Color(0xDFFFFFFF))
-                    )
-                }
-
-
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(0.dp, 14.dp, 2.dp)
+                Row (modifier = Modifier
+                    .fillMaxWidth()
                 ){
+                    // set profile pitcher
+                    Card(
+                        shape = CircleShape,
+                        border = BorderStroke(width = 2.dp, color = Color.White),
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(8.dp)
+                            .fillMaxHeight(0.2f)
+                    ) {
 
-                    Column {
-                        Text(
-                            text = buildAnnotatedString {
-                                withStyle(
-                                    style = SpanStyle(
-                                        fontSize = 50.sp
-                                    )
-                                ) {
-                                    append(garageName[0])
-                                }
-                                append(garageName.substring(1))
-
-                                withStyle(
-                                    style = SpanStyle(
-                                        fontSize = 50.sp
-                                    )
-                                ) {
-                                    append(" G")
-                                }
-                                append("arage")
-
-                            },
-                            color = Color(0xFF253555),
-                            fontWeight = FontWeight.ExtraBold,
-                            fontSize = 30.sp,
-                            fontFamily = FontFamily.Serif,
-                            textAlign = TextAlign.Justify,
-                            maxLines = 3,
-                            lineHeight = 50.sp
-                        )
-
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                        Text(
-                            text = "$garageId",
-                            color = Color(0xB3000000),
-                            fontWeight = FontWeight.ExtraBold,
-                            fontSize=20.sp,
-                        )
-
-                        Text(
-                            text = "$ownerName",
-                            color = Color(0xB3000000),
-                            fontWeight = FontWeight.ExtraBold,
-                            fontSize=20.sp
+                        Image(
+                            painter = painterResource(id = R.drawable.user_fill),
+                            contentDescription ="my pitcher",
+                            contentScale = ContentScale.FillBounds,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(Color(0xDFFFFFFF))
                         )
                     }
 
+
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(0.dp, 14.dp, 2.dp)
+                    ){
+
+                        Column {
+                            Text(
+                                text = buildAnnotatedString {
+                                    withStyle(
+                                        style = SpanStyle(
+                                            fontSize = 50.sp
+                                        )
+                                    ) {
+                                        append(garageName[0])
+                                    }
+                                    append(garageName.substring(1))
+
+                                    withStyle(
+                                        style = SpanStyle(
+                                            fontSize = 50.sp
+                                        )
+                                    ) {
+                                        append(" G")
+                                    }
+                                    append("arage")
+
+                                },
+                                color = Color(0xFF253555),
+                                fontWeight = FontWeight.ExtraBold,
+                                fontSize = 30.sp,
+                                fontFamily = FontFamily.Serif,
+                                textAlign = TextAlign.Justify,
+                                maxLines = 3,
+                                lineHeight = 50.sp
+                            )
+
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            Text(
+                                text = "$garageId",
+                                color = Color(0xB3000000),
+                                fontWeight = FontWeight.ExtraBold,
+                                fontSize=20.sp,
+                            )
+
+                            Text(
+                                text = "$ownerName",
+                                color = Color(0xB3000000),
+                                fontWeight = FontWeight.ExtraBold,
+                                fontSize=20.sp
+                            )
+                        }
+                    }
                 }
+                Spacer(modifier = Modifier.height(12.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.07f)
+                ) {
+
+                    Box (modifier = Modifier
+                        .weight(1f)
+                        .fillMaxSize(),
+                        contentAlignment = Alignment.CenterStart,
+                    ){
+                        Icon(
+                            imageVector = Icons.Default.Call,
+                            contentDescription = "Call icon",
+                            modifier = Modifier.padding(10.dp, 0.dp),
+                            tint = Color.White
+                        )
+                        
+                        Text(
+                            text = garageContactNumber,
+                            color = Color(0xB3000000),
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(36.dp,0.dp)
+                        )
+                    }
+
+                    Box(modifier = Modifier
+                        .weight(1f)
+                        .fillMaxSize(),
+                        contentAlignment = Alignment.CenterStart
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Email,
+                            contentDescription = "email icon",
+                            modifier = Modifier.padding(8.dp, 0.dp),
+                            tint = Color.White
+                        )
+
+                        Text(
+                            text = garageContactEmail,
+                            color = Color(0xB3000000),
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(36.dp,0.dp)
+                        )
+                    }
+                }
+
             }
-
-
-
         }
     }
 }
