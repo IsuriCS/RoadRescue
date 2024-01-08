@@ -71,7 +71,7 @@ class MainActivity : ComponentActivity() {
                     }*/
 
                     garageProfile(
-                        "Saman","C-001",
+                        "Nirmal","C-001",
                         "Thiran Sasanka","+94761339805","tharinduDakshina@gmail.com"
                     )
 

@@ -1,9 +1,13 @@
+@file:Suppress("UNUSED_EXPRESSION")
+
 package com.example.garage.views
+
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,10 +32,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
@@ -40,53 +41,57 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.substring
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.garage.R
+import com.example.garage.viewModels.GarageProfile
 
 @Composable
 fun garageProfile(
-    garageName:String,
-    garageId:String,
-    ownerName:String,
-    garageContactNumber:String,
-    garageContactEmail:String
-){
+    garageName: String,
+    garageId: String,
+    ownerName: String,
+    garageContactNumber: String,
+    garageContactEmail: String
+) {
     Column(
         modifier = defaultBackground,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Card (
+        Card(
             modifier = cardDefaultModifier,
             colors = CardDefaults.cardColors(containerColor = Color(0xFFB6C7E3)),
             border = BorderStroke(width = 2.dp, Color.White),
-        ){
+        ) {
             Column {
 
-                Row (modifier = Modifier
-                    .fillMaxWidth()
-                ){
+            // create profile pic and garage name
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
                     // set profile pitcher
                     Card(
                         shape = CircleShape,
                         border = BorderStroke(width = 2.dp, color = Color.White),
                         modifier = Modifier
-                            .weight(1f)
-                            .padding(8.dp)
-                            .fillMaxHeight(0.2f)
+                            .weight(0.5f)
+                            .padding(8.dp,16.dp,8.dp,8.dp)
+                            .fillMaxHeight(0.15f)
+                            .border(BorderStroke(2.dp, Color(0xFF253555)), shape = CircleShape)
                     ) {
 
                         Image(
                             painter = painterResource(id = R.drawable.user_fill),
-                            contentDescription ="my pitcher",
+                            contentDescription = "my pitcher",
                             contentScale = ContentScale.FillBounds,
                             modifier = Modifier
                                 .fillMaxSize()
                                 .background(Color(0xDFFFFFFF))
+
                         )
                     }
 
@@ -95,7 +100,7 @@ fun garageProfile(
                         modifier = Modifier
                             .weight(1f)
                             .padding(0.dp, 14.dp, 2.dp)
-                    ){
+                    ) {
 
                         Column {
                             Text(
@@ -134,48 +139,54 @@ fun garageProfile(
                                 text = "$garageId",
                                 color = Color(0xB3000000),
                                 fontWeight = FontWeight.ExtraBold,
-                                fontSize=20.sp,
+                                fontSize = 20.sp,
                             )
 
                             Text(
                                 text = "$ownerName",
                                 color = Color(0xB3000000),
                                 fontWeight = FontWeight.ExtraBold,
-                                fontSize=20.sp
+                                fontSize = 20.sp
                             )
                         }
                     }
                 }
+
                 Spacer(modifier = Modifier.height(12.dp))
+
+         // Create contact row
+
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(0.07f)
+                        .fillMaxHeight(0.09f)
                 ) {
 
-                    Box (modifier = Modifier
-                        .weight(1f)
-                        .fillMaxSize(),
+                    Box(
+                        modifier = Modifier
+                            .weight(0.99f)
+                            .fillMaxSize(),
                         contentAlignment = Alignment.CenterStart,
-                    ){
+                    ) {
                         Icon(
                             imageVector = Icons.Default.Call,
                             contentDescription = "Call icon",
                             modifier = Modifier.padding(10.dp, 0.dp),
                             tint = Color.White
                         )
-                        
+
                         Text(
                             text = garageContactNumber,
                             color = Color(0xB3000000),
                             fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(36.dp,0.dp)
+                            modifier = Modifier.padding(36.dp, 0.dp)
                         )
                     }
 
-                    Box(modifier = Modifier
-                        .weight(1f)
-                        .fillMaxSize(),
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxSize(),
                         contentAlignment = Alignment.CenterStart
                     ) {
                         Icon(
@@ -189,11 +200,137 @@ fun garageProfile(
                             text = garageContactEmail,
                             color = Color(0xB3000000),
                             fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(36.dp,0.dp)
+                            modifier = Modifier.padding(36.dp, 0.dp)
                         )
                     }
                 }
 
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // Create icons list
+
+                var listOfArray = ArrayList<GarageProfile>()
+
+                listOfArray.add(GarageProfile(R.drawable.technicians, "Technician"))
+                listOfArray.add(GarageProfile(R.drawable.did_job, "Other"))
+
+
+                // load icons
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.25f)
+                ) {
+
+                    listOfArray.forEach { icon ->
+
+                        Spacer(modifier = Modifier.width(32.dp))
+
+                        Box(
+                            modifier = Modifier
+                                .size(109.dp)
+                                .background(Color.Unspecified)
+                                .padding(8.dp)
+                                .fillMaxSize()
+                                .border(
+                                    BorderStroke(2.dp, Color.Black),
+                                    shape = RoundedCornerShape(20)
+                                )
+                                .clickable { /*call need navigation*/ }
+                        ) {
+                            Icon(
+                                painter = painterResource(id = icon.getIconPath()),
+                                contentDescription = null,
+                                tint = Color.Black,
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(8.dp)
+                            )
+                        }
+                    }
+                }
+
+                // load names
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.12f)
+                ) {
+
+                    listOfArray.forEach { icon ->
+                        Spacer(modifier = Modifier.width(44.dp))
+
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxSize()
+                        ) {
+                            Text(
+                                text = "${icon.getIconName()}",
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.ExtraBold,
+                                color = Color.Black,
+                                modifier = Modifier
+                            )
+                        }
+                    }
+
+                }
+
+                Text(
+                    text = "Services",
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = Color.White,
+                    modifier = Modifier.padding(16.dp,0.dp,0.dp,0.dp),
+                    textDecoration = TextDecoration.Underline
+                )
+
+
+                // create a services list
+
+                var listOfServices=ArrayList<GarageProfile>()
+
+                listOfServices.add(GarageProfile(R.drawable.break_system_repair,"Break System Repair"))
+                listOfServices.add(GarageProfile(R.drawable.oill_change,"Oil Change"))
+                listOfServices.add(GarageProfile(R.drawable.engine_repeir,"Engine Repair"))
+                listOfServices.add(GarageProfile(R.drawable.tire_replacement,"Tire Replace"))
+
+                // import services
+
+                listOfServices.forEach{services->
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Row (
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.2f)
+                            .weight(1f)
+                            .padding(16.dp, 0.dp, 0.dp, 0.dp,),
+                        verticalAlignment = Alignment.CenterVertically
+                    ){
+                            Icon(
+                                painter = painterResource(id =services.getIconPath() ),
+                                contentDescription =services.getIconName(),
+                                tint = Color.Black,
+                                modifier = Modifier
+                                    .size(32.dp),
+
+                            )
+
+
+                        Spacer(modifier = Modifier.width(16.dp))
+
+                        Text(
+                            text = services.getIconName(),
+                            color = Color.Black,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
             }
         }
     }
