@@ -1,4 +1,4 @@
-@file:Suppress("UNUSED_EXPRESSION")
+
 
 package com.example.garage.views
 
@@ -30,6 +30,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -67,7 +68,7 @@ fun garageProfile(
         ) {
             Column {
 
-            // create profile pic and garage name
+                // create profile pic and garage name
 
                 Row(
                     modifier = Modifier
@@ -79,7 +80,7 @@ fun garageProfile(
                         border = BorderStroke(width = 2.dp, color = Color.White),
                         modifier = Modifier
                             .weight(0.5f)
-                            .padding(8.dp,16.dp,8.dp,8.dp)
+                            .padding(8.dp, 16.dp, 8.dp, 8.dp)
                             .fillMaxHeight(0.15f)
                             .border(BorderStroke(2.dp, Color(0xFF253555)), shape = CircleShape)
                     ) {
@@ -94,6 +95,7 @@ fun garageProfile(
 
                         )
                     }
+
 
 
                     Box(
@@ -154,7 +156,7 @@ fun garageProfile(
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-         // Create contact row
+                // Create contact row
 
                 Row(
                     modifier = Modifier
@@ -284,40 +286,45 @@ fun garageProfile(
                     fontSize = 32.sp,
                     fontWeight = FontWeight.ExtraBold,
                     color = Color.White,
-                    modifier = Modifier.padding(16.dp,0.dp,0.dp,0.dp),
+                    modifier = Modifier.padding(16.dp, 0.dp, 0.dp, 0.dp),
                     textDecoration = TextDecoration.Underline
                 )
 
 
                 // create a services list
 
-                var listOfServices=ArrayList<GarageProfile>()
+                var listOfServices = ArrayList<GarageProfile>()
 
-                listOfServices.add(GarageProfile(R.drawable.break_system_repair,"Break System Repair"))
-                listOfServices.add(GarageProfile(R.drawable.oill_change,"Oil Change"))
-                listOfServices.add(GarageProfile(R.drawable.engine_repeir,"Engine Repair"))
-                listOfServices.add(GarageProfile(R.drawable.tire_replacement,"Tire Replace"))
+                listOfServices.add(
+                    GarageProfile(
+                        R.drawable.break_system_repair,
+                        "Break System Repair"
+                    )
+                )
+                listOfServices.add(GarageProfile(R.drawable.oill_change, "Oil Change"))
+                listOfServices.add(GarageProfile(R.drawable.engine_repeir, "Engine Repair"))
+                listOfServices.add(GarageProfile(R.drawable.tire_replacement, "Tire Replace"))
 
                 // import services
 
-                listOfServices.forEach{services->
+                listOfServices.forEach { services ->
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    Row (
+                    Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .fillMaxHeight(0.2f)
                             .weight(1f)
-                            .padding(16.dp, 0.dp, 0.dp, 0.dp,),
+                            .padding(16.dp, 0.dp, 0.dp, 0.dp),
                         verticalAlignment = Alignment.CenterVertically
-                    ){
-                            Icon(
-                                painter = painterResource(id =services.getIconPath() ),
-                                contentDescription =services.getIconName(),
-                                tint = Color.Black,
-                                modifier = Modifier
-                                    .size(32.dp),
+                    ) {
+                        Icon(
+                            painter = painterResource(id = services.getIconPath()),
+                            contentDescription = services.getIconName(),
+                            tint = Color.Black,
+                            modifier = Modifier
+                                .size(32.dp),
 
                             )
 

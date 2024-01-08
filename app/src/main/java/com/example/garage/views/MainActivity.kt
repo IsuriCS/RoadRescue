@@ -70,10 +70,12 @@ class MainActivity : ComponentActivity() {
                         GarageDashboard("Tharindu Dakshina", Period.of(1,2,3),2500f)
                     }*/
 
-                    garageProfile(
+                    /*garageProfile(
                         "Nirmal","C-001",
                         "Thiran Sasanka","+94761339805","tharinduDakshina@gmail.com"
-                    )
+                    )*/
+
+                    garageProfileEdit()
 
                 }
             }
