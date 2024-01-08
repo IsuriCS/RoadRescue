@@ -94,7 +94,7 @@ public class OTPServlet extends HttpServlet {
                         resp.setStatus(HttpServletResponse.SC_CREATED);
                         objectBuilder.add("status",200);
                         objectBuilder.add("message","Send otp successfully!");
-                        objectBuilder.add("data","");
+                        objectBuilder.add("data",otp);
                         writer.print(objectBuilder.build());
                     }
                     break;

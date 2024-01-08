@@ -16,6 +16,8 @@
         <!-- CSS Stylesheets -->
         <link rel="stylesheet" href="../../assets/css/customerStyle.css" />
         <link rel="stylesheet" href="../../assets/css/Admin CS/sideNav.css" />
+        <link rel="stylesheet" href="../../assets/css/Admin CS/table.css" />
+
 
         <title>Road Rescue</title>
     </head>
@@ -62,7 +64,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="supportTicket.html" class="sideNavLink active"><span class="material-symbols-outlined">
+                        <a href="supportTicket.html"  class="sideNavLink active" onclick="loadSupportTickets()"><span class="material-symbols-outlined">
                                 receipt_long
                             </span>
                             Support Tickets
@@ -90,22 +92,52 @@
                         Support Ticket
                     </h1>
                     <div>
-                        <table>
-                            <tr>
-                                <th>Company</th>
-                                <th>Contact</th>
-                                <th>Country</th>
-                            </tr>
-                            <tr>
-                                <td>Alfreds Futterkiste</td>
-                                <td>Maria Anders</td>
-                                <td>Germany</td>
-                            </tr>
-                            <tr>
-                                <td>Centro comercial Moctezuma</td>
-                                <td>Francisco Chang</td>
-                                <td>Mexico</td>
-                            </tr>
+                        <table class="ticketTable" >
+                            <thead>
+                                <tr>
+                                    <th >ID</th>
+                                    <th>Title</th>
+                                    <th>Created Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-href="ticketedit.html">
+
+                                    <td id="TicketID">cq121</td>
+                                    <td id="ticketTitle">Maria Anders</td>
+                                    <td id="ticketDate">2120.13.23</td>
+                                    <td id="statusbar">
+                                        <div id="solved" class="status active">
+                                            <p>Solved</p>
+                                        </div>
+                                        <div id="Pending_1" class="status">
+                                            <p>Pending</p>
+                                        </div>
+                                    </td>
+                                
+                                <!-- danata thiyena status ekata class list add karanna active kiyala -->
+                                
+                                </tr>
+                                <tr data-href="ticketedit.html">
+
+                                    <td id="TicketID">cq121</td>
+                                    <td id="ticketTitle">Maria Anders</td>
+                                    <td id="ticketDate">2120.13.23</td>
+                                    <td id="statusbar">
+                                        <div id="solved" class="status">
+                                            <p>Solved</p>
+                                        </div>
+                                        <div id="pending" class="status">
+                                            <p>Pending</p>
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+
+                                <!-- Me thiyena tr deken ekakata ticket data dannona  -->
+                            </tbody>
+    
                         </table>
                     </div>
                 </div>
@@ -136,8 +168,8 @@
         </footer>
     </body>
 
+    <script src="../Customer/jQuery/jquery-3.6.0.min.js"></script>
     <!-- <script src="../Customer/js/main.js"></script> -->
-    <script src="../../assets/js/CustomerSupport.js"></script>
-    <script src="jQuery/jquery-3.6.0.min.js"></script>
+    <script src="../../assets/js/customerSupport/CustomerSupport.js"></script>
 
 </html>

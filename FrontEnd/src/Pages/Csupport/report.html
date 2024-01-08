@@ -62,7 +62,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="supportTicket.html" class="sideNavLink " ><span class="material-symbols-outlined">
+                        <a href="supportTicket.html" class="sideNavLink " onclick="loadSupportTickets()"><span class="material-symbols-outlined">
                             receipt_long
                         </span>
                             Support Tickets
@@ -104,12 +104,12 @@
                             <p id="description">b</p>
                         </div>
                         
-                        <p>Solution:</p>
-                        <textarea rows="7" cols="163" style="border-radius: 12px;"></textarea>
+                        <p style="margin: 1vh; margin-left: 0;">Solution:</p>
+                        <textarea style="border-radius: 12px;"></textarea>
                     </div>
 
                     <div class="button">
-                        <button>Create Support Ticket</button>
+                        <button><a href="supportTicket.html" style="text-decoration: none; color: white;">Create Support Ticket</a></button>
                         <button>Send</button>
                     </div>
                 </div>
@@ -139,8 +139,8 @@
         </footer>
     </body>
 
+    <script src="../Customer/jQuery/jquery-3.6.0.min.js"></script>
     <!-- <script src="../Customer/js/main.js"></script> -->
-    <script src="../../assets/js/CustomerSupport.js"></script>
-    <script src="jQuery/jquery-3.6.0.min.js"></script>
+    <script src="../../assets/js/customerSupport/CustomerSupport.js"></script>
 
 </html>

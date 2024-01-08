@@ -10,10 +10,11 @@ body{
   background-color: #515568;
   display: flex;
   flex-direction: row;
+  width: 100%;
 }
 .sidenav {
   height: 67vh;
-  width: 23%;
+  width: 15vw;
   position: relative;
   z-index: 0;
   top: 0;
@@ -43,13 +44,12 @@ display: flex;
   flex-direction: row;
   align-items: center;
 cursor: pointer;
-  padding: 5vh;
   width: -webkit-fill-available;
-  padding: 6px 6px 6px 32px;
+  padding: 1vh 1vw 1vh 1vw;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 2.3vh;
   color: #010101;
-  gap: 20px;
+  gap: 3vh;
  
 }
 .sidenav>ul>li>.sideNavLink.active{
@@ -74,13 +74,13 @@ cursor: pointer;
 }
 
 /* #main {
-  margin-left: 200px; /* Same as the width of the sidenav */
+  margin-left: 200px;  Same as the width of the sidenav
  */
 
 #main>.content{
- 
+ display: flex;
   flex-grow: 3;
-  width: max-content;
+  width: 70%;
   color: #f8e9e9;
 }
 
@@ -89,19 +89,24 @@ cursor: pointer;
   margin: 2vh;
   border: white solid;
   border-radius: 30px;
-  min-width: 90%;
-  height: 94%;
+  min-width: 69vw;
+  height: 64vh;
   padding: 5vh;
   color: white;
   padding-top: 0;
   padding-bottom: 0;
 }
+.content > .content-box > .topRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
 #main > .content > .content-box >.info {
   display: flex;
   flex-direction: column;
-  margin: 5vh;
-  font-size: 20px;
+  margin: 3vh;
+  font-size: 2.5vh;
   margin-bottom: 0;
 }
 
@@ -111,8 +116,9 @@ cursor: pointer;
 }
 
 #main > .content > .content-box > .info > div > p{
-  margin: 12px;
+  margin: 1vh;
   margin-left: 0;
+
 }
 
 #main> .content> .content-box > .button{
@@ -122,6 +128,12 @@ cursor: pointer;
   gap: 5px;
 
  
+}
+
+.content> .content-box> .info> textarea{
+  width: 100%;
+  height: 15vh;
+  font-size: 3vh;
 }
 
 .content> .content-box >.button> button{
@@ -140,7 +152,7 @@ cursor: pointer;
     justify-content: space-between;
     align-items: center;
     /* width: 180px; */
-    padding: 20px 25px;
+    padding: 2vh 1vw;
     margin: 0 10px 0 10px;
     /* height: 20%; */
 }
@@ -158,10 +170,38 @@ footer{
   /* position: fixed;
   bottom: 0; */
 }
-footer .social{
-  width: 21%;
-}
+/* footer .social{
+  width: 19vw;
+} */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+}
+
+
+/* top row div */
+#button{
+  color: white;
+    text-decoration: none;
+  
+    font-weight: 700;
+    font-size: var(--h4);
+  
+    cursor: pointer;
+    background: #23a6f0;
+    border-radius: 10px;
+    border: none;
+  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    padding: 1vh 1vw;
+    margin: 30px 10px 0 10px;
+    height: auto;
+}
+
+#button:hover{
+  background: #0088d7;
+    filter: drop-shadow(0 0 20px #001039);
 }

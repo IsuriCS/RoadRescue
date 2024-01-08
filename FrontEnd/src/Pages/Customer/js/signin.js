@@ -1,4 +1,5 @@
 const submitLogin = (e, formData) => {
+  console.log("customer login");
   e.preventDefault();
 
   const phone = formData?.phone?.value;

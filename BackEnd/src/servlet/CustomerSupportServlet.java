@@ -1,11 +1,20 @@
 package servlet;
 
+<<<<<<< HEAD
 
 import controllers.CustomerSupportTicketController;
 
 import models.CustomerSupportTicketModels;
 import models.SupportTicket;
+=======
+>>>>>>> 09098a80e5562a4114ac449bbd0b78f2fc3ab3df
 
+import controllers.ControllerImpl.CustomerSupportController;
+import controllers.ControllerImpl.CustomerSupportTicketController;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import models.CustomerSupportTicketModels;
+import models.SupportTicket;
 import javax.annotation.Resource;
 import javax.json.*;
 import javax.servlet.ServletException;
@@ -19,17 +28,25 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Date;
+import java.util.HashMap;
 
 
 @WebServlet(urlPatterns = "/customerSupport")
 public class CustomerSupportServlet extends HttpServlet {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 09098a80e5562a4114ac449bbd0b78f2fc3ab3df
    CustomerSupportTicketController cusSupportTicket =new CustomerSupportTicketController();
+   CustomerSupportController customerSupportController=new CustomerSupportController();
    @Resource(name="java:comp/env/roadRescue")
    DataSource ds;
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("Call  me");
         PrintWriter writer = resp.getWriter();
 
         try {
@@ -61,30 +78,25 @@ public class CustomerSupportServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
-        int ticketId = jsonObject.getInt("supportTickerId");
-        int customerSupport = jsonObject.getInt("CustomerSupport");
-        int tickerOwner = jsonObject.getInt("tickerOwner");
-        String createdDate = jsonObject.getString("createdDate");
-        String title = jsonObject.getString("title");
-        String description = jsonObject.getString("description");
-        String solution = jsonObject.getString("solution");
-        String status = jsonObject.getString("status");
+        String option = jsonObject.getString("option");
 
 
+<<<<<<< HEAD
         SupportTicket supportTicket = new SupportTicket(ticketId,title,description,status,createdDate);
         CustomerSupportTicketModels customerSupportTicket = new CustomerSupportTicketModels(ticketId, tickerOwner, customerSupport);
+=======
+>>>>>>> 09098a80e5562a4114ac449bbd0b78f2fc3ab3df
 
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
 
-        try {
-            Connection connection = ds.getConnection();
+        switch (option){
+            case "registration":
 
-            boolean result = cusSupportTicket.add(connection, supportTicket, customerSupportTicket);
 
+<<<<<<< HEAD
             if (result) {
                 JsonObjectBuilder response = Json.createObjectBuilder();
                 resp.setStatus(HttpServletResponse.SC_OK);
@@ -125,7 +137,124 @@ public class CustomerSupportServlet extends HttpServlet {
             response.add("data",e.getLocalizedMessage());
             writer.print(response.build());
             e.printStackTrace();
+=======
+                int ticketId = jsonObject.getInt("supportTickerId");
+                int customerSupport = jsonObject.getInt("CustomerSupport");
+                int tickerOwner = jsonObject.getInt("tickerOwner");
+                String createdDate = jsonObject.getString("createdDate");
+                String title = jsonObject.getString("title");
+                String description = jsonObject.getString("description");
+                String solution = jsonObject.getString("solution");
+                String status = jsonObject.getString("status");
+
+                SupportTicket supportTicket = new SupportTicket(ticketId,title,description,status,createdDate);
+                CustomerSupportTicketModels customerSupportTicket = new CustomerSupportTicketModels(ticketId, tickerOwner, customerSupport);
+
+
+                try {
+                    Connection connection = ds.getConnection();
+
+                    boolean result = cusSupportTicket.add(connection, supportTicket, customerSupportTicket);
+
+                    if (result) {
+                        JsonObjectBuilder response = Json.createObjectBuilder();
+                        resp.setStatus(HttpServletResponse.SC_OK);
+                        response.add("status",200);
+                        response.add("message","Customer Support ticket created successfully.");
+                        response.add("data","");
+                        writer.print(response.build());
+                    }else {
+                        JsonObjectBuilder response = Json.createObjectBuilder();
+                        resp.setStatus(HttpServletResponse.SC_OK);
+                        response.add("status",400);
+                        response.add("message","Customer Support ticket created failed.");
+                        response.add("data","");
+                        writer.print(response.build());
+                    }
+                    connection.close();
+                } catch (SQLException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status",500);
+                    response.add("message","SQLException error.");
+                    response.add("data",e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status",500);
+                    response.add("message","ClassNotFoundException error.");
+                    response.add("data",e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } catch (ParseException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status",400);
+                    response.add("message","ParseException error. Convert string type date to Timestamp type ");
+                    response.add("data",e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                }
+
+                break;
+
+            case "login":
+                try {
+                    String contactNum = jsonObject.getString("mobileNo");
+                    Connection connection = ds.getConnection();
+                    JsonObject customerSupporter = customerSupportController.getCustomerSupportMemberByContact(connection, contactNum);
+
+                    if (customerSupporter==null){
+                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                        resp.setStatus(HttpServletResponse.SC_OK);
+                        objectBuilder.add("status",400);
+                        objectBuilder.add("message","Error");
+                        objectBuilder.add("data", "This customer is not registered!");
+                        writer.print(objectBuilder.build());
+                        return;
+                    }
+                    HashMap<String, Object> claims = new HashMap<>();
+                    String jwToken = Jwts.builder().setClaims(claims).setSubject(customerSupporter.toString()).setIssuedAt(new Date(System.currentTimeMillis()))
+                            .setExpiration(new Date(System.currentTimeMillis() + 18000 * 1000)).signWith(SignatureAlgorithm.HS512, "roadRescue@key123").compact();
+
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    objectBuilder.add("status",200);
+                    objectBuilder.add("message","Successfully Login...!");
+
+                    JsonObjectBuilder dataObject = Json.createObjectBuilder();
+                    dataObject.add("token",jwToken);
+                    dataObject.add("customerSupporter",customerSupporter);
+                    objectBuilder.add("data",dataObject.build());
+                    writer.print(objectBuilder.build());
+
+                    connection.close();
+
+                } catch (SQLException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status",500);
+                    response.add("message","SQLException error.");
+                    response.add("data",e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status",500);
+                    response.add("message","ClassNotFoundException error.");
+                    response.add("data",e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                }
+                break;
+            default:break;
+>>>>>>> 09098a80e5562a4114ac449bbd0b78f2fc3ab3df
         }
+
+
 
         // solution eka add karala ne database eke kothankatwath
 
@@ -150,7 +279,10 @@ public class CustomerSupportServlet extends HttpServlet {
             if (result) {
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 resp.setStatus(HttpServletResponse.SC_OK);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 09098a80e5562a4114ac449bbd0b78f2fc3ab3df
                 objectBuilder.add("status",200);
                 objectBuilder.add("message","Support ticket is closed");
                 objectBuilder.add("data","");
@@ -166,7 +298,10 @@ public class CustomerSupportServlet extends HttpServlet {
         } catch (SQLException e) {
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
             resp.setStatus(HttpServletResponse.SC_OK);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 09098a80e5562a4114ac449bbd0b78f2fc3ab3df
             objectBuilder.add("status",500);
             objectBuilder.add("message","SQLException error.");
             objectBuilder.add("data",e.getLocalizedMessage());
@@ -192,4 +327,7 @@ public class CustomerSupportServlet extends HttpServlet {
     }
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 09098a80e5562a4114ac449bbd0b78f2fc3ab3df
