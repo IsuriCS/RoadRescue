@@ -16,7 +16,8 @@
         <!-- CSS Stylesheets -->
         <link rel="stylesheet" href="../../assets/css/customerStyle.css" />
         <link rel="stylesheet" href="../../assets/css/Admin CS/sideNav.css" />
-        <link rel="stylesheet" href="../../assets/css/Admin CS/admin.css" />
+        <link rel="stylesheet" href="../../assets/css/Admin CS/table.css" />
+
 
         <title>Road Rescue</title>
     </head>
@@ -44,7 +45,7 @@
             <!-- *************side bar************* -->
             <div class="sidenav">
                 <img src="../../assets/img/pic.png" alt="Profile Picture">
-                <h1>Sapna Nethmini</h1>
+                <h1>Nirmal Hettiarachchi</h1>
                 <ul>
                     <li>
 
@@ -84,33 +85,95 @@
 
             </div>
 
+
             <!-- *************content************** -->
             <div class="content">
                 <div class="content-box">
-                    <h1>Users</h1>
+                    <h1>
+                        Users > Customers
+                    </h1>
+                    <div>
+                        <table class="ticketTable" >
+                            <thead>
+                                <tr>
+                                    <th >ID</th>
+                                    <th>Name</th>
+                                    <th>Phone Numbers</th>
+                                    <th>Completed Services</th>
+                                    <th>Support Tickets</th>
 
-                    <div class="cards">
-                        <a href="customerlist.html" class="button">
-                            <span class="material-symbols-outlined">
-                                groups
-                                </span>
-                            <h2>Customers</h2></a>
-                        <a href="sprovider.html" class="button">
-                            <span class="material-symbols-outlined">
-                                manage_accounts
-                                </span>
-                            <h2>Service Providers</h2></a>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-href="customerprofile.html">
+                                
 
+                                    <td id="CustomerID">C-001</td>
+                                    <td id="CustomerName">Upali</td>
+                                    <td id="CustomerTele">+94 789456325</td>
+                                    <td id="CompletedServices">3</td>
+                                    <td id="SupportTickets">1</td>
+                                
+                               
+                                </tr>
+                                
+                                <tr data-href="customerprofile.html">
+                                    <td id="CustomerID">C-002</td>
+                                    <td id="CustomerName">Kasun</td>
+                                    <td id="CustomerTele">+94 456258736</td>
+                                    <td id="CompletedServices">2</td>
+                                    <td id="SupportTickets">-</td>
+                                        
+                                    
+                                </tr>
+
+                                
+                                
+                                <tr data-href="customerprofile.html">
+                                    <td id="CustomerID">C-003</td>
+                                    <td id="CustomerName">Smith</td>
+                                    <td id="CustomerTele">+94 225648736</td>
+                                    <td id="CompletedServices">5</td>
+                                    <td id="SupportTickets">1</td>
+                                    
+                                
+                                </tr>
+
+
+                                <tr data-href="customerprofile.html">
+                                     <td id="CustomerID">C-004</td>
+                                     <td id="CustomerName">Alokaa</td>
+                                     <td id="CustomerTele">+94 005864126</td>
+                                     <td id="CompletedServices">2</td>
+                                     <td id="SupportTickets">1</td>
+                                
+                            
+                                </tr>
+
+
+                                <tr data-href="customerprofile.html">
+                                    <td id="CustomerID">C-005</td>
+                                    <td id="CustomerName">Tarindu</td>
+                                    <td id="CustomerTele">+94 511802564</td>
+                                    <td id="CompletedServices">3</td>
+                                    <td id="SupportTickets">-</td>
+                            
                         
+                                </tr>
+
+
+                                
+                            </tbody>
+    
+                        </table>
                     </div>
                 </div>
-
-
-
             </div>
+
 
         </div>
 
+        </div>
 
 
 
@@ -132,8 +195,8 @@
         </footer>
     </body>
 
+    <script src="../Customer/jQuery/jquery-3.6.0.min.js"></script>
     <!-- <script src="../Customer/js/main.js"></script> -->
-    <script src="../../assets/js/CustomerSupport.js"></script>
-    <script src="jQuery/jquery-3.6.0.min.js"></script>
+    <script src="../../assets/js/customerSupport/CustomerSupport.js"></script>
 
 </html>
