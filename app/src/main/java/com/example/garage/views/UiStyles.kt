@@ -58,3 +58,4 @@ val defaultBackground =Modifier
 val cardDefaultModifier=Modifier
     .fillMaxWidth(0.84f)
     .fillMaxHeight(0.85f)
+

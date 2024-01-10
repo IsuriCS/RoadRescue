@@ -62,7 +62,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    //Header()
+                    /*Text(text = "Nirmal")
+
+                    Column {
+                        Header()
+                    }*/
+
+
 //                    Footer()
                   //HelpBox()
                     //SidebarContent()
@@ -84,4 +90,9 @@ class MainActivity : ComponentActivity() {
 
 }
 
+@Preview
+@Composable
+fun Preview(){
+    //Header()
+}
 

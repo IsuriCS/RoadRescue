@@ -86,7 +86,7 @@ fun garageProfile(
                     ) {
 
                         Image(
-                            painter = painterResource(id = R.drawable.user_fill),
+                            painter = painterResource(id = R.drawable.profile_pitcher),
                             contentDescription = "my pitcher",
                             contentScale = ContentScale.FillBounds,
                             modifier = Modifier
