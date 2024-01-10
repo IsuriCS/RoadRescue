@@ -105,9 +105,94 @@
               <p id="description">b</p>
             </div>
 
-            <p style="margin: 1vh; margin-left: 0">Solution:</p>
-            <textarea style="border-radius: 12px"></textarea>
-          </div>
+            <div class="navActions">
+                <a href="notification.html" style="margin-right: 2.5vw;">
+                    <img class="notificationAlert icons" src="../../assets/img/notifications.svg" />
+                </a>
+                <a href="../../index.html">
+                    <h3>LOG OUT</h3>
+                </a>
+            </div>
+        </div>
+<!-- ******************************************body************************************************ -->
+       
+        <div id="main">
+            <!-- *************side bar************* -->
+            <div class="sidenav">
+                <img src="../../assets/img/pic.png" alt="Profile Picture">
+                <h1>Sapna Nethmini</h1>
+                <ul>
+                    <li>
+                       
+                        <a href="dashboard.html" class="sideNavLink active" onclick="clickOption(this)" >
+                            <span class="material-symbols-outlined">
+                                home
+                            </span>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="users.html" class="sideNavLink " ><span class="material-symbols-outlined">
+                            group
+                        </span>
+                            Users
+                        </a>
+                    </li>
+                    <li>
+                        <a href="supportTicket.html" class="sideNavLink " onclick="loadSupportTickets()"><span class="material-symbols-outlined">
+                            receipt_long
+                        </span>
+                            Support Tickets
+                        </a>
+                    </li>
+                    <li>
+                        <a href="profile.html" class="sideNavLink" onclick="clickOption(this)"><span class="material-symbols-outlined">
+                            person
+                        </span>
+                            Profile
+                        </a>
+                    </li>
+                </ul>
+              
+                
+                
+                
+            </div>
+
+            <!-- *************content************** -->
+            <div class="content">
+                <div class="content-box">
+                    <h1>Reports > G - 005</h1>
+                    <div class="info">
+                        <div>
+                            <p>User id :</p>
+                            <p id="userID">a</p>
+                        </div>
+                        <div>
+                            <p>Report Date and Time :</p>
+                            <p id="dateTime">b</p>
+                        </div>
+                        <div>
+                            <p>Problem :</p>
+                            <p id="problem">b</p>
+                        </div>
+                        <div>
+                            <p>Description :</p>
+                            <p id="description">b</p>
+                        </div>
+                        
+                        <p style="margin: 1vh; margin-left: 0;">Solution:</p>
+                        <textarea style="border-radius: 12px;"></textarea>
+                    </div>
+
+                    <div class="button">
+                        <button><a href="supportTicket.html" style="text-decoration: none; color: white;">Create Support Ticket</a></button>
+                        <button>Send</button>
+                    </div>
+                </div>
+
+               
+            </div>
 
           <div class="button">
             <button>
@@ -132,7 +217,8 @@
     </div>
   </body>
 
-  <!-- <script src="../Customer/js/main.js"></script> -->
-  <script src="../../assets/js/CustomerSupport.js"></script>
-  <script src="jQuery/jquery-3.6.0.min.js"></script>
+    <script src="../Customer/jQuery/jquery-3.6.0.min.js"></script>
+    <!-- <script src="../Customer/js/main.js"></script> -->
+    <script src="../../assets/js/customerSupport/CustomerSupport.js"></script>
+
 </html>

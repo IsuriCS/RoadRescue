@@ -1,7 +1,11 @@
 package controllers.ControllerImpl;
 
 
+<<<<<<< HEAD
 import dto.CrudUtil;
+=======
+import utils.CrudUtil;
+>>>>>>> 09098a80e5562a4114ac449bbd0b78f2fc3ab3df
 import models.CustomerSupportTicketModels;
 import models.SupportTicket;
 
@@ -31,10 +35,10 @@ public class CustomerSupportTicketController {
         boolean boolValue1 = CrudUtil.executeUpdate(connection, "INSERT INTO support_ticket values(?,?,?,?,?)",
                 supportTicket.getTicketId(), supportTicket.getTitle(), supportTicket.getDescription(), supportTicket.getTicketStatus(), timestamp);
 
-        boolean boolValue2 = CrudUtil.executeUpdate(connection, "INSERT INTO customer_support_ticket values(?,?,?)",
-                customerSupportTicket.getTicketId(), customerSupportTicket.getCustomerId(), customerSupportTicket.getSupportMemberId());
+       /* boolean boolValue2 = CrudUtil.executeUpdate(connection, "INSERT INTO customer_support_ticket values(?,?,?)",
+                customerSupportTicket.getTicketId(), customerSupportTicket.getCustomerId(), customerSupportTicket.getSupportMemberId());*/
 
-        if (boolValue1 && boolValue2){
+        if (boolValue1){
 
             //methana table deken ekkata hari data watune nathi nm data watuna table data eka remove karanna mathaka athuwa
 

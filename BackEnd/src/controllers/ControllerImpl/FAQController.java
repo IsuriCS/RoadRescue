@@ -1,7 +1,7 @@
 package controllers.ControllerImpl;
 
 
-import dto.CrudUtil;
+import utils.CrudUtil;
 import models.FAQModel;
 
 import javax.json.*;
