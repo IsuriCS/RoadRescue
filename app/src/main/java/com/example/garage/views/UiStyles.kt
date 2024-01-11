@@ -10,10 +10,12 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
+import com.example.garage.R
 
 
 val textStyle1 = TextStyle(
@@ -59,3 +61,10 @@ val cardDefaultModifier=Modifier
     .fillMaxWidth(0.84f)
     .fillMaxHeight(0.85f)
 
+val fontFamily= FontFamily(
+    Font(R.font.poppins_extra_light,FontWeight.Light),
+    Font(R.font.poppins_light_italic,FontWeight.Light),
+    Font(R.font.poppins_medium,FontWeight.Medium),
+    Font(R.font.poppins_semi_bold,FontWeight.SemiBold),
+    Font(R.font.poppins_semi_bold_italic,FontWeight.SemiBold),
+)

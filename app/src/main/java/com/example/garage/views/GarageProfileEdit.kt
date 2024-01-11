@@ -2,6 +2,7 @@ package com.example.garage.views
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +20,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
@@ -39,6 +41,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -51,218 +54,324 @@ import com.example.garage.R
 @Composable
 fun garageProfileEdit(){
 
-    Column(
-        modifier = defaultBackground,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
+    Column {
 
-        Card(
-            modifier = cardDefaultModifier,
-            colors = CardDefaults.cardColors(containerColor = Color(0xFFB6C7E3)),
-            border = BorderStroke(width = 2.dp, Color.White),
+       // Header()
+
+        Column(
+            modifier = defaultBackground,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Column(modifier = Modifier
-                .fillMaxSize()) {
-
-                var textFirstName by remember{ mutableStateOf("") }
-                var textLastName by remember{ mutableStateOf("") }
-                var garageName by remember{ mutableStateOf("") }
-                var contactNumber by remember{ mutableStateOf("") }
-                var email by remember { mutableStateOf("") }
 
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center,
+
+            Card(
+                modifier = cardDefaultModifier,
+
+                colors = CardDefaults.cardColors(containerColor = Color(0xFFB6C7E3)),
+                border = BorderStroke(width = 2.dp, Color.White),
+            ) {
+                Column(modifier = Modifier
+                    .fillMaxSize()
                 ) {
-                    Card(
-                        shape = CircleShape,
-                        border = BorderStroke(width = 2.dp, color = Color.White),
+
+                    var textFirstName by remember{ mutableStateOf("") }
+                    var textLastName by remember{ mutableStateOf("") }
+                    var garageName by remember{ mutableStateOf("") }
+                    var contactNumber by remember{ mutableStateOf("") }
+                    var email by remember { mutableStateOf("") }
+
+
+                    Row(
                         modifier = Modifier
-                            .padding(8.dp, 16.dp, 8.dp, 8.dp)
-                            .fillMaxHeight(0.25f)
-                            .fillMaxWidth(0.5f)
-                            .border(BorderStroke(2.dp, Color(0xFF253555)), shape = CircleShape)
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center,
                     ) {
-
-                        Image(
-                            painter = painterResource(id = R.drawable.profile_pitcher),
-                            contentDescription = "my pitcher",
-                            contentScale = ContentScale.FillBounds,
+                        Card(
+                            shape = CircleShape,
+                            border = BorderStroke(width = 2.dp, color = Color.White),
                             modifier = Modifier
-                                .background(Color(0xDFFFFFFF))
+                                .padding(8.dp, 16.dp, 8.dp, 8.dp)
+                                .fillMaxHeight(0.25f)
+                                .fillMaxWidth(0.5f)
+                                .border(BorderStroke(2.dp, Color(0xFF253555)), shape = CircleShape)
+                        ) {
 
-                        )
-                    }
+                            Image(
+                                painter = painterResource(id = R.drawable.profile_pitcher),
+                                contentDescription = "my pitcher",
+                                contentScale = ContentScale.FillBounds,
+                                modifier = Modifier
+                                    .background(Color(0xDFFFFFFF))
 
-                    IconButton(
-                        onClick = { /*TODO*/ },
-                        modifier = Modifier.padding(0.dp, 120.dp, 0.dp, 0.dp)
+                            )
+                        }
 
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.edit),
-                            contentDescription = "edit icon",
-                            tint = Color.White,
-                            modifier = Modifier
-                                .size(24.dp)
-                                .background(Color(0xFF253555), shape = RoundedCornerShape(5.dp))
-                                .border(
-                                    BorderStroke(0.dp, Color.White),
-                                    shape = RoundedCornerShape(5.dp)
-                                )
+                        IconButton(
+                            onClick = { /*TODO*/ },
+                            modifier = Modifier.padding(0.dp, 120.dp, 0.dp, 0.dp)
 
-                        )
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.edit),
+                                contentDescription = "edit icon",
+                                tint = Color.White,
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .background(Color(0xFF253555), shape = RoundedCornerShape(5.dp))
+                                    .border(
+                                        BorderStroke(0.dp, Color.White),
+                                        shape = RoundedCornerShape(5.dp)
+                                    )
 
-                    }
-
-                }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.15f)
-                        .weight(1f),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    TextFieldModifier(textFirstName, true, "First Name")
-                }
-
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.15f)
-                        .weight(1f),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    TextFieldModifier(textLastName, true, "Last Name")
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.15f)
-                        .weight(1f),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    TextFieldModifier(garageName, true, "Garage Name")
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.15f)
-                        .weight(1f),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    TextFieldModifier(contactNumber, false, "Contact number")
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.15f)
-                        .weight(1f),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    TextFieldModifier(email, true, "Email")
-                }
-
-
-                Row (
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight()
-                        .weight(1.5f)
-                        .padding(16.dp, 0.dp, 0.dp, 0.dp)
-                ){
-                    Column {
-                        Text(
-                            text = "Services",
-                            color = Color.White,
-                            fontWeight = FontWeight.ExtraBold,
-                            fontSize = 26.sp,
-                            textDecoration = TextDecoration.Underline
-                        )
-
-                        Row (
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight(0.45f),
-                            verticalAlignment = Alignment.CenterVertically
-                        ){
-                            Box(
-                                modifier = Modifier.weight(1f)
-                            ){
-                                Checkbox(
-                                    checked = false,
-                                    onCheckedChange ={},
-                                    modifier = Modifier
-                                        .background(Color.White)
-                                        .size(24.dp)
-                                        .padding(4.dp)
-                                )
-
-                                Spacer(modifier = Modifier.width(8.dp))
-
-                                Text(
-                                    text = "Break System Repair",
-                                    color = Color.Black,
-                                    fontWeight = FontWeight.Bold,
-                                    modifier = Modifier.padding(32.dp,0.dp,0.dp,0.dp)
-                                )
-                            }
-
-
-                            Box(
-                                modifier = Modifier.weight(1f)
-                            ){
-                                Checkbox(
-                                    checked = false,
-                                    onCheckedChange ={},
-                                    modifier = Modifier
-                                        .background(Color.White)
-                                        .size(24.dp)
-                                        .padding(4.dp)
-                                )
-
-                                Spacer(modifier = Modifier.width(8.dp))
-
-                                Text(
-                                    text = "Oil Changes",
-                                    color = Color.Black,
-                                    fontWeight = FontWeight.Bold,
-                                    modifier = Modifier.padding(32.dp,0.dp,0.dp,0.dp)
-                                )
-                            }
-
+                            )
 
                         }
+
+                    }
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.15f)
+                            .weight(0.5f),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        TextFieldModifier(textFirstName, true, "First Name")
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.15f)
+                            .weight(0.5f),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        TextFieldModifier(textLastName, true, "Last Name")
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.15f)
+                            .weight(0.5f)
+                    ) {
+                        TextFieldModifier(garageName, true, "Garage Name")
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.15f)
+                            .weight(0.5f),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        TextFieldModifier(contactNumber, false, "Contact number")
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.15f)
+                            .weight(0.5f),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        TextFieldModifier(email, true, "Email")
+                    }
+
+
+                    //-----------------------------------------------------------------
+
+                    Row (
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight()
+                            .weight(1.5f)
+                            .padding(16.dp, 0.dp, 0.dp, 0.dp)
+                    ){
+                        Column {
+                            var isChecked by remember { mutableStateOf(false) }
+
+                            Text(
+                                text = "Services",
+                                color = Color.White,
+                                fontWeight = FontWeight.ExtraBold,
+                                fontSize = 26.sp,
+                                textDecoration = TextDecoration.Underline
+                            )
+
+                            Row (
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .fillMaxHeight(0.45f),
+                                verticalAlignment = Alignment.CenterVertically
+                            ){
+                                val checkboxColor = if(isChecked) Color(0xFF253555) else Color.White
+
+                                Box(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .align(Alignment.CenterVertically)
+                                ){
+                                    Checkbox(
+                                        checked = isChecked,
+                                        onCheckedChange ={ newCheckState -> isChecked = newCheckState },
+                                        modifier = Modifier
+                                            .background(color = checkboxColor)
+                                            .size(20.dp)
+                                            .padding(4.dp)
+                                            .align(Alignment.CenterStart)
+                                    )
+
+                                    Spacer(modifier = Modifier.width(8.dp))
+
+                                    Text(
+                                        text = "Break System Repair",
+                                        color = Color.Black,
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier.padding(32.dp,0.dp,0.dp,0.dp)
+                                    )
+                                }
+
+
+                                Box(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .align(Alignment.CenterVertically)
+                                ){
+                                    Checkbox(
+                                        checked = isChecked,
+                                        onCheckedChange ={ newCheckState -> isChecked = newCheckState },
+                                        modifier = Modifier
+                                            .background(color = checkboxColor)
+                                            .size(20.dp)
+                                            .padding(4.dp)
+                                            .align(Alignment.CenterStart)
+                                    )
+
+                                    Spacer(modifier = Modifier.width(8.dp))
+
+                                    Text(
+                                        text = "Oil change",
+                                        color = Color.Black,
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier.padding(32.dp,0.dp,0.dp,0.dp)
+                                    )
+                                }
+
+
+                            }
+
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            Row (
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .fillMaxHeight(0.45f),
+                                verticalAlignment = Alignment.CenterVertically
+                            ){
+                                val checkboxColor = if(isChecked) Color(0xFF253555) else Color.White
+
+                                Box(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .align(Alignment.CenterVertically)
+                                ){
+                                    Checkbox(
+                                        checked = isChecked,
+                                        onCheckedChange ={ newCheckState -> isChecked = newCheckState },
+                                        modifier = Modifier
+                                            .background(color = checkboxColor)
+                                            .size(20.dp)
+                                            .padding(4.dp)
+                                            .align(Alignment.CenterStart)
+                                    )
+
+                                    Spacer(modifier = Modifier.width(8.dp))
+
+                                    Text(
+                                        text = "Engine Repair",
+                                        color = Color.Black,
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier.padding(32.dp,0.dp,0.dp,0.dp)
+                                    )
+                                }
+
+
+                                Box(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .align(Alignment.CenterVertically)
+                                ){
+                                    Checkbox(
+                                        checked = isChecked,
+                                        onCheckedChange ={ newCheckState -> isChecked = newCheckState },
+                                        modifier = Modifier
+                                            .background(color = checkboxColor)
+                                            .size(20.dp)
+                                            .padding(4.dp)
+                                            .align(Alignment.CenterStart)
+                                    )
+
+                                    Spacer(modifier = Modifier.width(8.dp))
+
+                                    Text(
+                                        text = "Tire Replacement",
+                                        color = Color.Black,
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier.padding(32.dp,0.dp,0.dp,0.dp)
+                                    )
+                                }
+                            }
+
+                            Spacer(modifier = Modifier.width(8.dp))
+
+                        }
+
+                    }
+
+                    Row (
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight(0.15f),
+                        horizontalArrangement = Arrangement.SpaceAround,
+                        verticalAlignment = Alignment.CenterVertically
+                    ){
+
+                        Spacer(modifier = Modifier.width(8.dp))
+
+                        CommonButton(btnName = "Cancel", modifier = Modifier.weight(1f)) {}
+
+                        Spacer(modifier = Modifier.width(16.dp))
+
+                        CommonButton(btnName = "Save", modifier = Modifier.weight(1f)) {}
+
+                        Spacer(modifier = Modifier.width(8.dp))
                     }
 
                 }
 
             }
+            //Footer()
         }
-
     }
-
-
 }
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -285,14 +394,15 @@ fun TextFieldModifier(value:String,isEditing:Boolean,placeholderName:String):Str
                 fontWeight = FontWeight.Bold,
                 fontSize =16.sp,
                 letterSpacing = 0.15.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                fontFamily = fontFamily
             ),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = Color.Transparent,
                 unfocusedBorderColor =Color.Transparent
             ),
             modifier = Modifier
-                .background(Color.White, shape = RoundedCornerShape(50.dp))
+                .background(Color.White, shape = RoundedCornerShape(10.dp))
                 .border(
                     BorderStroke(0.dp, Color.Unspecified),
                     shape = RoundedCornerShape(50.dp)
@@ -308,6 +418,7 @@ fun TextFieldModifier(value:String,isEditing:Boolean,placeholderName:String):Str
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF253555),
                     modifier = Modifier.padding(85.dp,0.dp,0.dp,0.dp),
+                    fontFamily= fontFamily
                 )
             },
         )
