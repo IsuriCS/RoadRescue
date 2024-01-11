@@ -18,6 +18,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -49,12 +53,12 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.garage.R
+import com.example.garage.viewModels.GarageProfileEdit
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun garageProfileEdit(){
 
-    Column {
 
        // Header()
 
@@ -68,7 +72,6 @@ fun garageProfileEdit(){
 
             Card(
                 modifier = cardDefaultModifier,
-
                 colors = CardDefaults.cardColors(containerColor = Color(0xFFB6C7E3)),
                 border = BorderStroke(width = 2.dp, Color.White),
             ) {
@@ -205,7 +208,10 @@ fun garageProfileEdit(){
                             .padding(16.dp, 0.dp, 0.dp, 0.dp)
                     ){
                         Column {
-                            var isChecked by remember { mutableStateOf(false) }
+                            val isCheckedBraekSysytem by remember { mutableStateOf(false) }
+                            var isCheckedOilChange by remember { mutableStateOf(false) }
+                            var isCheckedEngineRepair by remember { mutableStateOf(false) }
+                            var isCheckedTireRepair by remember { mutableStateOf(false) }
 
                             Text(
                                 text = "Services",
@@ -218,131 +224,56 @@ fun garageProfileEdit(){
                             Row (
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .fillMaxHeight(0.45f),
+                                    .fillMaxHeight(0.75f),
                                 verticalAlignment = Alignment.CenterVertically
                             ){
-                                val checkboxColor = if(isChecked) Color(0xFF253555) else Color.White
+                                val checkboxColor = if(isCheckedBraekSysytem) Color(0xFF253555) else Color.White
 
-                                Box(
-                                    modifier = Modifier
-                                        .weight(1f)
-                                        .align(Alignment.CenterVertically)
+                                val servicesList= ArrayList<GarageProfileEdit>()
+                                servicesList.add(GarageProfileEdit("Break System Repair", false))
+                                servicesList.add(GarageProfileEdit("Oil Change",false))
+                                servicesList.add(GarageProfileEdit("Tire Replacement",false))
+                                servicesList.add(GarageProfileEdit("Engine Repair",false))
+
+
+                                LazyVerticalGrid(
+                                    columns = GridCells.Fixed(2),
                                 ){
-                                    Checkbox(
-                                        checked = isChecked,
-                                        onCheckedChange ={ newCheckState -> isChecked = newCheckState },
-                                        modifier = Modifier
-                                            .background(color = checkboxColor)
-                                            .size(20.dp)
-                                            .padding(4.dp)
-                                            .align(Alignment.CenterStart)
-                                    )
+                                    items(servicesList){ service ->
+                                        Box(
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .align(Alignment.CenterVertically)
+                                        ){
 
-                                    Spacer(modifier = Modifier.width(8.dp))
+                                            var isChecked by remember { mutableStateOf(service.getIsSelected()) }
 
-                                    Text(
-                                        text = "Break System Repair",
-                                        color = Color.Black,
-                                        fontWeight = FontWeight.Bold,
-                                        modifier = Modifier.padding(32.dp,0.dp,0.dp,0.dp)
-                                    )
-                                }
+                                            Checkbox(
+                                                checked = service.getIsSelected(),
+                                                onCheckedChange ={ newCheckState -> isChecked = newCheckState },
+                                                modifier = Modifier
+                                                    .background(color = checkboxColor)
+                                                    .size(20.dp)
+                                                    .padding(4.dp)
+                                                    .align(Alignment.CenterStart)
+                                            )
 
+                                            Spacer(modifier = Modifier.width(8.dp))
 
-                                Box(
-                                    modifier = Modifier
-                                        .weight(1f)
-                                        .align(Alignment.CenterVertically)
-                                ){
-                                    Checkbox(
-                                        checked = isChecked,
-                                        onCheckedChange ={ newCheckState -> isChecked = newCheckState },
-                                        modifier = Modifier
-                                            .background(color = checkboxColor)
-                                            .size(20.dp)
-                                            .padding(4.dp)
-                                            .align(Alignment.CenterStart)
-                                    )
-
-                                    Spacer(modifier = Modifier.width(8.dp))
-
-                                    Text(
-                                        text = "Oil change",
-                                        color = Color.Black,
-                                        fontWeight = FontWeight.Bold,
-                                        modifier = Modifier.padding(32.dp,0.dp,0.dp,0.dp)
-                                    )
-                                }
-
-
-                            }
-
-                            Spacer(modifier = Modifier.height(8.dp))
-
-                            Row (
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .fillMaxHeight(0.45f),
-                                verticalAlignment = Alignment.CenterVertically
-                            ){
-                                val checkboxColor = if(isChecked) Color(0xFF253555) else Color.White
-
-                                Box(
-                                    modifier = Modifier
-                                        .weight(1f)
-                                        .align(Alignment.CenterVertically)
-                                ){
-                                    Checkbox(
-                                        checked = isChecked,
-                                        onCheckedChange ={ newCheckState -> isChecked = newCheckState },
-                                        modifier = Modifier
-                                            .background(color = checkboxColor)
-                                            .size(20.dp)
-                                            .padding(4.dp)
-                                            .align(Alignment.CenterStart)
-                                    )
-
-                                    Spacer(modifier = Modifier.width(8.dp))
-
-                                    Text(
-                                        text = "Engine Repair",
-                                        color = Color.Black,
-                                        fontWeight = FontWeight.Bold,
-                                        modifier = Modifier.padding(32.dp,0.dp,0.dp,0.dp)
-                                    )
-                                }
-
-
-                                Box(
-                                    modifier = Modifier
-                                        .weight(1f)
-                                        .align(Alignment.CenterVertically)
-                                ){
-                                    Checkbox(
-                                        checked = isChecked,
-                                        onCheckedChange ={ newCheckState -> isChecked = newCheckState },
-                                        modifier = Modifier
-                                            .background(color = checkboxColor)
-                                            .size(20.dp)
-                                            .padding(4.dp)
-                                            .align(Alignment.CenterStart)
-                                    )
-
-                                    Spacer(modifier = Modifier.width(8.dp))
-
-                                    Text(
-                                        text = "Tire Replacement",
-                                        color = Color.Black,
-                                        fontWeight = FontWeight.Bold,
-                                        modifier = Modifier.padding(32.dp,0.dp,0.dp,0.dp)
-                                    )
+                                            Text(
+                                                text = service.getCheckBoxName(),
+                                                color = Color.Black,
+                                                fontWeight = FontWeight.Bold,
+                                                modifier = Modifier.padding(24.dp,0.dp,0.dp,0.dp),
+                                                fontFamily = fontFamily
+                                            )
+                                        }
+                                    }
                                 }
                             }
 
-                            Spacer(modifier = Modifier.width(8.dp))
 
                         }
-
                     }
 
                     Row (
@@ -369,7 +300,7 @@ fun garageProfileEdit(){
             }
             //Footer()
         }
-    }
+
 }
 
 
