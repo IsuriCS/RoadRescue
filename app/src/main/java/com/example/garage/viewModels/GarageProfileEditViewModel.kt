@@ -1,6 +1,6 @@
 package com.example.garage.viewModels
 
-class GarageProfileEdit (
+class GarageProfileEditViewModel (
     private var _checkBoxName:String,
     private  var _isSelected:Boolean
 ){

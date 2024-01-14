@@ -1,5 +1,6 @@
 package com.example.garage.views
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
@@ -22,32 +23,35 @@ import com.example.garage.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Header(/*menuClicked:()->Unit*/) {
-    CenterAlignedTopAppBar(
-        title = {
-            Icon(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = "Toolbar icon",
-                modifier = Modifier.size(50.dp),
-                tint = Color.Unspecified
-            )
-        },
-        navigationIcon = {
-            IconButton(
-                onClick = {
-                   // menuClicked()
-                }
-            ) {
+    Column {
+        CenterAlignedTopAppBar(
+            title = {
                 Icon(
-                    imageVector = Icons.Filled.Menu,
-                    tint = Color.White,
-                    modifier = Modifier.size(30.dp),
-                    contentDescription = "Localized description"
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "Toolbar icon",
+                    modifier = Modifier.size(50.dp),
+                    tint = Color.Unspecified
                 )
-            }
-        },
-        modifier = Modifier.fillMaxWidth(),
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = Color(0xFF253555)
+            },
+            navigationIcon = {
+                IconButton(
+                    onClick = {
+                        // menuClicked()
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Menu,
+                        tint = Color.White,
+                        modifier = Modifier.size(30.dp),
+                        contentDescription = "Localized description"
+                    )
+                }
+            },
+            modifier = Modifier.fillMaxWidth(),
+            colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                containerColor = Color(0xFF253555)
+            )
         )
-    )
+    }
+
 }

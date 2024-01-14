@@ -2,7 +2,6 @@ package com.example.garage.views
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -21,10 +20,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
@@ -45,7 +42,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -53,7 +49,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.garage.R
-import com.example.garage.viewModels.GarageProfileEdit
+import com.example.garage.viewModels.GarageProfileEditViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -229,11 +225,11 @@ fun garageProfileEdit(){
                             ){
                                 val checkboxColor = if(isCheckedBraekSysytem) Color(0xFF253555) else Color.White
 
-                                val servicesList= ArrayList<GarageProfileEdit>()
-                                servicesList.add(GarageProfileEdit("Break System Repair", false))
-                                servicesList.add(GarageProfileEdit("Oil Change",false))
-                                servicesList.add(GarageProfileEdit("Tire Replacement",false))
-                                servicesList.add(GarageProfileEdit("Engine Repair",false))
+                                val servicesList= ArrayList<GarageProfileEditViewModel>()
+                                servicesList.add(GarageProfileEditViewModel("Break System Repair", false))
+                                servicesList.add(GarageProfileEditViewModel("Oil Change",false))
+                                servicesList.add(GarageProfileEditViewModel("Tire Replacement",false))
+                                servicesList.add(GarageProfileEditViewModel("Engine Repair",false))
 
 
                                 LazyVerticalGrid(

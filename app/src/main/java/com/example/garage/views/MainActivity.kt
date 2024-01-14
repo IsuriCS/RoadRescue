@@ -42,6 +42,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.garage.R
 import com.example.garage.ui.theme.GarageTheme
+import com.example.garage.viewModels.GarageDashboardViewModel
 import com.example.garage.views.Header
 import java.time.Period
 
@@ -65,26 +66,41 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    /*Text(text = "Nirmal")
 
-                    Column {
-                        Header()
-                    }*/
+
+                   // Header()
 
 
 //                    Footer()
                   //HelpBox()
                     //SidebarContent()
-                    /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        GarageDashboard("Tharindu Dakshina", Period.of(1,2,3),2500f)
-                    }*/
 
+
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                        val garageDashboardViewModel = GarageDashboardViewModel(
+                            "Nirmal Dakshina", Period.of(1, 2, 3),
+                            "PaymentPending", "Tech Garege", 25000.00
+                        )
+
+                        val technicians = listOf<String>("Saman Kumara","Tharindu Dakshina","Ajith Muthukumara","Namal Rajapakasha")
+
+                        GarageDashboard(
+                           garageDetails = garageDashboardViewModel, technicianList = technicians
+                        )
+
+                      // GarageDashboard()
+                       // GarageDashboard(garageName = "Dakshina", date_time = Period.of(1, 2, 3), amount = 5000f)
+
+                    }
                     /*garageProfile(
                         "Nirmal","C-001",
                         "Thiran Sasanka","+94761339805","tharinduDakshina@gmail.com"
                     )*/
 
-                    garageProfileEdit()
+
+                   // garageProfileEdit()
 
                    // GridWithTwoRows()
 

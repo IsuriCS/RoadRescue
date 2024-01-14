@@ -1,8 +1,6 @@
 package com.example.garage.viewModels
 
-import android.graphics.drawable.Drawable
-
-class GarageProfile (
+class GarageProfileViewModel (
    private var _iconPath:Int,
    private var _IconName:String
 ){

@@ -30,7 +30,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -46,7 +45,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.garage.R
-import com.example.garage.viewModels.GarageProfile
+import com.example.garage.viewModels.GarageProfileViewModel
 
 @Composable
 fun garageProfile(
@@ -211,10 +210,10 @@ fun garageProfile(
 
                 // Create icons list
 
-                var listOfArray = ArrayList<GarageProfile>()
+                var listOfArray = ArrayList<GarageProfileViewModel>()
 
-                listOfArray.add(GarageProfile(R.drawable.technicians, "Technician"))
-                listOfArray.add(GarageProfile(R.drawable.did_job, "Other"))
+                listOfArray.add(GarageProfileViewModel(R.drawable.technicians, "Technician"))
+                listOfArray.add(GarageProfileViewModel(R.drawable.did_job, "Other"))
 
 
                 // load icons
@@ -293,17 +292,17 @@ fun garageProfile(
 
                 // create a services list
 
-                var listOfServices = ArrayList<GarageProfile>()
+                var listOfServices = ArrayList<GarageProfileViewModel>()
 
                 listOfServices.add(
-                    GarageProfile(
+                    GarageProfileViewModel(
                         R.drawable.break_system_repair,
                         "Break System Repair"
                     )
                 )
-                listOfServices.add(GarageProfile(R.drawable.oill_change, "Oil Change"))
-                listOfServices.add(GarageProfile(R.drawable.engine_repeir, "Engine Repair"))
-                listOfServices.add(GarageProfile(R.drawable.tire_replacement, "Tire Replace"))
+                listOfServices.add(GarageProfileViewModel(R.drawable.oill_change, "Oil Change"))
+                listOfServices.add(GarageProfileViewModel(R.drawable.engine_repeir, "Engine Repair"))
+                listOfServices.add(GarageProfileViewModel(R.drawable.tire_replacement, "Tire Replace"))
 
                 // import services
 
