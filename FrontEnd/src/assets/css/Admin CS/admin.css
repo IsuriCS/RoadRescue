@@ -1,41 +1,51 @@
-.content .content-box .cards {
+/* *****************DASH BOARD CARDS ****************************** */
+
+.content .content-box .displayCards {
   display: flex;
-  flex-flow: row wrap;
-  row-gap: 2vh;
-  column-gap: 2vw;
+  flex-flow: row;
+  width: 100%;
   justify-content: center;
   align-content: center;
-  margin: auto;
 }
 
-.cards .button {
+.displayCards .button {
   background-color: #728ab0;
   width: 30vw;
-  height: 28vh;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
   font-size: inherit;
   color: white;
   font-weight: 600;
   border-radius: 30px;
   border: none;
-  text-align: center;
-  padding: 1vh;
+  /* text-align: center; */
+  padding: 2vh 1vh 1vh 3vh;
   text-decoration: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  margin: 1vh;
 }
-.button span {
+.displayCards .button span {
   color: #000;
   background-color: white;
   border-radius: 60px;
-  font-size: 11vh;
+  font-size: 6vh;
   padding: 1vh;
 }
 
-.button h2 {
+.displayCards .button h2 {
   margin-top: 1vh;
+  margin-bottom: 0;
+  color: #151d48;
 }
+.displayCards .button p {
+  margin-top: 1vh;
+  font-size: 2.5vh;
+}
+
+/* **********************************Dash Board Second Row Recent Moment and Payment Graphs */
 
 /* ************************FAQ**************************** */
 
