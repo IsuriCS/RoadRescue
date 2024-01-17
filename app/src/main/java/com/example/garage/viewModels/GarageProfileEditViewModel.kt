@@ -6,7 +6,7 @@ class GarageProfileEditViewModel (
 ){
 
     fun getCheckBoxName():String{
-        return _checkBoxName
+        return this._checkBoxName
     }
 
     fun setCheckBoxName(checkBoxName:String){
@@ -14,7 +14,7 @@ class GarageProfileEditViewModel (
     }
 
     fun getIsSelected():Boolean{
-        return _isSelected
+        return this._isSelected
     }
 
     fun setIsSelected(isSelected:Boolean){

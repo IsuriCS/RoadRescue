@@ -3,12 +3,13 @@
 package com.example.garage.views
 
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -48,18 +50,18 @@ import com.example.garage.R
 import com.example.garage.viewModels.GarageProfileViewModel
 
 @Composable
-fun garageProfile(
-    garageName: String,
-    garageId: String,
-    ownerName: String,
-    garageContactNumber: String,
-    garageContactEmail: String
+fun GarageProfile(
+    garageProfileDetails:GarageProfileViewModel
 ) {
     Column(
         modifier = defaultBackground,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
     ) {
+
+        Header(menuClicked = {})
+
+        Spacer(modifier = Modifier.height(32.dp))
+
         Card(
             modifier = cardDefaultModifier,
             colors = CardDefaults.cardColors(containerColor = Color(0xFFB6C7E3)),
@@ -68,6 +70,10 @@ fun garageProfile(
             Column {
 
                 // create profile pic and garage name
+
+                val context = LocalContext.current
+
+
 
                 Row(
                     modifier = Modifier
@@ -111,9 +117,9 @@ fun garageProfile(
                                             fontSize = 50.sp
                                         )
                                     ) {
-                                        append(garageName[0])
+                                        append(garageProfileDetails.getGarageName()[0])
                                     }
-                                    append(garageName.substring(1))
+                                    append(garageProfileDetails.getGarageName().substring(1))
 
                                     withStyle(
                                         style = SpanStyle(
@@ -137,14 +143,14 @@ fun garageProfile(
                             Spacer(modifier = Modifier.height(8.dp))
 
                             Text(
-                                text = "$garageId",
+                                text = garageProfileDetails.getGarageId(),
                                 color = Color(0xB3000000),
                                 fontWeight = FontWeight.ExtraBold,
                                 fontSize = 20.sp,
                             )
 
                             Text(
-                                text = "$ownerName",
+                                text = garageProfileDetails.getOwnerName(),
                                 color = Color(0xB3000000),
                                 fontWeight = FontWeight.ExtraBold,
                                 fontSize = 20.sp
@@ -166,7 +172,14 @@ fun garageProfile(
                     Box(
                         modifier = Modifier
                             .weight(0.99f)
-                            .fillMaxSize(),
+                            .fillMaxSize()
+                            .clickable {
+                                val intent = Intent(
+                                    Intent.ACTION_DIAL,
+                                    Uri.parse("tel:${garageProfileDetails.getGarageContactNumber()}")
+                                )
+                                context.startActivity(intent)
+                            },
                         contentAlignment = Alignment.CenterStart,
                     ) {
                         Icon(
@@ -177,7 +190,7 @@ fun garageProfile(
                         )
 
                         Text(
-                            text = garageContactNumber,
+                            text = garageProfileDetails.getGarageContactNumber(),
                             color = Color(0xB3000000),
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(36.dp, 0.dp)
@@ -187,7 +200,9 @@ fun garageProfile(
                     Box(
                         modifier = Modifier
                             .weight(1f)
-                            .fillMaxSize(),
+                            .fillMaxSize()
+                            .clickable { }
+                        ,
                         contentAlignment = Alignment.CenterStart
                     ) {
                         Icon(
@@ -198,10 +213,11 @@ fun garageProfile(
                         )
 
                         Text(
-                            text = garageContactEmail,
+                            text = garageProfileDetails.getGarageEmail(),
                             color = Color(0xB3000000),
                             fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(36.dp, 0.dp)
+                            modifier = Modifier.padding(36.dp, 0.dp),
+                            maxLines = 1
                         )
                     }
                 }
@@ -210,7 +226,7 @@ fun garageProfile(
 
                 // Create icons list
 
-                var listOfArray = ArrayList<GarageProfileViewModel>()
+                val listOfArray = ArrayList<GarageProfileViewModel>()
 
                 listOfArray.add(GarageProfileViewModel(R.drawable.technicians, "Technician"))
                 listOfArray.add(GarageProfileViewModel(R.drawable.did_job, "Other"))
@@ -269,7 +285,7 @@ fun garageProfile(
                                 .fillMaxSize()
                         ) {
                             Text(
-                                text = "${icon.getIconName()}",
+                                text = icon.getIconName(),
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.ExtraBold,
                                 color = Color.Black,
@@ -292,7 +308,7 @@ fun garageProfile(
 
                 // create a services list
 
-                var listOfServices = ArrayList<GarageProfileViewModel>()
+                val listOfServices = ArrayList<GarageProfileViewModel>()
 
                 listOfServices.add(
                     GarageProfileViewModel(
@@ -339,5 +355,9 @@ fun garageProfile(
                 }
             }
         }
+
+        Spacer(modifier = Modifier.height(26.dp))
+
+        Footer()
     }
 }

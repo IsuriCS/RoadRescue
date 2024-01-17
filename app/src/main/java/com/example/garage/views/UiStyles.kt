@@ -31,6 +31,7 @@ val fontFamily= FontFamily(
 )
 
 val textStyle1 = TextStyle(
+    fontFamily= fontFamily,
     fontWeight = FontWeight.ExtraBold,
     fontSize = 20.sp,
     letterSpacing = 0.15.sp,
@@ -38,6 +39,7 @@ val textStyle1 = TextStyle(
 )
 
 val textStyle2 = TextStyle(
+    fontFamily= fontFamily,
     fontWeight = FontWeight.ExtraBold,
     fontSize = 16.sp,
     letterSpacing = 0.15.sp,
@@ -45,6 +47,7 @@ val textStyle2 = TextStyle(
 )
 
 val textStyle3 = TextStyle(
+    fontFamily= fontFamily,
     fontWeight = FontWeight.ExtraBold,
     fontSize = 16.sp,
     letterSpacing = 0.15.sp,

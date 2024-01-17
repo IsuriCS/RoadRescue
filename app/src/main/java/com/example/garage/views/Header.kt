@@ -22,14 +22,14 @@ import com.example.garage.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Header(/*menuClicked:()->Unit*/) {
+fun Header(menuClicked:()->Unit) {
     Column {
         CenterAlignedTopAppBar(
             title = {
                 Icon(
                     painter = painterResource(id = R.drawable.logo),
                     contentDescription = "Toolbar icon",
-                    modifier = Modifier.size(50.dp),
+                    modifier = Modifier.size(100.dp),
                     tint = Color.Unspecified
                 )
             },

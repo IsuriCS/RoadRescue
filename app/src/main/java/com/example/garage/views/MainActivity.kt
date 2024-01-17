@@ -1,50 +1,29 @@
 package com.example.garage.views
 
-import android.graphics.drawable.Icon
+
 import android.net.Uri
 import android.os.Build
+
+
 import android.os.Bundle
+
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.Role.Companion.Image
-import androidx.compose.ui.text.style.LineHeightStyle
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.example.garage.R
 import com.example.garage.ui.theme.GarageTheme
+import com.example.garage.viewModels.GarageActivityDetails
 import com.example.garage.viewModels.GarageDashboardViewModel
-import com.example.garage.views.Header
+import java.text.SimpleDateFormat
 import java.time.Period
+import java.util.Date
+import java.util.Locale
 
 class MainActivity : ComponentActivity() {
 
@@ -53,6 +32,7 @@ class MainActivity : ComponentActivity() {
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             selectedImageUri = uri
         }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,11 +57,11 @@ class MainActivity : ComponentActivity() {
 
 
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
                         val garageDashboardViewModel = GarageDashboardViewModel(
                             "Nirmal Dakshina", Period.of(1, 2, 3),
-                            "PaymentPending", "Tech Garege", 25000.00
+                            "Tire Punch", "Need help as soon as possible", 25000.00
                         )
 
                         val technicians = listOf<String>("Saman Kumara","Tharindu Dakshina","Ajith Muthukumara","Namal Rajapakasha")
@@ -90,13 +70,16 @@ class MainActivity : ComponentActivity() {
                            garageDetails = garageDashboardViewModel, technicianList = technicians
                         )
 
-                      // GarageDashboard()
-                       // GarageDashboard(garageName = "Dakshina", date_time = Period.of(1, 2, 3), amount = 5000f)
+                    }*/
 
-                    }
-                    /*garageProfile(
-                        "Nirmal","C-001",
-                        "Thiran Sasanka","+94761339805","tharinduDakshina@gmail.com"
+
+
+
+
+                    /*GarageProfile(
+                        GarageProfileViewModel("Nirmal","C-001","Thiran Sasanka",
+                            "+94761339805", "tharindudakshina@gmail.com"
+                        )
                     )*/
 
 
@@ -104,12 +87,27 @@ class MainActivity : ComponentActivity() {
 
                    // GridWithTwoRows()
 
+                    val date = SimpleDateFormat("dd/M/yyyy")
+                    val time = SimpleDateFormat("hh:mm")
+                    val currentDate = date.format(Date())
+                    val currentTime = time.format(Date())
+
+
+
+                    Activities(
+                        GarageActivityDetails(currentTime,currentDate, "Gayan","Axio 2017",
+                            "T-002",3000f,"I need to replace a tire on my car","Thiran Sasanka")
+                    )
+
+
+
                 }
             }
         }
     }
 
 }
+
 
 
 

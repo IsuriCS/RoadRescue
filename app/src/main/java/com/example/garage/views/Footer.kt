@@ -22,10 +22,11 @@ import com.example.garage.R
 fun Footer(
 //    navigationToDashboardScreen:()->Unit,
 //    navigationToProfileScreen:()->Unit,
+
 ){
     Row (
         horizontalArrangement = Arrangement.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.Bottom,
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(topEnd = 10.dp, topStart = 10.dp))

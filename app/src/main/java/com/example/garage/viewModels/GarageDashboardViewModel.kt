@@ -5,14 +5,14 @@ import java.time.Period
 class GarageDashboardViewModel(
     private var _garageName: String,
     private var _date: Period,
-    private var _status: String,
-    private var _assignServiceProvider: String,
+    private var _issue: String,
+    private var _description: String,
     private var _serviceFee: Double,
 
     ) {
 
     fun getGarageName(): String {
-        return _garageName
+        return this._garageName
     }
 
     fun setGarageName(garage: String) {
@@ -20,7 +20,7 @@ class GarageDashboardViewModel(
     }
 
     fun getDate(): Period {
-        return _date
+        return this._date
     }
 
     fun setDate(date: Period) {
@@ -28,23 +28,23 @@ class GarageDashboardViewModel(
     }
 
     fun getStatus(): String {
-        return _status
+        return this._issue
     }
 
-    fun setStatus(status: String) {
-        this._status = status
+    fun setStatus(issue: String) {
+        this._issue = issue
     }
 
     fun getAssignServiceProvider(): String {
-        return _assignServiceProvider
+        return this._description
     }
 
-    fun setAssignServiceProvider(assignServiceProvider: String) {
-        this._assignServiceProvider = assignServiceProvider
+    fun setAssignServiceProvider(description: String) {
+        this._description = description
     }
 
     fun getServiceFee(): Double {
-        return _serviceFee
+        return this._serviceFee
     }
 
     fun setServiceFee(serviceFee: Double) {
