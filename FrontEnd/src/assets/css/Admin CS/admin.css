@@ -45,7 +45,32 @@
   font-size: 2.5vh;
 }
 
-/* **********************************Dash Board Second Row Recent Moment and Payment Graphs */
+/* **********************************Dash Board Second Row Recent Moment and Payment Graphs ********************************************* */
+.secondRow {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  width: 100%;
+}
+.graph {
+  width: 37vw;
+  height: 35vh;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
+  margin: 1vh;
+}
+/* .recentMoment canvas {
+} */
+
+.Payments {
+  margin-left: 2vw;
+}
+
+/* .Payments canvas {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
+} */
 
 /* ************************FAQ**************************** */
 
