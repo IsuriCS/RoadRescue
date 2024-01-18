@@ -101,7 +101,7 @@
             <a href="" class="button">
               <span class="material-symbols-outlined"> record_voice_over </span>
               <h2>89</h2>
-              <p>Registeredd Customers</p></a
+              <p>Registered Customers</p></a
             >
             <a href="" class="button">
               <span class="material-symbols-outlined"> build </span>
@@ -123,10 +123,40 @@
 
           <div class="secondRow">
             <!-- **************************Recent Moment Bar Chart****************************** -->
-            <div class="recentMoment"></div>
+            <div class="recentMoment">
+              <h1>Recent Moment</h1>
+              <div class="graph"><canvas id="barchatRecent"></canvas></div>
+            </div>
             <!-- **************************Payment Graph****************************** -->
-            <div class="Payments"></div>
+            <div class="Payments">
+              <h1>Payment</h1>
+              <div class="graph"><canvas id="linePayment"></canvas></div>
+            </div>
           </div>
+
+          <!-- **************************Report Section****************************** -->
+          <!-- <div class="ReportsSection">
+            <table>
+              <tr>
+                <th>Reported By</th>
+                <th>Report title</th>
+                <th>Reported Date</th>
+                <th>Status</th>
+              </tr>
+              <tr>
+                <td>A.A.Luvis</td>
+                <td>Payment Issue</td>
+                <td>2021/09/12</td>
+                <td>pending</td>
+              </tr>
+              <tr>
+                <td>P.L.Ari</td>
+                <td>Registration issue</td>
+                <td>2021/09/12</td>
+                <td>pending</td>
+              </tr>
+            </table>
+          </div> -->
         </div>
 
         <!-- **************************FOOTER********************** -->
@@ -143,4 +173,7 @@
   <!-- <script src="../Customer/js/main.js"></script> -->
   <script src="../../assets/js/CustomerSupport.js"></script>
   <script src="jQuery/jquery-3.6.0.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../../assets/js/admin/admin.js"></script>
 </html>
