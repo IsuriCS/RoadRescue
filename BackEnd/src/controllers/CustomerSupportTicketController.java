@@ -1,8 +1,8 @@
 package controllers;
 
-import dto.CrudUtil;
 import models.CustomerSupportTicketModels;
 import models.SupportTicket;
+import utils.CrudUtil;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CustomerSupportTicketController {
-
 
     public boolean update(Connection connection, int ticketId) throws SQLException, ClassNotFoundException {
         return CrudUtil.executeUpdate(connection, "UPDATE support_ticket SET status=? WHERE ticket_id=?", "closed", ticketId);
