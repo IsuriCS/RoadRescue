@@ -9,7 +9,6 @@ body {
   display: flex;
   flex-direction: row;
   width: 100%;
-  min-height: 92vh;
 }
 .sidenav {
   width: 15vw;
@@ -34,6 +33,7 @@ body {
 }
 .sidenav > ul li {
   list-style: none;
+  position: relative;
 }
 .sidenav > ul li a {
   display: flex;
@@ -201,3 +201,5 @@ footer {
   background: #0088d7;
   filter: drop-shadow(0 0 20px #001039);
 }
+
+/* *************************Drop Down**************************** */

@@ -53,19 +53,28 @@
         <ul>
           <li>
             <a
-              href="dashboard.html"
+              id="dashboardLink"
+              href="#dashboard"
               class="sideNavLink active"
-              onclick="clickOption(this)"
+            
             >
               <span class="material-symbols-outlined"> home </span>
               Dashboard
             </a>
           </li>
-          <li>
-            <a href="users.html" class="sideNavLink"
+          <li class="dropDownBu">
+            <a
+              id="UsersLink"
+              href="#user"
+              class="sideNavLink"
+              
               ><span class="material-symbols-outlined"> group </span>
               Users
-            </a>
+            <ul class="dropdown-container">
+              <li>Customers</li>
+              <li>Service Providers</li>
+              <li>Customer Support members</li>
+            </ul>
           </li>
           <li>
             <a href="verification.html" class="sideNavLink"
@@ -94,71 +103,74 @@
       <!-- *************content************** -->
       <div class="content">
         <div class="content-box">
-          <h1>Analitics</h1>
+          <div id="dashboard">
+            <h1>Analitics</h1>
+            <!-- **************************Display Cards****************************** -->
+            <div class="displayCards">
+              <a href="" class="button">
+                <span class="material-symbols-outlined">
+                  record_voice_over
+                </span>
+                <h2>89</h2>
+                <p>Registered Customers</p></a
+              >
+              <a href="" class="button">
+                <span class="material-symbols-outlined"> build </span>
+                <h2>54</h2>
+                <p>Registered Service Providers</p></a
+              >
 
-          <!-- **************************Display Cards****************************** -->
-          <div class="displayCards">
-            <a href="" class="button">
-              <span class="material-symbols-outlined"> record_voice_over </span>
-              <h2>89</h2>
-              <p>Registered Customers</p></a
-            >
-            <a href="" class="button">
-              <span class="material-symbols-outlined"> build </span>
-              <h2>54</h2>
-              <p>Registered Service Providers</p></a
-            >
-
-            <a href="" class="button">
-              <span class="material-symbols-outlined"> checklist </span>
-              <h2>54</h2>
-              <p>Completed Tasks</p></a
-            >
-            <a href="" class="button">
-              <span class="material-symbols-outlined"> report </span>
-              <h2>54</h2>
-              <p>Report and Support Tickets</p></a
-            >
-          </div>
-
-          <div class="secondRow">
-            <!-- **************************Recent Moment Bar Chart****************************** -->
-            <div class="recentMoment">
-              <h1>Recent Moment</h1>
-              <div class="graph"><canvas id="barchatRecent"></canvas></div>
+              <a href="" class="button">
+                <span class="material-symbols-outlined"> checklist </span>
+                <h2>54</h2>
+                <p>Completed Tasks</p></a
+              >
+              <a href="" class="button">
+                <span class="material-symbols-outlined"> report </span>
+                <h2>54</h2>
+                <p>Report and Support Tickets</p></a
+              >
             </div>
-            <!-- **************************Payment Graph****************************** -->
-            <div class="Payments">
-              <h1>Payment</h1>
-              <div class="graph"><canvas id="linePayment"></canvas></div>
-            </div>
-          </div>
 
-          <!-- **************************Report Section****************************** -->
-          <div class="ReportsSection">
-            <table>
-              <tr>
-                <th>Reported By</th>
-                <th>Report title</th>
-                <th>Reported Date</th>
-                <th>Status</th>
-              </tr>
-              <tr>
-                <td>A.A.Luvis</td>
-                <td>Payment Issue</td>
-                <td>2021/09/12</td>
-                <td>pending</td>
-              </tr>
-              <tr>
-                <td>P.L.Ari</td>
-                <td>Registration issue</td>
-                <td>2021/09/12</td>
-                <td>pending</td>
-              </tr>
-            </table>
+            <div class="secondRow">
+              <!-- **************************Recent Moment Bar Chart****************************** -->
+              <div class="recentMoment">
+                <h1>Recent Moment</h1>
+                <div class="graph"><canvas id="barchatRecent"></canvas></div>
+              </div>
+              <!-- **************************Payment Graph****************************** -->
+              <div class="Payments">
+                <h1>Payment</h1>
+                <div class="graph"><canvas id="linePayment"></canvas></div>
+              </div>
+            </div>
+
+            <!-- **************************Report Section****************************** -->
+            <div class="ReportsSection">
+              <h1>Recent Reports</h1>
+              <table>
+                <tr>
+                  <th>Reported By</th>
+                  <th>Report title</th>
+                  <th>Reported Date</th>
+                  <th>Status</th>
+                </tr>
+                <tr>
+                  <td>A.A.Luvis</td>
+                  <td>Payment Issue</td>
+                  <td>2021/09/12</td>
+                  <td>pending</td>
+                </tr>
+                <tr>
+                  <td>P.L.Ari</td>
+                  <td>Registration issue</td>
+                  <td>2021/09/12</td>
+                  <td>pending</td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
-
         <!-- **************************FOOTER********************** -->
         <footer>
           <p>
