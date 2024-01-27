@@ -51,20 +51,34 @@
         <h1>Isuri Chathurika</h1>
         <ul>
           <li>
-            <a
-              href="dashboard.html"
-              class="sideNavLink"
-              onclick="clickOption(this)"
-            >
+            <a id="dashboardLink" href="#dashboard" class="sideNavLink active">
               <span class="material-symbols-outlined"> home </span>
               Dashboard
             </a>
           </li>
-          <li>
-            <a href="users.html" class="sideNavLink"
-              ><span class="material-symbols-outlined"> group </span>
-              Users
+          <li class="dropDownBu">
+            <a
+              id="UsersLink"
+              href="#user"
+              class="sideNavLink"
+              onclick="toggleDropdown()"
+              ><span class="material-symbols-outlined"> group </span> Users
+              <span
+                class="material-symbols-outlined dropdownArrow"
+                style="margin-left: 4vw"
+              >
+                expand_more
+              </span>
             </a>
+            <ul id="drop" class="dropdown-container hide">
+              <li><a href="Users/customer.html">Customer</a></li>
+              <li>
+                <a href="Users/serviseProvider.html">Service Providers</a>
+              </li>
+              <li>
+                <a href="Users/csmember.html">Customer Support members</a>
+              </li>
+            </ul>
           </li>
           <li>
             <a href="verification.html" class="sideNavLink"
@@ -73,7 +87,7 @@
             </a>
           </li>
           <li>
-            <a href="system.html" class="sideNavLink active"
+            <a href="system.html" class="sideNavLink"
               ><span class="material-symbols-outlined"> receipt_long </span>
               System
             </a>

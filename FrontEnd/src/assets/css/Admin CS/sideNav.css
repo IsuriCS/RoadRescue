@@ -9,7 +9,6 @@ body {
   display: flex;
   flex-direction: row;
   width: 100%;
-  min-height: 92vh;
 }
 .sidenav {
   width: 15vw;
@@ -34,6 +33,7 @@ body {
 }
 .sidenav > ul li {
   list-style: none;
+  position: relative;
 }
 .sidenav > ul li a {
   display: flex;
@@ -200,4 +200,22 @@ footer {
 #button:hover {
   background: #0088d7;
   filter: drop-shadow(0 0 20px #001039);
+}
+
+/* *************************Drop Down**************************** */
+.hide {
+  display: hide;
+}
+
+.uparrow {
+  transform: rotate(180deg);
+}
+#drop li {
+  padding: 0.5vh;
+}
+#drop li a {
+  color: black;
+  margin: 1vh 1vw 1vh 2vw;
+  font-size: 1.8vh;
+  padding: 0;
 }
