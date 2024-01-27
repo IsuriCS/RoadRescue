@@ -52,12 +52,7 @@
         <h1>Isuri Chathurika</h1>
         <ul>
           <li>
-            <a
-              id="dashboardLink"
-              href="#dashboard"
-              class="sideNavLink active"
-            
-            >
+            <a id="dashboardLink" href="#dashboard" class="sideNavLink active">
               <span class="material-symbols-outlined"> home </span>
               Dashboard
             </a>
@@ -67,13 +62,23 @@
               id="UsersLink"
               href="#user"
               class="sideNavLink"
-              
-              ><span class="material-symbols-outlined"> group </span>
-              Users
-            <ul class="dropdown-container">
-              <li>Customers</li>
-              <li>Service Providers</li>
-              <li>Customer Support members</li>
+              onclick="toggleDropdown()"
+              ><span class="material-symbols-outlined"> group </span> Users
+              <span
+                class="material-symbols-outlined dropdownArrow"
+                style="margin-left: 4vw"
+              >
+                expand_more
+              </span>
+            </a>
+            <ul id="drop" class="dropdown-container hide">
+              <li><a href="Users/customer.html">Customer</a></li>
+              <li>
+                <a href="Users/serviseProvider.html">Service Providers</a>
+              </li>
+              <li>
+                <a href="Users/csmember.html">Customer Support members</a>
+              </li>
             </ul>
           </li>
           <li>

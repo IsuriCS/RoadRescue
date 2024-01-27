@@ -112,28 +112,35 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // ****************Nav bar drop down*******************
-document.addEventListener("DOMContentLoaded", function () {
-    const button = document.querySelectorAll(".dropDownBu");
+// document.addEventListener("DOMContentLoaded", function () {
+//     const button = document.querySelectorAll(".dropDownBu");
 
-    button.forEach(function (question) {
-        question.addEventListener("click", function () {
-            const answer = this.nextElementSibling;
+//     button.forEach(function (question) {
+//         question.addEventListener("click", function () {
+//             const answer = this.nextElementSibling;
 
-            // Toggle the visibility of the answer
-            if (answer.style.display === "block") {
-                answer.style.display = "none";
-            } else {
-                answer.style.display = "block";
-            }
+//             // Toggle the visibility of the answer
+//             if (answer.style.display === "block") {
+//                 answer.style.display = "none";
+//             } else {
+//                 answer.style.display = "block";
+//             }
 
-            const faqItem = question.parentElement;
-            faqItem.classList.toggle("active");
+//             const faqItem = question.parentElement;
+//             faqItem.classList.toggle("active");
 
-            // Toggle a 'clicked' class on the question to change its background color
-            question.classList.toggle("clicked");
+//             // Toggle a 'clicked' class on the question to change its background color
+//             question.classList.toggle("clicked");
 
 
 
-        });
-    });
-});
+//         });
+//     });
+// });
+
+
+let dropDownContainer = document.querySelector(".dropdown-container");
+function toggleDropdown() {
+    dropDownContainer.classList.toggle("hide");
+    document.querySelector(".dropdownArrow").classList.toggle("uparrow");
+}
