@@ -78,6 +78,21 @@
   margin: 1vh;
 }
 
+/* **********************************Customer page search box ********************************************* */
+.topRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1vh;
+}
+.topRow input {
+  width: 30vw;
+  text-decoration: none;
+  font-size: 2vh;
+  padding: 0.8vh;
+}
+
 /* ************************FAQ**************************** */
 
 input,
