@@ -1,3 +1,20 @@
+// Dropdown side menu
+
+let dropDownContainer = document.querySelector(".dropdown-container");
+function toggleDropdown() {
+    dropDownContainer.classList.toggle("hide");
+    document.querySelector(".dropdownArrow").classList.toggle("uparrow");
+}
+
+// Link table rows
+const tableRows = document.querySelectorAll('tr[data-href]');
+tableRows.forEach(row => {
+    row.addEventListener('click', () => {
+        window.location.href = row.getAttribute('data-href');
+    });
+});
+
+
 // **************DashBoard-Recent moment bar chat*******************
 var ctx = document.getElementById("barchatRecent").getContext('2d');
 const xValues = ["January", "February", "March", "April", "May"];
@@ -139,8 +156,3 @@ document.addEventListener("DOMContentLoaded", function () {
 // });
 
 
-let dropDownContainer = document.querySelector(".dropdown-container");
-function toggleDropdown() {
-    dropDownContainer.classList.toggle("hide");
-    document.querySelector(".dropdownArrow").classList.toggle("uparrow");
-}

@@ -92,7 +92,78 @@
   font-size: 2vh;
   padding: 0.8vh;
 }
+.searchboxContainer {
+  display: flex;
+}
+.searchboxContainer button {
+  width: 3vw;
+  padding: 0;
+  height: 4vh;
+  border: none;
+}
+.searchIcon {
+  font-size: 3vh;
+}
 
+/* **********************************Customer page Profile view******************************************** */
+.leftSide {
+  border-right: white solid;
+  width: 45%;
+  padding-left: 5vw;
+}
+.leftSide img {
+  width: 10vw;
+  align-items: center;
+  padding-left: 7vw;
+}
+
+.content-box .profileContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 1vh;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 1vh;
+}
+.row .tag {
+  width: 25%;
+  margin: 1vh;
+}
+.row .tag h1 {
+  font-size: 2vh;
+  margin: 0;
+}
+
+.row .detail p {
+  margin: 0;
+}
+
+.button {
+  margin-top: 3vh;
+  font-size: large;
+  font-weight: 600;
+  text-decoration: none;
+  color: white;
+  border-radius: 2vh;
+  background: #23a6f0;
+  display: inline-flex;
+  padding: 2vh 2vw;
+  align-items: center;
+  gap: 1vw;
+  border-style: none;
+}
+
+.button:hover {
+  background: #2289c4;
+
+  text-decoration: none;
+}
 /* ************************FAQ**************************** */
 
 input,
