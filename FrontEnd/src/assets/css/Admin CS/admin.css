@@ -9,8 +9,11 @@
 }
 
 .displayCards .button {
+.displayCards .button {
   background-color: #728ab0;
   width: 30vw;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
     0 10px 10px rgba(37, 27, 90, 0.311);
   font-size: inherit;
@@ -20,17 +23,23 @@
   border: none;
   /* text-align: center; */
   padding: 2vh 1vh 1vh 3vh;
+  /* text-align: center; */
+  padding: 2vh 1vh 1vh 3vh;
   text-decoration: none;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   margin: 1vh;
+  align-items: flex-start;
+  margin: 1vh;
 }
+.displayCards .button span {
 .displayCards .button span {
   color: #000;
   background-color: white;
   border-radius: 60px;
+  font-size: 6vh;
   font-size: 6vh;
   padding: 1vh;
 }
@@ -41,7 +50,14 @@
   color: #151d48;
 }
 .displayCards .button p {
+.displayCards .button h2 {
   margin-top: 1vh;
+  margin-bottom: 0;
+  color: #151d48;
+}
+.displayCards .button p {
+  margin-top: 1vh;
+  font-size: 2.5vh;
   font-size: 2.5vh;
 }
 
@@ -106,6 +122,10 @@
 }
 
 /* **********************************Customer page Profile view******************************************** */
+.profileContent {
+  display: flex;
+  flex-direction: row;
+}
 .leftSide {
   border-right: white solid;
   width: 45%;
@@ -117,7 +137,7 @@
   padding-left: 7vw;
 }
 
-.content-box .profileContent {
+.leftSide .content-box .profileContent {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -163,6 +183,22 @@
   background: #2289c4;
 
   text-decoration: none;
+}
+
+.rightSide {
+  display: flex;
+  flex-direction: row;
+  padding-left: 5vh;
+}
+.rightSide .stsection .SuppotTicketcard {
+  background-color: #728ab0;
+  padding: 3vh;
+  border-radius: 5vh;
+  width: 60vh;
+}
+.SuppotTicketcard .solveButton {
+  display: flex;
+  justify-content: flex-end;
 }
 /* ************************FAQ**************************** */
 
