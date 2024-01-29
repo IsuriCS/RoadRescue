@@ -106,6 +106,10 @@
 }
 
 /* **********************************Customer page Profile view******************************************** */
+.profileContent {
+  display: flex;
+  flex-direction: row;
+}
 .leftSide {
   border-right: white solid;
   width: 45%;
@@ -117,7 +121,7 @@
   padding-left: 7vw;
 }
 
-.content-box .profileContent {
+.leftSide .content-box .profileContent {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -163,6 +167,22 @@
   background: #2289c4;
 
   text-decoration: none;
+}
+
+.rightSide {
+  display: flex;
+  flex-direction: row;
+  padding-left: 5vh;
+}
+.rightSide .stsection .SuppotTicketcard {
+  background-color: #728ab0;
+  padding: 3vh;
+  border-radius: 5vh;
+  width: 60vh;
+}
+.SuppotTicketcard .solveButton {
+  display: flex;
+  justify-content: flex-end;
 }
 /* ************************FAQ**************************** */
 
