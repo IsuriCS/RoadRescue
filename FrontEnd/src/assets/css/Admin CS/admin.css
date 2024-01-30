@@ -9,7 +9,6 @@
 }
 
 .displayCards .button {
-.displayCards .button {
   background-color: #728ab0;
   width: 30vw;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
@@ -34,7 +33,7 @@
   align-items: flex-start;
   margin: 1vh;
 }
-.displayCards .button span {
+
 .displayCards .button span {
   color: #000;
   background-color: white;
@@ -49,7 +48,7 @@
   margin-bottom: 0;
   color: #151d48;
 }
-.displayCards .button p {
+
 .displayCards .button h2 {
   margin-top: 1vh;
   margin-bottom: 0;
