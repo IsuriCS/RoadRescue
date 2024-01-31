@@ -1,59 +1,57 @@
 /* --------- Customer Login-Resgistration --------- */
 
 main {
+  width: 100%;
+  min-height: 71.5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    width: 100%;
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: linear-gradient(180deg, #253555 64.58%, #636a7a 100%);
+  background: linear-gradient(180deg, #253555 64.58%, #636a7a 100%);
 }
 
 .form-container {
-    width: clamp(300px, 90%, 550px);
-    margin: var(--m1);
+  width: clamp(300px, 90%, 550px);
+  margin: var(--m1);
 }
 
 .user-form {
-    width: 100%;
-    background: #728ab0;
-    padding: 20px 0;
+  width: 100%;
+  background: #728ab0;
+  padding: 20px 0;
 
-    border-radius: 30px;
+  border-radius: 30px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .user-form h1 {
-    font-family: "Montserrat", sans-serif;
-    font-size: var(--h1);
-    text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: var(--h1);
+  text-align: center;
 }
 
 .user-form > form {
-    width: 76%;
+  width: 76%;
 
-    margin-top: 20px;
-    padding: 0 12%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: right;
+  margin-top: 20px;
+  padding: 0 12%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: right;
 }
 
 .user-form a {
-    margin: 10px 0 20px 0;
-    width: 100%;
-    text-decoration: none;
-    color: white;
+  margin: 10px 0 20px 0;
+  width: 100%;
+  text-decoration: none;
+  color: white;
 
-    font-size: var(--h4);
-    font-weight: 700;
-  
+  font-size: var(--h4);
+  font-weight: 700;
 }
 
 .form-container {
@@ -100,9 +98,9 @@ main {
 
 #phone,
 #nic,
-#opt ,
+#opt,
 #garageName,
-#category{
+#category {
   width: 90%;
   padding: 12px 5%;
   border: none;
@@ -114,7 +112,7 @@ main {
 #phone,
 #garageName,
 #category,
-#nic{
+#nic {
   margin-top: 40px;
 }
 
@@ -129,13 +127,13 @@ option[value=""][disabled] {
 option {
   color: black;
 }
-#category{
-  width:100%;
+#category {
+  width: 100%;
 }
 
-select{
+select {
   border: 0px;
-    outline: 0px;
+  outline: 0px;
 }
 .form-group {
   width: 100%;
@@ -143,13 +141,10 @@ select{
 
   display: flex;
   justify-content: space-between;
-
 }
 
 .form-group > #firstName,
 .form-group > #lastName {
-
-
   width: 38%;
 
   padding: 12px 5%;
@@ -195,12 +190,10 @@ select{
 .hr-line > span {
   background: #728ab0;
   padding: 0 10px;
-
 }
 
 #login,
 #register {
-
   margin-top: 30px;
   width: 40%;
   padding: 15px 0;
@@ -218,7 +211,6 @@ select{
 
 #login:hover,
 #register:hover {
-
   background: #121b2e;
   filter: drop-shadow(0 0 10px #153484);
 }
@@ -244,7 +236,6 @@ select{
 /* -------------------- Help --------------------- */
 
 .helpMain {
-
   width: 100%;
   min-height: 74vh;
   padding: 20px 0;
@@ -365,7 +356,6 @@ select{
 }
 
 .helpInfo {
-
   width: 94%;
   padding: 20px 3%;
   min-height: 300px;
@@ -405,13 +395,11 @@ select{
   .help > div {
     width: 100% !important;
   }
-
 }
 
 /* ------------------ Profile ----------------------- */
 
 .profileMain {
-
   width: 100%;
   min-height: 74vh;
   padding: 20px 0;
@@ -478,7 +466,6 @@ select{
 #editProfile input[name="firstName"],
 #editProfile input[name="lastName"],
 #editProfile input[name="email"] {
-
   width: 85%;
   padding: 15px 5%;
   border: none;
@@ -531,7 +518,6 @@ select{
     width: 100%;
     margin: 10px 0 !important;
   }
-
 }
 
 /* ------------------ Vehicle ----------------------- */
@@ -587,7 +573,6 @@ select{
 
 .vehicleSection table th,
 .vehicleSection table td {
-
   font-size: var(--h2);
   font-weight: 700;
   text-align: start;
@@ -617,7 +602,6 @@ select{
   color: #676767;
 
   font-size: var(--h4);
-
 
   font-weight: 700;
   background: white;
@@ -654,13 +638,11 @@ select{
   font-size: 20px;
   font-weight: 700;
   background: #253555;
-
 }
 
 /* ------------------ Activities ----------------------- */
 
 .activiesMain {
-
   width: 100%;
   min-height: 74vh;
   padding: 20px 0;
@@ -700,12 +682,9 @@ select{
   justify-content: space-between;
   border-radius: 30px;
   margin: 10px 0;
-
 }
 
-
 .expand {
-
   border-radius: 30px 30px 0 0;
   margin-bottom: 30px;
 }
@@ -716,12 +695,10 @@ select{
 
 .activity img:hover {
   filter: invert(0.6) sepia(1) saturate(5) hue-rotate(160deg)
-
     drop-shadow(0 0 10px #000000);
 }
 
 .activityInfo {
-
   width: 94%;
   padding: 20px 3%;
   min-height: 300px;
@@ -751,13 +728,11 @@ select{
   .activity > div {
     width: 100% !important;
   }
-
 }
 
 /* ------------------ Notification ----------------------- */
 
 .notificationMain {
-
   width: 100%;
   min-height: 74vh;
   padding: 20px 0;
@@ -808,13 +783,11 @@ select{
   .notification {
     flex-direction: column;
   }
-
 }
 
 /* ------------------ Message -------------------- */
 
 .messageMain {
-
   width: 100%;
   min-height: 74vh;
   padding: 20px 0;
@@ -879,7 +852,6 @@ select{
 
 .message img:hover {
   filter: invert(0.6) sepia(1) saturate(5) hue-rotate(160deg)
-
     drop-shadow(0 0 10px #000000);
 }
 
@@ -983,7 +955,6 @@ select{
 
 .sender {
   float: right;
-
 }
 
 /* ------------------ Settings -------------------- */
@@ -1147,7 +1118,6 @@ select{
     width: 65%;
     margin: 10px 0 !important;
   }
-
 }
 
 .settingSection > #cash,
@@ -1215,7 +1185,6 @@ select{
 
 #cardDetails > input[name="expiry"],
 #cardDetails > input[name="cvv"] {
-
   width: 20%;
   padding: 15px 5%;
   border: none;

@@ -1,106 +1,269 @@
-.content .content-box .cards{
-    display: flex;
-    flex-flow: row wrap;
-    row-gap: 2vh;
-    column-gap: 2vw;
+/* *****************DASH BOARD CARDS ****************************** */
+
+.content .content-box .displayCards {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
 }
 
-.cards .button{
-    background-color: #728AB0;
-    width: 25vw;
-    height: 23vh;
-    font-size: inherit;
-    color: white;
-    font-weight: 600;
-    border-radius: 30px;
-    border: none;
-    text-align: center;
-    padding: 1vh;
-    text-decoration: none;
-}
-.button span{
-    color: #000;
-    background-color: white;
-    border-radius: 60px;
-    font-size: 11vh;
-    padding: 1vh;
+.displayCards .button {
+  background-color: #728ab0;
+  width: 30vw;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
+  font-size: inherit;
+  color: white;
+  font-weight: 600;
+  border-radius: 30px;
+  border: none;
+  /* text-align: center; */
+  padding: 2vh 1vh 1vh 3vh;
+  /* text-align: center; */
+  padding: 2vh 1vh 1vh 3vh;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 1vh;
+  align-items: flex-start;
+  margin: 1vh;
 }
 
-.button h2{
-   margin-top: 1vh;
+.displayCards .button span {
+  color: #000;
+  background-color: white;
+  border-radius: 60px;
+  font-size: 6vh;
+  font-size: 6vh;
+  padding: 1vh;
 }
 
+.displayCards .button h2 {
+  margin-top: 1vh;
+  margin-bottom: 0;
+  color: #151d48;
+}
+
+.displayCards .button h2 {
+  margin-top: 1vh;
+  margin-bottom: 0;
+  color: #151d48;
+}
+.displayCards .button p {
+  margin-top: 1vh;
+  font-size: 2.5vh;
+  font-size: 2.5vh;
+}
+
+/* **********************************Dash Board Second Row Recent Moment and Payment Graphs ********************************************* */
+.secondRow {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  width: 100%;
+}
+.graph {
+  width: 37vw;
+  height: 35vh;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
+  margin: 1vh;
+}
+/* .recentMoment canvas {
+} */
+
+.Payments {
+  margin-left: 2vw;
+}
+
+/* .Payments canvas {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
+} */
+
+/* **********************************Dash Board third Row Recent reports table ********************************************* */
+
+.ReportsSection table {
+  margin: 1vh;
+}
+
+/* **********************************Customer page search box ********************************************* */
+.topRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1vh;
+}
+.topRow input {
+  width: 30vw;
+  text-decoration: none;
+  font-size: 2vh;
+  padding: 0.8vh;
+}
+.searchboxContainer {
+  display: flex;
+}
+.searchboxContainer button {
+  width: 3vw;
+  padding: 0;
+  height: 4vh;
+  border: none;
+}
+.searchIcon {
+  font-size: 3vh;
+}
+
+/* **********************************Customer page Profile view******************************************** */
+.profileContent {
+  display: flex;
+  flex-direction: row;
+}
+.leftSide {
+  border-right: white solid;
+  width: 45%;
+  padding-left: 5vw;
+}
+.leftSide img {
+  width: 10vw;
+  align-items: center;
+  padding-left: 7vw;
+}
+
+.leftSide .content-box .profileContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 1vh;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 1vh;
+}
+.row .tag {
+  width: 25%;
+  margin: 1vh;
+}
+.row .tag h1 {
+  font-size: 2vh;
+  margin: 0;
+}
+
+.row .detail p {
+  margin: 0;
+}
+
+.button {
+  margin-top: 3vh;
+  font-size: large;
+  font-weight: 600;
+  text-decoration: none;
+  color: white;
+  border-radius: 2vh;
+  background: #23a6f0;
+  display: inline-flex;
+  padding: 2vh 2vw;
+  align-items: center;
+  gap: 1vw;
+  border-style: none;
+}
+
+.button:hover {
+  background: #2289c4;
+
+  text-decoration: none;
+}
+
+.rightSide {
+  display: flex;
+  flex-direction: row;
+  padding-left: 5vh;
+}
+.rightSide .stsection .SuppotTicketcard {
+  background-color: #728ab0;
+  padding: 3vh;
+  border-radius: 5vh;
+  width: 60vh;
+}
+.SuppotTicketcard .solveButton {
+  display: flex;
+  justify-content: flex-end;
+}
 /* ************************FAQ**************************** */
 
-input,textarea{
-    width: 100%;
-    font-size: 2.5vh;
+input,
+textarea {
+  width: 100%;
+  font-size: 2.5vh;
 }
-input{
-    margin-bottom: 1vh;
-}
-
-#button{
-    align-items: flex-end;
+input {
+  margin-bottom: 1vh;
 }
 
-.faq h1{
-    padding: 1vh;
-    background-color:#728AB0 ;
-    text-align: center;
-    margin-bottom: 0;
+#button {
+  align-items: flex-end;
+}
+
+.faq h1 {
+  padding: 1vh;
+  background-color: #728ab0;
+  text-align: center;
+  margin-bottom: 0;
 }
 
 .active {
-    width: 80%;
+  width: 80%;
 }
 
 .faq-item {
-    display: flex;
-    flex-direction: column;
- 
-    width: 100%;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  align-items: center;
 }
 
 .question {
-    min-width: 100%;
+  min-width: 100%;
 
-    display: flex;
-    background-color: white;
-    color: black;
-    padding: 2vh 1vw;
-    cursor: pointer;
-    justify-content: space-between;
-    
-    border: none;
-    font-size: var(--h7);
-    font-weight: var(--semi-bold);
+  display: flex;
+  background-color: white;
+  color: black;
+  padding: 2vh 1vw;
+  cursor: pointer;
+  justify-content: space-between;
+
+  border: none;
+  font-size: var(--h7);
+  font-weight: var(--semi-bold);
 }
 
 .question > span {
-    float: right;
+  float: right;
 }
 
 .answer {
-    font-size: var(--h8);
-    width: 100%;
-    display: none;
-    color: #000;
-    background-color: rgb(197, 197, 197);
-    
+  font-size: var(--h8);
+  width: 100%;
+  display: none;
+  color: #000;
+  background-color: rgb(197, 197, 197);
 }
 
 .answer p {
-    padding: 0 30px 0 30px;
+  padding: 0 30px 0 30px;
 }
-
-
 
 .clicked > .material-symbols-outlined {
-    transform: rotate(180deg);
-
+  transform: rotate(180deg);
 }
-
-
-
