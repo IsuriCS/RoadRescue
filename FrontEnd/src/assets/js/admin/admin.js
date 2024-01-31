@@ -1,10 +1,16 @@
 // Navigate
 function showDashboard() {
+    document.querySelector("#dashboardLink").classList.add("active");
+    document.querySelector("#UsersLink").classList.remove("active");
+
+
     document.querySelector("#dashboard").style.display = "block";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
 }
 function showcus() {
+    document.querySelector("#dashboardLink").classList.remove("active");
+    document.querySelector("#UsersLink").classList.add("active");
 
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "block";
