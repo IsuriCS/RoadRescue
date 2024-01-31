@@ -96,6 +96,9 @@ cursor: pointer;
   padding-top: 0;
   padding-bottom: 0;
 }
+
+
+
 .content > .content-box > .topRow {
   display: flex;
   flex-direction: row;
