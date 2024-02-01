@@ -2,6 +2,7 @@
 function showDashboard() {
     document.querySelector("#dashboardLink").classList.add("active");
     document.querySelector("#UsersLink").classList.remove("active");
+    document.querySelector("#customerDropdown").classList.remove("dropDownActive");
 
 
     document.querySelector("#dashboard").style.display = "block";
@@ -11,6 +12,8 @@ function showDashboard() {
 function showcus() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
+    document.querySelector("#customerDropdown").classList.add("dropDownActive");
+
 
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "block";

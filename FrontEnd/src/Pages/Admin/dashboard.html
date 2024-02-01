@@ -55,7 +55,7 @@
             <a
               id="dashboardLink"
               href="#dashboard"
-              class="sideNavLink"
+              class="sideNavLink active"
               onclick="showDashboard()"
             >
               <span class="material-symbols-outlined"> home </span>
@@ -74,7 +74,9 @@
               </span>
             </a>
             <ul id="drop" class="dropdown-container hide">
-              <li><a href="#usercus" onclick="showcus()">Customer</a></li>
+              <li id="customerDropdown">
+                <a href="#usercus" onclick="showcus()">Customer</a>
+              </li>
               <li>
                 <a href="Users/serviseProvider.html">Service Providers</a>
               </li>
