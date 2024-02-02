@@ -49,7 +49,7 @@
       <!-- *************side bar************* -->
       <div class="sidenav">
         <img src="../../assets/img/pic.png" alt="Profile Picture" />
-        <h1>Isuri Chathurika</h1>
+        <h1>Sapna Nethmini</h1>
         <ul>
           <li>
             <a
@@ -76,15 +76,12 @@
             <ul id="drop" class="dropdown-container hide">
               <li><a href="#usercus" onclick="showcus()">Customer</a></li>
               <li>
-                <a href="Users/serviseProvider.html">Service Providers</a>
-              </li>
-              <li>
-                <a href="Users/csmember.html">Customer Support members</a>
+                <a href="#serviceProvider" onclick="showServiceProvider()">Service Providers</a>
               </li>
             </ul>
           </li>
           <li>
-            <a href="system.html" class="sideNavLink"
+            <a href="#stickets" class="sideNavLin"  onclick="showticket()"
               ><span class="material-symbols-outlined"> receipt_long </span>
               Support Ticket
             </a>
@@ -186,7 +183,7 @@
                 <tbody>
                   <tr onclick="showprof()">
                     <td>1</td>
-                    <td>Isuri Chathurika</td>
+                    <td>P Rathnayake</td>
                     <td>0771234567</td>
                     <td>3</td>
                     <td>2</td>
@@ -223,13 +220,13 @@
                   <div class="tag">
                     <h1>First Name :</h1>
                   </div>
-                  <div class="detail"><p>Chamodh</p></div>
+                  <div class="detail"><p>P</p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Last Name :</h1>
                   </div>
-                  <div class="detail"><p>Henderson</p></div>
+                  <div class="detail"><p>Rathnayake</p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
@@ -241,47 +238,222 @@
                   <div class="tag">
                     <h1>Email :</h1>
                   </div>
-                  <div class="detail"><p>chamodh@gmail.com</p></div>
+                  <div class="detail"><p>rathanyake@gmail.com</p></div>
                 </div>
 
-                <!-- *********************Buttons**************************************************** -->
-                <button type="submit" class="button">
-                  <span class="material-symbols-outlined"> edit </span>Edit
-                  Profile
-                </button>
-                <button type="submit" class="button">
-                  <span class="material-symbols-outlined"> delete </span>Delete
-                  Profile
-                </button>
-              </div>
+            
 
-              <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
-              <div class="rightSide">
-                <div class="stsection">
-                  <h1>Support Tickets</h1>
-                  <div class="SuppotTicketcard">
-                    <h1>ST-001</h1>
-                    <div class="row">
-                      <div class="tag">
-                        <h1>Date :</h1>
-                      </div>
-                      <div class="detail"><p>2323.01.23</p></div>
+              
+            </div>
+            <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
+            <div class="rightSide">
+              <div class="stsection">
+                <h1>Support Tickets</h1>
+                <div class="SuppotTicketcard">
+                  <h1>ST-001</h1>
+                  <div class="row">
+                    <div class="tag">
+                      <h1>Date :</h1>
                     </div>
-                    <div class="row">
-                      <div class="tag">
-                        <h1>Title :</h1>
-                      </div>
-                      <div class="detail"><p>Payment Issue</p></div>
+                    <div class="detail"><p>2323.01.23</p></div>
+                  </div>
+                  <div class="row">
+                    <div class="tag">
+                      <h1>Title :</h1>
                     </div>
-                    <div class="solveButton">
-                      <button type="submit" class="button">Solved</button>
-                    </div>
+                    <div class="detail"><p>Payment Issue</p></div>
+                  </div>
+                  <div class="solveButton">
+                    <button type="submit" class="button">Solved</button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          </div>
+
+         <!-- ---------------------------------------User------------------------------- -->
+            <!-- ---------------------------------------Service Provider------------------------------- -->
+          <div id="serviceProvider" style="display: none">
+              <div class="topRow">
+                  <h1>Service Provider</h1>
+                  <div class="searchboxContainer">
+                      <input type="text" placeholder="Search Service Provider.." />
+                      <button type="submit">
+                          <span class="material-symbols-outlined searchIcon">
+                              search
+                          </span>
+                      </button>
+                  </div>
+              </div>
+              <div>
+                  <table>
+                      <thead>
+                          <tr>
+                              <th>Provider ID</th>
+                              <th>Name</th>
+                              <th>Phone Number</th>
+                              <th>Service Categories</th>
+                              <th>Active Jobs</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr data-href ="#providerProf" onclick="showProviderProf()">
+                              <td>1</td>
+                              <td>John Doe</td>
+                              <td>0779876543</td>
+                              <td>Plumbing, Electrician</td>
+                              <td>5</td>
+                          </tr>
+                          
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+
+              <!-- -------------------Service Provider Profile-------------------------- -->
+
+          <div id="providerProf" style="display: none">
+                <div class="topRow">
+                  <h1>Service Provider > c001</h1>
+                </div>
+    
+                <div class="profileContent">
+                  <div class="leftSide">
+                    <img src="../../assets/img/pic.png" alt="" />
+                    <!-- Detail form +******************************************************************** -->
+                    <div class="row">
+                      <div class="tag">
+                        <h1>ID :</h1>
+                      </div>
+                      <div class="detail"><p>001</p></div>
+                    </div>
+                    <div class="row">
+                      <div class="tag">
+                        <h1>First Name :</h1>
+                      </div>
+                      <div class="detail"><p>P</p></div>
+                    </div>
+                    <div class="row">
+                      <div class="tag">
+                        <h1>Last Name :</h1>
+                      </div>
+                      <div class="detail"><p>Rathnayake</p></div>
+                    </div>
+                    <div class="row">
+                      <div class="tag">
+                        <h1>Phone Number :</h1>
+                      </div>
+                      <div class="detail"><p>0768658568</p></div>
+                    </div>
+                    <div class="row">
+                      <div class="tag">
+                        <h1>Email :</h1>
+                      </div>
+                      <div class="detail"><p>rathanyake@gmail.com</p></div>
+                    </div>
+                    </div>
+    
+                
+    
+                  <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
+                  <div class="rightSide">
+                    <!-- <div class="rightdetails">
+                         <div class="row">
+                    <div class="tag">
+                      <h1>Location :</h1>
+                    </div>
+                    <div class="detail">><p><a href = "fvfdvjd">Location</a></p></div>
+                  </div>
+                  <div class="row">
+                    <div class="tag">
+                      <h1>Completed Service Requests :</h1>
+                    </div>
+                    <div class="detail"><p>12</p></div>
+                  </div>
+                  <div class="row">
+                    <div class="tag">
+                      <h1>Joined Date :</h1>
+                    </div>
+                    <div class="detail"><p>10.12.2022</p></div>
+                  </div>
+                    </div> -->
+               
+                      
+                  <div class="stsection">
+                  <h1>Support Tickets</h1>
+                      <div class="SuppotTicketcard">
+                        <h1>ST-001</h1>
+                        <div class="row">
+                          <div class="tag">
+                            <h1>Date :</h1>
+                          </div>
+                          <div class="detail"><p>2323.01.23</p></div>
+                        </div>
+                        <div class="row">
+                          <div class="tag">
+                            <h1>Title :</h1>
+                          </div>
+                          <div class="detail"><p>Issue with addinh technicians</p></div>
+                        </div>
+                        <div class="solveButton">
+                          <button type="submit" class="button">Solved</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                
+              </div>
+          </div>
+          
+                      
+
+
+               
+
+
+
+             <!-- ---------------------------------------Reports------------------------------- -->
+             <div id="stickets" style="display: none">
+              <div class="topRow">
+                  <h1>Reports</h1>
+                  <div class="searchboxContainer">
+                      <input type="text" placeholder="Search Service Provider.." />
+                      <button type="submit">
+                          <span class="material-symbols-outlined searchIcon">
+                              search
+                          </span>
+                      </button>
+                  </div>
+              </div>
+              
+                <div>
+                  <table>
+                      <thead>
+                          <tr>
+                              <th>ID</th>
+                              <th>Issue</th>
+                      </thead>
+                      <tbody>
+                          <tr data-href ="#supportticket" onclick="ticketprof()">
+                              <td>001</td>
+                              <td>Payment Issue</td>
+                          </tr>
+                          
+                      </tbody>
+                  </table>
+              </div>
+
+              
+
+
+            </div>
+
+
+
         </div>
+
+
         <!-- **************************FOOTER********************** -->
         <footer>
           <p>
@@ -291,6 +463,7 @@
         </footer>
       </div>
     </div>
+
   </body>
 
   <!-- <script src="../Customer/js/main.js"></script> -->
