@@ -78,10 +78,16 @@
                 <a href="#usercus" onclick="showcus()">Customer</a>
               </li>
               <li>
-                <a href="Users/serviseProvider.html">Service Providers</a>
+                <a href="#" onclick="sptoggleDropdown()">Service Providers</a>
+                <ul id="spdrop" class="spdropdown-container hide">
+                  <li>Garage</li>
+                  <li>maintat</li>
+                </ul>
               </li>
-              <li>
-                <a href="Users/csmember.html">Customer Support members</a>
+              <li id="csDropdown">
+                <a href="#csmember" onclick="showcsmember()"
+                  >Customer Support members</a
+                >
               </li>
             </ul>
           </li>
@@ -303,6 +309,51 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <!-- ---------------------------------------Users------------------------------- -->
+          <!-- ---------------------------------------Customer support------------------------------- -->
+          <div id="csmember" style="display: none">
+            <div class="topRow">
+              <h1>Customer</h1>
+              <div class="searchboxContainer">
+                <input type="text" placeholder="Search Customer.." />
+                <button type="submit">
+                  <span class="material-symbols-outlined searchIcon">
+                    search
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Customer ID</th>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Service Requests</th>
+                    <th>Support Tickets</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr onclick="showprof()">
+                    <td>1</td>
+                    <td>Isuri Chathurika</td>
+                    <td>0771234567</td>
+                    <td>3</td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>--</td>
+                    <td>0771234567</td>
+                    <td>3</td>
+                    <td>2</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
