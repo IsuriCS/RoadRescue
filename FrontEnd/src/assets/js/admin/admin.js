@@ -48,6 +48,15 @@ function showcsmember() {
 
 }
 
+function showcsprof() {
+    document.querySelector("#dashboard").style.display = "none";
+    document.querySelector("#userCus").style.display = "none";
+    document.querySelector("#cusprof").style.display = "none";
+    document.querySelector("#csmember").style.display = "none";
+    document.querySelector("#csprof").style.display = "block";
+
+}
+
 // Dropdown side menu
 
 let dropDownContainer = document.querySelector(".dropdown-container");
