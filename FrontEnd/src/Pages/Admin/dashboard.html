@@ -92,7 +92,11 @@
             </ul>
           </li>
           <li>
-            <a href="verification.html" class="sideNavLink"
+            <a
+              id="verificationLink"
+              href="#verification"
+              class="sideNavLink"
+              onclick="showVerification()"
               ><span class="material-symbols-outlined"> check_circle </span>
               Verification
             </a>
@@ -357,7 +361,7 @@
           <!-- ---------------------------------------Customer Support Profile------------------------------- -->
           <div id="csprof" style="display: none">
             <div class="topRow">
-              <h1>Customer > c001</h1>
+              <h1>Customer support> c001</h1>
             </div>
 
             <div class="profileContent">
@@ -430,6 +434,73 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <!-- ---------------------------------------Verifications------------------------------- -->
+          <!-- ---------------------------------------Verifications------------------------------- -->
+          <div id="verification" style="display: none">
+            <div class="topRow">
+              <h1>Verify Service Providers</h1>
+              <div class="searchboxContainer">
+                <input type="text" placeholder="Search Customer.." />
+                <button type="submit">
+                  <span class="material-symbols-outlined searchIcon">
+                    search
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Service Provider</th>
+                    <th>Phone Number</th>
+                    <th>Service Catogory</th>
+                    <th>Location</th>
+                    <th style="width: 30%"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Isuri Chathurika</td>
+                    <td>0771234567</td>
+                    <td>Garage Owner</td>
+                    <td>
+                      <button type="button" class="verifyBu locView">
+                        View
+                      </button>
+                    </td>
+                    <td>
+                      <button type="button" class="verifyBu verify">
+                        Verify
+                      </button>
+                      <button type="button" class="verifyBu cancle">
+                        Cancle
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Isuri Chathurika</td>
+                    <td>0771234567</td>
+                    <td>Garage Owner</td>
+                    <td>
+                      <button type="button" class="verifyBu locView">
+                        View
+                      </button>
+                    </td>
+                    <td>
+                      <button type="button" class="verifyBu verify">
+                        Verify
+                      </button>
+                      <button type="button" class="verifyBu cancle">
+                        Cancle
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
