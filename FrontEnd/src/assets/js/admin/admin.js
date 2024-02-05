@@ -3,6 +3,8 @@ function showDashboard() {
     document.querySelector("#dashboardLink").classList.add("active");
     document.querySelector("#UsersLink").classList.remove("active");
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
+    document.querySelector("#csDropdown").classList.remove("dropDownActive");
+
 
 
     document.querySelector("#dashboard").style.display = "block";
@@ -16,6 +18,7 @@ function showcus() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
     document.querySelector("#customerDropdown").classList.add("dropDownActive");
+    document.querySelector("#csDropdown").classList.remove("dropDownActive");
 
 
     document.querySelector("#dashboard").style.display = "none";
@@ -57,6 +60,21 @@ function showcsprof() {
 
 }
 
+function showVerification() {
+    document.querySelector("#dashboardLink").classList.remove("active");
+    document.querySelector("#UsersLink").classList.remove("active");
+    document.querySelector("#verificationLink").classList.add("active");
+    document.querySelector("#customerDropdown").classList.add("dropDownActive");
+    document.querySelector("#csDropdown").classList.remove("dropDownActive");
+
+
+    document.querySelector("#dashboard").style.display = "none";
+    document.querySelector("#userCus").style.display = "none";
+    document.querySelector("#cusprof").style.display = "none";
+    document.querySelector("#csmember").style.display = "none";
+    document.querySelector("#verification").style.display = "block";
+}
+
 // Dropdown side menu
 
 let dropDownContainer = document.querySelector(".dropdown-container");
@@ -65,7 +83,7 @@ function toggleDropdown() {
     document.querySelector(".dropdownArrow").classList.toggle("uparrow");
 }
 
-let spdropDownContainer = document.querySelector(".spdropdown-container");
+let spdropDownContainer = document.querySelector(".dropdown-container >.spdropdown-container");
 function sptoggleDropdown() {
     dropDownContainer.classList.toggle("hide");
     // document.querySelector(".dropdownArrow").classList.toggle("uparrow");
