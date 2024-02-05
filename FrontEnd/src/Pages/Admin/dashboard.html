@@ -74,17 +74,29 @@
               </span>
             </a>
             <ul id="drop" class="dropdown-container hide">
-              <li><a href="#usercus" onclick="showcus()">Customer</a></li>
-              <li>
-                <a href="Users/serviseProvider.html">Service Providers</a>
+              <li id="customerDropdown">
+                <a href="#usercus" onclick="showcus()">Customer</a>
               </li>
               <li>
-                <a href="Users/csmember.html">Customer Support members</a>
+                <a href="#" onclick="sptoggleDropdown()">Service Providers</a>
+                <ul id="spdrop" class="spdropdown-container hide">
+                  <li>Garage</li>
+                  <li>maintat</li>
+                </ul>
+              </li>
+              <li id="csDropdown">
+                <a href="#csmember" onclick="showcsmember()"
+                  >Customer Support members</a
+                >
               </li>
             </ul>
           </li>
           <li>
-            <a href="verification.html" class="sideNavLink"
+            <a
+              id="verificationLink"
+              href="#verification"
+              class="sideNavLink"
+              onclick="showVerification()"
               ><span class="material-symbols-outlined"> check_circle </span>
               Verification
             </a>
@@ -301,6 +313,194 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <!-- ---------------------------------------Users------------------------------- -->
+          <!-- ---------------------------------------Customer support------------------------------- -->
+          <div id="csmember" style="display: none">
+            <div class="topRow">
+              <h1>Customer Support Members</h1>
+              <div class="searchboxContainer">
+                <input type="text" placeholder="Search Customer.." />
+                <button type="submit">
+                  <span class="material-symbols-outlined searchIcon">
+                    search
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Member ID</th>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Solved Tickets</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr onclick="showcsprof()">
+                    <td>1</td>
+                    <td>Isuri Chathurika</td>
+                    <td>0771234567</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Kamal</td>
+                    <td>0771234567</td>
+                    <td>3</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ---------------------------------------Customer Support Profile------------------------------- -->
+          <div id="csprof" style="display: none">
+            <div class="topRow">
+              <h1>Customer support> c001</h1>
+            </div>
+
+            <div class="profileContent">
+              <div class="leftSide">
+                <img src="../../assets/img/pic.png" alt="" />
+                <!-- Detail form +******************************************************************** -->
+                <div class="row">
+                  <div class="tag">
+                    <h1>ID :</h1>
+                  </div>
+                  <div class="detail"><p>001</p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>First Name :</h1>
+                  </div>
+                  <div class="detail"><p>Chamodh</p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Last Name :</h1>
+                  </div>
+                  <div class="detail"><p>Henderson</p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Phone Number :</h1>
+                  </div>
+                  <div class="detail"><p>0768658568</p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Email :</h1>
+                  </div>
+                  <div class="detail"><p>chamodh@gmail.com</p></div>
+                </div>
+
+                <!-- *********************Buttons**************************************************** -->
+                <button type="submit" class="button">
+                  <span class="material-symbols-outlined"> edit </span>Edit
+                  Profile
+                </button>
+                <button type="submit" class="button">
+                  <span class="material-symbols-outlined"> delete </span>Delete
+                  Profile
+                </button>
+              </div>
+
+              <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
+              <div class="rightSide">
+                <div class="stsection">
+                  <h1>Support Tickets</h1>
+                  <div class="SuppotTicketcard">
+                    <h1>ST-001</h1>
+                    <div class="row">
+                      <div class="tag">
+                        <h1>Date :</h1>
+                      </div>
+                      <div class="detail"><p>2323.01.23</p></div>
+                    </div>
+                    <div class="row">
+                      <div class="tag">
+                        <h1>Title :</h1>
+                      </div>
+                      <div class="detail"><p>Payment Issue</p></div>
+                    </div>
+                    <div class="solveButton">
+                      <button type="submit" class="button">Solved</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ---------------------------------------Verifications------------------------------- -->
+          <!-- ---------------------------------------Verifications------------------------------- -->
+          <div id="verification" style="display: none">
+            <div class="topRow">
+              <h1>Verify Service Providers</h1>
+              <div class="searchboxContainer">
+                <input type="text" placeholder="Search Customer.." />
+                <button type="submit">
+                  <span class="material-symbols-outlined searchIcon">
+                    search
+                  </span>
+                </button>
+              </div>
+            </div>
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Service Provider</th>
+                    <th>Phone Number</th>
+                    <th>Service Catogory</th>
+                    <th>Location</th>
+                    <th style="width: 30%"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Isuri Chathurika</td>
+                    <td>0771234567</td>
+                    <td>Garage Owner</td>
+                    <td>
+                      <button type="button" class="verifyBu locView">
+                        View
+                      </button>
+                    </td>
+                    <td>
+                      <button type="button" class="verifyBu verify">
+                        Verify
+                      </button>
+                      <button type="button" class="verifyBu cancle">
+                        Cancle
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Isuri Chathurika</td>
+                    <td>0771234567</td>
+                    <td>Garage Owner</td>
+                    <td>
+                      <button type="button" class="verifyBu locView">
+                        View
+                      </button>
+                    </td>
+                    <td>
+                      <button type="button" class="verifyBu verify">
+                        Verify
+                      </button>
+                      <button type="button" class="verifyBu cancle">
+                        Cancle
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

@@ -159,14 +159,15 @@ body {
 .info > textarea {
   margin: 12px;
 }
-
+/* 
 footer {
   /* position: fixed;
   bottom: 0; */
-}
+/* } */
 /* footer .social{
   width: 19vw;
 } */
+
 @media screen and (max-height: 450px) {
   .sidenav {
     padding-top: 15px;
