@@ -215,19 +215,24 @@ footer {
   transform: rotate(180deg);
 }
 #drop li {
-  padding: 0.5vh;
   margin-right: 2vw;
+  border-radius: 0 3vh 3vh 0;
+}
+#drop li a {
+  color: black;
+  padding-left: 3vw;
+  padding-top: 2vh;
+  font-size: 1.8vh;
   border-radius: 0 3vh 3vh 0;
   border-bottom: #5a6175;
   border-bottom-style: solid;
 }
-#drop li a {
-  color: black;
-  margin: 1vh 1vw 1vh 3vw;
-  font-size: 1.8vh;
-  padding: 0;
-}
 
 .dropDownActive {
   background-color: #8795ab;
+}
+
+/* *************************Drop Down sub menu service provider**************************** */
+#spdrop > li > a {
+  background-color: #6b82a6;
 }
