@@ -6,7 +6,9 @@ function showDashboard() {
 
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
+    document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
 
+    document.querySelector("#GarageDropDown").classList.remove("submenuActive");
 
 
     document.querySelector("#dashboard").style.display = "block";
@@ -25,6 +27,10 @@ function showcus() {
 
     document.querySelector("#customerDropdown").classList.add("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
+    document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
+
+    document.querySelector("#GarageDropDown").classList.remove("submenuActive");
+
 
 
     document.querySelector("#dashboard").style.display = "none";
@@ -44,6 +50,27 @@ function showprof() {
 
 }
 
+function showGarageOwner() {
+    document.querySelector("#dashboardLink").classList.remove("active");
+    document.querySelector("#UsersLink").classList.add("active");
+    document.querySelector("#verificationLink").classList.remove("active");
+
+    document.querySelector("#customerDropdown").classList.remove("dropDownActive");
+    document.querySelector("#servicePDropdown").classList.add("dropDownActive");
+    document.querySelector("#csDropdown").classList.remove("dropDownActive");
+
+    document.querySelector("#GarageDropDown").classList.add("submenuActive");
+
+
+    document.querySelector("#dashboard").style.display = "none";
+    document.querySelector("#userCus").style.display = "block";
+    document.querySelector("#cusprof").style.display = "none";
+    document.querySelector("#csmember").style.display = "none";
+    document.querySelector("#verification").style.display = "none";
+
+
+}
+
 function showcsmember() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
@@ -51,6 +78,9 @@ function showcsmember() {
 
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#csDropdown").classList.add("dropDownActive");
+    document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
+
+    document.querySelector("#GarageDropDown").classList.remove("submenuActive");
 
 
 
@@ -71,13 +101,16 @@ function showcsprof() {
     document.querySelector("#csprof").style.display = "block";
 
 }
-// Add verification link and section to hide
+
 function showVerification() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.remove("active");
     document.querySelector("#verificationLink").classList.add("active");
+
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
+
+    document.querySelector("#GarageDropDown").classList.remove("submenuActive");
 
 
     document.querySelector("#dashboard").style.display = "none";
