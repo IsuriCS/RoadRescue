@@ -233,6 +233,10 @@ footer {
 }
 
 /* *************************Drop Down sub menu service provider**************************** */
-#spdrop > li > a {
+.submenu {
   background-color: #6b82a6;
+}
+
+.submenuActive {
+  background-color: #6c798c;
 }
