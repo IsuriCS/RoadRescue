@@ -2,6 +2,8 @@
 function showDashboard() {
     document.querySelector("#dashboardLink").classList.add("active");
     document.querySelector("#UsersLink").classList.remove("active");
+    document.querySelector("#verificationLink").classList.remove("active");
+
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
 
@@ -11,12 +13,16 @@ function showDashboard() {
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#csmember").style.display = "none";
+    document.querySelector("#verification").style.display = "none";
+
 
 
 }
 function showcus() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
+    document.querySelector("#verificationLink").classList.remove("active");
+
     document.querySelector("#customerDropdown").classList.add("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
 
@@ -25,6 +31,8 @@ function showcus() {
     document.querySelector("#userCus").style.display = "block";
     document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#csmember").style.display = "none";
+    document.querySelector("#verification").style.display = "none";
+
 
 }
 
@@ -39,6 +47,8 @@ function showprof() {
 function showcsmember() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
+    document.querySelector("#verificationLink").classList.remove("active");
+
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#csDropdown").classList.add("dropDownActive");
 
@@ -48,6 +58,8 @@ function showcsmember() {
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#csmember").style.display = "block";
+    document.querySelector("#verification").style.display = "none";
+
 
 }
 
@@ -59,12 +71,12 @@ function showcsprof() {
     document.querySelector("#csprof").style.display = "block";
 
 }
-
+// Add verification link and section to hide
 function showVerification() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.remove("active");
     document.querySelector("#verificationLink").classList.add("active");
-    document.querySelector("#customerDropdown").classList.add("dropDownActive");
+    document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
 
 
@@ -83,10 +95,10 @@ function toggleDropdown() {
     document.querySelector(".dropdownArrow").classList.toggle("uparrow");
 }
 
-let spdropDownContainer = document.querySelector(".dropdown-container >.spdropdown-container");
+let spdropDownContainer = document.querySelector(".spdropdown-container");
 function sptoggleDropdown() {
-    dropDownContainer.classList.toggle("hide");
-    // document.querySelector(".dropdownArrow").classList.toggle("uparrow");
+    spdropDownContainer.classList.toggle("hide");
+    document.querySelector(".spdropdownArrow").classList.toggle("uparrow");
 }
 
 // Link table rows
