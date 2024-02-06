@@ -15,6 +15,9 @@ function showDashboard() {
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#csmember").style.display = "none";
+    document.querySelector("#csprof").style.display = "none";
+    document.querySelector("#garageOwners").style.display = "none";
+    document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#verification").style.display = "none";
 
 
@@ -37,6 +40,9 @@ function showcus() {
     document.querySelector("#userCus").style.display = "block";
     document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#csmember").style.display = "none";
+    document.querySelector("#csprof").style.display = "none";
+    document.querySelector("#garageOwners").style.display = "none";
+    document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#verification").style.display = "none";
 
 
@@ -47,6 +53,9 @@ function showprof() {
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "block";
     document.querySelector("#csmember").style.display = "none";
+    document.querySelector("#csprof").style.display = "none";
+    document.querySelector("#garageOwners").style.display = "none";
+    document.querySelector("#GarageProf").style.display = "none";
 
 }
 
@@ -63,10 +72,26 @@ function showGarageOwner() {
 
 
     document.querySelector("#dashboard").style.display = "none";
-    document.querySelector("#userCus").style.display = "block";
+    document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#csmember").style.display = "none";
+    document.querySelector("#csprof").style.display = "none";
+    document.querySelector("#garageOwners").style.display = "block";
+    document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#verification").style.display = "none";
+
+
+}
+
+function showGarageProf() {
+    document.querySelector("#dashboard").style.display = "none";
+    document.querySelector("#userCus").style.display = "none";
+    document.querySelector("#cusprof").style.display = "none";
+    document.querySelector("#csmember").style.display = "none";
+    document.querySelector("#csprof").style.display = "none";
+    document.querySelector("#garageOwners").style.display = "none";
+    document.querySelector("#GarageProf").style.display = "block";
+
 
 
 }
@@ -88,6 +113,9 @@ function showcsmember() {
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#csmember").style.display = "block";
+    document.querySelector("#csprof").style.display = "none";
+    document.querySelector("#garageOwners").style.display = "none";
+    document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#verification").style.display = "none";
 
 
@@ -99,6 +127,8 @@ function showcsprof() {
     document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#csmember").style.display = "none";
     document.querySelector("#csprof").style.display = "block";
+    document.querySelector("#garageOwners").style.display = "none";
+    document.querySelector("#GarageProf").style.display = "none";
 
 }
 
@@ -117,6 +147,9 @@ function showVerification() {
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#csmember").style.display = "none";
+    document.querySelector("#csprof").style.display = "none";
+    document.querySelector("#garageOwners").style.display = "none";
+    document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#verification").style.display = "block";
 }
 

@@ -186,7 +186,7 @@
 
 .rightSide {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   padding-left: 5vh;
 }
 .rightSide .stsection .SuppotTicketcard {
