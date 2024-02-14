@@ -61,6 +61,7 @@ function showprof() {
     document.querySelector("#garageOwners").style.display = "none";
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#maintainancePersonnel").style.display = "none";
+    document.querySelector("#verification").style.display = "none";
 
 }
 
@@ -100,6 +101,7 @@ function showGarageProf() {
     document.querySelector("#GarageProf").style.display = "block";
     document.querySelector("#maintainancePersonnel").style.display = "none";
 
+    document.querySelector("#verification").style.display = "none";
 
 
 }
@@ -139,6 +141,7 @@ function showGarageProf() {
     document.querySelector("#garageOwners").style.display = "none";
     document.querySelector("#GarageProf").style.display = "block";
     document.querySelector("#maintainancePersonnel").style.display = "none";
+    document.querySelector("#verification").style.display = "none";
 
 
 
@@ -180,6 +183,7 @@ function showcsprof() {
     document.querySelector("#garageOwners").style.display = "none";
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#maintainancePersonnel").style.display = "none";
+    document.querySelector("#verification").style.display = "none";
 
 }
 
