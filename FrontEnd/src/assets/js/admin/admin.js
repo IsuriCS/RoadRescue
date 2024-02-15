@@ -3,69 +3,19 @@ function showDashboard() {
     document.querySelector("#dashboard").style.display = "block";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
-    document.querySelector("#serviceProvider").style.display = "none";
-    document.querySelector("#providerProf").style.display = "none";
-    document.querySelector("#stickets").style.display = "none";
 }
 function showcus() {
 
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "block";
     document.querySelector("#cusprof").style.display = "none";
-    document.querySelector("#serviceProvider").style.display = "none";
-    document.querySelector("#providerProf").style.display = "none";
-    document.querySelector("#stickets").style.display = "none";
 }
 
 function showprof() {
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "block";
-    document.querySelector("#serviceProvider").style.display = "none";
-    document.querySelector("#providerProf").style.display = "none";
-    document.querySelector("#stickets").style.display = "none";
 }
-
-
-function showServiceProvider() {
-    document.querySelector("#dashboard").style.display = "none";
-    document.querySelector("#userCus").style.display = "none";
-    document.querySelector("#cusprof").style.display = "none";
-    document.querySelector("#serviceProvider").style.display = "block";
-    document.querySelector("#providerProf").style.display = "none";
-    document.querySelector("#stickets").style.display = "none";
-}
-
-function showProviderProf() {
-    document.querySelector("#dashboard").style.display = "none";
-    document.querySelector("#userCus").style.display = "none";
-    document.querySelector("#cusprof").style.display = "none";
-    document.querySelector("#serviceProvider").style.display = "none";
-    document.querySelector("#providerProf").style.display = "block";
-    document.querySelector("#stickets").style.display = "none";
-}
-
-function showticket(){
-    document.querySelector("#dashboard").style.display = "none";
-    document.querySelector("#userCus").style.display = "none";
-    document.querySelector("#cusprof").style.display = "none";
-    document.querySelector("#serviceProvider").style.display = "none";
-    document.querySelector("#providerProf").style.display = "none";
-    document.querySelector("#stickets").style.display = "block";
-    
-} 
-
-function ticketprof(){
-    document.querySelector("#dashboard").style.display = "none";
-    document.querySelector("#userCus").style.display = "none";
-    document.querySelector("#cusprof").style.display = "none";
-    document.querySelector("#serviceProvider").style.display = "none";
-    document.querySelector("#providerProf").style.display = "noe";
-    document.querySelector("#supportticket").style.display = "block";
-    document.querySelector("#stickets").style.display = "none";
-}
-
-
 
 // Dropdown side menu
 
