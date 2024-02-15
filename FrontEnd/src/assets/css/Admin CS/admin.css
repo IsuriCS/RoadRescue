@@ -163,6 +163,16 @@
   margin: 0;
 }
 
+.leftSide .buttonDiv {
+  display: flex;
+  flex-flow: row wrap;
+
+  align-items: center;
+}
+.leftSide .buttonDiv .button {
+  width: 12vw;
+  margin: 2vh;
+}
 .button {
   margin-top: 3vh;
   font-size: large;

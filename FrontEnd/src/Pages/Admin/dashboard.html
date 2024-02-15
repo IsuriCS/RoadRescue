@@ -102,7 +102,7 @@
                       id="MPDropDown"
                       href="#maintainancePersonnel"
                       class="submenu"
-                      onclick="showMP()"
+                      onclick="showMaintainancePersonnel()"
                       >Maintainance Personnel</a
                     >
                   </li>
@@ -126,16 +126,13 @@
             </a>
           </li>
           <li>
-            <a href="system.html" class="sideNavLink"
+            <a href="#" class="sideNavLink"
               ><span class="material-symbols-outlined"> receipt_long </span>
-              System
+              Reports
             </a>
           </li>
           <li>
-            <a
-              href="profile.html"
-              class="sideNavLink"
-              onclick="clickOption(this)"
+            <a href="#" class="sideNavLink" onclick="clickOption(this)"
               ><span class="material-symbols-outlined"> person </span>
               Profile
             </a>
@@ -503,7 +500,7 @@
 
           <div id="maintainancePersonnel" style="display: none">
             <div class="topRow">
-              <h1>Customer</h1>
+              <h1>Maintainance Personnel</h1>
               <div class="searchboxContainer">
                 <input type="text" placeholder="Search Customer.." />
                 <button type="submit">
@@ -545,7 +542,7 @@
           </div>
 
           <!-- ---------------------------------------Maintainance Personnel Profile------------------------------- -->
-          <div id="GarageProf" style="display: none">
+          <div id="MaintainacePersonnelProf" style="display: none">
             <div class="topRow">
               <h1>Maintainance Personnel > c001</h1>
             </div>
@@ -586,22 +583,24 @@
                 </div>
 
                 <!-- *********************Buttons**************************************************** -->
-                <button type="submit" class="button">
-                  <span class="material-symbols-outlined"> edit </span>Edit
-                  Profile
-                </button>
-                <button type="submit" class="button">
-                  <span class="material-symbols-outlined"> history </span
-                  >Service History
-                </button>
-                <button type="submit" class="button">
-                  <span class="material-symbols-outlined"> ac_unit </span>Freeze
-                  Profile
-                </button>
-                <button type="submit" class="button">
-                  <span class="material-symbols-outlined"> delete </span>Delete
-                  Profile
-                </button>
+                <div class="buttonDiv">
+                  <button type="submit" class="button">
+                    <span class="material-symbols-outlined"> edit </span>Edit
+                    Profile
+                  </button>
+                  <button type="submit" class="button">
+                    <span class="material-symbols-outlined"> history </span
+                    >Service History
+                  </button>
+                  <button type="submit" class="button">
+                    <span class="material-symbols-outlined"> ac_unit </span
+                    >Freeze Profile
+                  </button>
+                  <button type="submit" class="button">
+                    <span class="material-symbols-outlined"> delete </span
+                    >Delete Profile
+                  </button>
+                </div>
               </div>
 
               <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
