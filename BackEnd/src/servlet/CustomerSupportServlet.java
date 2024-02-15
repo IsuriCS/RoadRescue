@@ -1,13 +1,5 @@
 package servlet;
 
-<<<<<<< HEAD
-
-import controllers.CustomerSupportTicketController;
-
-import models.CustomerSupportTicketModels;
-import models.SupportTicket;
-=======
->>>>>>> 09098a80e5562a4114ac449bbd0b78f2fc3ab3df
 
 import controllers.ControllerImpl.CustomerSupportController;
 import controllers.ControllerImpl.CustomerSupportTicketController;
@@ -37,7 +29,7 @@ public class CustomerSupportServlet extends HttpServlet {
 <<<<<<< HEAD
 =======
 
->>>>>>> 09098a80e5562a4114ac449bbd0b78f2fc3ab3df
+>>>>>>> 3c574e5b617d65c495ded10ef17fcbd0eac9e2b1
    CustomerSupportTicketController cusSupportTicket =new CustomerSupportTicketController();
    CustomerSupportController customerSupportController=new CustomerSupportController();
    @Resource(name="java:comp/env/roadRescue")
@@ -84,60 +76,19 @@ public class CustomerSupportServlet extends HttpServlet {
 
 
 <<<<<<< HEAD
-        SupportTicket supportTicket = new SupportTicket(ticketId,title,description,status,createdDate);
-        CustomerSupportTicketModels customerSupportTicket = new CustomerSupportTicketModels(ticketId, tickerOwner, customerSupport);
-=======
->>>>>>> 09098a80e5562a4114ac449bbd0b78f2fc3ab3df
 
+=======
+>>>>>>> 3c574e5b617d65c495ded10ef17fcbd0eac9e2b1
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
 
         switch (option){
             case "registration":
 
-
 <<<<<<< HEAD
-            if (result) {
-                JsonObjectBuilder response = Json.createObjectBuilder();
-                resp.setStatus(HttpServletResponse.SC_OK);
-                response.add("status",200);
-                response.add("message","Customer Support ticket created successfully.");
-                response.add("data","");
-                writer.print(response.build());
-            }else {
-                JsonObjectBuilder response = Json.createObjectBuilder();
-                resp.setStatus(HttpServletResponse.SC_OK);
-                response.add("status",400);
-                response.add("message","Customer Support ticket created failed.");
-                response.add("data","");
-                writer.print(response.build());
-            }
-            connection.close();
-        } catch (SQLException e) {
-            JsonObjectBuilder response = Json.createObjectBuilder();
-            resp.setStatus(HttpServletResponse.SC_OK);
-            response.add("status",500);
-            response.add("message","SQLException error.");
-            response.add("data",e.getLocalizedMessage());
-            writer.print(response.build());
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            JsonObjectBuilder response = Json.createObjectBuilder();
-            resp.setStatus(HttpServletResponse.SC_OK);
-            response.add("status",500);
-            response.add("message","ClassNotFoundException error.");
-            response.add("data",e.getLocalizedMessage());
-            writer.print(response.build());
-            e.printStackTrace();
-        } catch (ParseException e) {
-            JsonObjectBuilder response = Json.createObjectBuilder();
-            resp.setStatus(HttpServletResponse.SC_OK);
-            response.add("status",400);
-            response.add("message","ParseException error. Convert string type date to Timestamp type ");
-            response.add("data",e.getLocalizedMessage());
-            writer.print(response.build());
-            e.printStackTrace();
+
 =======
+>>>>>>> 3c574e5b617d65c495ded10ef17fcbd0eac9e2b1
                 int ticketId = jsonObject.getInt("supportTickerId");
                 int customerSupport = jsonObject.getInt("CustomerSupport");
                 int tickerOwner = jsonObject.getInt("tickerOwner");
@@ -251,7 +202,6 @@ public class CustomerSupportServlet extends HttpServlet {
                 }
                 break;
             default:break;
->>>>>>> 09098a80e5562a4114ac449bbd0b78f2fc3ab3df
         }
 
 
@@ -279,10 +229,6 @@ public class CustomerSupportServlet extends HttpServlet {
             if (result) {
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 resp.setStatus(HttpServletResponse.SC_OK);
-<<<<<<< HEAD
-
-=======
->>>>>>> 09098a80e5562a4114ac449bbd0b78f2fc3ab3df
                 objectBuilder.add("status",200);
                 objectBuilder.add("message","Support ticket is closed");
                 objectBuilder.add("data","");
@@ -298,10 +244,6 @@ public class CustomerSupportServlet extends HttpServlet {
         } catch (SQLException e) {
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
             resp.setStatus(HttpServletResponse.SC_OK);
-<<<<<<< HEAD
-
-=======
->>>>>>> 09098a80e5562a4114ac449bbd0b78f2fc3ab3df
             objectBuilder.add("status",500);
             objectBuilder.add("message","SQLException error.");
             objectBuilder.add("data",e.getLocalizedMessage());
@@ -327,7 +269,3 @@ public class CustomerSupportServlet extends HttpServlet {
     }
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 09098a80e5562a4114ac449bbd0b78f2fc3ab3df

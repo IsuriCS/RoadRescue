@@ -1,11 +1,9 @@
 package controllers.ControllerImpl;
 
 
-<<<<<<< HEAD
-import dto.CrudUtil;
-=======
+
 import utils.CrudUtil;
->>>>>>> 09098a80e5562a4114ac449bbd0b78f2fc3ab3df
+
 import models.CustomerSupportTicketModels;
 import models.SupportTicket;
 

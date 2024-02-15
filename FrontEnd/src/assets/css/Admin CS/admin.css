@@ -9,7 +9,6 @@
 }
 
 .displayCards .button {
-.displayCards .button {
   background-color: #728ab0;
   width: 30vw;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
@@ -34,7 +33,7 @@
   align-items: flex-start;
   margin: 1vh;
 }
-.displayCards .button span {
+
 .displayCards .button span {
   color: #000;
   background-color: white;
@@ -49,7 +48,7 @@
   margin-bottom: 0;
   color: #151d48;
 }
-.displayCards .button p {
+
 .displayCards .button h2 {
   margin-top: 1vh;
   margin-bottom: 0;
@@ -164,6 +163,16 @@
   margin: 0;
 }
 
+.leftSide .buttonDiv {
+  display: flex;
+  flex-flow: row wrap;
+
+  align-items: center;
+}
+.leftSide .buttonDiv .button {
+  width: 12vw;
+  margin: 2vh;
+}
 .button {
   margin-top: 3vh;
   font-size: large;
@@ -187,7 +196,7 @@
 
 .rightSide {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   padding-left: 5vh;
 }
 .rightSide .stsection .SuppotTicketcard {
@@ -267,4 +276,26 @@ input {
 
 .clicked > .material-symbols-outlined {
   transform: rotate(180deg);
+}
+
+/* Verify Page Buttonons on table */
+
+#verification .verifyBu {
+  font-size: 2.3vh;
+  border-radius: 2vh;
+  padding: 1vh;
+  width: 5vw;
+  text-decoration: none;
+  border: none;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 3px 3px rgba(37, 27, 90, 0.311);
+}
+
+#verification .locView {
+  background-color: #dbe452;
+}
+#verification .verify {
+  background-color: #42ed36;
+}
+#verification .cancle {
+  background-color: #eb1212;
 }
