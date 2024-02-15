@@ -41,6 +41,7 @@ function showcus() {
 
 
 
+
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "block";
     document.querySelector("#cusprof").style.display = "none";
@@ -51,7 +52,6 @@ function showcus() {
     document.querySelector("#maintainancePersonnel").style.display = "none";
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#verification").style.display = "none";
-
 
 }
 
@@ -227,12 +227,6 @@ let dropDownContainer = document.querySelector(".dropdown-container");
 function toggleDropdown() {
     dropDownContainer.classList.toggle("hide");
     document.querySelector(".dropdownArrow").classList.toggle("uparrow");
-}
-
-let spdropDownContainer = document.querySelector(".spdropdown-container");
-function sptoggleDropdown() {
-    spdropDownContainer.classList.toggle("hide");
-    document.querySelector(".spdropdownArrow").classList.toggle("uparrow");
 }
 
 // Link table rows
