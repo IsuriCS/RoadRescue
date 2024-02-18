@@ -21,6 +21,7 @@ function showDashboard() {
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#maintainancePersonnel").style.display = "none";
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
 
     document.querySelector("#verification").style.display = "none";
 
@@ -51,6 +52,7 @@ function showcus() {
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#maintainancePersonnel").style.display = "none";
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
 
 }
@@ -65,6 +67,7 @@ function showprof() {
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#maintainancePersonnel").style.display = "none";
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
 
 }
@@ -91,6 +94,7 @@ function showGarageOwner() {
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#maintainancePersonnel").style.display = "none";
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
 
 
@@ -108,6 +112,7 @@ function showGarageProf() {
 
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#verification").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
 
 
 }
@@ -134,6 +139,7 @@ function showMaintainancePersonnel() {
     document.querySelector("#maintainancePersonnel").style.display = "block";
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#GarageProf").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
 
 
@@ -149,6 +155,7 @@ function showMPProf() {
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#MaintainacePersonnelProf").style.display = "block";
     document.querySelector("#maintainancePersonnel").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
 
 
@@ -178,6 +185,7 @@ function showcsmember() {
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#maintainancePersonnel").style.display = "none";
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
 
 
@@ -194,6 +202,7 @@ function showcsprof() {
     document.querySelector("#maintainancePersonnel").style.display = "none";
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#verification").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
 
 }
 
@@ -218,7 +227,34 @@ function showVerification() {
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#maintainancePersonnel").style.display = "none";
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "block";
+}
+
+function showProfile() {
+    document.querySelector("#dashboardLink").classList.remove("active");
+    document.querySelector("#UsersLink").classList.remove("active");
+    document.querySelector("#verificationLink").classList.remove("active");
+    document.querySelector("#profileLink").classList.add("active");
+
+    document.querySelector("#customerDropdown").classList.remove("dropDownActive");
+    document.querySelector("#csDropdown").classList.remove("dropDownActive");
+
+    document.querySelector("#GarageDropDown").classList.remove("submenuActive");
+    document.querySelector("#MPDropDown").classList.remove("submenuActive");
+
+
+    document.querySelector("#dashboard").style.display = "none";
+    document.querySelector("#userCus").style.display = "none";
+    document.querySelector("#cusprof").style.display = "none";
+    document.querySelector("#csmember").style.display = "none";
+    document.querySelector("#csprof").style.display = "none";
+    document.querySelector("#garageOwners").style.display = "none";
+    document.querySelector("#GarageProf").style.display = "none";
+    document.querySelector("#maintainancePersonnel").style.display = "none";
+    document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+    document.querySelector("#verification").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "block";
 }
 
 // Dropdown side menu
