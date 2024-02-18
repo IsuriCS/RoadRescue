@@ -18,12 +18,14 @@ public class GarageServlet extends HttpServlet {
 
         System.out.println("mobile request is ok ");
 
-        /*PrintWriter writer=resp.getWriter();
+        PrintWriter writer=resp.getWriter();
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
         objectBuilder.add("status",200);
         objectBuilder.add("message","Done");
         objectBuilder.add("data","mobile app response is ok ");
-        writer.print(objectBuilder.build());*/
+        writer.print(objectBuilder.build());
+
+        System.out.println("backend send response");
     }
 
     @Override
