@@ -45,54 +45,63 @@
 
         <div id="main">
             <!-- *************side bar************* -->
-            <div class="sidenav">
-                <img src="../../assets/img/pic.png" alt="Profile Picture">
-                <h1>Isuri Chathurika</h1>
-                <ul>
-                    <li>
+             <div class="sidenav">
+        <img src="../../assets/img/pic.png" alt="Profile Picture" />
+        <h1>Isuri Chathurika</h1>
+        <ul>
+          <li>
+            <a id="dashboardLink" href="#dashboard" class="sideNavLink active">
+              <span class="material-symbols-outlined"> home </span>
+              Dashboard
+            </a>
+          </li>
+          <li class="dropDownBu">
+            <a
+              id="UsersLink"
+              href="#user"
+              class="sideNavLink"
+              onclick="toggleDropdown()"
+              ><span class="material-symbols-outlined"> group </span> Users
+              <span
+                class="material-symbols-outlined dropdownArrow"
+              >
+                expand_more
+              </span>
+            </a>
+            <ul id="drop" class="dropdown-container hide">
+              <li><a href="Users/customer.html">Customer</a></li>
+              <li>
+                <a href="Users/serviseProvider.html">Service Providers</a>
+              </li>
+              <li>
+                <a href="Users/csmember.html">Customer Support members</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="verification.html" class="sideNavLink"
+              ><span class="material-symbols-outlined"> check_circle </span>
+              Verification
+            </a>
+          </li>
+          <li>
+            <a href="system.html" class="sideNavLink"
+              ><span class="material-symbols-outlined"> receipt_long </span>
+              System
+            </a>
+          </li>
+          <li>
+            <a
+              href="profile.html"
+              class="sideNavLink"
+              onclick="clickOption(this)"
+              ><span class="material-symbols-outlined"> person </span>
+              Profile
+            </a>
+          </li>
+        </ul>
+      </div>
 
-                        <a href="dashboard.html" class="sideNavLink" onclick="clickOption(this)">
-                            <span class="material-symbols-outlined">
-                                home
-                            </span>
-                            Dashboard
-                        </a>
-                    </li>
-                    <li>
-                        <a href="users.html" class="sideNavLink "><span class="material-symbols-outlined">
-                                group
-                            </span>
-                            Users
-                        </a>
-                    </li>
-                    <li>
-                        <a href="verification.html" class="sideNavLink "><span class="material-symbols-outlined">
-                                check_circle
-                            </span>
-                            Verification
-                        </a>
-                    </li>
-                    <li>
-                        <a href="system.html" class="sideNavLink  active"><span class="material-symbols-outlined">
-                                receipt_long
-                            </span>
-                            System
-                        </a>
-                    </li>
-                    <li>
-                        <a href="profile.html" class="sideNavLink" onclick="clickOption(this)"><span
-                                class="material-symbols-outlined">
-                                person
-                            </span>
-                            Profile
-                        </a>
-                    </li>
-                </ul>
-
-
-
-
-            </div>
 
             <!-- *************content************** -->
             <div class="content">
@@ -165,33 +174,21 @@
                     </table>
                 </div>
 
-
-
+        <!-- **************************FOOTER********************** -->
+        <footer>
+          <p>
+            © 2020, All rights reserved by University of Colombo School of
+            Computing
+          </p>
+        </footer>
             </div>
 
         </div>
 
 
-
-        <!-- **************************FOOTER********************** -->
-        <footer>
-            <div class="social">
-                <h4>CONTACT US</h4>
-                <div class="socialIcons">
-                    <a href="#facebook"><img src="../../assets/images/facebook.svg" /></a>
-                    <a href="#linkedin"><img src="../../assets/images/linkedin.svg" /></a>
-                    <a href="#github"><img src="../../assets/images/github.svg" /></a>
-                    <a href="#whatsapp"><img src="../../assets/images/whatsapp.svg" /></a>
-                </div>
-            </div>
-            <div class="fSection">
-                <img src="../../assets/img/RRLogo.png" />
-                <h4>DEVELOPED AND MAINTAINED BY A TEAM OF UNDERGRADUTES AT UCSC</h4>
-            </div>
-        </footer>
     </body>
 
-    <script src="../../assets/js/admin.js"></script>
+    <script src="../../assets/js/admin/admin.js"></script>
     <script src="../../assets/js/CustomerSupport.js"></script>
     <script src="jQuery/jquery-3.6.0.min.js"></script>
 

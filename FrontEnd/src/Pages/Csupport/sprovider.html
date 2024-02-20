@@ -16,6 +16,7 @@
         <!-- CSS Stylesheets -->
         <link rel="stylesheet" href="../../assets/css/customerStyle.css" />
         <link rel="stylesheet" href="../../assets/css/Admin CS/sideNav.css" />
+        <link rel="stylesheet" href="../../assets/css/Admin CS/admin.css" />
 
         <title>Road Rescue</title>
     </head>
@@ -55,21 +56,21 @@
                         </a>
                     </li>
                     <li>
-                        <a href="users.html" class="sideNavLink "><span class="material-symbols-outlined">
+                        <a href="users.html" class="sideNavLink active"><span class="material-symbols-outlined">
                                 group
                             </span>
                             Users
                         </a>
                     </li>
                     <li>
-                        <a href="supportTicket.html" class="sideNavLink " onclick="loadSupportTickets()"><span class="material-symbols-outlined">
+                        <a href="supportTicket.html" class="sideNavLink "><span class="material-symbols-outlined">
                                 receipt_long
                             </span>
                             Support Tickets
                         </a>
                     </li>
                     <li>
-                        <a href="profile.html" class="sideNavLink active" onclick="clickOption(this)"><span
+                        <a href="profile.html" class="sideNavLink" onclick="clickOption(this)"><span
                                 class="material-symbols-outlined">
                                 person
                             </span>
@@ -86,32 +87,53 @@
             <!-- *************content************** -->
             <div class="content">
                 <div class="content-box">
-                    <h1>
-                        Profile
-                    </h1>
+                    <h1>Users > Service Providers</h1>
+
+                    <div class="cards">
+                        <a href="gownerlist.html" class="button">
+                            <span class="material-symbols-outlined">
+                                groups
+                                </span>
+                            <h2>Garage Owners</h2></a>
+                        <a href="mpersonallist.html" class="button">
+                            <span class="material-symbols-outlined">
+                                manage_accounts
+                                </span>
+                            <h2>Maintainance Personnal</h2></a>
+
+                        
+                    </div>
                 </div>
-                
-        <!-- **************************FOOTER********************** -->
-        <footer>
-          <p>
-            © 2020, All rights reserved by University of Colombo School of
-            Computing
-          </p>
-        </footer>
+
+
+
             </div>
 
-
-        </div>
-
         </div>
 
 
 
-       
+
+        <!-- **************************FOOTER********************** -->
+        <footer>
+            <div class="social">
+                <h4>CONTACT US</h4>
+                <div class="socialIcons">
+                    <a href="#facebook"><img src="../../assets/images/facebook.svg" /></a>
+                    <a href="#linkedin"><img src="../../assets/images/linkedin.svg" /></a>
+                    <a href="#github"><img src="../../assets/images/github.svg" /></a>
+                    <a href="#whatsapp"><img src="../../assets/images/whatsapp.svg" /></a>
+                </div>
+            </div>
+            <div class="fSection">
+                <img src="../../assets/img/RRLogo.png" />
+                <h4>DEVELOPED AND MAINTAINED BY A TEAM OF UNDERGRADUTES AT UCSC</h4>
+            </div>
+        </footer>
     </body>
 
-    <script src="../Customer/jQuery/jquery-3.6.0.min.js"></script>
     <!-- <script src="../Customer/js/main.js"></script> -->
-    <script src="../../assets/js/customerSupport/CustomerSupport.js"></script>
+    <script src="../../assets/js/CustomerSupport.js"></script>
+    <script src="jQuery/jquery-3.6.0.min.js"></script>
 
 </html>

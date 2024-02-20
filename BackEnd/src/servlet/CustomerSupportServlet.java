@@ -26,7 +26,10 @@ import java.util.HashMap;
 
 @WebServlet(urlPatterns = "/customerSupport")
 public class CustomerSupportServlet extends HttpServlet {
+<<<<<<< HEAD
+=======
 
+>>>>>>> 3c574e5b617d65c495ded10ef17fcbd0eac9e2b1
    CustomerSupportTicketController cusSupportTicket =new CustomerSupportTicketController();
    CustomerSupportController customerSupportController=new CustomerSupportController();
    @Resource(name="java:comp/env/roadRescue")
@@ -72,14 +75,20 @@ public class CustomerSupportServlet extends HttpServlet {
         String option = jsonObject.getString("option");
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3c574e5b617d65c495ded10ef17fcbd0eac9e2b1
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
 
         switch (option){
             case "registration":
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3c574e5b617d65c495ded10ef17fcbd0eac9e2b1
                 int ticketId = jsonObject.getInt("supportTickerId");
                 int customerSupport = jsonObject.getInt("CustomerSupport");
                 int tickerOwner = jsonObject.getInt("tickerOwner");
@@ -255,6 +264,7 @@ public class CustomerSupportServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("System has not support ticket delete option.");
         super.doDelete(req, resp);
     }
 }
