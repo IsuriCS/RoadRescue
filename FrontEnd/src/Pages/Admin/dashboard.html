@@ -126,13 +126,13 @@
             </a>
           </li>
           <li>
-            <a href="#" class="sideNavLink"
+            <a id="ReportLink" href="#" class="sideNavLink" onclick="showReports()"
               ><span class="material-symbols-outlined"> receipt_long </span>
               Reports
             </a>
           </li>
-          <li id="profileLink">
-            <a href="#" class="sideNavLink" onclick="showProfile()"
+          <li >
+            <a id="profileLink" href="#" class="sideNavLink" onclick="showProfile()"
               ><span class="material-symbols-outlined"> person </span>
               Profile
             </a>
@@ -836,6 +836,23 @@
             </div>
           </div>
 
+          <!-- ---------------------------------------Reports------------------------------- -->
+          <!-- ---------------------------------------Reports------------------------------- -->
+          <div id="reports" style="display: none">
+            <div class="topRow">
+              <h1>Report</h1>
+              <!-- <div class="searchboxContainer">
+                <input type="text" placeholder="Search Customer.." />
+                <button type="submit">
+                  <span class="material-symbols-outlined searchIcon">
+                    search
+                  </span>
+                </button>
+              </div> -->
+            </div>
+            
+          </div>
+
 <!-- ---------------------------------------Profile------------------------------- -->
           <!-- ---------------------------------------Profile------------------------------- -->
 <!-- ---------------------------------------Admin Profile------------------------------- -->
@@ -845,15 +862,10 @@
             </div>
 
             <div class="profileContent">
-              <div class="leftSide">
+              <div class="middle_View">
                 <img src="../../assets/img/pic.png" alt="" />
                 <!-- Detail form +******************************************************************** -->
-                <div class="row">
-                  <div class="tag">
-                    <h1>ID :</h1>
-                  </div>
-                  <div class="detail"><p>001</p></div>
-                </div>
+                
                 <div class="row">
                   <div class="tag">
                     <h1>First Name :</h1>
@@ -878,7 +890,7 @@
                   </div>
                   <div class="detail"><p>chamodh@gmail.com</p></div>
                 </div>
-
+ 
                 <!-- *********************Buttons**************************************************** -->
                 <!-- <button type="submit" class="button">
                   <span class="material-symbols-outlined"> edit </span>Edit
@@ -892,7 +904,18 @@
 
              
             </div>
+            
+            
           </div>
+          <div class="buttonDiv">
+<button type="submit" class="button">
+                  <span class="material-symbols-outlined"> edit </span>Change Password
+                </button>
+                <button type="submit" class="button">
+                  <span class="material-symbols-outlined"> edit </span>Edit
+                  Profile
+                </button>
+            </div>
         </div>
         
       </div>
