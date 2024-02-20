@@ -3,6 +3,7 @@ function showDashboard() {
     document.querySelector("#dashboardLink").classList.add("active");
     document.querySelector("#UsersLink").classList.remove("active");
     document.querySelector("#verificationLink").classList.remove("active");
+    document.querySelector("#profileLink").classList.remove("active");
 
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
@@ -31,6 +32,7 @@ function showDashboard() {
 function showcus() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
+    document.querySelector("#profileLink").classList.remove("active");
     document.querySelector("#verificationLink").classList.remove("active");
 
     document.querySelector("#customerDropdown").classList.add("dropDownActive");
@@ -75,6 +77,7 @@ function showprof() {
 function showGarageOwner() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
+    document.querySelector("#profileLink").classList.remove("active");
     document.querySelector("#verificationLink").classList.remove("active");
 
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
@@ -120,6 +123,7 @@ function showGarageProf() {
 function showMaintainancePersonnel() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
+    document.querySelector("#profileLink").classList.remove("active");
     document.querySelector("#verificationLink").classList.remove("active");
 
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
@@ -165,6 +169,7 @@ function showMPProf() {
 function showcsmember() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
+    document.querySelector("#profileLink").classList.remove("active");
     document.querySelector("#verificationLink").classList.remove("active");
 
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
@@ -209,6 +214,7 @@ function showcsprof() {
 function showVerification() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.remove("active");
+    document.querySelector("#profileLink").classList.remove("active");
     document.querySelector("#verificationLink").classList.add("active");
 
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
