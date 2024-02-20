@@ -18,6 +18,8 @@
         </element>
       </element>
       <element id="javaee-facet-resources" facet="BackEnd/web/Web" />
+      <element id="artifact" artifact-name="roadRescue" />
+      <element id="artifact" artifact-name="unnamed" />
     </root>
   </artifact>
 </component>
