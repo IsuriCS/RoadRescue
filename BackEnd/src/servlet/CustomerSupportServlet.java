@@ -26,6 +26,7 @@ import java.util.HashMap;
 
 @WebServlet(urlPatterns = "/customerSupport")
 public class CustomerSupportServlet extends HttpServlet {
+
    CustomerSupportTicketController cusSupportTicket =new CustomerSupportTicketController();
    CustomerSupportController customerSupportController=new CustomerSupportController();
    @Resource(name="java:comp/env/roadRescue")
@@ -69,7 +70,6 @@ public class CustomerSupportServlet extends HttpServlet {
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
         String option = jsonObject.getString("option");
-
 
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");

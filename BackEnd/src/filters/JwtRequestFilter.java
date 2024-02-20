@@ -25,7 +25,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.function.Function;
 
-@WebFilter(urlPatterns = "/*")
+@WebFilter(urlPatterns = "/as")
 public class JwtRequestFilter implements Filter {
     private static final String REGEX_DEAULT_URL = "/RoadRescue/$";
     private CustomerController customerController = new CustomerController();
