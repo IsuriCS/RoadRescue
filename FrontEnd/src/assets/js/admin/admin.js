@@ -271,6 +271,12 @@ function toggleDropdown() {
     document.querySelector(".dropdownArrow").classList.toggle("uparrow");
 }
 
+let spdropDownContainer = document.querySelector(".spdropdown-container");
+function sptoggleDropdown() {
+    spdropDownContainer.classList.toggle("hide");
+    document.querySelector(".dropdownArrow").classList.toggle("uparrow");
+}
+
 // Link table rows
 const tableRows = document.querySelectorAll('tr[data-href]');
 tableRows.forEach(row => {
