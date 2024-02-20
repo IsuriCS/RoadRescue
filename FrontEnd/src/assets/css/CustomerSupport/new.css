@@ -1,0 +1,118 @@
+.content .content-box .logo {
+  display: flex;
+  flex-flow: row wrap;
+  row-gap: 3vh;
+  column-gap: 10vw;
+}
+
+.content > .content-box > .logo {
+  display: flex;
+  flex-flow: row wrap;
+  row-gap: 3vh;
+  column-gap: 10vw;
+  font-weight: 200;
+  padding: 70px;
+}
+
+.solvingbutton {
+  display: flex;
+  color: white;
+  font-weight: 700;
+  font-size: var(--h4);
+  cursor: pointer;
+  background: #23a6f0;
+  border-radius: 10px;
+  border: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  margin-bottom: -100px;
+  margin-right: 25px;
+}
+
+.pendingbutton {
+  display: flex;
+  color: black;
+  font-weight: 700;
+  font-size: var(--h4);
+  cursor: pointer;
+  background: yellow;
+  border-radius: 10px;
+  border: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  margin-bottom: -100px;
+  margin-right: 25px;
+}
+
+.content-box > .col-1 {
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: right;
+  float: left;
+  border: none;
+  border-right: solid white;
+  height: 300px;
+}
+
+.content-box > .col-2 {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: left center;
+  align-items: center;
+  float: right;
+}
+
+.tickets > table {
+  margin-top: 50px;
+  background: none;
+  background-color: none;
+  height: 150px;
+
+  /* text-align: left; */
+}
+
+/* .tickets > table > th {
+    display: table-cell;
+    vertical-align: inherit;
+    font-weight: bold;
+    text-align: left;
+} */
+
+.tickets > table th:nth-child(2),
+.tickets > table td:nth-child(2) {
+  text-align: left;
+}
+
+.tickets > table th:first-child {
+  width: 200px;
+  height: 50px;
+}
+
+/* .tickets > table > tr > th > a {
+    
+    text-decoration: none;
+    color: white;
+} */
+
+.col-1 {
+  width: 100%;
+}
+
+.col-2 > .ticket {
+  display: flex;
+  color: white;
+  font-size: medium;
+  font-weight: 700;
+  background: #728ab0;
+  border-radius: 10px;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  height: 150px;
+  width: 350px;
+}
