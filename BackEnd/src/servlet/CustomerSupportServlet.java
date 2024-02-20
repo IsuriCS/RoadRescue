@@ -70,11 +70,13 @@ public class CustomerSupportServlet extends HttpServlet {
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
         String option = jsonObject.getString("option");
+
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
 
         switch (option){
             case "registration":
+
                 int ticketId = jsonObject.getInt("supportTickerId");
                 int customerSupport = jsonObject.getInt("CustomerSupport");
                 int tickerOwner = jsonObject.getInt("tickerOwner");
