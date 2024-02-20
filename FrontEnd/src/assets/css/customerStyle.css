@@ -15,7 +15,7 @@ body {
   --h6: clamp(9px, 0.5vw, 25px);
 
   --m1: clamp(20px, 50%, 30px);
-/*  --m2: clamp();
+  /*  --m2: clamp();
   --m3: clamp();
   --m4: clamp();
   --m5: clamp();
@@ -30,6 +30,7 @@ body {
 /* ----------------- Navbar -------------------- */
 
 .navbar {
+  height: 4vh;
   width: 94%;
   background: #253555;
   display: flex;
@@ -122,7 +123,7 @@ body {
 
 .logo > img {
   vertical-align: middle;
-  width: 100%;
+  width: 85%;
 }
 
 .navActions {
@@ -165,20 +166,21 @@ body {
   margin-right: 20px;
 }
 
-.navActions> a{
+.navActions > a {
   text-decoration: none;
   color: white;
 }
 
 .icons {
-  width: clamp(20px, 2.5vw, 40px);
+  width: clamp(20px, 1.8vw, 40px);
   margin: 0 0.5vw;
 
   cursor: pointer;
 }
 
 .icons:hover {
-  filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg) drop-shadow(0 0 20px #000000);
+  filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg)
+    drop-shadow(0 0 20px #000000);
 }
 
 .profileIcon {
@@ -246,16 +248,20 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* position: fixed;
+  bottom: 0;
+
+  right: 0; */
 }
 
 .social {
-  width: 25%;
+  width: 16%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  padding: 30px 0 30px 0;
+  padding: 1vh 0 1vh 0;
 }
 
 .social h4 {
@@ -272,7 +278,7 @@ footer {
 }
 
 .fSection {
-  width: 75%;
+  width: 91%;
 
   display: flex;
   flex-direction: column;
@@ -285,7 +291,7 @@ footer {
 }
 
 .fSection > img {
-  width: 15%;
+  width: 11%;
 }
 
 .fSection > h4 {
@@ -302,7 +308,6 @@ footer {
 }
 
 @media (max-width: 1000px) {
-
   .navActions > button,
   .navActions > a,
   .icons {

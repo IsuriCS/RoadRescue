@@ -29,6 +29,25 @@ body {
     margin: 0;
 }
 
+/* ***************************************Loading*********************************** */
+#load-container{
+    width: 100vw;
+   height: 90vh;
+    
+    position: fixed;
+}
+
+#load-container img{
+    width: 25vh;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top:0;
+    bottom: 0;
+}
+
+
 /* ***************************************HEADER*********************************** */
 header {
     margin-left: 90px;

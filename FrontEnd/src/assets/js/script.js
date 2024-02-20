@@ -1,3 +1,7 @@
+$(window).on('load', function () {
+    $("#load-container").css('display','none')
+})
+
 document.addEventListener("DOMContentLoaded", function () {
     const questions = document.querySelectorAll(".question");
 
