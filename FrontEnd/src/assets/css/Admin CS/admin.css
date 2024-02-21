@@ -301,6 +301,54 @@ input {
   background-color: #eb1212;
 }
 
+/* ***********************Report Page****************************************** */
+#reports > .topRow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+#reports > .topRow > .inputFileds {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 1vh;
+  width: 100%;
+  gap: 1vh;
+}
+.inputFileds select {
+  width: 100%;
+  height: 5vh;
+  decoration: none;
+  font-size: 2vh;
+  color: #757575;
+}
+.inputFileds input {
+  width: 100%;
+  height: 5vh;
+  padding: 0;
+  /* decoration: none; */
+}
+
+#reports > .reportArea {
+  display: flex;
+  flex-direction: column;
+}
+#reports > .reportArea > .areaButtons {
+  display: flex;
+  flex-direction: row;
+}
+
+.areaButtons div {
+  display: flex;
+  flex-direction: column;
+  margin-right: 8vh;
+}
+
+.areaButtons div button {
+  width: 6vw;
+  height: 6vw;
+}
+
 /* ************************ Admin Profile view ************************** */
 #adminProfile .profileContent {
   display: flex;
