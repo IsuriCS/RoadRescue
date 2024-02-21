@@ -368,6 +368,24 @@ input {
   margin: 1vh;
   gap: 10vh;
 }
+#reports > .selectionRow > div > .columnsCB {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1vw;
+  gap: 0.3vh;
+}
+
+#reports > .selectionRow > div > .columnsCB div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5vw;
+  margin: 0.5vh;
+}
+#reports > .selectionRow > div > .columnsCB div input {
+  width: 1vw;
+  height: 1vw;
+}
 
 /* ************************ Admin Profile view ************************** */
 #adminProfile .profileContent {
