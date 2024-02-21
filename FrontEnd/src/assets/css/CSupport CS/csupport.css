@@ -277,6 +277,10 @@
   .clicked > .material-symbols-outlined {
     transform: rotate(180deg);
   }
+
+  #ticket > .solveButton{
+    justify-content: end;
+  }
   
   /* Verify Page Buttonons on table */
   
