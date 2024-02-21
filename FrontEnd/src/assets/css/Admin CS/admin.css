@@ -336,6 +336,7 @@ input {
 #reports > .reportArea > .areaButtons {
   display: flex;
   flex-direction: row;
+  margin-left: 3vw;
 }
 
 .areaButtons div {
@@ -348,6 +349,24 @@ input {
 .areaButtons div button {
   width: 6vw;
   height: 6vw;
+}
+
+.areaButtons div p {
+  text-align: center;
+}
+
+.areaButtons div button span {
+  font-size: 3.5vw;
+  color: #151d48;
+  font-weight: 600;
+}
+
+#reports > .selectionRow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin: 1vh;
+  gap: 10vh;
 }
 
 /* ************************ Admin Profile view ************************** */
