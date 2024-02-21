@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class TechnicianModel {
 
@@ -9,12 +10,19 @@ public class TechnicianModel {
     private String lName;
     private String contact;
     private Timestamp timestamp;
-    private String expertise;
+    private List<String> expertise;
     private String status;
     private int didJobs;
 
+    public TechnicianModel(String fName, String lName, String contact, List<String> expertise, String status) {
+        this.fName = fName;
+        this.lName = lName;
+        this.contact = contact;
+        this.expertise = expertise;
+        this.status = status;
+    }
 
-    public TechnicianModel(String id, String fName, String lName, String contact, Timestamp timestamp, String expertise, String status, int didJobs) {
+    public TechnicianModel(String id, String fName, String lName, String contact, Timestamp timestamp, List<String> expertise, String status, int didJobs) {
         this.id = id;
         this.fName = fName;
         this.lName = lName;
@@ -34,7 +42,7 @@ public class TechnicianModel {
         this.status = status;
     }
 
-    public TechnicianModel(String id, String fName, String lName, String contact, String expertise, String status, int didJobs) {
+    public TechnicianModel(String id, String fName, String lName, String contact, List<String> expertise, String status, int didJobs) {
         this.id = id;
         this.fName = fName;
         this.lName = lName;
@@ -95,11 +103,11 @@ public class TechnicianModel {
         this.lName = lName;
     }
 
-    public String getExpertise() {
+    public List<String> getExpertise() {
         return expertise;
     }
 
-    public void setExpertise(String expertise) {
+    public void setExpertise(List<String> expertise) {
         this.expertise = expertise;
     }
 
