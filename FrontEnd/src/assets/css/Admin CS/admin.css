@@ -342,6 +342,7 @@ input {
   display: flex;
   flex-direction: column;
   margin-right: 8vh;
+  width: 6vw;
 }
 
 .areaButtons div button {
