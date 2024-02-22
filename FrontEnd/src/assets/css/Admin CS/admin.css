@@ -412,6 +412,23 @@ input {
   color: #757575;
 }
 
+#reports > .ButtonsRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 1vh;
+  gap: 1vh;
+}
+
+#reports > .ButtonsRow .button {
+  width: 10vw;
+  padding: 0.5vw 0vw 0.5vw 1vw;
+}
+
+#reports > .ButtonsRow .button span {
+  font-size: 2vw;
+}
+
 /* ************************ Admin Profile view ************************** */
 #adminProfile .profileContent {
   display: flex;
