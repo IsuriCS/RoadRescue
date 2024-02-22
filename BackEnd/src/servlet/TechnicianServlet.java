@@ -89,75 +89,48 @@ public class TechnicianServlet extends HttpServlet {
             expertiseAreas=jsonObject.getJsonArray("techExpertiseAreas");
         }
 
-        System.out.println(fName);
-        System.out.println(lName);
-        System.out.println(contactNumber);
-        System.out.println(status);
-        System.out.println(expertiseAreas);
+        PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
 
-        /*try {
-            JsonReader reader = Json.createReader(req.getReader());
-            JsonObject jsonObject = reader.readObject();
-            String fName = jsonObject.getString("techFName");
+        List<String> expertiseAreasList=new ArrayList<String>();
+
+        for (JsonValue expertiseArea :expertiseAreas
+                ) {
+            expertiseAreasList.add(String.valueOf(expertiseArea));
         }
 
-        System.out.println(jsonObject);
-        System.out.println(reader);
-        System.out.println(fName);
-        System.out.println(req.getReader());
-        System.out.println(resp);*/
+        try {
+            Connection connection = ds.getConnection();
+            TechnicianModel technicianModel = new TechnicianModel(fName,lName,contactNumber,expertiseAreasList,status,1);
+            System.out.println(technicianModel.toString());
+            boolean result = technician.add(connection, technicianModel);
 
-
-
-
-
-//        JsonReader reader = Json.createReader(req.getReader());
-//        JsonObject jsonObject = reader.readObject();
-//
-//        String fName = jsonObject.getString("fName");
-//        String lName = jsonObject.getString("lName");
-//        String contact = jsonObject.getString("contact");
-//        String expertise = jsonObject.getString("expertise");
-//        String status = jsonObject.getString("status");
-//
-//
-//
-//        PrintWriter writer = resp.getWriter();
-//        resp.setContentType("application/json");
-//
-//        try {
-//            Connection connection = ds.getConnection();
-//            TechnicianModel technicianModel = new TechnicianModel(null,fName,lName, contact,new Timestamp(System.currentTimeMillis()), status);
-//            //System.out.println(technicianModel.toString());
-//            boolean result = technician.add(connection, technicianModel);
-//
-//            if (result) {
-//                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-//                resp.setStatus(HttpServletResponse.SC_OK);
-//                objectBuilder.add("status", 201);
-//                objectBuilder.add("message", "Technician add proceed successful.");
-//                objectBuilder.add("data", "");
-//                writer.print(objectBuilder.build());
-//            }
-//
-//            connection.close();
-//        } catch (SQLException e) {
-//            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-//            resp.setStatus(HttpServletResponse.SC_OK);
-//            objectBuilder.add("status", 500);
-//            objectBuilder.add("message", "SQL Exception Error.");
-//            objectBuilder.add("data", e.getLocalizedMessage());
-//            writer.print(objectBuilder.build());
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-//            resp.setStatus(HttpServletResponse.SC_OK);
-//            objectBuilder.add("status", 500);
-//            objectBuilder.add("message", "Class not fount Exception Error");
-//            objectBuilder.add("data", e.getLocalizedMessage());
-//            writer.print(objectBuilder.build());
-//            e.printStackTrace();
-//        }
+            if (result) {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                objectBuilder.add("status", 201);
+                objectBuilder.add("message", "Technician add proceed successful.");
+                objectBuilder.add("data", "");
+                writer.print(objectBuilder.build());
+            }
+            connection.close();
+        } catch (SQLException e) {
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            resp.setStatus(HttpServletResponse.SC_OK);
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "SQL Exception Error.");
+            objectBuilder.add("data", e.getLocalizedMessage());
+            writer.print(objectBuilder.build());
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            resp.setStatus(HttpServletResponse.SC_OK);
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "Class not fount Exception Error");
+            objectBuilder.add("data", e.getLocalizedMessage());
+            writer.print(objectBuilder.build());
+            e.printStackTrace();
+        }
 
     }
 
@@ -265,3 +238,53 @@ public class TechnicianServlet extends HttpServlet {
         }
     }
 }
+
+
+
+/*
+* 1xx Informational:
+
+100 Continue
+101 Switching Protocols
+102 Processing
+*
+2xx Success:
+
+200 OK
+201 Created
+202 Accepted
+204 No Content
+206 Partial Content
+*
+*
+3xx Redirection:
+
+300 Multiple Choices
+301 Moved Permanently
+302 Found
+304 Not Modified
+307 Temporary Redirect
+308 Permanent Redirect
+*
+*
+4xx Client Error:
+
+400 Bad Request
+401 Unauthorized
+403 Forbidden
+404 Not Found
+405 Method Not Allowed
+409 Conflict
+410 Gone
+429 Too Many Requests
+*
+*
+5xx Server Error:
+
+500 Internal Server Error
+501 Not Implemented
+502 Bad Gateway
+503 Service Unavailable
+504 Gateway Timeout
+505 HTTP Version Not Supported
+* */

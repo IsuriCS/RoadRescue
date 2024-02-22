@@ -10,58 +10,35 @@ public class TechnicianModel {
     private String lName;
     private String contact;
     private Timestamp timestamp;
-    private List<String> expertise;
+    private List<String> expertiseArias;
     private String status;
-    private int didJobs;
+    private int serviceProviderId;
 
-    public TechnicianModel(String fName, String lName, String contact, List<String> expertise, String status) {
-        this.fName = fName;
-        this.lName = lName;
-        this.contact = contact;
-        this.expertise = expertise;
-        this.status = status;
-    }
 
-    public TechnicianModel(String id, String fName, String lName, String contact, Timestamp timestamp, List<String> expertise, String status, int didJobs) {
-        this.id = id;
-        this.fName = fName;
-        this.lName = lName;
-        this.contact = contact;
-        this.timestamp = timestamp;
-        this.expertise = expertise;
-        this.status = status;
-        this.didJobs = didJobs;
-    }
-
-    public TechnicianModel(String id, String fName, String lName, String contact, Timestamp timestamp, String status) {
-        this.id = id;
-        this.fName = fName;
-        this.lName = lName;
-        this.contact = contact;
-        this.timestamp = timestamp;
-        this.status = status;
-    }
-
-    public TechnicianModel(String id, String fName, String lName, String contact, List<String> expertise, String status, int didJobs) {
-        this.id = id;
-        this.fName = fName;
-        this.lName = lName;
-        this.contact = contact;
-        this.expertise = expertise;
-        this.status = status;
-        this.didJobs = didJobs;
-    }
-
-    public TechnicianModel(String fName, String lName, String contact, String status) {
-        this.fName = fName;
-        this.lName = lName;
-        this.contact = contact;
-        this.status = status;
-    }
 
     public TechnicianModel() {
     }
 
+    public TechnicianModel(String id, String fName, String lName, String contact, Timestamp timestamp, List<String> expertiseArias, String status, int serviceProviderId) {
+        this.id = id;
+        this.fName = fName;
+        this.lName = lName;
+        this.contact = contact;
+        this.timestamp = timestamp;
+        this.expertiseArias = expertiseArias;
+        this.status = status;
+        this.serviceProviderId = serviceProviderId;
+    }
+
+
+    public TechnicianModel(String fName, String lName, String contact, List<String> expertiseArias, String status, int serviceProviderId) {
+        this.fName = fName;
+        this.lName = lName;
+        this.contact = contact;
+        this.expertiseArias = expertiseArias;
+        this.status = status;
+        this.serviceProviderId = serviceProviderId;
+    }
 
     public Timestamp getTimestamp() {
         return timestamp;
@@ -103,12 +80,12 @@ public class TechnicianModel {
         this.lName = lName;
     }
 
-    public List<String> getExpertise() {
-        return expertise;
+    public List<String> getExpertiseArias() {
+        return expertiseArias;
     }
 
-    public void setExpertise(List<String> expertise) {
-        this.expertise = expertise;
+    public void setExpertiseArias(List<String> expertiseArias) {
+        this.expertiseArias = expertiseArias;
     }
 
     public String getStatus() {
@@ -119,12 +96,12 @@ public class TechnicianModel {
         this.status = status;
     }
 
-    public int getDidJobs() {
-        return didJobs;
+    public int getServiceProviderId() {
+        return serviceProviderId;
     }
 
-    public void setDidJobs(int didJobs) {
-        this.didJobs = didJobs;
+    public void setServiceProviderId(int serviceProviderId) {
+        this.serviceProviderId = serviceProviderId;
     }
 
     @Override
@@ -135,9 +112,9 @@ public class TechnicianModel {
                 ", lName='" + lName + '\'' +
                 ", contact='" + contact + '\'' +
                 ", timestamp=" + timestamp +
-                ", expertise='" + expertise + '\'' +
+                ", expertiseArias='" + expertiseArias + '\'' +
                 ", status='" + status + '\'' +
-                ", didJobs=" + didJobs +
+                ", didJobs=" + serviceProviderId +
                 '}';
     }
 }
