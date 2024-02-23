@@ -75,7 +75,7 @@ public class TechnicianServlet extends HttpServlet {
         String fName;
         String lName;
         String contactNumber;
-        String status;
+        int techStatus;
         JsonArray expertiseAreas;
 
         try (Reader stringReader = new InputStreamReader(req.getInputStream())) {
@@ -85,7 +85,7 @@ public class TechnicianServlet extends HttpServlet {
             fName=jsonObject.getString("techFirstName");
             lName=jsonObject.getString("techLastName");
             contactNumber=jsonObject.getString("techContactNumber");
-            status=jsonObject.getString("techStatus");
+            techStatus=jsonObject.getInt("techStatus");
             expertiseAreas=jsonObject.getJsonArray("techExpertiseAreas");
         }
 
@@ -101,17 +101,19 @@ public class TechnicianServlet extends HttpServlet {
 
         try {
             Connection connection = ds.getConnection();
-            TechnicianModel technicianModel = new TechnicianModel(fName,lName,contactNumber,expertiseAreasList,status,1);
+            TechnicianModel technicianModel = new TechnicianModel(fName,lName,contactNumber,expertiseAreasList,techStatus,1);
             System.out.println(technicianModel.toString());
             boolean result = technician.add(connection, technicianModel);
 
             if (result) {
+                System.out.println("start send response");
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 resp.setStatus(HttpServletResponse.SC_OK);
                 objectBuilder.add("status", 201);
                 objectBuilder.add("message", "Technician add proceed successful.");
                 objectBuilder.add("data", "");
                 writer.print(objectBuilder.build());
+                System.out.println("end send response");
             }
             connection.close();
         } catch (SQLException e) {

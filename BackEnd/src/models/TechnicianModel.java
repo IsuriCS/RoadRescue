@@ -11,7 +11,7 @@ public class TechnicianModel {
     private String contact;
     private Timestamp timestamp;
     private List<String> expertiseArias;
-    private String status;
+    private int status;
     private int serviceProviderId;
 
 
@@ -19,7 +19,7 @@ public class TechnicianModel {
     public TechnicianModel() {
     }
 
-    public TechnicianModel(String id, String fName, String lName, String contact, Timestamp timestamp, List<String> expertiseArias, String status, int serviceProviderId) {
+    public TechnicianModel(String id, String fName, String lName, String contact, Timestamp timestamp, List<String> expertiseArias, int status, int serviceProviderId) {
         this.id = id;
         this.fName = fName;
         this.lName = lName;
@@ -31,7 +31,7 @@ public class TechnicianModel {
     }
 
 
-    public TechnicianModel(String fName, String lName, String contact, List<String> expertiseArias, String status, int serviceProviderId) {
+    public TechnicianModel(String fName, String lName, String contact, List<String> expertiseArias, int status, int serviceProviderId) {
         this.fName = fName;
         this.lName = lName;
         this.contact = contact;
@@ -88,11 +88,11 @@ public class TechnicianModel {
         this.expertiseArias = expertiseArias;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -114,7 +114,7 @@ public class TechnicianModel {
                 ", timestamp=" + timestamp +
                 ", expertiseArias='" + expertiseArias + '\'' +
                 ", status='" + status + '\'' +
-                ", didJobs=" + serviceProviderId +
+                ", serviceProviderId=" + serviceProviderId +
                 '}';
     }
 }

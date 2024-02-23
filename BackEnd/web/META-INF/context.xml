@@ -8,7 +8,7 @@
             maxIdle="30"
             maxWait="10000"
             driverClassName="com.mysql.jdbc.Driver"
-            url="jdbc:mysql://database-1.cxaiwakqecm4.eu-north-1.rds.amazonaws.com:3306/road-rescue"
+            url="jdbc:mysql://database-1.cxaiwakqecm4.eu-north-1.rds.amazonaws.com:3306/road_rescue"
             username="admin"
             password="admin123"
     />
