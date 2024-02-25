@@ -205,6 +205,7 @@ public class TechnicianServlet extends HttpServlet {
 
             boolean deleteResult = technician.delete(connection, techId);
 
+
             if (deleteResult) {
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 resp.setStatus(HttpServletResponse.SC_OK);
