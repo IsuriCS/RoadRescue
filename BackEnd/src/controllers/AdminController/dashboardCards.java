@@ -9,20 +9,35 @@ import java.sql.SQLException;
 public class dashboardCards {
 
     public static JsonArray getcountsForCards(Connection connection) throws SQLException, ClassNotFoundException {
-        int customerNum,SproviderNum;
+        int customerNum,SproviderNum,cusTicketCount,spTicketCount;
         ResultSet rst1 = CrudUtil.executeQuery(connection, "SELECT COUNT(*) AS customer_count FROM customer");
         ResultSet rst2 = CrudUtil.executeQuery(connection, "SELECT COUNT(*) AS sp_count FROM service_provider");
+        ResultSet cusTickets = CrudUtil.executeQuery(connection, "SELECT COUNT(*) AS customer_tickets FROM customer_support_ticket");
+        ResultSet spTickects = CrudUtil.executeQuery(connection, "SELECT COUNT(*) AS sp_tickets FROM sp_support_ticket");
+
 
         if (rst1.next()) {
             customerNum= rst1.getInt("customer_count");
         } else {
-            customerNum=0; // return 0 if no records found
+            customerNum=0;
         }
 
         if (rst2.next()) {
             SproviderNum= rst2.getInt("sp_count");
         } else {
-            SproviderNum=0; // return 0 if no records found
+            SproviderNum=0;
+        }
+
+        if (cusTickets.next()) {
+            cusTicketCount= cusTickets.getInt("customer_tickets");
+        } else {
+            cusTicketCount=0;
+        }
+
+        if (spTickects.next()) {
+            spTicketCount= spTickects.getInt("sp_tickets");
+        } else {
+            spTicketCount=0;
         }
 
 
@@ -33,17 +48,13 @@ public class dashboardCards {
         objectBuilder.add("CustomerNum", customerNum);
         objectBuilder.add("sproviderNum",SproviderNum);
 
+        objectBuilder.add("SupportTicketCount",cusTicketCount+spTicketCount);
+
+
         countersForCardsArray.add(objectBuilder.build());
 
         return countersForCardsArray.build();
     }
-//    public static int getNumofCustomers(Connection connection) throws SQLException, ClassNotFoundException {
-//        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT COUNT(*) AS customer_count FROM customer");
-//        if (rst.next()) {
-//            return rst.getInt("customer_count");
-//        } else {
-//            return 0; // return 0 if no records found
-//        }
-//    }
+
 
 }
