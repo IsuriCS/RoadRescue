@@ -23,10 +23,13 @@ public class AdminServlet extends HttpServlet {
     @Resource(name = "java:comp/env/roadRescue")
     DataSource ds;
 
+
+
     FAQController faq= new FAQController();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         PrintWriter writer = resp.getWriter();
         try {
             Connection connection = ds.getConnection();
