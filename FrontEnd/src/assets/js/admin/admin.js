@@ -471,3 +471,23 @@ document.addEventListener("DOMContentLoaded", function () {
 // });
 
 
+// ---------------------------------------------------------------------------------------------------------------------Ajex
+
+// ++++++++++++++++++++++++Dashboard****************
+
+$.ajax({
+    url: "http://localhost:8080/roadRescue/Admin/customerCard",
+    method: "GET",
+    success: function (res) {
+        if (res.status == 200) {
+            document.querySelector("#registeredCustomersNum").innerHTML = res.data[0].CustomerNum;
+            document.querySelector("#registeredSproviders").innerHTML = res.data[0].sproviderNum;
+
+            console.log(res.data[0].CustomerNum);
+        }
+        else {
+            console.log("error");
+        }
+    }
+});
+
