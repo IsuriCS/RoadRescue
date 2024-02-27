@@ -1045,5 +1045,878 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
+    <table id="301" parent="292" name="customer">
+      <Engine>InnoDB</Engine>
+      <Options>row_format
+DYNAMIC</Options>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="302" parent="292" name="customer_support_member">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="303" parent="292" name="customer_support_ticket">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="304" parent="292" name="faq">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="305" parent="292" name="feedback">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="306" parent="292" name="garage">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="307" parent="292" name="garage_technician">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="308" parent="292" name="maintenance_personnel">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="309" parent="292" name="otp">
+      <Engine>InnoDB</Engine>
+      <Options>row_format
+DYNAMIC</Options>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="310" parent="292" name="payment_method">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="311" parent="292" name="service">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="312" parent="292" name="service_offer">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="313" parent="292" name="service_provider">
+      <Engine>InnoDB</Engine>
+      <Options>row_format
+DYNAMIC</Options>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="314" parent="292" name="service_technician">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="315" parent="292" name="support_ticket">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="316" parent="292" name="technician">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="317" parent="292" name="technician_expertise_area">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="318" parent="292" name="vehicle">
+      <Engine>InnoDB</Engine>
+      <Options>row_format
+DYNAMIC</Options>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="319" parent="292" name="vehicle_make">
+      <Engine>InnoDB</Engine>
+      <Options>row_format
+DYNAMIC</Options>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="320" parent="292" name="vehicle_model">
+      <Engine>InnoDB</Engine>
+      <Options>row_format
+DYNAMIC</Options>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <column id="321" parent="301" name="customer_id">
+      <AutoIncrement>8</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="322" parent="301" name="f_name">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="323" parent="301" name="l_name">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="324" parent="301" name="contact_num">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="325" parent="301" name="email">
+      <DasType>varchar(30)|0s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="326" parent="301" name="timestamp">
+      <DasType>timestamp|0s</DasType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>6</Position>
+    </column>
+    <index id="327" parent="301" name="PRIMARY">
+      <ColNames>customer_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="328" parent="301" name="contact_num">
+      <ColNames>contact_num</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="329" parent="301" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <key id="330" parent="301" name="contact_num">
+      <UnderlyingIndexName>contact_num</UnderlyingIndexName>
+    </key>
+    <column id="331" parent="302" name="customer_support_member_id">
+      <AutoIncrement>6</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="332" parent="302" name="f_name">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="333" parent="302" name="l_name">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="334" parent="302" name="contact_num">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="335" parent="302" name="timestamp">
+      <DasType>timestamp|0s</DasType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>5</Position>
+    </column>
+    <index id="336" parent="302" name="PRIMARY">
+      <ColNames>customer_support_member_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="337" parent="302" name="contact_num">
+      <ColNames>contact_num</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="338" parent="302" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <key id="339" parent="302" name="contact_num">
+      <UnderlyingIndexName>contact_num</UnderlyingIndexName>
+    </key>
+    <column id="340" parent="303" name="ticket_id">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="341" parent="303" name="customer_id">
+      <DasType>int|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="342" parent="303" name="support_member_id">
+      <DasType>int|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <foreign-key id="343" parent="303" name="customer_support_ticket_ibfk_1">
+      <ColNames>ticket_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>ticket_id</RefColNames>
+      <RefTableName>support_ticket</RefTableName>
+    </foreign-key>
+    <foreign-key id="344" parent="303" name="customer_support_ticket_ibfk_2">
+      <ColNames>customer_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>customer_id</RefColNames>
+      <RefTableName>customer</RefTableName>
+    </foreign-key>
+    <foreign-key id="345" parent="303" name="customer_support_ticket_ibfk_3">
+      <ColNames>support_member_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>customer_support_member_id</RefColNames>
+      <RefTableName>customer_support_member</RefTableName>
+    </foreign-key>
+    <index id="346" parent="303" name="PRIMARY">
+      <ColNames>ticket_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="347" parent="303" name="customer_id">
+      <ColNames>customer_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="348" parent="303" name="support_member_id">
+      <ColNames>support_member_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="349" parent="303" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="350" parent="304" name="faq_id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="351" parent="304" name="question">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="352" parent="304" name="answer">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <index id="353" parent="304" name="PRIMARY">
+      <ColNames>faq_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="354" parent="304" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="355" parent="305" name="feedback_id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="356" parent="305" name="timestamp">
+      <DasType>timestamp|0s</DasType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>2</Position>
+    </column>
+    <column id="357" parent="305" name="rating">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="358" parent="305" name="review">
+      <DasType>text|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="359" parent="305" name="service_id">
+      <DasType>int|0s</DasType>
+      <Position>5</Position>
+    </column>
+    <foreign-key id="360" parent="305" name="feedback_ibfk_1">
+      <ColNames>service_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>service_id</RefColNames>
+      <RefTableName>service</RefTableName>
+    </foreign-key>
+    <index id="361" parent="305" name="PRIMARY">
+      <ColNames>feedback_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="362" parent="305" name="service_id">
+      <ColNames>service_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="363" parent="305" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="364" parent="306" name="service_provider_id">
+      <DasType>int|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <foreign-key id="365" parent="306" name="garage_ibfk_1">
+      <ColNames>service_provider_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>service_provider_id</RefColNames>
+      <RefTableName>service_provider</RefTableName>
+    </foreign-key>
+    <index id="366" parent="306" name="service_provider_id">
+      <ColNames>service_provider_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <column id="367" parent="307" name="garage_id">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="368" parent="307" name="technician_id">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <foreign-key id="369" parent="307" name="garage_technician_ibfk_1">
+      <ColNames>garage_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>service_provider_id</RefColNames>
+      <RefTableName>garage</RefTableName>
+    </foreign-key>
+    <foreign-key id="370" parent="307" name="garage_technician_ibfk_2">
+      <ColNames>technician_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>technician_id</RefColNames>
+      <RefTableName>technician</RefTableName>
+    </foreign-key>
+    <index id="371" parent="307" name="PRIMARY">
+      <ColNames>garage_id
+technician_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="372" parent="307" name="technician_id">
+      <ColNames>technician_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="373" parent="307" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="374" parent="308" name="service_provider_id">
+      <DasType>int|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <foreign-key id="375" parent="308" name="maintenance_personnel_ibfk_1">
+      <ColNames>service_provider_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>service_provider_id</RefColNames>
+      <RefTableName>service_provider</RefTableName>
+    </foreign-key>
+    <index id="376" parent="308" name="service_provider_id">
+      <ColNames>service_provider_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <column id="377" parent="309" name="otp_id">
+      <AutoIncrement>76</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="378" parent="309" name="mobile_no">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="379" parent="309" name="otp_code">
+      <DasType>varchar(6)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="380" parent="309" name="timestamp">
+      <DasType>timestamp|0s</DasType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>4</Position>
+    </column>
+    <column id="381" parent="309" name="expire_timestamp">
+      <DasType>timestamp|0s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="382" parent="309" name="is_used">
+      <Comment>0: not use, 1: used</Comment>
+      <DasType>tinyint|0s</DasType>
+      <Position>6</Position>
+    </column>
+    <column id="383" parent="309" name="wrong_attempts">
+      <DasType>int|0s</DasType>
+      <Position>7</Position>
+    </column>
+    <index id="384" parent="309" name="PRIMARY">
+      <ColNames>otp_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="385" parent="309" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="386" parent="310" name="payment_method_id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="387" parent="310" name="card_num">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="388" parent="310" name="cvv">
+      <DasType>varchar(4)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="389" parent="310" name="exp_date">
+      <DasType>date|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="390" parent="310" name="owner_id">
+      <DasType>int|0s</DasType>
+      <Position>5</Position>
+    </column>
+    <foreign-key id="391" parent="310" name="payment_method_ibfk_1">
+      <ColNames>owner_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>customer_id</RefColNames>
+      <RefTableName>customer</RefTableName>
+    </foreign-key>
+    <index id="392" parent="310" name="PRIMARY">
+      <ColNames>payment_method_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="393" parent="310" name="owner_id">
+      <ColNames>owner_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="394" parent="310" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="395" parent="311" name="service_id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="396" parent="311" name="service_description">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="397" parent="311" name="timestamp">
+      <DasType>timestamp|0s</DasType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>3</Position>
+    </column>
+    <column id="398" parent="311" name="payment_amount">
+      <DasType>decimal(10,2 digit)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="399" parent="311" name="customer_id">
+      <DasType>int|0s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="400" parent="311" name="service_provider_id">
+      <DasType>int|0s</DasType>
+      <Position>6</Position>
+    </column>
+    <column id="401" parent="311" name="payment_method_id">
+      <DasType>int|0s</DasType>
+      <Position>7</Position>
+    </column>
+    <foreign-key id="402" parent="311" name="service_ibfk_1">
+      <ColNames>customer_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>customer_id</RefColNames>
+      <RefTableName>customer</RefTableName>
+    </foreign-key>
+    <foreign-key id="403" parent="311" name="service_ibfk_2">
+      <ColNames>service_provider_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>service_provider_id</RefColNames>
+      <RefTableName>service_provider</RefTableName>
+    </foreign-key>
+    <foreign-key id="404" parent="311" name="service_ibfk_3">
+      <ColNames>payment_method_id</ColNames>
+      <RefColNames>payment_method_id</RefColNames>
+      <RefTableName>payment_method</RefTableName>
+    </foreign-key>
+    <index id="405" parent="311" name="PRIMARY">
+      <ColNames>service_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="406" parent="311" name="customer_id">
+      <ColNames>customer_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="407" parent="311" name="service_provider_id">
+      <ColNames>service_provider_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="408" parent="311" name="payment_method_id">
+      <ColNames>payment_method_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="409" parent="311" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="410" parent="312" name="service_provider_id">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="411" parent="312" name="service_offer">
+      <DasType>varchar(50)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <foreign-key id="412" parent="312" name="service_offer_ibfk_1">
+      <ColNames>service_provider_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>service_provider_id</RefColNames>
+      <RefTableName>service_provider</RefTableName>
+    </foreign-key>
+    <index id="413" parent="312" name="PRIMARY">
+      <ColNames>service_provider_id
+service_offer</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="414" parent="312" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="415" parent="313" name="service_provider_id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="416" parent="313" name="service_provider_name">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="417" parent="313" name="contact_num">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="418" parent="313" name="email">
+      <DasType>varchar(30)|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="419" parent="313" name="availability_status">
+      <DasType>enum(&apos;open&apos;, &apos;closed&apos;)|0e</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <column id="420" parent="313" name="avg_rating">
+      <DasType>float|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+    </column>
+    <column id="421" parent="313" name="timestamp">
+      <DasType>timestamp|0s</DasType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>7</Position>
+    </column>
+    <index id="422" parent="313" name="PRIMARY">
+      <ColNames>service_provider_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="423" parent="313" name="contact_num">
+      <ColNames>contact_num</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="424" parent="313" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <key id="425" parent="313" name="contact_num">
+      <UnderlyingIndexName>contact_num</UnderlyingIndexName>
+    </key>
+    <column id="426" parent="314" name="service_id">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="427" parent="314" name="technician_id">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <foreign-key id="428" parent="314" name="service_technician_ibfk_1">
+      <ColNames>service_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>service_id</RefColNames>
+      <RefTableName>service</RefTableName>
+    </foreign-key>
+    <foreign-key id="429" parent="314" name="service_technician_ibfk_2">
+      <ColNames>technician_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>technician_id</RefColNames>
+      <RefTableName>technician</RefTableName>
+    </foreign-key>
+    <index id="430" parent="314" name="PRIMARY">
+      <ColNames>service_id
+technician_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="431" parent="314" name="technician_id">
+      <ColNames>technician_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="432" parent="314" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="433" parent="315" name="ticket_id">
+      <AutoIncrement>5</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="434" parent="315" name="title">
+      <DasType>varchar(50)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="435" parent="315" name="description">
+      <DasType>text|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="436" parent="315" name="status">
+      <DasType>enum(&apos;open&apos;, &apos;closed&apos;)|0e</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="437" parent="315" name="timestamp">
+      <DasType>timestamp|0s</DasType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>5</Position>
+    </column>
+    <index id="438" parent="315" name="PRIMARY">
+      <ColNames>ticket_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="439" parent="315" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="440" parent="316" name="technician_id">
+      <AutoIncrement>3</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="441" parent="316" name="f_name">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="442" parent="316" name="l_name">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="443" parent="316" name="contact_num">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="444" parent="316" name="timestamp">
+      <DasType>timestamp|0s</DasType>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <Position>5</Position>
+    </column>
+    <column id="445" parent="316" name="availability_status">
+      <DasType>enum(&apos;available&apos;, &apos;unavailable&apos;)|0e</DasType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+    </column>
+    <index id="446" parent="316" name="PRIMARY">
+      <ColNames>technician_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="447" parent="316" name="contact_num">
+      <ColNames>contact_num</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="448" parent="316" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <key id="449" parent="316" name="contact_num">
+      <UnderlyingIndexName>contact_num</UnderlyingIndexName>
+    </key>
+    <column id="450" parent="317" name="technician_id">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="451" parent="317" name="expertise_area">
+      <DasType>varchar(50)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <foreign-key id="452" parent="317" name="technician_expertise_area_ibfk_1">
+      <ColNames>technician_id</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>technician_id</RefColNames>
+      <RefTableName>technician</RefTableName>
+    </foreign-key>
+    <index id="453" parent="317" name="PRIMARY">
+      <ColNames>technician_id
+expertise_area</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="454" parent="317" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="455" parent="318" name="plate_num">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="456" parent="318" name="make_id">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="457" parent="318" name="year">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="458" parent="318" name="model_id">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="459" parent="318" name="type">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <column id="460" parent="318" name="owner_id">
+      <DasType>int|0s</DasType>
+      <Position>6</Position>
+    </column>
+    <foreign-key id="461" parent="318" name="vehicle_fk_2">
+      <ColNames>make_id</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>vehicle_make</RefTableName>
+    </foreign-key>
+    <foreign-key id="462" parent="318" name="vehicle_fk_3">
+      <ColNames>model_id</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>vehicle_model</RefTableName>
+    </foreign-key>
+    <foreign-key id="463" parent="318" name="vehicle_ibfk_1">
+      <ColNames>owner_id</ColNames>
+      <RefColNames>customer_id</RefColNames>
+      <RefTableName>customer</RefTableName>
+    </foreign-key>
+    <index id="464" parent="318" name="PRIMARY">
+      <ColNames>plate_num</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="465" parent="318" name="vehicle_fk_2">
+      <ColNames>make_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="466" parent="318" name="vehicle_fk_3">
+      <ColNames>model_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="467" parent="318" name="owner_id">
+      <ColNames>owner_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="468" parent="318" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="469" parent="319" name="id">
+      <AutoIncrement>3</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="470" parent="319" name="make_name">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <index id="471" parent="319" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="472" parent="319" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="473" parent="320" name="id">
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="474" parent="320" name="make_id">
+      <DasType>int|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="475" parent="320" name="model_name">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <foreign-key id="476" parent="320" name="fk_model_1">
+      <ColNames>make_id</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>vehicle_make</RefTableName>
+    </foreign-key>
+    <index id="477" parent="320" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="478" parent="320" name="fk_model_1">
+      <ColNames>make_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="479" parent="320" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
   </database-model>
 </dataSource>
