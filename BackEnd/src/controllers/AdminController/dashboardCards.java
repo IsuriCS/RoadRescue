@@ -1,11 +1,17 @@
 package controllers.AdminController;
 
+import models.SupportTicket;
+import models.TimeStampFormatter;
 import utils.CrudUtil;
 
 import javax.json.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class dashboardCards {
 
     public static JsonArray getcountsForCards(Connection connection) throws SQLException, ClassNotFoundException {
@@ -16,6 +22,8 @@ public class dashboardCards {
         ResultSet cusTickets = CrudUtil.executeQuery(connection, "SELECT COUNT(*) AS customer_tickets FROM customer_support_ticket");
         ResultSet spTickects = CrudUtil.executeQuery(connection, "SELECT COUNT(*) AS sp_tickets FROM sp_support_ticket");
         ResultSet completedtasksset = CrudUtil.executeQuery(connection,"SELECT COUNT(*) AS completed_tasks FROM service_request WHERE status='5'");
+
+        ResultSet resentReports = CrudUtil.executeQuery(connection,"SELECT *FROM (SELECT CONCAT(s.f_name,\" \",s.l_name) AS name,st.title,st.created_time,st.status FROM sp_support_ticket st , service_provider s WHERE st.service_provider_id=s.id UNION ALL SELECT CONCAT(c.f_name,\" \",c.l_name) AS name,ct.title,ct.created_time,ct.status FROM customer_support_ticket ct , customer c WHERE ct.customer_id=c.id) AS combined_tickets ORDER BY created_time LIMIT 5");
 
         if (rst1.next()) {
             customerNum= rst1.getInt("customer_count");
@@ -48,7 +56,7 @@ public class dashboardCards {
         }
 
 
-//        ResultSet rst = CrudUtil.executeQuery(connection, query.toString());
+
         JsonArrayBuilder countersForCardsArray = Json.createArrayBuilder();
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
 
@@ -60,6 +68,20 @@ public class dashboardCards {
 
 
         countersForCardsArray.add(objectBuilder.build());
+        while (resentReports.next()) {
+
+            SupportTicket supportTicket = new SupportTicket(resentReports.getString(1), resentReports.getString(2), resentReports.getString(3), resentReports.getString(4));
+            JsonObjectBuilder recentReportsObjecct = Json.createObjectBuilder();
+            recentReportsObjecct.add("name",supportTicket.getTicketOwner());
+
+            recentReportsObjecct.add("title",supportTicket.getTitle());
+            Timestamp timestamp = Timestamp.valueOf(supportTicket.getTimestamp());
+
+            TimeStampFormatter formatterdTS = new TimeStampFormatter(timestamp);
+            recentReportsObjecct.add("date", formatterdTS.extractDate());
+            recentReportsObjecct.add("status",supportTicket.getTicketStatus());
+            countersForCardsArray.add(recentReportsObjecct.build());
+        }
 
         return countersForCardsArray.build();
     }
