@@ -282,7 +282,7 @@
     justify-content: end;
   }
 
-  .editbutton{
+  /* .editbutton{
     
       margin-top: 3vh;
       font-size: large;
@@ -297,6 +297,44 @@
       gap: 1vw;
       border-style: none;
       appearance : auto;
+  } */
+  
+  
+  /* .left {
+    display: flex;
+    flex-direction: row;
   }
+   */
+  .left img {
+    width: 15vw;
+    align-items: center;
+    padding-left: 7vw;
+    margin-top: 15%;
+  }
+
+ /* .center .info{
+  font-size: 12px;
+  line-height: 1.2;
+
+ } */
+
+ #csProfile > .left{
+    border-right: white solid;
+    width: 40%;
+    padding-left: 5vw;
+    float: left;
+    
+  
+ }
+
+#csProfile > .right{
+  /* align-items: center;
+  justify-content: center; */
+  width: 53%;
+  float: right;
+  margin-top: 60px;
+  margin-left: 3px;
   
   
+   
+}
