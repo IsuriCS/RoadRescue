@@ -474,18 +474,15 @@ document.addEventListener("DOMContentLoaded", function () {
 // ---------------------------------------------------------------------------------------------------------------------Ajex
 
 // ++++++++++++++++++++++++Dashboard****************
-
+const API_URL = "http://localhost:8080/roadRescue/Admin";
 $.ajax({
-    url: "http://localhost:8080/roadRescue/Admin/customerCard",
+    url: API_URL + "/customerCard",
     method: "GET",
     success: function (res) {
         if (res.status == 200) {
             document.querySelector("#registeredCustomersNum").innerHTML = res.data[0].CustomerNum;
             document.querySelector("#registeredSproviders").innerHTML = res.data[0].sproviderNum;
             document.querySelector("#reportCount").innerHTML = res.data[0].SupportTicketCount;
-
-
-
             console.log(res.data[0].CustomerNum);
         }
         else {
