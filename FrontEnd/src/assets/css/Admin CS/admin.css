@@ -186,6 +186,7 @@
   align-items: center;
   gap: 1vw;
   border-style: none;
+  width: 15vw;
 }
 
 .button:hover {
@@ -210,7 +211,7 @@
   justify-content: flex-end;
 }
 /* ************************FAQ**************************** */
-
+/* 
 input,
 textarea {
   width: 100%;
@@ -276,7 +277,7 @@ input {
 
 .clicked > .material-symbols-outlined {
   transform: rotate(180deg);
-}
+} */
 
 /* Verify Page Buttonons on table */
 
@@ -298,4 +299,167 @@ input {
 }
 #verification .cancle {
   background-color: #eb1212;
+}
+
+/* ***********************Report Page****************************************** */
+#reports > .topRow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+#reports > .topRow > .inputFileds {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 1vh;
+  width: 100%;
+  gap: 1vh;
+}
+.inputFileds select {
+  width: 100%;
+  height: 5vh;
+  decoration: none;
+  font-size: 2vh;
+  color: #757575;
+}
+.inputFileds input {
+  width: 100%;
+  height: 5vh;
+  padding: 0;
+  /* decoration: none; */
+}
+
+#reports > .reportArea {
+  display: flex;
+  flex-direction: column;
+}
+#reports > .reportArea > .areaButtons {
+  display: flex;
+  flex-direction: row;
+  margin-left: 3vw;
+}
+
+.areaButtons div {
+  display: flex;
+  flex-direction: column;
+  margin-right: 8vh;
+  width: 6vw;
+}
+
+.areaButtons div button {
+  width: 6vw;
+  height: 6vw;
+}
+
+.areaButtons div p {
+  text-align: center;
+}
+
+.areaButtons div button span {
+  font-size: 3.5vw;
+  color: #151d48;
+  font-weight: 600;
+}
+
+#reports > .selectionRow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin: 1vh;
+  gap: 5vh;
+}
+#reports > .selectionRow div {
+  width: 22vw;
+}
+#reports > .selectionRow > div > .columnsCB {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1vw;
+  gap: 0.3vh;
+}
+
+#reports > .selectionRow > div > .columnsCB div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5vw;
+  margin: 0.5vh;
+}
+#reports > .selectionRow > div > .columnsCB div input {
+  width: 1vw;
+  height: 1vw;
+}
+
+#reports > .selectionRow > .rowsSec > select {
+  width: 100%;
+  height: 5vh;
+  decoration: none;
+  font-size: 2vh;
+  color: #757575;
+}
+#reports > .selectionRow > .spfilters > div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0.5vw;
+}
+#reports > .selectionRow > .spfilters select {
+  width: 50%;
+  height: 5vh;
+  decoration: none;
+  font-size: 2vh;
+  color: #757575;
+}
+
+#reports > .ButtonsRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin: 1vh;
+  gap: 1vh;
+}
+
+#reports > .ButtonsRow .button {
+  width: 10vw;
+  padding: 0.5vw 0vw 0.5vw 1vw;
+}
+
+#reports > .ButtonsRow .button span {
+  font-size: 2vw;
+}
+
+/* ************************ Admin Profile view ************************** */
+#adminProfile .profileContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#adminProfile .profileContent .middle_View {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1vh;
+  width: 30vw;
+}
+
+#adminProfile .profileContent .middle_View .row {
+  width: 30vw;
+}
+
+#adminProfile .buttonDiv {
+  display: flex;
+  justify-content: flex-end;
+}
+#adminProfile .buttonDiv .button {
+  margin: 1vh;
+}
+
+#adminProfile .profileContent img {
+  width: 10vw;
+  align-items: center;
+  /* padding-left: 7vw; */
 }

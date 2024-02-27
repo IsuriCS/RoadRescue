@@ -90,12 +90,10 @@ body {
   padding: 5vh;
   color: white;
   padding-top: 0;
-  padding-bottom: 0;
+  padding-bottom: 3vh;
   display: flex;
   flex-direction: column;
 }
-
-
 
 .content > .content-box > .topRow {
   display: flex;

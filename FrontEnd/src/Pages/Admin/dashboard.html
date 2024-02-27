@@ -126,13 +126,13 @@
             </a>
           </li>
           <li>
-            <a href="#" class="sideNavLink"
+            <a id="ReportLink" href="#" class="sideNavLink" onclick="showReports()"
               ><span class="material-symbols-outlined"> receipt_long </span>
               Reports
             </a>
           </li>
-          <li id="profileLink">
-            <a href="#" class="sideNavLink" onclick="showProfile()"
+          <li >
+            <a id="profileLink" href="#" class="sideNavLink" onclick="showProfile()"
               ><span class="material-symbols-outlined"> person </span>
               Profile
             </a>
@@ -153,12 +153,12 @@
                 <span class="material-symbols-outlined">
                   record_voice_over
                 </span>
-                <h2>89</h2>
+                <h2 id="registeredCustomersNum">89</h2>
                 <p>Registered Customers</p></a
               >
               <a href="" class="button">
                 <span class="material-symbols-outlined"> build </span>
-                <h2>54</h2>
+                <h2 id="registeredSproviders">54</h2>
                 <p>Registered Service Providers</p></a
               >
 
@@ -836,6 +836,148 @@
             </div>
           </div>
 
+          <!-- ---------------------------------------Reports------------------------------- -->
+          <!-- ---------------------------------------Reports------------------------------- -->
+          <div id="reports" style="display: none">
+            <div class="topRow">
+              <h1>Report</h1>
+              <!-- <div class="searchboxContainer">
+                <input type="text" placeholder="Search Customer.." />
+                <button type="submit">
+                  <span class="material-symbols-outlined searchIcon">
+                    search
+                  </span>
+                </button>
+              </div> -->
+              <div class="inputFileds">
+                <input type="text" placeholder="Report Name">
+                  <select >
+                      <option value="" disabled selected>Select Report Type</option>
+                      <option value="bulk">Bulk</option>
+                      <option value="single">Single</option>
+                  </select>
+                  <select >
+                      <option value="" disabled selected>Select Report Format</option>
+                      <option value="pdf">PDF</option>
+                      <option value="excel">Excel Sheet</option>
+                  </select>
+
+              </div>
+
+             
+            </div>
+             <div class="reportArea">
+                <h1>Select Report Area</h1>
+                <div class="areaButtons">
+                <div >
+                  <button>
+                    <span class="material-symbols-outlined">
+                  car_crash
+                  </span></button>
+                  <p>Customers</p>
+                </div>
+                <div >
+                  <button>
+                    <span class="material-symbols-outlined">
+construction
+</span></button>
+                  <p>Garages</p>
+                </div>
+                <div >
+                  <button>
+                    <span class="material-symbols-outlined">
+manage_accounts
+</span></button>
+                  <p>Maintainance Personnel</p>
+                </div>
+                <div >
+                  <button>
+                    <span class="material-symbols-outlined">
+support_agent
+</span></button>
+                  <p>Customer Support Members</p>
+                </div>
+                <div >
+                  <button>
+                    <span class="material-symbols-outlined">
+problem
+</span></button>
+                  <p>Support Ticket</p>
+                </div>
+                <div >
+                  <button>
+                    <span class="material-symbols-outlined">
+paid
+</span></button>
+                  <p>Payments</p>
+                </div>
+
+              </div>
+              </div>
+
+              <div class="selectionRow">
+                <div>
+                  <h1>Columns</h1>
+                  <div class="columnsCB">
+                    <div>
+<input type="checkbox" id="" name="" value="">
+                    <label for=""> Customer ID</label>
+                    </div>
+                   
+                    <div>
+<input type="checkbox" id="" name="" value="">
+                    <label for=""> Customer Name</label>
+                    </div>
+                    <div>
+<input type="checkbox" id="" name="" value="">
+                    <label for=""> Customer Email</label>
+                    </div>
+                    <div>
+<input type="checkbox" id="" name="" value="">
+                    <label for=""> Contact Number</label>
+                    </div>
+                    
+                  </div>
+                </div>
+                <div class="rowsSec">
+                  <h1>Rows</h1>
+                  <select>
+                    <option value="" disabled selected>Select Row ID</option>
+                    <option value="">001</option>
+                    <option value="">002</option>
+                    <option value="">003</option>
+                  </select>
+                </div>
+                <div class="spfilters">
+                  <h1>Special Filters</h1>
+                  <div>
+                  <select>
+                    <option value="" disabled selected>Select Key</option>
+                    <option value="">Name</option>
+                    <option value="">Email</option>
+                    <option value="">Contact Number</option>
+                  </select>
+                  <select>
+                    <option value="" disabled selected>Select Value</option>
+                    <option value="">Kamal</option>
+                    <option value="">Nimal</option>
+                    <option value="">Sapna</option>
+                  </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ButtonsRow">
+                <button class="button"><span class="material-symbols-outlined">
+preview
+</span>Preview</button>
+                <button class="button"><span class="material-symbols-outlined">
+download
+</span>Download</button>
+              </div>
+            
+          </div>
+
 <!-- ---------------------------------------Profile------------------------------- -->
           <!-- ---------------------------------------Profile------------------------------- -->
 <!-- ---------------------------------------Admin Profile------------------------------- -->
@@ -845,15 +987,10 @@
             </div>
 
             <div class="profileContent">
-              <div class="leftSide">
+              <div class="middle_View">
                 <img src="../../assets/img/pic.png" alt="" />
                 <!-- Detail form +******************************************************************** -->
-                <div class="row">
-                  <div class="tag">
-                    <h1>ID :</h1>
-                  </div>
-                  <div class="detail"><p>001</p></div>
-                </div>
+                
                 <div class="row">
                   <div class="tag">
                     <h1>First Name :</h1>
@@ -878,7 +1015,7 @@
                   </div>
                   <div class="detail"><p>chamodh@gmail.com</p></div>
                 </div>
-
+ 
                 <!-- *********************Buttons**************************************************** -->
                 <!-- <button type="submit" class="button">
                   <span class="material-symbols-outlined"> edit </span>Edit
@@ -892,7 +1029,18 @@
 
              
             </div>
+            
+            
           </div>
+          <div class="buttonDiv">
+<button type="submit" class="button">
+                  <span class="material-symbols-outlined"> edit </span>Change Password
+                </button>
+                <button type="submit" class="button">
+                  <span class="material-symbols-outlined"> edit </span>Edit
+                  Profile
+                </button>
+            </div>
         </div>
         
       </div>
@@ -908,7 +1056,7 @@
 
   <!-- <script src="../Customer/js/main.js"></script> -->
   <script src="../../assets/js/CustomerSupport.js"></script>
-  <script src="jQuery/jquery-3.6.0.min.js"></script>
+  <script src="../../assets/js/jquery-3.7.0.js"></script>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="../../assets/js/admin/admin.js"></script>
