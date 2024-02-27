@@ -482,6 +482,7 @@ $.ajax({
         if (res.status == 200) {
             document.querySelector("#registeredCustomersNum").innerHTML = res.data[0].CustomerNum;
             document.querySelector("#registeredSproviders").innerHTML = res.data[0].sproviderNum;
+            document.querySelector("#completedTasksCount").innerHTML = res.data[0].CompletedTaskCount;
             document.querySelector("#reportCount").innerHTML = res.data[0].SupportTicketCount;
             console.log(res.data[0].CustomerNum);
         }
