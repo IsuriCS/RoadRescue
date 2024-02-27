@@ -3,6 +3,8 @@ function showDashboard() {
     document.querySelector("#dashboardLink").classList.add("active");
     document.querySelector("#UsersLink").classList.remove("active");
     document.querySelector("#verificationLink").classList.remove("active");
+    document.querySelector("#profileLink").classList.remove("active");
+    document.querySelector("#ReportLink").classList.remove("active");
 
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
@@ -21,7 +23,8 @@ function showDashboard() {
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#maintainancePersonnel").style.display = "none";
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
-
+    document.querySelector("#adminProfile").style.display = "none";
+    document.querySelector("#reports").style.display = "none";
     document.querySelector("#verification").style.display = "none";
 
 
@@ -30,7 +33,9 @@ function showDashboard() {
 function showcus() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
+    document.querySelector("#profileLink").classList.remove("active");
     document.querySelector("#verificationLink").classList.remove("active");
+    document.querySelector("#ReportLink").classList.remove("active");
 
     document.querySelector("#customerDropdown").classList.add("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
@@ -51,8 +56,9 @@ function showcus() {
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#maintainancePersonnel").style.display = "none";
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
-
+    document.querySelector("#reports").style.display = "none";
 }
 
 function showprof() {
@@ -65,14 +71,17 @@ function showprof() {
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#maintainancePersonnel").style.display = "none";
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
-
+    document.querySelector("#reports").style.display = "none";
 }
 
 function showGarageOwner() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
+    document.querySelector("#profileLink").classList.remove("active");
     document.querySelector("#verificationLink").classList.remove("active");
+    document.querySelector("#ReportLink").classList.remove("active");
 
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#servicePDropdown").classList.add("dropDownActive");
@@ -91,8 +100,9 @@ function showGarageOwner() {
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#maintainancePersonnel").style.display = "none";
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
-
+    document.querySelector("#reports").style.display = "none";
 
 }
 
@@ -108,14 +118,17 @@ function showGarageProf() {
 
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#verification").style.display = "none";
-
+    document.querySelector("#adminProfile").style.display = "none";
+    document.querySelector("#reports").style.display = "none";
 
 }
 
 function showMaintainancePersonnel() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
+    document.querySelector("#profileLink").classList.remove("active");
     document.querySelector("#verificationLink").classList.remove("active");
+    document.querySelector("#ReportLink").classList.remove("active");
 
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#servicePDropdown").classList.add("dropDownActive");
@@ -134,8 +147,9 @@ function showMaintainancePersonnel() {
     document.querySelector("#maintainancePersonnel").style.display = "block";
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#GarageProf").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
-
+    document.querySelector("#reports").style.display = "none";
 
 }
 
@@ -149,8 +163,9 @@ function showMPProf() {
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#MaintainacePersonnelProf").style.display = "block";
     document.querySelector("#maintainancePersonnel").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
-
+    document.querySelector("#reports").style.display = "none";
 
 
 }
@@ -158,7 +173,9 @@ function showMPProf() {
 function showcsmember() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
+    document.querySelector("#profileLink").classList.remove("active");
     document.querySelector("#verificationLink").classList.remove("active");
+    document.querySelector("#ReportLink").classList.remove("active");
 
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#csDropdown").classList.add("dropDownActive");
@@ -178,7 +195,9 @@ function showcsmember() {
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#maintainancePersonnel").style.display = "none";
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
+    document.querySelector("#reports").style.display = "none";
 
 
 }
@@ -194,13 +213,17 @@ function showcsprof() {
     document.querySelector("#maintainancePersonnel").style.display = "none";
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#verification").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
+    document.querySelector("#reports").style.display = "none";
 
 }
 
 function showVerification() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.remove("active");
+    document.querySelector("#profileLink").classList.remove("active");
     document.querySelector("#verificationLink").classList.add("active");
+    document.querySelector("#ReportLink").classList.remove("active");
 
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
@@ -218,7 +241,70 @@ function showVerification() {
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#maintainancePersonnel").style.display = "none";
     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "block";
+    document.querySelector("#reports").style.display = "none";
+}
+
+function showReports() {
+    document.querySelector("#dashboardLink").classList.remove("active");
+    document.querySelector("#UsersLink").classList.remove("active");
+    document.querySelector("#verificationLink").classList.remove("active");
+    document.querySelector("#profileLink").classList.remove("active");
+    document.querySelector("#ReportLink").classList.add("active");
+
+    document.querySelector("#customerDropdown").classList.remove("dropDownActive");
+    document.querySelector("#csDropdown").classList.remove("dropDownActive");
+    document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
+
+    document.querySelector("#GarageDropDown").classList.remove("submenuActive");
+    document.querySelector("#MPDropDown").classList.remove("submenuActive");
+
+
+    document.querySelector("#dashboard").style.display = "none";
+    document.querySelector("#userCus").style.display = "none";
+    document.querySelector("#cusprof").style.display = "none";
+    document.querySelector("#csmember").style.display = "none";
+    document.querySelector("#csprof").style.display = "none";
+    document.querySelector("#garageOwners").style.display = "none";
+    document.querySelector("#GarageProf").style.display = "none";
+    document.querySelector("#maintainancePersonnel").style.display = "none";
+    document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
+    document.querySelector("#reports").style.display = "block";
+
+    document.querySelector("#verification").style.display = "none";
+
+
+
+}
+
+function showProfile() {
+    document.querySelector("#dashboardLink").classList.remove("active");
+    document.querySelector("#UsersLink").classList.remove("active");
+    document.querySelector("#verificationLink").classList.remove("active");
+    document.querySelector("#profileLink").classList.add("active");
+    document.querySelector("#ReportLink").classList.remove("active");
+
+    document.querySelector("#customerDropdown").classList.remove("dropDownActive");
+    document.querySelector("#csDropdown").classList.remove("dropDownActive");
+
+    document.querySelector("#GarageDropDown").classList.remove("submenuActive");
+    document.querySelector("#MPDropDown").classList.remove("submenuActive");
+
+
+    document.querySelector("#dashboard").style.display = "none";
+    document.querySelector("#userCus").style.display = "none";
+    document.querySelector("#cusprof").style.display = "none";
+    document.querySelector("#csmember").style.display = "none";
+    document.querySelector("#csprof").style.display = "none";
+    document.querySelector("#garageOwners").style.display = "none";
+    document.querySelector("#GarageProf").style.display = "none";
+    document.querySelector("#maintainancePersonnel").style.display = "none";
+    document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+    document.querySelector("#verification").style.display = "none";
+    document.querySelector("#reports").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "block";
 }
 
 // Dropdown side menu
@@ -226,6 +312,12 @@ function showVerification() {
 let dropDownContainer = document.querySelector(".dropdown-container");
 function toggleDropdown() {
     dropDownContainer.classList.toggle("hide");
+    document.querySelector(".dropdownArrow").classList.toggle("uparrow");
+}
+
+let spdropDownContainer = document.querySelector(".spdropdown-container");
+function sptoggleDropdown() {
+    spdropDownContainer.classList.toggle("hide");
     document.querySelector(".dropdownArrow").classList.toggle("uparrow");
 }
 
@@ -378,4 +470,37 @@ document.addEventListener("DOMContentLoaded", function () {
 //     });
 // });
 
+
+// ---------------------------------------------------------------------------------------------------------------------Ajex
+
+// ++++++++++++++++++++++++Dashboard****************
+const API_URL = "http://localhost:8080/roadRescue/Admin";
+$.ajax({
+    url: API_URL + "/customerCard",
+    method: "GET",
+    success: function (res) {
+        if (res.status == 200) {
+            document.querySelector("#registeredCustomersNum").innerHTML = res.data[0].CustomerNum;
+            document.querySelector("#registeredSproviders").innerHTML = res.data[0].sproviderNum;
+            document.querySelector("#completedTasksCount").innerHTML = res.data[0].CompletedTaskCount;
+            document.querySelector("#reportCount").innerHTML = res.data[0].SupportTicketCount;
+
+            var tableBody = document.querySelector("#RecentReportSection tbody");
+
+            // Start from index 1 to skip the first item in the JSON array
+            for (var i = 1; i < res.data.length; i++) {
+                var datai = res.data[i];
+                var row = tableBody.insertRow();
+                row.insertCell(0).textContent = datai.name || '';
+                row.insertCell(1).textContent = datai.title || '';
+                row.insertCell(2).textContent = datai.date || '';
+                row.insertCell(3).textContent = datai.status.charAt(0).toUpperCase() + datai.status.slice(1) || '';
+            }
+
+        }
+        else {
+            console.log("error");
+        }
+    }
+});
 

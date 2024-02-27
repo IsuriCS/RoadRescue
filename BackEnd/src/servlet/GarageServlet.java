@@ -19,6 +19,7 @@ public class GarageServlet extends HttpServlet {
         System.out.println("mobile request is ok ");
 
         PrintWriter writer=resp.getWriter();
+        resp.setContentType("application/json");
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
         objectBuilder.add("status",200);
         objectBuilder.add("message","Done");
