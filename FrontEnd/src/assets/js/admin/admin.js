@@ -485,6 +485,18 @@ $.ajax({
             document.querySelector("#completedTasksCount").innerHTML = res.data[0].CompletedTaskCount;
             document.querySelector("#reportCount").innerHTML = res.data[0].SupportTicketCount;
 
+            var tableBody = document.querySelector("#RecentReportSection tbody");
+
+            // Start from index 1 to skip the first item in the JSON array
+            for (var i = 1; i < res.data.length; i++) {
+                var datai = res.data[i];
+                var row = tableBody.insertRow();
+                row.insertCell(0).textContent = datai.name || '';
+                row.insertCell(1).textContent = datai.title || '';
+                row.insertCell(2).textContent = datai.date || '';
+                row.insertCell(3).textContent = datai.status.charAt(0).toUpperCase() + datai.status.slice(1) || '';
+            }
+
         }
         else {
             console.log("error");
