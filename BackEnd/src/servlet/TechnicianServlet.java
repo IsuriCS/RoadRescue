@@ -31,41 +31,49 @@ public class TechnicianServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String option = req.getParameter("option");
+        String searchId = req.getParameter("searchId");
+
         PrintWriter writer = resp.getWriter();
         Connection connection = null;
-        try {
-            connection = ds.getConnection();
 
-            JsonArray allCustomers = technician.getAll(connection);
-            JsonObjectBuilder response = Json.createObjectBuilder();
-            response.add("status", 200);
-            response.add("message", "Done");
-            response.add("data", allCustomers);
-            writer.print(response.build());
+        switch (option) {
+            case "getAll":
+                try {
+                    connection = ds.getConnection();
+                    JsonArray allTechnicians = technician.getAll(connection);
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    response.add("status", 200);
+                    response.add("message", "Done");
+                    response.add("data", allTechnicians);
+                    writer.print(response.build());
+                    connection.close();
 
-            connection.close();
+                } catch (SQLException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "SQL Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "Class not fount Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                }
 
-        } catch (SQLException e) {
-            JsonObjectBuilder response = Json.createObjectBuilder();
-            resp.setStatus(HttpServletResponse.SC_OK);
-            response.add("status", 500);
-            response.add("message", "SQL Exception Error");
-            response.add("data", e.getLocalizedMessage());
-            writer.print(response.build());
-            e.printStackTrace();
-
-        } catch (ClassNotFoundException e) {
-
-            JsonObjectBuilder response = Json.createObjectBuilder();
-            resp.setStatus(HttpServletResponse.SC_OK);
-            response.add("status", 500);
-            response.add("message", "Class not fount Exception Error");
-            response.add("data", e.getLocalizedMessage());
-            writer.print(response.build());
-            e.printStackTrace();
+                break;
+            case "search":
+                // search content handle
+                break;
+            default:
+                // handle
         }
-
-
     }
 
 
@@ -82,26 +90,26 @@ public class TechnicianServlet extends HttpServlet {
             JsonReader reader = Json.createReader(stringReader);
             JsonObject jsonObject = reader.readObject();
 
-            fName=jsonObject.getString("techFirstName");
-            lName=jsonObject.getString("techLastName");
-            contactNumber=jsonObject.getString("techContactNumber");
-            techStatus=jsonObject.getInt("techStatus");
-            expertiseAreas=jsonObject.getJsonArray("techExpertiseAreas");
+            fName = jsonObject.getString("techFirstName");
+            lName = jsonObject.getString("techLastName");
+            contactNumber = jsonObject.getString("techContactNumber");
+            techStatus = jsonObject.getInt("techStatus");
+            expertiseAreas = jsonObject.getJsonArray("techExpertiseAreas");
         }
 
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
 
-        List<String> expertiseAreasList=new ArrayList<String>();
+        List<String> expertiseAreasList = new ArrayList<String>();
 
-        for (JsonValue expertiseArea :expertiseAreas
-                ) {
+        for (JsonValue expertiseArea : expertiseAreas
+        ) {
             expertiseAreasList.add(String.valueOf(expertiseArea));
         }
 
         try {
             Connection connection = ds.getConnection();
-            TechnicianModel technicianModel = new TechnicianModel(fName,lName,contactNumber,expertiseAreasList,techStatus,1);
+            TechnicianModel technicianModel = new TechnicianModel(fName, lName, contactNumber, expertiseAreasList, techStatus, 1);
             System.out.println(technicianModel.toString());
             boolean result = technician.add(connection, technicianModel);
 
@@ -196,7 +204,7 @@ public class TechnicianServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            String techId = req.getParameter("techId");
+        String techId = req.getParameter("techId");
         resp.setContentType("application/json");
         PrintWriter writer = resp.getWriter();
 
