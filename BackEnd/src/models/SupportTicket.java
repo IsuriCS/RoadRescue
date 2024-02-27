@@ -1,10 +1,14 @@
 package models;
 
-import java.sql.Timestamp;
 
 public class SupportTicket {
     private int ticketId;
+
+
+
+    private String ticketOwner;
     private String title;
+
     private String description;
     private String ticketStatus;
     private String timestamp;
@@ -18,6 +22,13 @@ public class SupportTicket {
         this.ticketId = ticketId;
         this.title = title;
         this.description = description;
+        this.ticketStatus = ticketStatus;
+        this.timestamp = timestamp;
+    }
+
+    public SupportTicket( String ticketOwner,String title, String timestamp, String ticketStatus) {
+        this.title = title;
+        this.ticketOwner = ticketOwner;
         this.ticketStatus = ticketStatus;
         this.timestamp = timestamp;
     }
@@ -46,6 +57,13 @@ public class SupportTicket {
         this.title = title;
     }
 
+    public String getTicketOwner() {
+        return ticketOwner;
+    }
+
+    public void setTicketOwner(String ticketOwner) {
+        this.ticketOwner = ticketOwner;
+    }
     public String getDescription() {
         return description;
     }
