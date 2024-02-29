@@ -474,16 +474,29 @@ document.addEventListener("DOMContentLoaded", function () {
 // ---------------------------------------------------------------------------------------------------------------------Ajex
 
 // ++++++++++++++++++++++++Dashboard****************
-
+const API_URL = "http://localhost:8080/roadRescue/Admin";
 $.ajax({
-    url: "http://localhost:8080/roadRescue/Admin/customerCard",
+    url: API_URL + "/customerCard",
     method: "GET",
     success: function (res) {
         if (res.status == 200) {
             document.querySelector("#registeredCustomersNum").innerHTML = res.data[0].CustomerNum;
             document.querySelector("#registeredSproviders").innerHTML = res.data[0].sproviderNum;
+            document.querySelector("#completedTasksCount").innerHTML = res.data[0].CompletedTaskCount;
+            document.querySelector("#reportCount").innerHTML = res.data[0].SupportTicketCount;
 
-            console.log(res.data[0].CustomerNum);
+            var tableBody = document.querySelector("#RecentReportSection tbody");
+
+            // Start from index 1 to skip the first item in the JSON array
+            for (var i = 1; i < res.data.length; i++) {
+                var datai = res.data[i];
+                var row = tableBody.insertRow();
+                row.insertCell(0).textContent = datai.name || '';
+                row.insertCell(1).textContent = datai.title || '';
+                row.insertCell(2).textContent = datai.date || '';
+                row.insertCell(3).textContent = datai.status.charAt(0).toUpperCase() + datai.status.slice(1) || '';
+            }
+
         }
         else {
             console.log("error");

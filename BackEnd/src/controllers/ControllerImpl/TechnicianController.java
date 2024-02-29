@@ -11,26 +11,21 @@ import java.sql.SQLException;
 public class TechnicianController {
 
     public JsonArray getAll(Connection connection) throws SQLException, ClassNotFoundException {
-        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT * FROM technician");
+        ResultSet rst = CrudUtil.executeQuery(connection, "select concat(f_name,\" \",l_name),status from technician;");
         JsonArrayBuilder technicianArray = Json.createArrayBuilder();
 
         while (rst.next()) {
-            TechnicianModel technicianModel = new TechnicianModel(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4),rst.getTimestamp(5), rst.getString(6));
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            objectBuilder.add("id",technicianModel.getId());
-            objectBuilder.add("fName",technicianModel.getfName());
-            objectBuilder.add("lName",technicianModel.getlName());
-            objectBuilder.add("contact",technicianModel.getContact());
-            objectBuilder.add("timestamp", Json.createValue(technicianModel.getTimestamp().toString()));
-            objectBuilder.add("status",technicianModel.getStatus());
+            objectBuilder.add("techName",rst.getString(1));
+            objectBuilder.add("techStatus",(rst.getInt(2)==1) ? "Available":"Not Available");
             technicianArray.add(objectBuilder.build());
         }
         return technicianArray.build();
     }
 
     public boolean add(Connection connection,TechnicianModel technicianModel) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeUpdate(connection,"INSERT into technician (f_name, l_name, contact_num, timestamp, availability_status) values(?,?,?,?,?)",
-                technicianModel.getfName(),technicianModel.getlName(),technicianModel.getContact(),technicianModel.getTimestamp(),technicianModel.getStatus());
+        return CrudUtil.executeUpdate(connection,"INSERT into technician (service_provider_id, phone_number, f_name, status, l_name) values(?,?,?,?,?)",
+                technicianModel.getServiceProviderId(),technicianModel.getContact(),technicianModel.getfName(),technicianModel.getStatus(),technicianModel.getlName());
     }
 
     public boolean update(Connection connection,TechnicianModel technicianModel) throws SQLException, ClassNotFoundException {
