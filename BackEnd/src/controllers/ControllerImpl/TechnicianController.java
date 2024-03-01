@@ -34,6 +34,20 @@ public class TechnicianController {
         return technicianArray.build();
     }
 
+    public JsonArray getExpertiseArias(Connection connection) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "select  expertise from expertise;");
+        JsonArrayBuilder expertiseList = Json.createArrayBuilder();
+
+        while (resultSet.next()){
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("expertise",resultSet.getString(1));
+            expertiseList.add(objectBuilder.build());
+        }
+
+        return expertiseList.build();
+
+    }
+
     public boolean add(Connection connection,TechnicianModel technicianModel) throws SQLException, ClassNotFoundException {
         return CrudUtil.executeUpdate(connection,"INSERT into technician (service_provider_id, phone_number, f_name, status, l_name) values(?,?,?,?,?)",
                 technicianModel.getServiceProviderId(),technicianModel.getContact(),technicianModel.getfName(),technicianModel.getStatus(),technicianModel.getlName());
