@@ -68,6 +68,37 @@ public class TechnicianServlet extends HttpServlet {
                 }
 
                 break;
+
+            case "expertise":
+
+                try {
+                    connection= ds.getConnection();
+                    JsonArray expertiseArias = technician.getExpertiseArias(connection);
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    response.add("status", 200);
+                    response.add("message", "Done");
+                    response.add("data", expertiseArias);
+                    writer.print(response.build());
+                    connection.close();
+
+                } catch (SQLException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "SQL Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "Class not fount Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                }
+
             case "search":
                 // search content handle
                 break;
