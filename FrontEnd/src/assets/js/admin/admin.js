@@ -1,6 +1,6 @@
 
 
-
+const API_URL = "http://localhost:8080/roadRescue/Admin";
 
 
 // Navigate
@@ -64,6 +64,39 @@ function showcus() {
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
+
+    $("#load-container").show();
+
+    $.ajax({
+        url: API_URL + "/CustomerList",
+        method: "GET",
+        success: function (res) {
+            if (res.status == 200) {
+                $("#load-container").hide();
+
+
+                var tableBody = document.querySelector("#CustomerList tbody");
+
+                // Start from index 1 to skip the first item in the JSON array
+                for (var i = 1; i < res.data.length; i++) {
+                    var datai = res.data[i];
+                    var row = tableBody.insertRow();
+                    row.insertCell(0).textContent = datai.customerId || '';
+                    row.insertCell(1).textContent = datai.Name || '--';
+                    row.insertCell(2).textContent = datai.contact || '';
+                    row.insertCell(3).textContent = datai.nServiceRequest || '0';
+                    row.insertCell(4).textContent = datai.nSupportTickets || '0';
+
+                }
+
+            }
+            else {
+                console.log("error");
+            }
+        }
+    });
+
+
 }
 
 function showprof() {
@@ -480,7 +513,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // ++++++++++++++++++++++++Dashboard****************
 $("#load-container").show();
-const API_URL = "http://localhost:8080/roadRescue/Admin";
+
 $.ajax({
     url: API_URL + "/customerCard",
     method: "GET",
