@@ -1,3 +1,8 @@
+
+
+
+
+
 // Navigate
 function showDashboard() {
     document.querySelector("#dashboardLink").classList.add("active");
@@ -474,12 +479,14 @@ document.addEventListener("DOMContentLoaded", function () {
 // ---------------------------------------------------------------------------------------------------------------------Ajex
 
 // ++++++++++++++++++++++++Dashboard****************
+$("#load-container").show();
 const API_URL = "http://localhost:8080/roadRescue/Admin";
 $.ajax({
     url: API_URL + "/customerCard",
     method: "GET",
     success: function (res) {
         if (res.status == 200) {
+            $("#load-container").hide();
             document.querySelector("#registeredCustomersNum").innerHTML = res.data[0].CustomerNum;
             document.querySelector("#registeredSproviders").innerHTML = res.data[0].sproviderNum;
             document.querySelector("#completedTasksCount").innerHTML = res.data[0].CompletedTaskCount;
