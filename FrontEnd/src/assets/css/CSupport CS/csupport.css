@@ -277,26 +277,64 @@
   .clicked > .material-symbols-outlined {
     transform: rotate(180deg);
   }
-  
-  /* Verify Page Buttonons on table */
-  
-  #verification .verifyBu {
-    font-size: 2.3vh;
-    border-radius: 2vh;
-    padding: 1vh;
-    width: 5vw;
-    text-decoration: none;
-    border: none;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 3px 3px rgba(37, 27, 90, 0.311);
+
+  #ticket > .solveButton{
+    justify-content: end;
   }
+
+  /* .editbutton{
+    
+      margin-top: 3vh;
+      font-size: large;
+      font-weight: 600;
+      text-decoration: none;
+      color: white;
+      border-radius: 2vh;
+      background: #23a6f0;
+      display: inline-flex;
+      padding: 2vh 2vw;
+      align-items: center;
+      gap: 1vw;
+      border-style: none;
+      appearance : auto;
+  } */
   
-  #verification .locView {
-    background-color: #dbe452;
-  }
-  #verification .verify {
-    background-color: #42ed36;
-  }
-  #verification .cancle {
-    background-color: #eb1212;
-  }
   
+  /* .left {
+    display: flex;
+    flex-direction: row;
+  }
+   */
+  .left img {
+    width: 15vw;
+    align-items: center;
+    padding-left: 7vw;
+    margin-top: 15%;
+  }
+
+ /* .center .info{
+  font-size: 12px;
+  line-height: 1.2;
+
+ } */
+
+ #csProfile > .left{
+    border-right: white solid;
+    width: 40%;
+    padding-left: 5vw;
+    float: left;
+    
+  
+ }
+
+#csProfile > .right{
+  /* align-items: center;
+  justify-content: center; */
+  width: 53%;
+  float: right;
+  margin-top: 60px;
+  margin-left: 3px;
+  
+  
+   
+}
