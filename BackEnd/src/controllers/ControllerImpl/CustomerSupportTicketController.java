@@ -58,17 +58,26 @@ public class CustomerSupportTicketController {
     }
 
     public JsonArray getAllPendingSupportTicket(Connection connection) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT * FROM support_ticket WHERE status=?", "open");
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT id,status,description,title,customer_support_member_id,created_time FROM customer_support_ticket;");
 
         JsonArrayBuilder pendingSupportTickets = Json.createArrayBuilder();
 
         while (resultSet.next()){
-            SupportTicket supportTicket = new SupportTicket(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(4), resultSet.getTimestamp(5) + "");
+            int id=resultSet.getInt(1);
+           String status =resultSet.getString(2);
+           String description =resultSet.getString(3);
+           String title =resultSet.getString(4);
+           int customer_support_member_id =resultSet.getInt(5);
+            String created_time =resultSet.getString(6);
+
+
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            objectBuilder.add("ticketId",supportTicket.getTicketId());
-            objectBuilder.add("title",supportTicket.getTitle());
-            objectBuilder.add("date",supportTicket.getTimestamp());
-            objectBuilder.add("status",supportTicket.getTicketStatus());
+            objectBuilder.add("ticketId",id);
+            objectBuilder.add("status",status);
+            objectBuilder.add("description",description);
+            objectBuilder.add("title",title);
+            objectBuilder.add("customer_support_member_id",customer_support_member_id);
+            objectBuilder.add("created_time",created_time);
             pendingSupportTickets.add(objectBuilder.build());
         }
         return pendingSupportTickets.build();

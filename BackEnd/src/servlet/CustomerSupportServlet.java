@@ -49,6 +49,7 @@ public class CustomerSupportServlet extends HttpServlet {
             connection.close();
         } catch (SQLException e) {
             JsonObjectBuilder response = Json.createObjectBuilder();
+            resp.setStatus(HttpServletResponse.SC_OK);
             response.add("status",500);
             response.add("message","SQLException");
             response.add("data",e.getLocalizedMessage());
@@ -56,6 +57,7 @@ public class CustomerSupportServlet extends HttpServlet {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             JsonObjectBuilder response = Json.createObjectBuilder();
+            resp.setStatus(HttpServletResponse.SC_OK);
             response.add("status",500);
             response.add("message","ClassNotFoundException");
             response.add("data",e.getLocalizedMessage());
