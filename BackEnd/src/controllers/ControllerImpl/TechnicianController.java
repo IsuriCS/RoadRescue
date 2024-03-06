@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 public class TechnicianController {
 
+
     public JsonArray getAll(Connection connection) throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.executeQuery(connection, "select  id,f_name,l_name,status,phone_number from technician;");
         JsonArrayBuilder technicianArray = Json.createArrayBuilder();
@@ -35,12 +36,13 @@ public class TechnicianController {
     }
 
     public JsonArray getExpertiseArias(Connection connection) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = CrudUtil.executeQuery(connection, "select  expertise from expertise;");
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "select  * from expertise;");
         JsonArrayBuilder expertiseList = Json.createArrayBuilder();
 
         while (resultSet.next()){
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            objectBuilder.add("expertise",resultSet.getString(1));
+            objectBuilder.add("expertiseId",resultSet.getString(1));
+            objectBuilder.add("expertise",resultSet.getString(2));
             expertiseList.add(objectBuilder.build());
         }
 
@@ -49,8 +51,32 @@ public class TechnicianController {
     }
 
     public boolean add(Connection connection,TechnicianModel technicianModel) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeUpdate(connection,"INSERT into technician (service_provider_id, phone_number, f_name, status, l_name) values(?,?,?,?,?)",
-                technicianModel.getServiceProviderId(),technicianModel.getContact(),technicianModel.getfName(),technicianModel.getStatus(),technicianModel.getlName());
+        boolean result_one = CrudUtil.executeUpdate(connection, "INSERT into technician (service_provider_id, phone_number, f_name, status, l_name) values(?,?,?,?,?)",
+                technicianModel.getServiceProviderId(), technicianModel.getContact(), technicianModel.getfName(), technicianModel.getStatus(), technicianModel.getlName());
+
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "select max(id) from technician;");
+
+        int technicianId=0;
+
+        while (resultSet.next()){
+            technicianId=resultSet.getInt(1);
+        }
+
+
+
+        boolean result_two = false;
+
+        for (int i = 2; i < technicianModel.getExpertiseArias().size(); i += 3) {
+
+            String expertise_id=technicianModel.getExpertiseArias().get(i);
+            String[] parts = expertise_id.split("");
+            expertise_id=parts[1];
+            int expertise_idCast=Integer.parseUnsignedInt(expertise_id);
+            result_two = CrudUtil.executeUpdate(connection, "INSERT into technician_expertise (technician_id,expertise_id) values(?,?);", technicianId, expertise_idCast);
+        }
+
+        return result_one && result_two;
+
     }
 
     public boolean update(Connection connection,TechnicianModel technicianModel) throws SQLException, ClassNotFoundException {

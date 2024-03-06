@@ -141,7 +141,7 @@ public class TechnicianServlet extends HttpServlet {
         try {
             Connection connection = ds.getConnection();
             TechnicianModel technicianModel = new TechnicianModel(fName, lName, contactNumber, expertiseAreasList, techStatus, 1);
-            System.out.println(technicianModel.toString());
+
             boolean result = technician.add(connection, technicianModel);
 
             if (result) {
@@ -172,6 +172,8 @@ public class TechnicianServlet extends HttpServlet {
             writer.print(objectBuilder.build());
             e.printStackTrace();
         }
+
+
 
     }
 
