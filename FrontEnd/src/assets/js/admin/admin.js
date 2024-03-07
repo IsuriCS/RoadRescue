@@ -66,6 +66,7 @@ function showcus() {
     document.querySelector("#reports").style.display = "none";
 
     $("#load-container").show();
+    $("#CustomerList tbody").empty();
 
     $.ajax({
         url: API_URL + "/CustomerList",
@@ -87,6 +88,11 @@ function showcus() {
                     row.insertCell(3).textContent = datai.nServiceRequest || '0';
                     row.insertCell(4).textContent = datai.nSupportTickets || '0';
 
+                    row.addEventListener('click', function () {
+                        var customerId = this.cells[0].textContent;
+                        showprof(res, customerId);
+
+                    })
                 }
 
             }
@@ -99,7 +105,8 @@ function showcus() {
 
 }
 
-function showprof() {
+function showprof(res, customerId) {
+
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "block";
@@ -112,6 +119,17 @@ function showprof() {
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
+
+    for (var i = 1; i < res.data.length; i++) {
+        if (res.data[i].customerId == customerId) {
+            var datai = res.data[i];
+            document.getElementById("cid").innerHTML = datai.customerId;
+            document.getElementById("fname").innerHTML = datai.Name;
+            document.getElementById("email").innerHTML = datai.email;
+            document.getElementById("cnum").innerHTML = datai.contact;
+        }
+
+    }
 }
 
 function showGarageOwner() {
