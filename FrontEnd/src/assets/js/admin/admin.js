@@ -83,7 +83,7 @@ function showcus() {
                     var datai = res.data[i];
                     var row = tableBody.insertRow();
                     row.insertCell(0).textContent = datai.customerId || '';
-                    row.insertCell(1).textContent = datai.Name || '--';
+                    row.insertCell(1).textContent = datai.FullName || '--';
                     row.insertCell(2).textContent = datai.contact || '';
                     row.insertCell(3).textContent = datai.nServiceRequest || '0';
                     row.insertCell(4).textContent = datai.nSupportTickets || '0';
@@ -124,9 +124,10 @@ function showprof(res, customerId) {
         if (res.data[i].customerId == customerId) {
             var datai = res.data[i];
             document.getElementById("cid").innerHTML = datai.customerId;
-            document.getElementById("fname").innerHTML = datai.Name;
-            document.getElementById("email").innerHTML = datai.email;
-            document.getElementById("cnum").innerHTML = datai.contact;
+            document.getElementById("fname").innerHTML = datai.fname || '-';
+            document.getElementById("lname").innerHTML = datai.lname || '-';
+            document.getElementById("email").innerHTML = datai.email || '-';
+            document.getElementById("cnum").innerHTML = datai.contact || '-';
         }
 
     }
