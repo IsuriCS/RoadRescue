@@ -207,14 +207,18 @@ public class CustomerSupportServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
-        int ticketId = jsonObject.getInt("supportTickerId");
+        int ticketId = jsonObject.getInt("supportTicketId");
+        String solution  = jsonObject.getString("solution");
+
+        System.out.println("Ticket id : " + ticketId);
+        System.out.println("Solution" + solution);
 
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
 
         try {
             Connection connection = ds.getConnection();
-            boolean result = cusSupportTicket.update(connection, ticketId);
+            boolean result = cusSupportTicket.update(connection, ticketId,solution);
 
             if (result) {
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();

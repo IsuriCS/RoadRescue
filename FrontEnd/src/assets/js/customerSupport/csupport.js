@@ -323,3 +323,26 @@ $.ajax({
     }
 }
 });
+
+
+
+function postData() {
+    let jsonObj = {
+        solution : document.getElementById("solution").value,
+        supportTickerId : parseInt(document.querySelector("#customer_support_member_id").innerHTML)
+    }
+
+    console.log(JSON.stringify(jsonObj));
+
+    $.ajax({
+        url: API_URL + "/customerSupport",
+        method: "PUT",
+        data: JSON.stringify(jsonObj),
+        success: function (res) {
+            res = $.parseJSON(res);
+            if (res.status == 200) {
+                alert(res.message);
+            }
+        }
+    });
+}
