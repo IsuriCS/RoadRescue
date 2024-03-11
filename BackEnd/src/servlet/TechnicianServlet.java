@@ -34,8 +34,6 @@ public class TechnicianServlet extends HttpServlet {
         String option = req.getParameter("option");
         String searchId = req.getParameter("searchId");
 
-        System.out.println("wduna"+option);
-
         PrintWriter writer = resp.getWriter();
         Connection connection = null;
 

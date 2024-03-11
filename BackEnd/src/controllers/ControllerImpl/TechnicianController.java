@@ -17,13 +17,6 @@ public class TechnicianController {
         ResultSet rst = CrudUtil.executeQuery(connection, "select  id,f_name,l_name,status,phone_number from technician;");
         JsonArrayBuilder technicianArray = Json.createArrayBuilder();
 
-        /*SELECT e.expertise
-        FROM technician_expertise te
-        JOIN expertise e ON te.expertise_id = e.id
-        WHERE te.technician_id = 117;*/
-
-
-
         while (rst.next()) {
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
 
@@ -40,14 +33,11 @@ public class TechnicianController {
 
             List<String> expertiseList = fetchExpertiseArias(connection, techId);
 
-            expertiseList.forEach(System.out::println);
-
-
             objectBuilder.add("techFirstName",rst.getString(2));
             objectBuilder.add("techLastName",rst.getString(3));
             objectBuilder.add("techStatus",(rst.getInt(4)==1) ? "Available":"Not Available");
             objectBuilder.add("techContactNumb",rst.getString(5));
-            objectBuilder.add("expertiseList", (JsonValue) expertiseList);
+            objectBuilder.add("expertiseList", expertiseList.toString());
             technicianArray.add(objectBuilder.build());
         }
         return technicianArray.build();
@@ -57,7 +47,7 @@ public class TechnicianController {
 
         List<String> expertiseList= new ArrayList<>();
 
-        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT e.expertise FROM technician_expertise te JOIN expertise e ON te.expertise_id = e.id WHERE te.technician_id = ?;", 114);
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT e.expertise FROM technician_expertise te JOIN expertise e ON te.expertise_id = e.id WHERE te.technician_id = ?;", techId);
 
         while (resultSet.next()){
             expertiseList.add(resultSet.getString(1));
