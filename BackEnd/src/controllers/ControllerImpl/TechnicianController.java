@@ -71,11 +71,6 @@ public class TechnicianController {
 
     }
 
-//    public JsonArray getServiceRequest(Connection connection){
-////        CrudUtil.executeQuery(connection,"")
-//    }
-
-
     public boolean add(Connection connection,TechnicianModel technicianModel) throws SQLException, ClassNotFoundException {
         boolean result_one = CrudUtil.executeUpdate(connection, "INSERT into technician (service_provider_id, phone_number, f_name, status, l_name) values(?,?,?,?,?)",
                 technicianModel.getServiceProviderId(), technicianModel.getContact(), technicianModel.getfName(), technicianModel.getStatus(), technicianModel.getlName());
@@ -111,6 +106,10 @@ public class TechnicianController {
     }
 
     public boolean delete(Connection connection,String techId) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeUpdate(connection,"DELETE FROM technician WHERE technician_id=?",techId);
+
+        boolean technicianExpertiseTableResult = CrudUtil.executeUpdate(connection, "DELETE FROM technician_expertise WHERE technician_id=?", techId);
+        boolean technicianTableResult = CrudUtil.executeUpdate(connection, "DELETE FROM technician WHERE id=?", techId);
+
+        return technicianExpertiseTableResult && technicianTableResult;
     }
 }

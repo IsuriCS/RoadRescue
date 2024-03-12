@@ -237,15 +237,13 @@ public class TechnicianServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String techId = req.getParameter("techId");
+        String techId = req.getParameter("delId");
         resp.setContentType("application/json");
         PrintWriter writer = resp.getWriter();
 
         try {
             Connection connection = ds.getConnection();
-
             boolean deleteResult = technician.delete(connection, techId);
-
 
             if (deleteResult) {
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
