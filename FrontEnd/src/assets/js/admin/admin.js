@@ -1,3 +1,8 @@
+
+
+const API_URL = "http://localhost:8080/roadRescue/Admin";
+
+
 // Navigate
 function showDashboard() {
     document.querySelector("#dashboardLink").classList.add("active");
@@ -59,9 +64,49 @@ function showcus() {
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
+
+    $("#load-container").show();
+    $("#CustomerList tbody").empty();
+
+    $.ajax({
+        url: API_URL + "/CustomerList",
+        method: "GET",
+        success: function (res) {
+            if (res.status == 200) {
+                $("#load-container").hide();
+
+
+                var tableBody = document.querySelector("#CustomerList tbody");
+
+                // Start from index 1 to skip the first item in the JSON array
+                for (var i = 1; i < res.data.length; i++) {
+                    var datai = res.data[i];
+                    var row = tableBody.insertRow();
+                    row.insertCell(0).textContent = datai.customerId || '';
+                    row.insertCell(1).textContent = datai.FullName || '--';
+                    row.insertCell(2).textContent = datai.contact || '';
+                    row.insertCell(3).textContent = datai.nServiceRequest || '0';
+                    row.insertCell(4).textContent = datai.nSupportTickets || '0';
+
+                    row.addEventListener('click', function () {
+                        var customerId = this.cells[0].textContent;
+                        showprof(res, customerId);
+
+                    })
+                }
+
+            }
+            else {
+                console.log("error");
+            }
+        }
+    });
+
+
 }
 
-function showprof() {
+function showprof(res, customerId) {
+
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "block";
@@ -74,6 +119,18 @@ function showprof() {
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
+
+    for (var i = 1; i < res.data.length; i++) {
+        if (res.data[i].customerId == customerId) {
+            var datai = res.data[i];
+            document.getElementById("cid").innerHTML = datai.customerId;
+            document.getElementById("fname").innerHTML = datai.fname || '-';
+            document.getElementById("lname").innerHTML = datai.lname || '-';
+            document.getElementById("email").innerHTML = datai.email || '-';
+            document.getElementById("cnum").innerHTML = datai.contact || '-';
+        }
+
+    }
 }
 
 function showGarageOwner() {
@@ -474,12 +531,14 @@ document.addEventListener("DOMContentLoaded", function () {
 // ---------------------------------------------------------------------------------------------------------------------Ajex
 
 // ++++++++++++++++++++++++Dashboard****************
-const API_URL = "http://localhost:8080/roadRescue/Admin";
+$("#load-container").show();
+
 $.ajax({
     url: API_URL + "/customerCard",
     method: "GET",
     success: function (res) {
         if (res.status == 200) {
+            $("#load-container").hide();
             document.querySelector("#registeredCustomersNum").innerHTML = res.data[0].CustomerNum;
             document.querySelector("#registeredSproviders").innerHTML = res.data[0].sproviderNum;
             document.querySelector("#completedTasksCount").innerHTML = res.data[0].CompletedTaskCount;

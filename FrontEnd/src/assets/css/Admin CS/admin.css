@@ -1,3 +1,21 @@
+#load-container {
+  width: 100vw;
+  height: 100%;
+  background-color: #ffffff8a;
+  z-index: 2;
+  position: fixed;
+}
+
+#load-container img {
+  width: 25vh;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
 /* *****************DASH BOARD CARDS ****************************** */
 
 .content .content-box .displayCards {

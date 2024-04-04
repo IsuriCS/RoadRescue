@@ -25,6 +25,9 @@
   </head>
 
   <body>
+   <div id="load-container">
+    <img src="../../assets/img/Gear-0.3s-200px.gif" alt="">
+  </div>
     <!-- ***************************************HEADER************************************ -->
     <div class="navbar">
       <div class="logo">
@@ -231,7 +234,7 @@
               </div>
             </div>
             <div>
-              <table>
+              <table id="CustomerList">
                 <thead>
                   <tr>
                     <th>Customer ID</th>
@@ -242,20 +245,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr onclick="showprof()">
-                    <td>1</td>
-                    <td>Isuri Chathurika</td>
-                    <td>0771234567</td>
-                    <td>3</td>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>--</td>
-                    <td>0771234567</td>
-                    <td>3</td>
-                    <td>2</td>
-                  </tr>
+                  
                 </tbody>
               </table>
             </div>
@@ -275,31 +265,31 @@
                   <div class="tag">
                     <h1>ID :</h1>
                   </div>
-                  <div class="detail"><p>001</p></div>
+                  <div class="detail"><p id="cid">001</p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>First Name :</h1>
                   </div>
-                  <div class="detail"><p>Chamodh</p></div>
+                  <div class="detail"><p id="fname">Chamodh</p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Last Name :</h1>
                   </div>
-                  <div class="detail"><p>Henderson</p></div>
+                  <div class="detail"><p id="lname">Henderson</p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Phone Number :</h1>
                   </div>
-                  <div class="detail"><p>0768658568</p></div>
+                  <div class="detail"><p id="cnum">0768658568</p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Email :</h1>
                   </div>
-                  <div class="detail"><p>chamodh@gmail.com</p></div>
+                  <div class="detail"><p id="email">chamodh@gmail.com</p></div>
                 </div>
 
                 <!-- *********************Buttons**************************************************** -->
@@ -1057,8 +1047,8 @@ download
     </div>
   </body>
 
-  <!-- <script src="../Customer/js/main.js"></script> -->
-  <script src="../../assets/js/CustomerSupport.js"></script>
+  <!-- <script src="../../assets/js/script.js"></script> -->
+  
   <script src="../../assets/js/jquery-3.7.0.js"></script>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
