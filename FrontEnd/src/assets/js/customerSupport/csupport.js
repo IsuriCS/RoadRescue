@@ -270,16 +270,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
 // Navigate
 // function showDashboard() {
 //     document.querySelector("#dashboard").style.display = "block";
@@ -307,3 +297,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // }
+
+const API_URL = "http://localhost:8080/roadRescueBackend";
+$.ajax({
+    url: API_URL + "/customerSupport",
+    method: "GET",
+    success: function (res) {
+        res = $.parseJSON(res);
+        if (res.status == 200) {
+            try{
+                res.data.forEach(customer => {
+                    document.querySelector("#customer_support_member_id").innerHTML = res.data[0].customer_support_member_id;
+                    // document.querySelector("#registeredCustomersNum").innerHTML = res.data[0].ticketId;
+                    // document.querySelector("#registeredSproviders").innerHTML = res.data[0].status;
+                    document.querySelector("#description").innerHTML = res.data[0].description;
+                    document.querySelector("#title").innerHTML = res.data[0].title;
+                    document.querySelector("#created_time").innerHTML = res.data[0].created_time;
+                });
+                
+            }catch{
+                console.log("error");
+            }
+         
+        
+    }
+}
+});
+
+
+
+function postData() {
+    let jsonObj = {
+        solution : document.getElementById("solution").value,
+        supportTickerId : parseInt(document.querySelector("#customer_support_member_id").innerHTML)
+    }
+
+    console.log(JSON.stringify(jsonObj));
+
+    $.ajax({
+        url: API_URL + "/customerSupport",
+        method: "PUT",
+        data: JSON.stringify(jsonObj),
+        success: function (res) {
+            res = $.parseJSON(res);
+            if (res.status == 200) {
+                alert(res.message);
+            }
+        }
+    });
+}

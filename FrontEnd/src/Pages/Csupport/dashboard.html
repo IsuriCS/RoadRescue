@@ -611,48 +611,49 @@
 
            <!-- ----------------------------support ticket--------------------------------- -->
           <div id = "ticket" style="display: none;">
-          <h1>Support Ticket > C - 001</h1>
+          <h1>Support Ticket</h1>
+
           <div class="info">
 
             <div class="row">
                 <div class="tag">
-                  <h1>User ID :</h1>
+                  <h1 >Customer Support Member ID :</h1>
                 </div>
-                <div class="detail"><p>C-001</p></div>
+                <div class="detail" id="customer_support_member_id"><p></p></div>
             </div>
 
             <div class="row">
                 <div class="tag">
                   <h1>Report Date and Time:</h1>
                 </div>
-                <div class="detail"><p>Date:02.02.2024  Time:10.50am</p></div>
+                <div class="detail"  id="created_time"><p></p></div>
             </div>
 
             <div class="row">
                 <div class="tag">
                   <h1>Problem:</h1>
                 </div>
-                <div class="detail"><p>Payment Issue</p></div>
+                <div class="detail" id="title"><p></p></div>
             </div>  
 
             <div class="row">
                 <div class="tag">
                   <h1>Descripton:</h1>
                 </div>
-                <div class="detail"><p>Customer couldn't make payment by using credit card</p></div>
+                <div class="detail" id="description"><p></p></div>
             </div>
 
             <div class="row">
                 <div class="tag">
                   <h1>Solution:</h1>
-                  <textarea style="border-radius: 12px;"></textarea>
+                  <textarea id="solution" style="border-radius: 12px;"></textarea>
                 </div>    
             </div>
                  
             </div>
             
             <div class="solveButton">
-                 <button type="submit" class="button">Set Solved</button>
+                 <button type="submit" class="button" onclick="postData()">Set Solved</button>
             </div>
 
       
@@ -737,17 +738,6 @@
 
 
 
-
-       
-
-
-
-
-
-
-
-
-
       </div>
 
 
@@ -762,9 +752,10 @@
     </div>
   </body>
 
-  <!-- <script src="../Customer/js/main.js"></script> -->
-  <script src="../../assets/js/CustomerSupport.js"></script>
-  <script src="jQuery/jquery-3.6.0.min.js"></script>
+ 
+  <!-- <script src="../../assets/js/CustomerSupport.js"></script> -->
+  <!-- <script src="jQuery/jquery-3.6.0.min.js"></script> -->
+  <script src="/FrontEnd/src/assets/js/jquery-3.7.0.js"></script>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="../../assets/js/customerSupport/csupport.js"></script>
