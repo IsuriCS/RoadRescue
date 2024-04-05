@@ -119,7 +119,7 @@
   align-items: center;
   margin: 1vh;
 }
-.topRow input {
+/* .topRow input {
   width: 30vw;
   text-decoration: none;
   font-size: 2vh;
@@ -127,6 +127,7 @@
 }
 .searchboxContainer {
   display: flex;
+  background-color: aliceblue;
 }
 .searchboxContainer button {
   width: 3vw;
@@ -136,6 +137,32 @@
 }
 .searchIcon {
   font-size: 3vh;
+} */
+.search input[type="text"] {
+  width: 300px;
+  height: 25px;
+  border-radius: 25px;
+  border: none;
+}
+.search form {
+  height: 100%;
+}
+.search {
+  float: right;
+  margin: 7px;
+  background-color: white;
+  padding: 1vh;
+}
+
+.search button {
+  background-color: transparent;
+  color: #253555;
+  float: right;
+
+  margin-right: 16px;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
 }
 
 /* **********************************Customer page Profile view******************************************** */
