@@ -75,11 +75,10 @@ function showcus() {
             if (res.status == 200) {
                 $("#load-container").hide();
 
-
                 var tableBody = document.querySelector("#CustomerList tbody");
 
                 // Start from index 1 to skip the first item in the JSON array
-                for (var i = 1; i < res.data.length; i++) {
+                for (var i = 0; i < res.data.length; i++) {
                     var datai = res.data[i];
                     var row = tableBody.insertRow();
                     row.insertCell(0).textContent = datai.customerId || '';
@@ -102,8 +101,27 @@ function showcus() {
         }
     });
 
+    document.getElementById("searchCustomer").addEventListener("input", function () {
+        var searchValue = this.value.toUpperCase();
+        var table = document.getElementById("CustomerList");
+        var tr = table.getElementsByTagName("tr");
+        for (var i = 0; i < tr.length; i++) {
+            var td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                var textValue = td.textContent || td.innerText;
+                if (textValue.toUpperCase().indexOf(searchValue) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+    );
+
 
 }
+
 
 function showprof(res, customerId) {
 
