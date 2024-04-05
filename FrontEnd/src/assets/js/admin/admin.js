@@ -101,8 +101,27 @@ function showcus() {
         }
     });
 
+    document.getElementById("searchCustomer").addEventListener("input", function () {
+        var searchValue = this.value.toUpperCase();
+        var table = document.getElementById("CustomerList");
+        var tr = table.getElementsByTagName("tr");
+        for (var i = 0; i < tr.length; i++) {
+            var td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                var textValue = td.textContent || td.innerText;
+                if (textValue.toUpperCase().indexOf(searchValue) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+    );
+
 
 }
+
 
 function showprof(res, customerId) {
 

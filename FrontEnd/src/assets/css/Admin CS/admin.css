@@ -141,9 +141,14 @@
 .search input[type="text"] {
   width: 300px;
   height: 25px;
-  border-radius: 25px;
+
   border: none;
 }
+
+input:focus {
+  outline: none;
+}
+
 .search form {
   height: 100%;
 }
