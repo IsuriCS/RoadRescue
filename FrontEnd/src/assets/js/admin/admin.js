@@ -75,11 +75,10 @@ function showcus() {
             if (res.status == 200) {
                 $("#load-container").hide();
 
-
                 var tableBody = document.querySelector("#CustomerList tbody");
 
                 // Start from index 1 to skip the first item in the JSON array
-                for (var i = 1; i < res.data.length; i++) {
+                for (var i = 0; i < res.data.length; i++) {
                     var datai = res.data[i];
                     var row = tableBody.insertRow();
                     row.insertCell(0).textContent = datai.customerId || '';

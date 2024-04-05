@@ -34,6 +34,7 @@ public class UserDataController {
 
             CustomerArray.add(objectBuilder.build());
         }
+
         return CustomerArray.build();
     }
 
