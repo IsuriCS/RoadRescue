@@ -246,7 +246,8 @@ input:focus {
 .rightSide .stsection #no_support_tickets {
   color: #525c9394;
   text-align: center;
-  font-size: 4vw;
+  font-size: 2vw;
+  padding: 0 8vw;
 }
 .rightSide .stsection .SuppotTicketcard {
   background-color: #728ab0;
