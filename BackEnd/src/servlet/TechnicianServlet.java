@@ -179,60 +179,79 @@ public class TechnicianServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        JsonReader reader = Json.createReader(req.getReader());
-//        JsonObject jsonObject = reader.readObject();
-//        String id = jsonObject.getString("techId");
-//        String fName = jsonObject.getString("fName");
-//        String lName = jsonObject.getString("lName");
-//        String contact = jsonObject.getString("contact");
-//        String expertise = jsonObject.getString("expertise");
-//        String status = jsonObject.getString("status");
-//        int didJobs = Integer.parseInt(jsonObject.getString("didJobs"));
-//
-//        PrintWriter writer = resp.getWriter();
-//        resp.setContentType("application/json");
-//
-//        try {
-//            Connection connection = ds.getConnection();
-//            TechnicianModel technicianModel = new TechnicianModel(id, fName,lName, contact,expertise, status, didJobs);
-//            boolean updateResult = technician.update(connection, technicianModel);
-//
-//
-//            if (updateResult) {
-//                System.out.println("technician update successful");
-//                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-//                resp.setStatus(HttpServletResponse.SC_OK);
-//                objectBuilder.add("status", 200);
-//                objectBuilder.add("message", "Technician update proceed successful.");
-//                objectBuilder.add("data", "");
-//                writer.print(objectBuilder.build());
-//            } else {
-//                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-//                resp.setStatus(HttpServletResponse.SC_OK);
-//                objectBuilder.add("status", 400);
-//                objectBuilder.add("message", "Technician update proceed failed.");
-//                objectBuilder.add("data", "");
-//                writer.print(objectBuilder.build());
-//            }
-//            connection.close();
-//        } catch (SQLException e) {
-//            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-//            resp.setStatus(HttpServletResponse.SC_OK);
-//            objectBuilder.add("status", 500);
-//            objectBuilder.add("message", "SQL Exception Error.");
-//            objectBuilder.add("data", e.getLocalizedMessage());
-//            writer.print(objectBuilder.build());
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-//            resp.setStatus(HttpServletResponse.SC_OK);
-//            objectBuilder.add("status", 500);
-//            objectBuilder.add("message", "Class not fount Exception Error");
-//            objectBuilder.add("data", e.getLocalizedMessage());
-//            writer.print(objectBuilder.build());
-//            e.printStackTrace();
-//        }
 
+        String id;
+        String fName;
+        String lName;
+        String imageRef;
+        JsonArray expertiseAreas;
+
+        try (Reader stringReader = new InputStreamReader(req.getInputStream())) {
+            JsonReader reader = Json.createReader(stringReader);
+            JsonObject jsonObject = reader.readObject();
+
+            id = jsonObject.getString("techId");
+            fName = jsonObject.getString("techFirstName");
+            lName = jsonObject.getString("techLastName");
+            imageRef = jsonObject.getString("imageRef");
+            expertiseAreas = jsonObject.getJsonArray("techExpertiseAreas");
+        }
+
+        PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
+
+        List<String> expertiseAreasList = new ArrayList<String>();
+
+        for (JsonValue expertiseArea : expertiseAreas
+        ) {
+            expertiseAreasList.add(String.valueOf(expertiseArea));
+        }
+
+        try{
+            Connection connection = ds.getConnection();
+            TechnicianModel technicianModel=new TechnicianModel(id,fName,lName,expertiseAreasList,imageRef);
+
+            boolean updateResult = technician.update(connection, technicianModel);
+            if (updateResult){
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                objectBuilder.add("status", 200);
+                objectBuilder.add("message", "Technician update proceed successful.");
+                objectBuilder.add("data", "");
+                writer.print(objectBuilder.build());
+            }else {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                objectBuilder.add("status", 400);
+                objectBuilder.add("message", "Technician update proceed failed.");
+                objectBuilder.add("data", "");
+                writer.print(objectBuilder.build());
+            }
+            connection.close();
+        } catch (SQLException e) {
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            resp.setStatus(HttpServletResponse.SC_OK);
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "SQL Exception Error.");
+            objectBuilder.add("data", e.getLocalizedMessage());
+            writer.print(objectBuilder.build());
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            resp.setStatus(HttpServletResponse.SC_OK);
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "Class not fount Exception Error");
+            objectBuilder.add("data", e.getLocalizedMessage());
+            writer.print(objectBuilder.build());
+            e.printStackTrace();
+        }
+
+        System.out.println("put eka wada ");
+        System.out.println(id);
+        System.out.println(fName);
+        System.out.println(lName);
+        System.out.println(imageRef);
+        System.out.println(expertiseAreas);
     }
 
     @Override
