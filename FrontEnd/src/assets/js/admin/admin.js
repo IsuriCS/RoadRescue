@@ -151,9 +151,15 @@ function showprof(res, customerId) {
             document.getElementById("lname").innerHTML = datai.lname || '-';
             document.getElementById("email").innerHTML = datai.email || '-';
             document.getElementById("cnum").innerHTML = datai.contact || '-';
+
+            if (datai.nSupportTickets == 0) {
+
+            }
         }
 
     }
+
+
 }
 
 function showGarageOwner() {
