@@ -101,6 +101,7 @@ function showcus() {
         }
     });
 
+    // Search Customer
     document.getElementById("searchCustomer").addEventListener("input", function () {
         var searchValue = this.value.toUpperCase();
         var table = document.getElementById("CustomerList");
@@ -138,7 +139,11 @@ function showprof(res, customerId) {
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
 
-    for (var i = 1; i < res.data.length; i++) {
+    // Update the title
+    var title = document.querySelector("#cusprof .topRow h1");
+    title.innerHTML = `Customer > C${customerId.padStart(3, '0')}`;
+
+    for (var i = 0; i < res.data.length; i++) {
         if (res.data[i].customerId == customerId) {
             var datai = res.data[i];
             document.getElementById("cid").innerHTML = datai.customerId;
