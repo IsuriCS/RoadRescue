@@ -158,14 +158,17 @@ function showprof(res, customerId) {
 
             if (datai.nSupportTickets > 0) {
 
+                // Remove created ticket cards
                 var ticketList = document.querySelectorAll(".SuppotTicketcard");
                 console.log(ticketList);
-                while (ticketList.length > 0) {
-                    console.log("inside while");
+                if (ticketList.length > 0) {
                     ticketList.forEach(function (ticket) {
                         ticket.remove();
                     });
                 }
+
+
+
                 console.log("inside if");
                 var temp = document.getElementById("supportTicketTemplate");
                 var clone = temp.content.cloneNode(true);
