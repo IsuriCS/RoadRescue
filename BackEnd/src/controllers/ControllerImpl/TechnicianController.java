@@ -41,7 +41,7 @@ public class TechnicianController {
             objectBuilder.add("expertiseList", expertiseList.toString());
             technicianArray.add(objectBuilder.build());
 
-            System.out.println(rst.getString(6));
+
         }
         return technicianArray.build();
     }
