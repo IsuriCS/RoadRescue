@@ -2,12 +2,10 @@ package servlet;
 
 import controllers.ControllerImpl.GarageController;
 import controllers.ControllerImpl.TechnicianController;
+import models.Garage;
 
 import javax.annotation.Resource;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,18 +34,30 @@ public class GarageServlet extends HttpServlet {
         String searchId = req.getParameter("searchId");
 
         PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
         Connection connection = null;
 
         switch (option) {
             case "garageDetail":
                 try {
                     connection = ds.getConnection();
-                    JsonObject garageDetails = garage.getGarageDetails(connection, "1");
+                    Garage garageDetails = garage.getGarageDetails(connection, "1");
                     System.out.println(garageDetails);
+
+                    JsonObjectBuilder garageData = Json.createObjectBuilder();
+                    garageData.add("garageName",garageDetails.getGarageName());
+                    garageData.add("contactNumber",garageDetails.getContactNumber());
+                    garageData.add("email",garageDetails.getEmail());
+                    garageData.add("garageStatus",garageDetails.getStatus());
+                    garageData.add("garageRating",garageDetails.getAvgRating());
+                    garageData.add("garageType",garageDetails.getGarageType());
+                    garageData.add("OwnerName",garageDetails.getOwnerName());
+
+
                     JsonObjectBuilder response = Json.createObjectBuilder();
                     response.add("status", 200);
                     response.add("message", "Done");
-                    response.add("data", garageDetails);
+                    response.add("data", garageData.build());
                     writer.print(response.build());
                     connection.close();
 
@@ -70,36 +80,6 @@ public class GarageServlet extends HttpServlet {
                 }
 
                 break;
-
-            case "expertise":
-
-//                try {
-//                    connection= ds.getConnection();
-//                    JsonArray expertiseArias = technician.getExpertiseArias(connection);
-//                    JsonObjectBuilder response = Json.createObjectBuilder();
-//                    response.add("status", 200);
-//                    response.add("message", "Done");
-//                    response.add("data", expertiseArias);
-//                    writer.print(response.build());
-//                    connection.close();
-//
-//                } catch (SQLException e) {
-//                    JsonObjectBuilder response = Json.createObjectBuilder();
-//                    resp.setStatus(HttpServletResponse.SC_OK);
-//                    response.add("status", 500);
-//                    response.add("message", "SQL Exception Error");
-//                    response.add("data", e.getLocalizedMessage());
-//                    writer.print(response.build());
-//                    e.printStackTrace();
-//                } catch (ClassNotFoundException e) {
-//                    JsonObjectBuilder response = Json.createObjectBuilder();
-//                    resp.setStatus(HttpServletResponse.SC_OK);
-//                    response.add("status", 500);
-//                    response.add("message", "Class not fount Exception Error");
-//                    response.add("data", e.getLocalizedMessage());
-//                    writer.print(response.build());
-//                    e.printStackTrace();
-//                }
 
             case "search":
                 // search content handle

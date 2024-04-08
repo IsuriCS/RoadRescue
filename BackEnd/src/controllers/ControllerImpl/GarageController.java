@@ -1,5 +1,6 @@
 package controllers.ControllerImpl;
 
+import models.Garage;
 import utils.CrudUtil;
 
 import javax.json.Json;
@@ -12,24 +13,25 @@ import java.sql.SQLException;
 public class GarageController {
 
 
-    public JsonObject getGarageDetails(Connection connection, String garageId) throws SQLException, ClassNotFoundException {
+    public Garage getGarageDetails(Connection connection, String garageId) throws SQLException, ClassNotFoundException {
         ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT phone_number,email,garage_name,status,avg_rating,type,owner_name FROM service_provider WHERE id=?", Integer.parseInt(garageId));
-        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-        JsonObject x = null;
+        Garage garage=null;
         while (resultSet.next()){
             System.out.println("111111");
-            objectBuilder.add("contactNumber",resultSet.getString(1));
-            objectBuilder.add("email",resultSet.getString(2));
-            objectBuilder.add("garageName",resultSet.getString(3));
-            objectBuilder.add("garageStatus",(resultSet.getInt(4) ==1)? "Available" : "Not Available");
-            objectBuilder.add("garageRating",resultSet.getString(5));
-            objectBuilder.add("garageType",resultSet.getString(6));
-            objectBuilder.add("OwnerName",resultSet.getString(7));
-            x=objectBuilder.build();
+            String contactNumber=resultSet.getString(1);
+            String email=(resultSet.getString(2)==null)? "example@gmail.com": this.toString();
+            String garageName=resultSet.getString(3);
+            String status=(resultSet.getInt(4)==1)? "Available" : "Not Available";
+            Float avgRating=resultSet.getFloat(5);
+            String type=(resultSet.getInt(6)==1)? "Garage" : "Maintain Personal";
+            String ownerName=resultSet.getString(7);
+            garage=new  Garage(
+                    garageName,contactNumber,email,status,avgRating,type,ownerName
+            );
         }
 
-        System.out.println(x);
-        return x;
+
+        return garage;
     }
 
 }
