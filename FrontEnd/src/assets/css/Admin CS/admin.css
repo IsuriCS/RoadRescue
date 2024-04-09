@@ -226,7 +226,7 @@ input:focus {
 
 #cusprof .rightSide button {
   width: 7vw;
-  background: #23a6f0;
+  /* background: #23a6f0; */
   margin-top: 0;
 }
 .button:hover {
@@ -262,6 +262,16 @@ input:focus {
 .SuppotTicketcard .solveButton {
   display: flex;
   justify-content: flex-end;
+}
+
+.SuppotTicketcard .solveButton .pending {
+  background-color: #eb1212;
+}
+.SuppotTicketcard .solveButton .solved {
+  background-color: #41b6e4;
+}
+.SuppotTicketcard .solveButton .on_review {
+  background-color: #1caf09;
 }
 /* ************************FAQ**************************** */
 /* 

@@ -195,6 +195,7 @@ function showprof(res, customerId) {
                                     var temp = document.getElementById("supportTicketTemplate");
                                     var clone = temp.content.cloneNode(true);
                                     clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${datai.ticketId.toString().padStart(3, '0')}`;
+
                                     var dateTime = new Date(datai.created_time);
                                     var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
                                     clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
@@ -202,6 +203,22 @@ function showprof(res, customerId) {
                                     // Update ticket title
                                     clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
 
+                                    // Change status button
+                                    var status = datai.status;
+                                    var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
+                                    console.log(status.toLowerCase());
+                                    if (status.toLowerCase() == "pending") {
+                                        sbutton.classList.add("pending");
+                                        sbutton.textContent = "Pending";
+                                    }
+                                    else if (status.toLowerCase() == "solved") {
+                                        sbutton.classList.add("solved");
+                                        sbutton.textContent = "Solved";
+                                    }
+                                    else {
+                                        sbutton.classList.add("on_review");
+                                        sbutton.textContent = "On Review";
+                                    }
                                     document.getElementById("no_support_tickets").style.display = "none";
                                     document.getElementById("support_ticket_list").style.display = "block";
                                     document.getElementById("support_ticket_list").appendChild(clone);
@@ -211,7 +228,7 @@ function showprof(res, customerId) {
 
                         }
                         else {
-                            console.log("errorrrrrrrrrr");
+                            console.log("error");
                         }
                     }
                 })
