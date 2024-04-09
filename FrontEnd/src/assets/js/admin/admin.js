@@ -31,6 +31,7 @@ function showDashboard() {
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#verification").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
 
 
 
@@ -64,6 +65,7 @@ function showcus() {
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
 
     $("#load-container").show();
     $("#CustomerList tbody").empty();
@@ -139,6 +141,7 @@ function showprof(res, customerId) {
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
 
     // Update the title
     var title = document.querySelector("#cusprof .topRow h1");
@@ -175,23 +178,13 @@ function showprof(res, customerId) {
                     success: function (res) {
                         console.log(res);
                         if (res.status == 200) {
-                            $("#load-container").hide();
+
 
                             for (var i = 0; i < res.data.length; i++) {
                                 var datai = res.data[i];
                                 if (datai.customerID == customerId) {
 
-                                    // var temp = document.getElementById("supportTicketTemplate");
-                                    // var clone = temp.content.cloneNode(true);
-                                    // document.getElementById("no_support_tickets").style.display = "none";
-                                    // document.getElementById("support_ticket_list").style.display = "block";
-                                    // clone.querySelector(".SuppotTicketcard").classList.add("SuppotTicketcard");
-                                    // clone.querySelector(".ticketId").innerHTML = datai.ticketId;
-                                    // clone.querySelector(".ticketTitle").innerHTML = datai.title;
-                                    // clone.querySelector(".ticketDate").innerHTML = datai.date;
-                                    // clone.querySelector(".ticketStatus").innerHTML = datai.status.charAt(0).toUpperCase() + datai.status.slice(1);
 
-                                    // document.getElementById("support_ticket_list").appendChild(clone);
                                     var temp = document.getElementById("supportTicketTemplate");
                                     var clone = temp.content.cloneNode(true);
                                     clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${datai.ticketId.toString().padStart(3, '0')}`;
@@ -206,7 +199,7 @@ function showprof(res, customerId) {
                                     // Change status button
                                     var status = datai.status;
                                     var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
-                                    console.log(status.toLowerCase());
+
                                     if (status.toLowerCase() == "pending") {
                                         sbutton.classList.add("pending");
                                         sbutton.textContent = "Pending";
@@ -219,13 +212,18 @@ function showprof(res, customerId) {
                                         sbutton.classList.add("on_review");
                                         sbutton.textContent = "On Review";
                                     }
+
+                                    clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
+                                        showsupportTicket(res, datai.ticketId);
+
+                                    });
                                     document.getElementById("no_support_tickets").style.display = "none";
                                     document.getElementById("support_ticket_list").style.display = "block";
                                     document.getElementById("support_ticket_list").appendChild(clone);
                                 }
 
                             }
-
+                            $("#load-container").hide();
                         }
                         else {
                             console.log("error");
@@ -233,19 +231,9 @@ function showprof(res, customerId) {
                     }
                 })
 
-
-                // console.log("inside if");
-                // var temp = document.getElementById("supportTicketTemplate");
-                // var clone = temp.content.cloneNode(true);
-                // document.getElementById("no_support_tickets").style.display = "none";
-                // document.getElementById("support_ticket_list").style.display = "block";
-                // document.getElementById("support_ticket_list").appendChild(clone);
-
             }
             else {
                 $("#load-container").hide();
-                console.log("inside else");
-
                 document.getElementById("no_support_tickets").style.display = "block";
                 document.getElementById("support_ticket_list").style.display = "none";
 
@@ -256,6 +244,25 @@ function showprof(res, customerId) {
 
 
 }
+
+function showsupportTicket(res, ticketId) {
+    $("#load-container").show();
+    document.querySelector("#dashboard").style.display = "none";
+    document.querySelector("#userCus").style.display = "none";
+    document.querySelector("#cusprof").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "block";
+
+    document.querySelector("#csmember").style.display = "none";
+    document.querySelector("#csprof").style.display = "none";
+    document.querySelector("#garageOwners").style.display = "none";
+    document.querySelector("#GarageProf").style.display = "none";
+    document.querySelector("#maintainancePersonnel").style.display = "none";
+    document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
+    document.querySelector("#verification").style.display = "none";
+    document.querySelector("#reports").style.display = "none";
+}
+
 
 function showGarageOwner() {
     document.querySelector("#dashboardLink").classList.remove("active");
@@ -284,6 +291,7 @@ function showGarageOwner() {
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
 
 }
 
@@ -301,6 +309,7 @@ function showGarageProf() {
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#reports").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
 
 }
 
@@ -331,6 +340,7 @@ function showMaintainancePersonnel() {
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
 
 }
 
@@ -347,6 +357,7 @@ function showMPProf() {
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
 
 
 }
@@ -379,6 +390,7 @@ function showcsmember() {
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
 
 
 }
@@ -396,6 +408,7 @@ function showcsprof() {
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#reports").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
 
 }
 
@@ -425,6 +438,7 @@ function showVerification() {
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "block";
     document.querySelector("#reports").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
 }
 
 function showReports() {
@@ -455,7 +469,7 @@ function showReports() {
     document.querySelector("#reports").style.display = "block";
 
     document.querySelector("#verification").style.display = "none";
-
+    document.querySelector("#SupportTicketDatail").style.display = "none";
 
 
 }
@@ -486,6 +500,7 @@ function showProfile() {
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#adminProfile").style.display = "block";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
 }
 
 // Dropdown side menu
