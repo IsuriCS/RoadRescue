@@ -39,9 +39,13 @@ public class GarageServlet extends HttpServlet {
 
         switch (option) {
             case "garageDetail":
+
+                break;
+            case "search":
+
                 try {
                     connection = ds.getConnection();
-                    Garage garageDetails = garage.getGarageDetails(connection, "1");
+                    Garage garageDetails = garage.getGarageDetails(connection, searchId);
                     System.out.println(garageDetails);
 
                     JsonObjectBuilder garageData = Json.createObjectBuilder();
@@ -81,9 +85,6 @@ public class GarageServlet extends HttpServlet {
 
                 break;
 
-            case "search":
-                // search content handle
-                break;
             default:
                 // handle
         }

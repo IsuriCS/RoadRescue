@@ -12,6 +12,9 @@ public class Garage {
     private String garageType;
 
 
+    private String timeStamp;
+
+
     public Garage() {
     }
 
@@ -28,7 +31,7 @@ public class Garage {
         this.ownerName = ownerName;
     }
 
-    public Garage(String garageName, String contactNumber, String email, String status, Float avgRating, String garageType, String ownerName) {
+    public Garage(String garageName, String contactNumber, String email, String status, Float avgRating, String garageType, String ownerName,String timeStamp) {
         this.garageName = garageName;
         this.contactNumber = contactNumber;
         this.email = email;
@@ -36,6 +39,7 @@ public class Garage {
         this.avgRating = avgRating;
         this.garageType = garageType;
         this.ownerName = ownerName;
+        this.timeStamp=timeStamp;
     }
 
     private String ownerName;
@@ -123,6 +127,15 @@ public class Garage {
         this.ownerName = ownerName;
     }
 
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+
     @Override
     public String toString() {
         return "Garage{" +
@@ -135,8 +148,8 @@ public class Garage {
                 ", location='" + location + '\'' +
                 ", avgRating=" + avgRating +
                 ", garageType='" + garageType + '\'' +
+                ", timeStamp='" + timeStamp + '\'' +
                 ", ownerName='" + ownerName + '\'' +
                 '}';
     }
-
 }
