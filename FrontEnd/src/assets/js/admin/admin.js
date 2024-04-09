@@ -72,6 +72,7 @@ function showcus() {
         url: API_URL + "/CustomerList",
         method: "GET",
         success: function (res) {
+            console.log(res);
             if (res.status == 200) {
                 $("#load-container").hide();
 
@@ -125,7 +126,7 @@ function showcus() {
 
 
 function showprof(res, customerId) {
-
+    $("#load-container").show();
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "block";
@@ -167,17 +168,65 @@ function showprof(res, customerId) {
                     });
                 }
 
+                // request ticket details from backend
+                $.ajax({
+                    url: "http://localhost:8080/roadRescue/customerSupport",
+                    method: "GET",
+                    success: function (res) {
+                        console.log(res);
+                        if (res.status == 200) {
+                            $("#load-container").hide();
+
+                            for (var i = 0; i < res.data.length; i++) {
+                                var datai = res.data[i];
+                                if (datai.customerID == customerId) {
+
+                                    // var temp = document.getElementById("supportTicketTemplate");
+                                    // var clone = temp.content.cloneNode(true);
+                                    // document.getElementById("no_support_tickets").style.display = "none";
+                                    // document.getElementById("support_ticket_list").style.display = "block";
+                                    // clone.querySelector(".SuppotTicketcard").classList.add("SuppotTicketcard");
+                                    // clone.querySelector(".ticketId").innerHTML = datai.ticketId;
+                                    // clone.querySelector(".ticketTitle").innerHTML = datai.title;
+                                    // clone.querySelector(".ticketDate").innerHTML = datai.date;
+                                    // clone.querySelector(".ticketStatus").innerHTML = datai.status.charAt(0).toUpperCase() + datai.status.slice(1);
+
+                                    // document.getElementById("support_ticket_list").appendChild(clone);
+                                    var temp = document.getElementById("supportTicketTemplate");
+                                    var clone = temp.content.cloneNode(true);
+                                    clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${datai.ticketId.toString().padStart(3, '0')}`;
+                                    var dateTime = new Date(datai.created_time);
+                                    var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
+                                    clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
+
+                                    // Update ticket title
+                                    clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
+
+                                    document.getElementById("no_support_tickets").style.display = "none";
+                                    document.getElementById("support_ticket_list").style.display = "block";
+                                    document.getElementById("support_ticket_list").appendChild(clone);
+                                }
+
+                            }
+
+                        }
+                        else {
+                            console.log("errorrrrrrrrrr");
+                        }
+                    }
+                })
 
 
-                console.log("inside if");
-                var temp = document.getElementById("supportTicketTemplate");
-                var clone = temp.content.cloneNode(true);
-                document.getElementById("no_support_tickets").style.display = "none";
-                document.getElementById("support_ticket_list").style.display = "block";
-                document.getElementById("support_ticket_list").appendChild(clone);
+                // console.log("inside if");
+                // var temp = document.getElementById("supportTicketTemplate");
+                // var clone = temp.content.cloneNode(true);
+                // document.getElementById("no_support_tickets").style.display = "none";
+                // document.getElementById("support_ticket_list").style.display = "block";
+                // document.getElementById("support_ticket_list").appendChild(clone);
 
             }
             else {
+                $("#load-container").hide();
                 console.log("inside else");
 
                 document.getElementById("no_support_tickets").style.display = "block";
