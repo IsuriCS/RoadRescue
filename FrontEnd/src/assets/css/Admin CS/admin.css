@@ -221,7 +221,7 @@ input:focus {
   width: 15vw;
 }
 #cusprof button {
-  width: 13vw;
+  width: 15vw;
 }
 
 #cusprof .rightSide button {
@@ -241,6 +241,13 @@ input:focus {
   display: flex;
   flex-direction: column;
   padding-left: 5vh;
+  width: 45%;
+}
+.rightSide .stsection #no_support_tickets {
+  color: #525c9394;
+  text-align: center;
+  font-size: 2vw;
+  padding: 0 8vw;
 }
 .rightSide .stsection .SuppotTicketcard {
   background-color: #728ab0;
@@ -364,7 +371,7 @@ input {
 .inputFileds select {
   width: 100%;
   height: 5vh;
-  decoration: none;
+  /* decoration: none; */
   font-size: 2vh;
   color: #757575;
 }
@@ -439,7 +446,7 @@ input {
 #reports > .selectionRow > .rowsSec > select {
   width: 100%;
   height: 5vh;
-  decoration: none;
+  /* decoration: none; */
   font-size: 2vh;
   color: #757575;
 }
@@ -453,7 +460,7 @@ input {
 #reports > .selectionRow > .spfilters select {
   width: 50%;
   height: 5vh;
-  decoration: none;
+  /* decoration: none; */
   font-size: 2vh;
   color: #757575;
 }

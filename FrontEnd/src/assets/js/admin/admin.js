@@ -101,6 +101,7 @@ function showcus() {
         }
     });
 
+    // Search Customer
     document.getElementById("searchCustomer").addEventListener("input", function () {
         var searchValue = this.value.toUpperCase();
         var table = document.getElementById("CustomerList");
@@ -138,17 +139,56 @@ function showprof(res, customerId) {
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
 
-    for (var i = 1; i < res.data.length; i++) {
+    // Update the title
+    var title = document.querySelector("#cusprof .topRow h1");
+    title.innerHTML = `Customer > C${customerId.padStart(3, '0')}`;
+
+
+
+    for (var i = 0; i < res.data.length; i++) {
+
         if (res.data[i].customerId == customerId) {
             var datai = res.data[i];
+            console.log(datai);
             document.getElementById("cid").innerHTML = datai.customerId;
             document.getElementById("fname").innerHTML = datai.fname || '-';
             document.getElementById("lname").innerHTML = datai.lname || '-';
             document.getElementById("email").innerHTML = datai.email || '-';
             document.getElementById("cnum").innerHTML = datai.contact || '-';
+
+            if (datai.nSupportTickets > 0) {
+
+                // Remove created ticket cards
+                var ticketList = document.querySelectorAll(".SuppotTicketcard");
+                console.log(ticketList);
+                if (ticketList.length > 0) {
+                    ticketList.forEach(function (ticket) {
+                        ticket.remove();
+                    });
+                }
+
+
+
+                console.log("inside if");
+                var temp = document.getElementById("supportTicketTemplate");
+                var clone = temp.content.cloneNode(true);
+                document.getElementById("no_support_tickets").style.display = "none";
+                document.getElementById("support_ticket_list").style.display = "block";
+                document.getElementById("support_ticket_list").appendChild(clone);
+
+            }
+            else {
+                console.log("inside else");
+
+                document.getElementById("no_support_tickets").style.display = "block";
+                document.getElementById("support_ticket_list").style.display = "none";
+
+            }
         }
 
     }
+
+
 }
 
 function showGarageOwner() {

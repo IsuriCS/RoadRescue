@@ -308,7 +308,10 @@
               <div class="rightSide">
                 <div class="stsection">
                   <h1>Support Tickets</h1>
-                  <div class="SuppotTicketcard">
+                  <h1 id="no_support_tickets"> No Support Tickets</h1>
+                  <div id="support_ticket_list" style="display:none;">
+                    <template id="supportTicketTemplate">
+                    <div class="SuppotTicketcard">
                     <h1>ST-001</h1>
                     <div class="row">
                       <div class="tag">
@@ -326,6 +329,10 @@
                       <button type="submit" class="button">Solved</button>
                     </div>
                   </div>
+                  </template>
+                  </div>
+                  
+                  
                 </div>
               </div>
             </div>

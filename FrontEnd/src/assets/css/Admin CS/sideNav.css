@@ -25,6 +25,10 @@ body {
   min-height: 89.3vh;
 }
 
+.sidenav h1 {
+  text-align: center;
+}
+
 .sidenav > img {
   width: 30%;
 }
