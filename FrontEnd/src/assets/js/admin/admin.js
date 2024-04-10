@@ -297,6 +297,7 @@ function showsupportTicket(res, ticketId, name) {
                 document.querySelector(".info textarea").innerHTML = datai.solution || "-";
                 document.querySelector(".info textarea").disabled = true;
                 document.querySelector(".info textarea").classList.add("disabledText");
+                document.querySelector(".topRow #button").style.display = "none";
             }
             else {
                 asignbtn.style.display = "none";
