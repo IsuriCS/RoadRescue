@@ -406,6 +406,7 @@ function showMPProf() {
 }
 
 function showcsmember() {
+
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
     document.querySelector("#profileLink").classList.remove("active");
@@ -436,9 +437,66 @@ function showcsmember() {
     document.querySelector("#SupportTicketDatail").style.display = "none";
 
 
+    $("#load-container").show();
+    $("#CSupportList tbody").empty();
+
+    $.ajax({
+        url: API_URL + "/CustomerSupportList",
+        method: "GET",
+        success: function (res) {
+            console.log(res);
+            if (res.status == 200) {
+                $("#load-container").hide();
+
+                var tableBody = document.querySelector("#CSupportList tbody");
+
+                // Start from index 1 to skip the first item in the JSON array
+                for (var i = 0; i < res.data.length; i++) {
+                    var datai = res.data[i];
+                    var row = tableBody.insertRow();
+                    row.insertCell(0).textContent = datai.CSid || '-';
+                    row.insertCell(1).textContent = datai.fname + " " + datai.lname || '--';
+                    row.insertCell(2).textContent = datai.phone_number || '-';
+                    row.insertCell(3).textContent = datai.tickets_solved || '0';
+
+
+                    row.addEventListener('click', function () {
+                        // var customerId = this.cells[0].textContent;
+                        showcsprof(res, datai.CSid);
+
+                    })
+                }
+
+            }
+            else {
+                console.log("error");
+            }
+        }
+    });
+
+    // // Search Customer
+    // document.getElementById("searchCustomer").addEventListener("input", function () {
+    //     var searchValue = this.value.toUpperCase();
+    //     var table = document.getElementById("CustomerList");
+    //     var tr = table.getElementsByTagName("tr");
+    //     for (var i = 0; i < tr.length; i++) {
+    //         var td = tr[i].getElementsByTagName("td")[1];
+    //         if (td) {
+    //             var textValue = td.textContent || td.innerText;
+    //             if (textValue.toUpperCase().indexOf(searchValue) > -1) {
+    //                 tr[i].style.display = "";
+    //             } else {
+    //                 tr[i].style.display = "none";
+    //             }
+    //         }
+    //     }
+    // }
+    // );
+
+
 }
 
-function showcsprof() {
+function showcsprof(res, id) {
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
