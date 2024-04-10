@@ -275,7 +275,7 @@ function showsupportTicket(res, ticketId, name) {
     for (var i = 0; i < res.data.length; i++) {
         if (res.data[i].ticketId == ticketId) {
             var datai = res.data[i];
-            console.log(name);
+
             document.getElementById("ticketID").innerHTML = datai.ticketId;
             document.getElementById("CustomerSupportID").innerHTML = datai.customer_support_member_id || '-';
             document.getElementById("userID").innerHTML = datai.customerID || '-';
@@ -285,6 +285,11 @@ function showsupportTicket(res, ticketId, name) {
             var dateTime = new Date(datai.created_time);
             var formattedDate = dateTime.toLocaleDateString();
             document.getElementById("Date").innerHTML = formattedDate || '-';
+
+            var ticketStatus = datai.status;
+            if (ticketStatus.toLowerCase() == "pending") {
+
+            }
             $("#load-container").hide();
         }
     }
