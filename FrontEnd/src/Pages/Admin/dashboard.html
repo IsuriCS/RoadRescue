@@ -342,7 +342,7 @@
           <div id="SupportTicketDatail" style="display: none">
             <div class="topRow">
             <h1>Reports > 001</h1>
-            <button id="button">Set Solved</button>
+            <button id="button" style="display: block;">Set Solved</button>
           </div>
 
           <div class="info">
@@ -355,8 +355,9 @@
               <p id="Date">a</p>
             </div>
             <div>
-              <p id="Detail">Created By :</p>
+              <p id="Detail">Assigned Customer Support ID :</p>
               <p id="CustomerSupportID">b</p>
+              <button id="assignbtn" style="display: hide;">Assign Customer Support Member</button>
             </div>
             <div>
               <p id="Detail">Ticket Owner ID:</p>
@@ -385,7 +386,7 @@
 
           <div id="garageOwners" style="display: none">
             <div class="topRow">
-              <h1>Customer</h1>
+              <h1>Garage</h1>
               <div class="searchboxContainer">
                 <input type="text" placeholder="Search Customer.." />
                 <button type="submit">
@@ -705,7 +706,7 @@
               </div>
             </div>
             <div>
-              <table>
+              <table id="CSupportList">
                 <thead>
                   <tr>
                     <th>Member ID</th>
