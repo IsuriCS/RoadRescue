@@ -37,6 +37,7 @@ public class CustomerSupportServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("Call  me");
         PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
 
         try {
             Connection connection = ds.getConnection();
