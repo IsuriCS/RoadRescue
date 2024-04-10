@@ -273,6 +273,27 @@ input:focus {
 .SuppotTicketcard .solveButton .on_review {
   background-color: #1caf09;
 }
+/* *********************************Support Ticket Page ****************************** */
+#SupportTicketDatail .info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1.5vw;
+}
+#SupportTicketDatail .info div {
+  display: flex;
+  flex-direction: row;
+}
+#SupportTicketDatail .info div #Detail {
+  margin-right: 2vw;
+  width: 14%;
+}
+
+#SupportTicketDatail .info textarea {
+  height: 10vh;
+  font-size: 2.5vh;
+  border: none;
+}
+
 /* ************************FAQ**************************** */
 /* 
 input,

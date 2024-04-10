@@ -152,8 +152,9 @@ function showprof(res, customerId) {
     for (var i = 0; i < res.data.length; i++) {
 
         if (res.data[i].customerId == customerId) {
+
             var datai = res.data[i];
-            console.log(datai);
+            var name = datai.fname + " " + datai.lname;
             document.getElementById("cid").innerHTML = datai.customerId;
             document.getElementById("fname").innerHTML = datai.fname || '-';
             document.getElementById("lname").innerHTML = datai.lname || '-';
@@ -181,46 +182,50 @@ function showprof(res, customerId) {
 
 
                             for (var i = 0; i < res.data.length; i++) {
-                                var datai = res.data[i];
-                                if (datai.customerID == customerId) {
+                                (function () {
+                                    var datai = res.data[i];
+                                    if (datai.customerID == customerId) {
 
 
-                                    var temp = document.getElementById("supportTicketTemplate");
-                                    var clone = temp.content.cloneNode(true);
-                                    clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${datai.ticketId.toString().padStart(3, '0')}`;
+                                        var temp = document.getElementById("supportTicketTemplate");
+                                        var clone = temp.content.cloneNode(true);
+                                        clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${String(datai.ticketId).padStart(3, '0')}`;
+                                        console.log(datai.ticketId);
+                                        var dateTime = new Date(datai.created_time);
+                                        var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
+                                        clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
 
-                                    var dateTime = new Date(datai.created_time);
-                                    var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
-                                    clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
+                                        // Update ticket title
+                                        clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
 
-                                    // Update ticket title
-                                    clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
+                                        // Change status button
+                                        var status = datai.status;
+                                        var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
 
-                                    // Change status button
-                                    var status = datai.status;
-                                    var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
+                                        if (status.toLowerCase() == "pending") {
+                                            sbutton.classList.add("pending");
+                                            sbutton.textContent = "Pending";
+                                        }
+                                        else if (status.toLowerCase() == "solved") {
+                                            sbutton.classList.add("solved");
+                                            sbutton.textContent = "Solved";
+                                        }
+                                        else {
+                                            sbutton.classList.add("on_review");
+                                            sbutton.textContent = "On Review";
+                                        }
 
-                                    if (status.toLowerCase() == "pending") {
-                                        sbutton.classList.add("pending");
-                                        sbutton.textContent = "Pending";
+                                        clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
+                                            showsupportTicket(res, datai.ticketId, name);
+                                            console.log(res, datai.ticketId, name);
+
+                                        });
+                                        document.getElementById("no_support_tickets").style.display = "none";
+                                        document.getElementById("support_ticket_list").style.display = "block";
+                                        document.getElementById("support_ticket_list").appendChild(clone);
                                     }
-                                    else if (status.toLowerCase() == "solved") {
-                                        sbutton.classList.add("solved");
-                                        sbutton.textContent = "Solved";
-                                    }
-                                    else {
-                                        sbutton.classList.add("on_review");
-                                        sbutton.textContent = "On Review";
-                                    }
+                                })();
 
-                                    clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
-                                        showsupportTicket(res, datai.ticketId);
-
-                                    });
-                                    document.getElementById("no_support_tickets").style.display = "none";
-                                    document.getElementById("support_ticket_list").style.display = "block";
-                                    document.getElementById("support_ticket_list").appendChild(clone);
-                                }
 
                             }
                             $("#load-container").hide();
@@ -245,7 +250,7 @@ function showprof(res, customerId) {
 
 }
 
-function showsupportTicket(res, ticketId) {
+function showsupportTicket(res, ticketId, name) {
     $("#load-container").show();
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
@@ -261,6 +266,33 @@ function showsupportTicket(res, ticketId) {
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
+
+    // Update the title
+    var ttitle = document.querySelector("#SupportTicketDatail .topRow h1");
+    ttitle.innerHTML = `Reports > ST${String(ticketId).padStart(3, '0')}`;
+
+
+    for (var i = 0; i < res.data.length; i++) {
+        if (res.data[i].ticketId == ticketId) {
+            var datai = res.data[i];
+
+            document.getElementById("ticketID").innerHTML = datai.ticketId;
+            document.getElementById("CustomerSupportID").innerHTML = datai.customer_support_member_id || '-';
+            document.getElementById("userID").innerHTML = datai.customerID || '-';
+            document.getElementById("userName").innerHTML = name || '-';
+            document.getElementById("title").innerHTML = datai.title || '-';
+            document.getElementById("description").innerHTML = datai.description || '-';
+            var dateTime = new Date(datai.created_time);
+            var formattedDate = dateTime.toLocaleDateString();
+            document.getElementById("Date").innerHTML = formattedDate || '-';
+
+            var ticketStatus = datai.status;
+            if (ticketStatus.toLowerCase() == "pending") {
+
+            }
+            $("#load-container").hide();
+        }
+    }
 }
 
 
