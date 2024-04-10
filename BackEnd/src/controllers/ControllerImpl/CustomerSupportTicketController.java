@@ -58,7 +58,7 @@ public class CustomerSupportTicketController {
     }
 
     public JsonArray getAllPendingSupportTicket(Connection connection) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT id,status,description,title,customer_support_member_id,created_time,customer_id FROM customer_support_ticket;");
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT id,status,description,title,customer_support_member_id,created_time,customer_id,solution FROM customer_support_ticket;");
 
         JsonArrayBuilder SupportTickets = Json.createArrayBuilder();
 
@@ -71,6 +71,7 @@ public class CustomerSupportTicketController {
            int customer_support_member_id =resultSet.getInt(5);
             String created_time =resultSet.getString(6);
             int customerId= resultSet.getInt(7);
+            String solution = resultSet.getString(8);
 
 
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
@@ -81,6 +82,7 @@ public class CustomerSupportTicketController {
             objectBuilder.add("customer_support_member_id",customer_support_member_id);
             objectBuilder.add("created_time",created_time);
             objectBuilder.add("customerID",customerId);
+            objectBuilder.add("solution",solution);
             SupportTickets.add(objectBuilder.build());
         }
         return SupportTickets.build();

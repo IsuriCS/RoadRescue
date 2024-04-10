@@ -287,8 +287,19 @@ function showsupportTicket(res, ticketId, name) {
             document.getElementById("Date").innerHTML = formattedDate || '-';
 
             var ticketStatus = datai.status;
-            if (ticketStatus.toLowerCase() == "pending") {
 
+            var asignbtn = document.getElementById("assignbtn");
+            if (ticketStatus.toLowerCase() == "pending") {
+                asignbtn.style.display = "block";
+            }
+            else if (ticketStatus.toLowerCase() == "solved") {
+                asignbtn.style.display = "none";
+                document.querySelector(".info textarea").innerHTML = datai.solution || "-";
+                document.querySelector(".info textarea").disabled = true;
+                document.querySelector(".info textarea").classList.add("disabledText");
+            }
+            else {
+                asignbtn.style.display = "none";
             }
             $("#load-container").hide();
         }

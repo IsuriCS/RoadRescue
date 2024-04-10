@@ -293,7 +293,20 @@ input:focus {
   font-size: 2.5vh;
   border: none;
 }
-
+#SupportTicketDatail .info div button {
+  width: 8vw;
+  /* padding: 1vh; */
+  font-size: 2vh;
+  border-radius: 2vh;
+  border: none;
+  background-color: #23a6f0;
+  color: white;
+  margin: 1vh;
+  margin-left: 5vw;
+}
+#SupportTicketDatail .info .disabledText {
+  color: white;
+}
 /* ************************FAQ**************************** */
 /* 
 input,
