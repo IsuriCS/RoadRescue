@@ -41,7 +41,11 @@ public class SupportMemberServlet extends HttpServlet {
 
         try {
             Connection connection = ds.getConnection();
-            String contactNum = JsonObject.getString("contactNum");
+
+            JsonReader reader = Json.createReader(req.getReader());
+            JsonObject jsonObject = reader.readObject();
+
+            String contactNum = jsonObject.getString("contactNum");
             JsonObject getCustomerSupportMemberByContact = cusSupportMember.getCustomerSupportMemberByContact(connection , contactNum);
             JsonObjectBuilder response = Json.createObjectBuilder();
             response.add("status",200);
@@ -83,11 +87,11 @@ public class SupportMemberServlet extends HttpServlet {
 
                 int supportMemberId = jsonObject.getInt("supportMemberId");
                 String firstName = jsonObject.getString("firstName");
-                String phoneNumber = jsonObject.getString("phoneNumber");
                 String lastName = jsonObject.getString("lastName");
+                String phoneNumber = jsonObject.getString("phoneNumber");
                 String reg_timestamp = jsonObject.getString("reg_timestamp");
 
-                SupportMember supportMember = new SupportMember(supportMemberId,firstName,phoneNumber,lastName,reg_timestamp);
+                SupportMember supportMember = new SupportMember(supportMemberId,firstName,lastName,phoneNumber,reg_timestamp);
                 SupportMemberModels customerSupportMember = new SupportMemberModels(supportMemberId);
 
 

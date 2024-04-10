@@ -193,6 +193,32 @@ function showProfile  (){
 }
 
 
+// const API_URL = "http://localhost:8080/roadRescueBackend";
+// $.ajax({
+//     url: API_URL + "/supportMember",
+//     method: "GET",
+//     success: function (res) {
+//         res = $.parseJSON(res);
+//         if (res.status == 200) {
+//             try{
+//                 res.data.forEach(supportMember => {
+//                     document.querySelector("#id").innerHTML = res.data[0].supportMemberId;
+//                     document.querySelector("#f_name").innerHTML = res.data[0].f_name;
+//                     document.querySelector("#l_name").innerHTML = res.data[0].l_name;
+//                     document.querySelector("#phone_number").innerHTML = res.data[0].phone_number;
+//                     document.querySelector("#reg_timestamp").innerHTML = res.data[0].reg_timestamp;
+//                 });
+//
+//             }catch{
+//                 console.log("error");
+//             }
+//
+//
+//         }
+//     }
+// });
+
+
 
 // Dropdown side menu
 
@@ -270,30 +296,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-// Navigate
-// function showDashboard() {
-//     document.querySelector("#dashboard").style.display = "block";
-//     document.querySelector("#userCus").style.display = "none";
-//     document.querySelector("#cusprof").style.display = "none";
-// }
-// function showcus() {
-
-//     document.querySelector("#dashboard").style.display = "none";
-//     document.querySelector("#userCus").style.display = "block";
-//     document.querySelector("#cusprof").style.display = "none";
-// }
-
-// function showprof() {
-//     document.querySelector("#dashboard").style.display = "none";
-//     document.querySelector("#userCus").style.display = "none";
-//     document.querySelector("#cusprof").style.display = "block";
-// }
-
-// function showSupro(){
-//     document.querySelector("#dashboard").style.display = "none";
-//     document.querySelector("#userCus").style.display = "none";
-//     document.querySelector("#cusprof").style.display = "none";
-//     document.querySelector("#cusprof").style.display = "block";
 
 
 // }
