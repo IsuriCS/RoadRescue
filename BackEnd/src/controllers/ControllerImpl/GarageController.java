@@ -21,9 +21,9 @@ public class GarageController {
             String email=(resultSet.getString(2)==null)? "example@gmail.com": this.toString();
             String garageName=resultSet.getString(3);
             String timeStamp=resultSet.getString(4);
-            String status=(resultSet.getInt(5)==1)? "Available" : "Not Available";
+            String status=resultSet.getString(5);
             Float avgRating=resultSet.getFloat(6);
-            String type=(resultSet.getInt(7)==1)? "Garage" : "Maintain Personal";
+            String type=resultSet.getString(7);
             String ownerName=resultSet.getString(8);
             garage=new  Garage(
                     garageName,contactNumber,email,status,avgRating,type,ownerName,timeStamp
