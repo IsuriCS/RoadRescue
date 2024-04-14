@@ -119,23 +119,37 @@
   align-items: center;
   margin: 1vh;
 }
-.topRow input {
-  width: 30vw;
-  text-decoration: none;
-  font-size: 2vh;
-  padding: 0.8vh;
-}
-.searchboxContainer {
-  display: flex;
-}
-.searchboxContainer button {
-  width: 3vw;
-  padding: 0;
-  height: 4vh;
+
+.search input[type="text"] {
+  width: 300px;
+  height: 25px;
+
   border: none;
 }
-.searchIcon {
-  font-size: 3vh;
+
+input:focus {
+  outline: none;
+}
+
+.search form {
+  height: 100%;
+}
+.search {
+  float: right;
+  margin: 7px;
+  background-color: white;
+  padding: 1vh;
+}
+
+.search button {
+  background-color: transparent;
+  color: #253555;
+  float: right;
+
+  margin-right: 16px;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
 }
 
 /* **********************************Customer page Profile view******************************************** */
@@ -206,27 +220,92 @@
   border-style: none;
   width: 15vw;
 }
+#cusprof button {
+  width: 15vw;
+}
 
+#cusprof .rightSide button {
+  width: 7vw;
+  /* background: #23a6f0; */
+  margin-top: 0;
+}
 .button:hover {
   background: #2289c4;
 
   text-decoration: none;
 }
-
+.rightSide .SuppotTicketcard .row {
+  margin: 0;
+}
 .rightSide {
   display: flex;
   flex-direction: column;
   padding-left: 5vh;
+  width: 45%;
+}
+.rightSide .stsection #no_support_tickets {
+  color: #525c9394;
+  text-align: center;
+  font-size: 2vw;
+  padding: 0 8vw;
 }
 .rightSide .stsection .SuppotTicketcard {
   background-color: #728ab0;
   padding: 3vh;
   border-radius: 5vh;
   width: 60vh;
+  margin: 2vh;
+}
+.rightSide .SuppotTicketcard h1 {
+  margin: 0;
 }
 .SuppotTicketcard .solveButton {
   display: flex;
   justify-content: flex-end;
+}
+
+.SuppotTicketcard .solveButton .pending {
+  background-color: #eb1212;
+}
+.SuppotTicketcard .solveButton .solved {
+  background-color: #41b6e4;
+}
+.SuppotTicketcard .solveButton .on_review {
+  background-color: #1caf09;
+}
+/* *********************************Support Ticket Page ****************************** */
+#SupportTicketDatail .info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1.5vw;
+}
+#SupportTicketDatail .info div {
+  display: flex;
+  flex-direction: row;
+}
+#SupportTicketDatail .info div #Detail {
+  margin-right: 2vw;
+  width: 14%;
+}
+
+#SupportTicketDatail .info textarea {
+  height: 10vh;
+  font-size: 2.5vh;
+  border: none;
+}
+#SupportTicketDatail .info div button {
+  width: 8vw;
+  /* padding: 1vh; */
+  font-size: 2vh;
+  border-radius: 2vh;
+  border: none;
+  background-color: #23a6f0;
+  color: white;
+  margin: 1vh;
+  margin-left: 5vw;
+}
+#SupportTicketDatail .info .disabledText {
+  color: white;
 }
 /* ************************FAQ**************************** */
 /* 
@@ -336,7 +415,7 @@ input {
 .inputFileds select {
   width: 100%;
   height: 5vh;
-  decoration: none;
+  /* decoration: none; */
   font-size: 2vh;
   color: #757575;
 }
@@ -411,7 +490,7 @@ input {
 #reports > .selectionRow > .rowsSec > select {
   width: 100%;
   height: 5vh;
-  decoration: none;
+  /* decoration: none; */
   font-size: 2vh;
   color: #757575;
 }
@@ -425,7 +504,7 @@ input {
 #reports > .selectionRow > .spfilters select {
   width: 50%;
   height: 5vh;
-  decoration: none;
+  /* decoration: none; */
   font-size: 2vh;
   color: #757575;
 }
