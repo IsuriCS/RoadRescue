@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 public class UserDataController {
 
     public JsonArray getCustomerList(Connection connection) throws SQLException, ClassNotFoundException {
@@ -38,6 +39,46 @@ public class UserDataController {
         return CustomerArray.build();
     }
 
+
+    public JsonArray getServiceProviderList(Connection connection) throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT * FROM service_provider");
+        JsonArrayBuilder SericeProviderArray = Json.createArrayBuilder();
+        while (rst.next()) {
+            int id = rst.getInt(1);
+            String phoneNumber= rst.getString(2);
+            String email= rst.getString(3);
+            String garageName= rst.getString(4);
+            String Date = rst.getString(5);
+            String status = rst.getString(6);
+            String location = rst.getString(7);
+            Double avg_rating = rst.getDouble(8);
+            String type = rst.getString(9);
+            String owner_name = rst.getString(10);
+            String profile_pic_ref = rst.getString(11);
+
+
+
+
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("id", id);
+            objectBuilder.add("phoneNumber",phoneNumber);
+            objectBuilder.add("email",email);
+            objectBuilder.add("garageName",garageName);
+            objectBuilder.add("Date",Date);
+            objectBuilder.add("status",status);
+            objectBuilder.add("location", location);
+            objectBuilder.add("avg_rating", avg_rating);
+            objectBuilder.add("type", type);
+            objectBuilder.add("owner_name", owner_name);
+            objectBuilder.add("profile_pic_ref", profile_pic_ref);
+
+
+
+            SericeProviderArray.add(objectBuilder.build());
+        }
+
+        return SericeProviderArray.build();
+    }
 
     public JsonArray getCustomerSupportList(Connection connection) throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.executeQuery(connection, "SELECT csm.id AS member_id,csm.f_name as f_name, csm.l_name AS l_name,csm.phone_number AS phone_number,COUNT(t.id) AS tickets_solved FROM customer_support_member csm LEFT JOIN (SELECT customer_support_member_id AS id FROM customer_support_ticket UNION ALL SELECT customer_support_member_id AS id FROM sp_support_ticket) AS t ON csm.id = t.id GROUP BY csm.id, csm.f_name, csm.l_name, csm.phone_number");
