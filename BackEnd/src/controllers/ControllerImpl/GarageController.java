@@ -34,5 +34,13 @@ public class GarageController {
         return garage;
     }
 
+    public String garageIsExists(Connection connection,String phoneNumber) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT id FROM service_provider WHERE phone_number=?", phoneNumber);
+        if (resultSet.next()) {
+            return resultSet.getString(1);
+        }
+        return null;
+    }
+
 }
 
