@@ -62,7 +62,13 @@ public class UserDataController {
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
             objectBuilder.add("id", id);
             objectBuilder.add("phoneNumber",phoneNumber);
-            objectBuilder.add("email",email);
+
+            if (email != null) {
+                objectBuilder.add("email", email);
+            } else {
+                objectBuilder.addNull("email");
+            }
+
             objectBuilder.add("garageName",garageName);
             objectBuilder.add("Date",Date);
             objectBuilder.add("status",status);
@@ -70,7 +76,12 @@ public class UserDataController {
             objectBuilder.add("avg_rating", avg_rating);
             objectBuilder.add("type", type);
             objectBuilder.add("owner_name", owner_name);
-            objectBuilder.add("profile_pic_ref", profile_pic_ref);
+          
+            if (profile_pic_ref != null) {
+                objectBuilder.add("profile_pic_ref", profile_pic_ref);
+            } else {
+                objectBuilder.addNull("profile_pic_ref");
+            }
 
 
 
