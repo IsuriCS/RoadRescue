@@ -1,7 +1,10 @@
 package servlet;
 
-import controllers.AdminController.UserDataController;
 
+
+
+
+import controllers.AdminController.SPSupportTicketContraller;
 
 import javax.annotation.Resource;
 import javax.json.*;
@@ -16,12 +19,12 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet(urlPatterns = "/Admin/CustomerList")
-public class AdminCustomerListServlet extends HttpServlet{
+@WebServlet(urlPatterns = "/SPSupportTicket")
+public class AdminSPsupportTicketServlet extends HttpServlet {
+
     @Resource(name = "java:comp/env/roadRescue")
     DataSource ds;
 
-    UserDataController userDataController=new UserDataController();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
@@ -29,11 +32,13 @@ public class AdminCustomerListServlet extends HttpServlet{
         Connection connection = null;
         try {
             connection = ds.getConnection();
-            JsonArray allCustomers = userDataController.getCustomerList(connection);
+            SPSupportTicketContraller supportTickets=new SPSupportTicketContraller();
+
+            JsonArray supporttickets= supportTickets.getAllSupportTicket(connection);
             JsonObjectBuilder response = Json.createObjectBuilder();
             response.add("status",200);
             response.add("message","Done");
-            response.add("data", allCustomers);
+            response.add("data", supporttickets);
             writer.print(response.build());
         } catch (SQLException throwables) {
             JsonObjectBuilder response = Json.createObjectBuilder();
@@ -62,4 +67,3 @@ public class AdminCustomerListServlet extends HttpServlet{
         }
     }
 }
-

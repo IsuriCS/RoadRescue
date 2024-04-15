@@ -1,7 +1,7 @@
 package servlet;
 
-import controllers.AdminController.UserDataController;
 
+import controllers.AdminController.UserDataController;
 
 import javax.annotation.Resource;
 import javax.json.*;
@@ -16,8 +16,8 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet(urlPatterns = "/Admin/CustomerList")
-public class AdminCustomerListServlet extends HttpServlet{
+@WebServlet(urlPatterns = "/Admin/SPlist")
+public class AdminSPListServlet extends HttpServlet{
     @Resource(name = "java:comp/env/roadRescue")
     DataSource ds;
 
@@ -29,11 +29,11 @@ public class AdminCustomerListServlet extends HttpServlet{
         Connection connection = null;
         try {
             connection = ds.getConnection();
-            JsonArray allCustomers = userDataController.getCustomerList(connection);
+            JsonArray allServiceP = userDataController.getServiceProviderList(connection);
             JsonObjectBuilder response = Json.createObjectBuilder();
             response.add("status",200);
             response.add("message","Done");
-            response.add("data", allCustomers);
+            response.add("data", allServiceP);
             writer.print(response.build());
         } catch (SQLException throwables) {
             JsonObjectBuilder response = Json.createObjectBuilder();
@@ -61,5 +61,6 @@ public class AdminCustomerListServlet extends HttpServlet{
             }
         }
     }
-}
 
+
+}

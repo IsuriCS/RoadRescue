@@ -83,14 +83,10 @@
 
               <!-- =============Service Provider Sub Drop Down =========================================== -->
               <li>
-                <a id="servicePDropdown" href="#" onclick="sptoggleDropdown()"
-                  >Service Providers<span
-                    class="material-symbols-outlined spdropdownArrow"
-                  >
-                    expand_more
-                  </span></a
+                <a id="servicePDropdown" href="#serviceProviders" onclick="showServiceProviders()"
+                  >Service Providers</a
                 >
-                <ul id="spdrop" class="spdropdown-container hide">
+                <!-- <ul id="spdrop" class="spdropdown-container hide">
                   <li>
                     <a
                       id="GarageDropDown"
@@ -109,7 +105,7 @@
                       >Maintainance Personnel</a
                     >
                   </li>
-                </ul>
+                </ul> -->
               </li>
               <li id="csDropdown">
                 <a href="#csmember" onclick="showcsmember()"
@@ -156,23 +152,23 @@
                 <span class="material-symbols-outlined">
                   record_voice_over
                 </span>
-                <h2 id="registeredCustomersNum">89</h2>
+                <h2 id="registeredCustomersNum">0</h2>
                 <p>Registered Customers</p></a
               >
               <a href="" class="button">
                 <span class="material-symbols-outlined"> build </span>
-                <h2 id="registeredSproviders">54</h2>
+                <h2 id="registeredSproviders">0</h2>
                 <p>Registered Service Providers</p></a
               >
 
               <a href="" class="button">
                 <span class="material-symbols-outlined"> checklist </span>
-                <h2 id="completedTasksCount">54</h2>
+                <h2 id="completedTasksCount">0</h2>
                 <p>Completed Tasks</p></a
               >
               <a href="" class="button">
                 <span class="material-symbols-outlined"> report </span>
-                <h2 id="reportCount">54</h2>
+                <h2 id="reportCount">0</h2>
                 <p>Report and Support Tickets</p></a
               >
             </div>
@@ -382,9 +378,43 @@
           </div>
           <!-- ---------------------------------------Users------------------------------- -->
           <!-- ---------------------------------------Servise Provider------------------------------- -->
+          <div id="serviceProviders" style="display: none">
+            <div class="topRow">
+              <h1>Service Providers</h1>
+              <div class="search">
+            <form>
+                <input type="text" placeholder="Search Customer" name="search" id="searchsp">
+                <button onclick="searchCustomer()">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </form>
+        </div>
+            </div>
+            <div>
+              <!-- <input type="checkbox" id="allsp" name="allap"><label for="allsp">All</label> -->
+              <input type="checkbox" id="garages" name="garages" checked onclick="showgarage()"><label for="garages" >Garages</label>
+              <input type="checkbox" id="maintainancep" name="maintainancep" checked onclick="showmp()"><label for="maintainancep">Maintainance Personnel</label>
+            
+            </div>
+            <div>
+              <table id="SPList">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Completed services</th>
+                    <th>Support Tickets</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
           <!-- ---------------------------------------Garage Owner------------------------------- -->
 
-          <div id="garageOwners" style="display: none">
+          <!-- <div id="garageOwners" style="display: none">
             <div class="topRow">
               <h1>Garage</h1>
               <div class="searchboxContainer">
@@ -425,9 +455,9 @@
                 </tbody>
               </table>
             </div>
-          </div>
+          </div> -->
 
-          <!-- ---------------------------------------Garage profile Profile------------------------------- -->
+          <!-- ---------------------------------------SP profile Profile------------------------------- -->
           <div id="GarageProf" style="display: none">
             <div class="topRow">
               <h1>Garage Owner > c001</h1>
@@ -439,39 +469,39 @@
                 <!-- Detail form +******************************************************************** -->
                 <div class="row">
                   <div class="tag">
-                    <h1>ID :</h1>
+                    <h1 >ID :</h1>
                   </div>
-                  <div class="detail"><p>001</p></div>
+                  <div class="detail"><p id="id"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Garage Name :</h1>
                   </div>
-                  <div class="detail"><p>Chamodh</p></div>
+                  <div class="detail"><p id="gname"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Owner Name :</h1>
                   </div>
-                  <div class="detail"><p>Henderson</p></div>
+                  <div class="detail"><p id="oname"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Phone Number :</h1>
                   </div>
-                  <div class="detail"><p>0768658568</p></div>
+                  <div class="detail"><p id="pnum"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Email :</h1>
                   </div>
-                  <div class="detail"><p>chamodh@gmail.com</p></div>
+                  <div class="detail"><p id="email"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Technicions :</h1>
                   </div>
-                  <div class="detail"><p>10</p></div>
+                  <div class="detail"><p id="tech"></p></div>
                 </div>
 
                 <!-- *********************Buttons**************************************************** -->
@@ -499,40 +529,47 @@
                   <div class="tag">
                     <h1>Location :</h1>
                   </div>
-                  <div class="detail"><p>Colombo</p></div>
+                  <div class="detail"><a id="location" target="_blank">View on Map</a></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Completed Services :</h1>
                   </div>
-                  <div class="detail"><p>8</p></div>
+                  <div class="detail"><p id="compservice"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Joined Date :</h1>
                   </div>
-                  <div class="detail"><p>2021.10.25</p></div>
+                  <div class="detail"><p id="date"></p></div>
                 </div>
-                <div class="stsection">
+                <div class="spstsection">
                   <h1>Support Tickets</h1>
-                  <div class="SuppotTicketcard">
+                  <h1 id="spno_support_tickets"> No Support Tickets</h1>
+                  <div id="spsupport_ticket_list" style="display:none;">
+                    <template id="spsupportTicketTemplate">
+                    <div class="spSuppotTicketcard">
                     <h1>ST-001</h1>
                     <div class="row">
                       <div class="tag">
                         <h1>Date :</h1>
                       </div>
-                      <div class="detail"><p>2323.01.23</p></div>
+                      <div class="date"><p>2323.01.23</p></div>
                     </div>
                     <div class="row">
                       <div class="tag">
                         <h1>Title :</h1>
                       </div>
-                      <div class="detail"><p>Payment Issue</p></div>
+                      <div class="title"><p>Payment Issue</p></div>
                     </div>
                     <div class="solveButton">
                       <button type="submit" class="button">Solved</button>
                     </div>
                   </div>
+                  </template>
+                  </div>
+                  
+                  
                 </div>
               </div>
             </div>
