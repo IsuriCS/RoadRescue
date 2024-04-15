@@ -347,7 +347,9 @@ function showServiceProviders() {
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
-    console.log("service provider");
+
+
+
     var garage = document.getElementById("garages");
     var mp = document.getElementById("maintainancep");
     var tableBody = document.querySelector("#SPList tbody");
@@ -370,7 +372,8 @@ function showServiceProviders() {
                     row.insertCell(2).textContent = datai.phoneNumber || '-';
                     row.insertCell(3).textContent = datai.comRequests || '0';
                     row.insertCell(4).textContent = datai.supTickets || '0';
-
+                    row.insertCell(5).textContent = datai.type || '-';
+                    row.cells[5].style.display = 'none';
                     row.addEventListener('click', function () {
                         var id = this.cells[0].textContent;
                         showSPprof(res, id);
@@ -408,6 +411,88 @@ function showServiceProviders() {
         }
     }
     );
+
+
+    garage.addEventListener("change", function () {
+
+        var table = document.getElementById("SPList");
+        var tr = table.getElementsByTagName("tr");
+
+        for (var i = 1; i < tr.length; i++) {
+
+
+            var td = tr[i].getElementsByTagName("td")[5];
+            var textValue = td.textContent || td.innerText;
+            if (garage.checked == true && mp.checked == true) {
+                tr[i].style.display = "";
+
+            }
+            else if (garage.checked == true && mp.checked == false) {
+                if (textValue == "Garage") {
+                    tr[i].style.display = "";
+                }
+                else {
+                    tr[i].style.display = "none";
+                }
+            }
+            else if (garage.checked == false && mp.checked == true) {
+                if (textValue == "Mp") {
+                    tr[i].style.display = "";
+                }
+                else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            else {
+
+                tr[i].style.display = "none";
+
+
+            }
+        }
+    });
+
+    mp.addEventListener("change", function () {
+
+        var table = document.getElementById("SPList");
+        var tr = table.getElementsByTagName("tr");
+
+        for (var i = 1; i < tr.length; i++) {
+
+
+            var td = tr[i].getElementsByTagName("td")[5];
+            var textValue = td.textContent || td.innerText;
+            if (garage.checked == true && mp.checked == true) {
+                tr[i].style.display = "";
+
+            }
+            else if (garage.checked == true && mp.checked == false) {
+                if (textValue == "Garage") {
+                    tr[i].style.display = "";
+                }
+                else {
+                    tr[i].style.display = "none";
+                }
+            }
+            else if (garage.checked == false && mp.checked == true) {
+                if (textValue == "Mp") {
+                    tr[i].style.display = "";
+                }
+                else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            else {
+
+                tr[i].style.display = "none";
+
+
+            }
+        }
+    });
+
 
 }
 
