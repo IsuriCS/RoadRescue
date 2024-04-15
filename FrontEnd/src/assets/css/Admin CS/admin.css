@@ -236,7 +236,8 @@ input:focus {
   text-decoration: none;
 }
 .rightSide .SuppotTicketcard .row,
-.rightSide .spSuppotTicketcard .row {
+.rightSide .spSuppotTicketcard .row,
+.rightSide .csSuppotTicketcard .row {
   margin: 0;
 }
 .rightSide {
@@ -246,14 +247,16 @@ input:focus {
   width: 45%;
 }
 .rightSide .stsection #no_support_tickets,
-.rightSide .spstsection #spno_support_tickets {
+.rightSide .spstsection #spno_support_tickets,
+.rightSide .stsection #csno_support_tickets {
   color: #525c9394;
   text-align: center;
   font-size: 2vw;
   padding: 0 8vw;
 }
 .rightSide .stsection .SuppotTicketcard,
-.rightSide .spstsection .spSuppotTicketcard {
+.rightSide .spstsection .spSuppotTicketcard,
+.rightSide .stsection .csSuppotTicketcard {
   background-color: #728ab0;
   padding: 3vh;
   border-radius: 5vh;
@@ -261,30 +264,36 @@ input:focus {
   margin: 2vh;
 }
 .rightSide .SuppotTicketcard h1,
-.rightSide .spSuppotTicketcard h1 {
+.rightSide .spSuppotTicketcard h1,
+.rightSide .csSuppotTicketcard h1 {
   margin: 0;
 }
 .SuppotTicketcard .solveButton,
-.spSuppotTicketcard .solveButton {
+.spSuppotTicketcard .solveButton,
+.csSuppotTicketcard .solveButton {
   display: flex;
   justify-content: flex-end;
 }
 .SuppotTicketcard .solveButton button,
-.spSuppotTicketcard .solveButton button {
+.spSuppotTicketcard .solveButton button,
+.csSuppotTicketcard .solveButton button {
   justify-content: center;
   width: auto;
 }
 
 .SuppotTicketcard .solveButton .pending,
-.spSuppotTicketcard .solveButton .pending {
+.spSuppotTicketcard .solveButton .pending,
+.csSuppotTicketcard .solveButton .pending {
   background-color: #eb1212;
 }
 .SuppotTicketcard .solveButton .solved,
-.spSuppotTicketcard .solveButton .solved {
+.spSuppotTicketcard .solveButton .solved,
+.csSuppotTicketcard .solveButton .solved {
   background-color: #41b6e4;
 }
 .SuppotTicketcard .solveButton .on_review,
-.spSuppotTicketcard .solveButton .on_review {
+.spSuppotTicketcard .solveButton .on_review,
+.csSuppotTicketcard .solveButton .on_review {
   background-color: #1caf09;
 }
 /* *********************************Support Ticket Page ****************************** */
