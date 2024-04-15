@@ -218,7 +218,8 @@ input:focus {
   align-items: center;
   gap: 1vw;
   border-style: none;
-  width: 15vw;
+  width: inherit;
+  justify-content: center;
 }
 #cusprof button {
   width: 15vw;
@@ -234,7 +235,8 @@ input:focus {
 
   text-decoration: none;
 }
-.rightSide .SuppotTicketcard .row {
+.rightSide .SuppotTicketcard .row,
+.rightSide .spSuppotTicketcard .row {
   margin: 0;
 }
 .rightSide {
@@ -243,34 +245,46 @@ input:focus {
   padding-left: 5vh;
   width: 45%;
 }
-.rightSide .stsection #no_support_tickets {
+.rightSide .stsection #no_support_tickets,
+.rightSide .spstsection #spno_support_tickets {
   color: #525c9394;
   text-align: center;
   font-size: 2vw;
   padding: 0 8vw;
 }
-.rightSide .stsection .SuppotTicketcard {
+.rightSide .stsection .SuppotTicketcard,
+.rightSide .spstsection .spSuppotTicketcard {
   background-color: #728ab0;
   padding: 3vh;
   border-radius: 5vh;
   width: 60vh;
   margin: 2vh;
 }
-.rightSide .SuppotTicketcard h1 {
+.rightSide .SuppotTicketcard h1,
+.rightSide .spSuppotTicketcard h1 {
   margin: 0;
 }
-.SuppotTicketcard .solveButton {
+.SuppotTicketcard .solveButton,
+.spSuppotTicketcard .solveButton {
   display: flex;
   justify-content: flex-end;
 }
+.SuppotTicketcard .solveButton button,
+.spSuppotTicketcard .solveButton button {
+  justify-content: center;
+  width: auto;
+}
 
-.SuppotTicketcard .solveButton .pending {
+.SuppotTicketcard .solveButton .pending,
+.spSuppotTicketcard .solveButton .pending {
   background-color: #eb1212;
 }
-.SuppotTicketcard .solveButton .solved {
+.SuppotTicketcard .solveButton .solved,
+.spSuppotTicketcard .solveButton .solved {
   background-color: #41b6e4;
 }
-.SuppotTicketcard .solveButton .on_review {
+.SuppotTicketcard .solveButton .on_review,
+.spSuppotTicketcard .solveButton .on_review {
   background-color: #1caf09;
 }
 /* *********************************Support Ticket Page ****************************** */

@@ -445,7 +445,7 @@ function showServiceProviders() {
 
 // }
 
-function showSPprof(res, id) {
+function showSPprof(res, spid) {
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
@@ -470,14 +470,14 @@ function showSPprof(res, id) {
 
     for (var i = 0; i < res.data.length; i++) {
 
-        if (res.data[i].id == id) {
+        if (res.data[i].id == spid) {
 
             var datai = res.data[i];
             if (datai.type == "Garage") {
-                title.innerHTML = `Servie Provider > G${id.padStart(3, '0')}`;
+                title.innerHTML = `Servie Provider > G${spid.padStart(3, '0')}`;
             }
             else {
-                title.innerHTML = `Servie Provider > M${id.padStart(3, '0')}`;
+                title.innerHTML = `Servie Provider > M${spid.padStart(3, '0')}`;
             }
 
             document.getElementById("id").innerHTML = datai.id;
@@ -498,11 +498,12 @@ function showSPprof(res, id) {
             var formattedDate = dateTime.toLocaleDateString();
             document.getElementById("date").innerHTML = datai.formattedDate || '0';
 
+            var name = datai.owner_name;
             // View support Tickets
             if (datai.supTickets > 0) {
 
                 // Remove created ticket cards
-                var ticketList = document.querySelectorAll(".SuppotTicketcard");
+                var ticketList = document.querySelectorAll(".spSuppotTicketcard");
                 console.log(ticketList);
                 if (ticketList.length > 0) {
                     ticketList.forEach(function (ticket) {
@@ -512,33 +513,33 @@ function showSPprof(res, id) {
 
                 // request ticket details from backend
                 $.ajax({
-                    url: API_URL + "/customerSupport",
+                    url: API_URL + "/SPSupportTicket",
                     method: "GET",
-                    success: function (res) {
-                        console.log(res);
-                        if (res.status == 200) {
+                    success: function (tres) {
+                        console.log(tres);
+                        if (tres.status == 200) {
 
 
-                            for (var i = 0; i < res.data.length; i++) {
+                            for (var i = 0; i < tres.data.length; i++) {
                                 (function () {
-                                    var datai = res.data[i];
-                                    if (datai.customerID == customerId) {
+                                    var sdatai = tres.data[i];
+                                    if (sdatai.SPid == spid) {
+                                        console.log("inside if");
 
-
-                                        var temp = document.getElementById("supportTicketTemplate");
+                                        var temp = document.getElementById("spsupportTicketTemplate");
                                         var clone = temp.content.cloneNode(true);
-                                        clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${String(datai.ticketId).padStart(3, '0')}`;
-                                        console.log(datai.ticketId);
-                                        var dateTime = new Date(datai.created_time);
+                                        clone.querySelector(".spSuppotTicketcard h1").textContent = `ST-${String(sdatai.ticketId).padStart(3, '0')}`;
+                                        console.log(sdatai.ticketId);
+                                        var dateTime = new Date(sdatai.created_time);
                                         var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
-                                        clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
+                                        clone.querySelector(".spSuppotTicketcard .row .date p").textContent = formattedDate;
 
                                         // Update ticket title
-                                        clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
+                                        clone.querySelector(".spSuppotTicketcard .row .title p").textContent = sdatai.title;
 
                                         // Change status button
-                                        var status = datai.status;
-                                        var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
+                                        var status = sdatai.status;
+                                        var sbutton = clone.querySelector(".spSuppotTicketcard .solveButton button");
 
                                         if (status.toLowerCase() == "pending") {
                                             sbutton.classList.add("pending");
@@ -553,14 +554,15 @@ function showSPprof(res, id) {
                                             sbutton.textContent = "On Review";
                                         }
 
-                                        clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
-                                            showsupportTicket(res, datai.ticketId, name);
-                                            console.log(res, datai.ticketId, name);
+                                        clone.querySelector(".spSuppotTicketcard").addEventListener('click', function () {
+                                            showsupportTicket(tres, sdatai.ticketId, name);
+                                            console.log(tres, sdatai.ticketId, name);
 
                                         });
-                                        document.getElementById("no_support_tickets").style.display = "none";
-                                        document.getElementById("support_ticket_list").style.display = "block";
-                                        document.getElementById("support_ticket_list").appendChild(clone);
+                                        document.getElementById("spno_support_tickets").style.display = "none";
+                                        document.getElementById("spsupport_ticket_list").style.display = "block";
+                                        document.getElementById("spsupport_ticket_list").appendChild(clone);
+                                        console.log("appended");
                                     }
                                 })();
 
@@ -577,14 +579,15 @@ function showSPprof(res, id) {
             }
             else {
                 $("#load-container").hide();
-                document.getElementById("no_support_tickets").style.display = "block";
-                document.getElementById("support_ticket_list").style.display = "none";
+                document.getElementById("spno_support_tickets").style.display = "block";
+                document.getElementById("spsupport_ticket_list").style.display = "none";
 
             }
         }
 
     }
 }
+
 
 // function showMaintainancePersonnel() {
 //     document.querySelector("#dashboardLink").classList.remove("active");
