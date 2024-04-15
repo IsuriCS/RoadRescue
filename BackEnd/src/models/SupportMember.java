@@ -82,11 +82,3 @@ public class SupportMember {
     }
 }
 
-//    public int getCustomer_support_member_id() {
-//        return customer_support_member_id;
-//    }
-//
-//    public void setCustomer_support_member_id(int customer_support_member_id) {
-//        this.customer_support_member_id = customer_support_member_id;
-//    }
-//}
