@@ -505,38 +505,6 @@ function showServiceProviders() {
 }
 
 
-// function showGarageOwner() {
-//     document.querySelector("#dashboardLink").classList.remove("active");
-//     document.querySelector("#UsersLink").classList.add("active");
-//     document.querySelector("#profileLink").classList.remove("active");
-//     document.querySelector("#verificationLink").classList.remove("active");
-//     document.querySelector("#ReportLink").classList.remove("active");
-
-//     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
-//     document.querySelector("#servicePDropdown").classList.add("dropDownActive");
-//     document.querySelector("#csDropdown").classList.remove("dropDownActive");
-
-//     // document.querySelector("#GarageDropDown").classList.add("submenuActive");
-//     // document.querySelector("#MPDropDown").classList.remove("submenuActive");
-
-
-//     document.querySelector("#dashboard").style.display = "none";
-//     document.querySelector("#userCus").style.display = "none";
-//     document.querySelector("#cusprof").style.display = "none";
-//     document.querySelector("#csmember").style.display = "none";
-//     document.querySelector("#csprof").style.display = "none";
-//     // document.querySelector("#garageOwners").style.display = "block";
-//     document.querySelector("#GarageProf").style.display = "none";
-//     // document.querySelector("#maintainancePersonnel").style.display = "none";
-//     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
-//     document.querySelector("#adminProfile").style.display = "none";
-//     document.querySelector("#verification").style.display = "none";
-//     document.querySelector("#reports").style.display = "none";
-//     document.querySelector("#SupportTicketDatail").style.display = "none";
-//     document.querySelector("#serviceProviders").style.display = "none";
-
-
-// }
 
 function showSPprof(res, spid) {
     document.querySelector("#dashboard").style.display = "none";
@@ -682,56 +650,7 @@ function showSPprof(res, spid) {
 }
 
 
-// function showMaintainancePersonnel() {
-//     document.querySelector("#dashboardLink").classList.remove("active");
-//     document.querySelector("#UsersLink").classList.add("active");
-//     document.querySelector("#profileLink").classList.remove("active");
-//     document.querySelector("#verificationLink").classList.remove("active");
-//     document.querySelector("#ReportLink").classList.remove("active");
 
-//     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
-//     document.querySelector("#servicePDropdown").classList.add("dropDownActive");
-//     document.querySelector("#csDropdown").classList.remove("dropDownActive");
-
-//     document.querySelector("#GarageDropDown").classList.remove("submenuActive");
-//     document.querySelector("#MPDropDown").classList.add("submenuActive");
-
-
-//     document.querySelector("#dashboard").style.display = "none";
-//     document.querySelector("#userCus").style.display = "none";
-//     document.querySelector("#cusprof").style.display = "none";
-//     document.querySelector("#csmember").style.display = "none";
-//     document.querySelector("#csprof").style.display = "none";
-//     document.querySelector("#garageOwners").style.display = "none";
-//     document.querySelector("#maintainancePersonnel").style.display = "block";
-//     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
-//     document.querySelector("#GarageProf").style.display = "none";
-//     document.querySelector("#adminProfile").style.display = "none";
-//     document.querySelector("#verification").style.display = "none";
-//     document.querySelector("#reports").style.display = "none";
-//     document.querySelector("#SupportTicketDatail").style.display = "none";
-
-// }
-
-// function showMPProf() {
-//     document.querySelector("#dashboard").style.display = "none";
-//     document.querySelector("#userCus").style.display = "none";
-//     document.querySelector("#cusprof").style.display = "none";
-//     document.querySelector("#csmember").style.display = "none";
-//     document.querySelector("#csprof").style.display = "none";
-//     // document.querySelector("#garageOwners").style.display = "none";
-//     document.querySelector("#GarageProf").style.display = "none";
-//     // document.querySelector("#MaintainacePersonnelProf").style.display = "block";
-//     document.querySelector("#maintainancePersonnel").style.display = "none";
-//     document.querySelector("#adminProfile").style.display = "none";
-//     document.querySelector("#verification").style.display = "none";
-//     document.querySelector("#reports").style.display = "none";
-//     document.querySelector("#SupportTicketDatail").style.display = "none";
-//     document.querySelector("#serviceProviders").style.display = "none";
-
-
-
-// }
 
 function showcsmember() {
 
