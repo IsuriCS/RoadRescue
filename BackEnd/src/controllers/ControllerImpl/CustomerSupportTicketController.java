@@ -20,8 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CustomerSupportTicketController {
-    public boolean update(Connection connection, int ticketId) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeUpdate(connection,"UPDATE support_ticket SET status=? WHERE ticket_id=?","closed",ticketId);
+    public boolean update(Connection connection, int ticketId, String solution) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate(connection,"UPDATE support_ticket SET status=?, solution=? WHERE ticket_id=?","closed", solution, ticketId);
     }
 
     public boolean add(Connection connection, SupportTicket supportTicket, CustomerSupportTicketModels customerSupportTicket) throws SQLException, ClassNotFoundException, ParseException {
@@ -58,19 +58,33 @@ public class CustomerSupportTicketController {
     }
 
     public JsonArray getAllPendingSupportTicket(Connection connection) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT * FROM support_ticket WHERE status=?", "open");
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT id,status,description,title,customer_support_member_id,created_time,customer_id,solution FROM customer_support_ticket;");
 
-        JsonArrayBuilder pendingSupportTickets = Json.createArrayBuilder();
+        JsonArrayBuilder SupportTickets = Json.createArrayBuilder();
 
         while (resultSet.next()){
-            SupportTicket supportTicket = new SupportTicket(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(4), resultSet.getTimestamp(5) + "");
+            int id=resultSet.getInt(1);
+
+           String status =resultSet.getString(2);
+           String description =resultSet.getString(3);
+           String title =resultSet.getString(4);
+           int customer_support_member_id =resultSet.getInt(5);
+            String created_time =resultSet.getString(6);
+            int customerId= resultSet.getInt(7);
+            String solution = resultSet.getString(8);
+
+
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            objectBuilder.add("ticketId",supportTicket.getTicketId());
-            objectBuilder.add("title",supportTicket.getTitle());
-            objectBuilder.add("date",supportTicket.getTimestamp());
-            objectBuilder.add("status",supportTicket.getTicketStatus());
-            pendingSupportTickets.add(objectBuilder.build());
+            objectBuilder.add("ticketId",id);
+            objectBuilder.add("status",status);
+            objectBuilder.add("description",description);
+            objectBuilder.add("title",title);
+            objectBuilder.add("customer_support_member_id",customer_support_member_id);
+            objectBuilder.add("created_time",created_time);
+            objectBuilder.add("customerID",customerId);
+            objectBuilder.add("solution",solution);
+            SupportTickets.add(objectBuilder.build());
         }
-        return pendingSupportTickets.build();
+        return SupportTickets.build();
     }
 }
