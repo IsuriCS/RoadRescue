@@ -10,15 +10,14 @@ public class Garage {
     private  String location;
     private Float avgRating;
     private String garageType;
-
-
     private String timeStamp;
-
+    private String imgRef;
+    private String ownerName;
 
     public Garage() {
     }
 
-    public Garage(int id, String garageName, String contactNumber, String email, String registerTimeStamp, String status, String location, Float avgRating, String garageType, String ownerName) {
+    public Garage(int id, String garageName, String contactNumber, String email, String registerTimeStamp, String status, String location, Float avgRating, String garageType, String timeStamp, String imgRef, String ownerName) {
         this.id = id;
         this.garageName = garageName;
         this.contactNumber = contactNumber;
@@ -28,10 +27,12 @@ public class Garage {
         this.location = location;
         this.avgRating = avgRating;
         this.garageType = garageType;
+        this.timeStamp = timeStamp;
+        this.imgRef = imgRef;
         this.ownerName = ownerName;
     }
 
-    public Garage(String garageName, String contactNumber, String email, String status, Float avgRating, String garageType, String ownerName,String timeStamp) {
+    public Garage(String garageName, String contactNumber, String email, String status, Float avgRating, String garageType, String ownerName, String timeStamp,String imgRef) {
         this.garageName = garageName;
         this.contactNumber = contactNumber;
         this.email = email;
@@ -40,9 +41,19 @@ public class Garage {
         this.garageType = garageType;
         this.ownerName = ownerName;
         this.timeStamp=timeStamp;
+        this.imgRef=imgRef;
     }
 
-    private String ownerName;
+    public Garage(int id, String garageName, String ownerName, String contactNumber, String email, String imgRef) {
+        this.id = id;
+        this.garageName = garageName;
+        this.ownerName = ownerName;
+        this.contactNumber = contactNumber;
+        this.email = email;
+        this.imgRef = imgRef;
+    }
+
+
 
 
     public int getId() {
@@ -135,6 +146,10 @@ public class Garage {
         this.timeStamp = timeStamp;
     }
 
+    public String getImgRef() {return imgRef;}
+
+    public void setImgRef(String imgRef) {this.imgRef = imgRef;}
+
 
     @Override
     public String toString() {
@@ -149,6 +164,7 @@ public class Garage {
                 ", avgRating=" + avgRating +
                 ", garageType='" + garageType + '\'' +
                 ", timeStamp='" + timeStamp + '\'' +
+                ", imgRef='" + imgRef + '\'' +
                 ", ownerName='" + ownerName + '\'' +
                 '}';
     }

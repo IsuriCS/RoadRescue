@@ -3,6 +3,7 @@ package servlet;
 import controllers.ControllerImpl.GarageController;
 import controllers.ControllerImpl.TechnicianController;
 import models.Garage;
+import models.TechnicianModel;
 
 import javax.annotation.Resource;
 import javax.json.*;
@@ -13,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -56,6 +59,10 @@ public class GarageServlet extends HttpServlet {
                     garageData.add("garageRating",garageDetails.getAvgRating());
                     garageData.add("garageType",garageDetails.getGarageType());
                     garageData.add("OwnerName",garageDetails.getOwnerName());
+                    garageData.add("imageRef",garageDetails.getImgRef());
+
+                    System.out.println(garageDetails.getImgRef().isEmpty());
+                    System.out.println(garageDetails.getImgRef());
 
 
                     JsonObjectBuilder response = Json.createObjectBuilder();
@@ -139,7 +146,75 @@ public class GarageServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+        System.out.println("garage update request is ok ");
+
+        String id;
+        String garageName ;
+        String ownerName;
+        String contactNumber;
+        String email;
+        String imageRef;
+
+        try (Reader stringReader = new InputStreamReader(req.getInputStream())) {
+            JsonReader reader = Json.createReader(stringReader);
+            JsonObject jsonObject = reader.readObject();
+
+            id = jsonObject.getString("garageId");
+            garageName = jsonObject.getString("garageName");
+            ownerName = jsonObject.getString("ownerName");
+            contactNumber = jsonObject.getString("contactNumber");
+            email = jsonObject.getString("garageMail");
+            imageRef = jsonObject.getString("imageRef");
+
+            System.out.println("ssssssssssss"+imageRef);
+            System.out.println("eeee"+email);
+        }
+
+        System.out.println("ssssssssssss"+imageRef);
+        System.out.println("eeee"+email);
+
+        PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
+
+        try{
+            Connection connection = ds.getConnection();
+            Garage garageModel=new Garage(Integer.parseInt(id),garageName,ownerName,contactNumber,email,imageRef);
+
+            boolean updateResult = garage.update(connection,garageModel);
+            if (updateResult){
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                objectBuilder.add("status", 200);
+                objectBuilder.add("message", "Technician update proceed successful.");
+                objectBuilder.add("data", "");
+                writer.print(objectBuilder.build());
+            }else {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                objectBuilder.add("status", 400);
+                objectBuilder.add("message", "Technician update proceed failed.");
+                objectBuilder.add("data", "");
+                writer.print(objectBuilder.build());
+            }
+            connection.close();
+        } catch (SQLException e) {
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            resp.setStatus(HttpServletResponse.SC_OK);
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "SQL Exception Error.");
+            objectBuilder.add("data", e.getLocalizedMessage());
+            writer.print(objectBuilder.build());
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            resp.setStatus(HttpServletResponse.SC_OK);
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "Class not fount Exception Error");
+            objectBuilder.add("data", e.getLocalizedMessage());
+            writer.print(objectBuilder.build());
+            e.printStackTrace();
+        }
+
     }
 
     @Override

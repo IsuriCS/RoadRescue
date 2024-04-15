@@ -245,13 +245,6 @@ public class TechnicianServlet extends HttpServlet {
             writer.print(objectBuilder.build());
             e.printStackTrace();
         }
-
-        System.out.println("put eka wada ");
-        System.out.println(id);
-        System.out.println(fName);
-        System.out.println(lName);
-        System.out.println(imageRef);
-        System.out.println(expertiseAreas);
     }
 
     @Override
