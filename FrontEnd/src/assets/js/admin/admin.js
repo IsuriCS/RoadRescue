@@ -746,6 +746,7 @@ function showcsmember() {
 }
 
 function showcsprof(res, csid) {
+    $("#load-container").show();
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
@@ -798,7 +799,7 @@ function showcsprof(res, csid) {
                     success: function (res) {
                         console.log(res);
                         if (res.status == 200) {
-
+                            // $("#load-container").hide();
 
                             for (var i = 0; i < res.data.length; i++) {
                                 (function () {
@@ -859,6 +860,7 @@ function showcsprof(res, csid) {
                     url: API_URL + "/SPSupportTicket",
                     method: "GET",
                     success: function (res) {
+                        $("#load-container").hide();
                         console.log(res);
                         if (res.status == 200) {
 
@@ -959,6 +961,94 @@ function showVerification() {
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
+
+    $("#load-container").show();
+    $("#verificationList tbody").empty();
+
+    $.ajax({
+        url: API_URL + "/Admin/SPlist",
+        method: "GET",
+        success: function (res) {
+
+            if (res.status == 200) {
+                $("#load-container").hide();
+
+                var tableBody = document.querySelector("#verificationList tbody");
+
+                // Start from index 1 to skip the first item in the JSON array
+                for (var i = 0; i < res.data.length; i++) {
+                    var datai = res.data[i];
+                    if (datai.verify == "No") {
+                        var row = tableBody.insertRow();
+                        row.insertCell(0).textContent = datai.garageName || '-';
+                        row.insertCell(1).textContent = datai.phoneNumber || '-';
+                        if (datai.type == "Garage") {
+                            row.insertCell(2).textContent = "Garage" || '-';
+                        }
+                        else {
+                            row.insertCell(2).textContent = "Maintainance Personnel" || '-';
+                        }
+
+
+
+
+                        // Add buttons
+                        var viewButtonCell = row.insertCell(3);
+                        var viewButton = document.createElement("button");
+                        viewButton.type = "button";
+                        viewButton.className = "verifyBu locView";
+                        viewButton.textContent = "View";
+                        var locationpoints = datai.location.split(",");
+                        var link = `https://www.google.com/maps/search/?api=1&query=${locationpoints[0]},${locationpoints[1]}`;
+
+                        viewButton.setAttribute("onclick", "window.open('" + link + "', '_blank')");
+                        viewButtonCell.appendChild(viewButton);
+
+                        var actionButtonCell = row.insertCell(4);
+                        var verifyButton = document.createElement("button");
+                        verifyButton.type = "button";
+                        verifyButton.className = "verifyBu verify";
+                        verifyButton.textContent = "Verify";
+                        actionButtonCell.appendChild(verifyButton);
+
+                        var cancelButton = document.createElement("button");
+                        cancelButton.type = "button";
+                        cancelButton.className = "verifyBu cancle";
+                        cancelButton.textContent = "Cancel";
+                        actionButtonCell.appendChild(cancelButton);
+
+                        // Add click event listeners for buttons
+                        // viewButton.addEventListener('click', function () {
+                        //     var locationpoints = datai.location.split(",");
+                        //     var link = `https://www.google.com/maps/search/?api=1&query=${locationpoints[0]},${locationpoints[1]}`;
+
+                        //     document.querySelector("#verificationList tbody td .locview a").setAttribute("href", link);
+
+                        // });
+
+                        verifyButton.addEventListener('click', function () {
+                            // Handle verify button click event
+                            // You can implement your logic here
+                        });
+
+                        cancelButton.addEventListener('click', function () {
+                            // Handle cancel button click event
+                            // You can implement your logic here
+                        });
+                    }
+                    // row.addEventListener('click', function () {
+                    //     var csid = this.cells[0].textContent;
+                    //     showcsprof(res, csid);
+
+                    // })
+                }
+
+            }
+            else {
+                console.log("error");
+            }
+        }
+    });
 
 }
 
