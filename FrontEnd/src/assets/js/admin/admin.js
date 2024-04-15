@@ -301,6 +301,10 @@ function showsupportTicket(res, ticketId, name) {
             var asignbtn = document.getElementById("assignbtn");
             if (ticketStatus.toLowerCase() == "pending") {
                 asignbtn.style.display = "block";
+                document.querySelector(".info textarea").innerHTML = "";
+                document.querySelector(".info textarea").disabled = false;
+                document.querySelector(".info textarea").classList.remove("disabledText");
+                document.querySelector(".topRow #button").style.display = "block";
             }
             else if (ticketStatus.toLowerCase() == "solved") {
                 asignbtn.style.display = "none";
@@ -311,6 +315,10 @@ function showsupportTicket(res, ticketId, name) {
             }
             else {
                 asignbtn.style.display = "none";
+                document.querySelector(".info textarea").innerHTML = "";
+                document.querySelector(".info textarea").disabled = false;
+                document.querySelector(".info textarea").classList.remove("disabledText");
+                document.querySelector(".topRow #button").style.display = "block";
             }
             $("#load-container").hide();
         }
@@ -843,20 +851,20 @@ function showcsprof(res, csid) {
 
     for (var i = 0; i < res.data.length; i++) {
 
-        if (res.data[i].customerId == customerId) {
+        if (res.data[i].CSid == csid) {
 
             var datai = res.data[i];
             var name = datai.fname + " " + datai.lname;
-            document.getElementById("cid").innerHTML = datai.customerId;
-            document.getElementById("fname").innerHTML = datai.fname || '-';
-            document.getElementById("lname").innerHTML = datai.lname || '-';
-            document.getElementById("email").innerHTML = datai.email || '-';
-            document.getElementById("cnum").innerHTML = datai.contact || '-';
+            document.getElementById("csid").innerHTML = datai.CSid;
+            document.getElementById("csfname").innerHTML = datai.fname || '-';
+            document.getElementById("cslname").innerHTML = datai.lname || '-';
+            document.getElementById("csemail").innerHTML = datai.email || '-';
+            document.getElementById("cscnum").innerHTML = datai.phone_number || '-';
 
-            if (datai.nSupportTickets > 0) {
+            if (datai.tickets_solved > 0) {
 
                 // Remove created ticket cards
-                var ticketList = document.querySelectorAll(".SuppotTicketcard");
+                var ticketList = document.querySelectorAll(".csSuppotTicketcard");
                 console.log(ticketList);
                 if (ticketList.length > 0) {
                     ticketList.forEach(function (ticket) {
@@ -876,23 +884,23 @@ function showcsprof(res, csid) {
                             for (var i = 0; i < res.data.length; i++) {
                                 (function () {
                                     var datai = res.data[i];
-                                    if (datai.customerID == customerId) {
+                                    if (datai.customer_support_member_id == csid) {
 
 
-                                        var temp = document.getElementById("supportTicketTemplate");
+                                        var temp = document.getElementById("cssupportTicketTemplate");
                                         var clone = temp.content.cloneNode(true);
-                                        clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${String(datai.ticketId).padStart(3, '0')}`;
+                                        clone.querySelector(".csSuppotTicketcard h1").textContent = `CST-${String(datai.ticketId).padStart(3, '0')}`;
                                         console.log(datai.ticketId);
                                         var dateTime = new Date(datai.created_time);
                                         var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
-                                        clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
+                                        clone.querySelector(".csSuppotTicketcard .row .date p").textContent = formattedDate;
 
                                         // Update ticket title
-                                        clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
+                                        clone.querySelector(".csSuppotTicketcard .row .title p").textContent = datai.title;
 
                                         // Change status button
                                         var status = datai.status;
-                                        var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
+                                        var sbutton = clone.querySelector(".csSuppotTicketcard .solveButton button");
 
                                         if (status.toLowerCase() == "pending") {
                                             sbutton.classList.add("pending");
@@ -907,14 +915,77 @@ function showcsprof(res, csid) {
                                             sbutton.textContent = "On Review";
                                         }
 
-                                        clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
+                                        clone.querySelector(".csSuppotTicketcard").addEventListener('click', function () {
                                             showsupportTicket(res, datai.ticketId, name);
                                             console.log(res, datai.ticketId, name);
 
                                         });
-                                        document.getElementById("no_support_tickets").style.display = "none";
-                                        document.getElementById("support_ticket_list").style.display = "block";
-                                        document.getElementById("support_ticket_list").appendChild(clone);
+                                        document.getElementById("csno_support_tickets").style.display = "none";
+                                        document.getElementById("cssupport_ticket_list").style.display = "block";
+                                        document.getElementById("cssupport_ticket_list").appendChild(clone);
+                                    }
+                                })();
+
+
+                            }
+                            $("#load-container").hide();
+                        }
+                        else {
+                            console.log("error");
+                        }
+                    }
+                })
+
+                $.ajax({
+                    url: API_URL + "/SPSupportTicket",
+                    method: "GET",
+                    success: function (res) {
+                        console.log(res);
+                        if (res.status == 200) {
+
+
+                            for (var i = 0; i < res.data.length; i++) {
+                                (function () {
+                                    var datai = res.data[i];
+                                    if (datai.customer_support_member_id == csid) {
+
+
+                                        var temp = document.getElementById("cssupportTicketTemplate");
+                                        var clone = temp.content.cloneNode(true);
+                                        clone.querySelector(".csSuppotTicketcard h1").textContent = `SST-${String(datai.ticketId).padStart(3, '0')}`;
+                                        console.log(datai.ticketId);
+                                        var dateTime = new Date(datai.created_time);
+                                        var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
+                                        clone.querySelector(".csSuppotTicketcard .row .date p").textContent = formattedDate;
+
+                                        // Update ticket title
+                                        clone.querySelector(".csSuppotTicketcard .row .title p").textContent = datai.title;
+
+                                        // Change status button
+                                        var status = datai.status;
+                                        var sbutton = clone.querySelector(".csSuppotTicketcard .solveButton button");
+
+                                        if (status.toLowerCase() == "pending") {
+                                            sbutton.classList.add("pending");
+                                            sbutton.textContent = "Pending";
+                                        }
+                                        else if (status.toLowerCase() == "solved") {
+                                            sbutton.classList.add("solved");
+                                            sbutton.textContent = "Solved";
+                                        }
+                                        else {
+                                            sbutton.classList.add("on_review");
+                                            sbutton.textContent = "On Review";
+                                        }
+
+                                        clone.querySelector(".csSuppotTicketcard").addEventListener('click', function () {
+                                            showsupportTicket(res, datai.ticketId, name);
+                                            console.log(res, datai.ticketId, name);
+
+                                        });
+                                        document.getElementById("csno_support_tickets").style.display = "none";
+                                        document.getElementById("cssupport_ticket_list").style.display = "block";
+                                        document.getElementById("cssupport_ticket_list").appendChild(clone);
                                     }
                                 })();
 
@@ -931,8 +1002,8 @@ function showcsprof(res, csid) {
             }
             else {
                 $("#load-container").hide();
-                document.getElementById("no_support_tickets").style.display = "block";
-                document.getElementById("support_ticket_list").style.display = "none";
+                document.getElementById("csno_support_tickets").style.display = "block";
+                document.getElementById("cssupport_ticket_list").style.display = "none";
 
             }
         }
