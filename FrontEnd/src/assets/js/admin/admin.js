@@ -783,8 +783,8 @@ function showcsmember() {
 
 
                     row.addEventListener('click', function () {
-                        // var customerId = this.cells[0].textContent;
-                        showcsprof(res, datai.CSid);
+                        var csid = this.cells[0].textContent;
+                        showcsprof(res, csid);
 
                     })
                 }
@@ -818,7 +818,7 @@ function showcsmember() {
 
 }
 
-function showcsprof(res, id) {
+function showcsprof(res, csid) {
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
@@ -835,7 +835,109 @@ function showcsprof(res, id) {
     document.querySelector("#SupportTicketDatail").style.display = "none";
 
 
+    // Update the title
+    var title = document.querySelector("#csprof .topRow h1");
+    title.innerHTML = `Customer Support Member > CS${csid.padStart(3, '0')}`;
 
+
+
+    for (var i = 0; i < res.data.length; i++) {
+
+        if (res.data[i].customerId == customerId) {
+
+            var datai = res.data[i];
+            var name = datai.fname + " " + datai.lname;
+            document.getElementById("cid").innerHTML = datai.customerId;
+            document.getElementById("fname").innerHTML = datai.fname || '-';
+            document.getElementById("lname").innerHTML = datai.lname || '-';
+            document.getElementById("email").innerHTML = datai.email || '-';
+            document.getElementById("cnum").innerHTML = datai.contact || '-';
+
+            if (datai.nSupportTickets > 0) {
+
+                // Remove created ticket cards
+                var ticketList = document.querySelectorAll(".SuppotTicketcard");
+                console.log(ticketList);
+                if (ticketList.length > 0) {
+                    ticketList.forEach(function (ticket) {
+                        ticket.remove();
+                    });
+                }
+
+                // request ticket details from backend
+                $.ajax({
+                    url: API_URL + "/customerSupport",
+                    method: "GET",
+                    success: function (res) {
+                        console.log(res);
+                        if (res.status == 200) {
+
+
+                            for (var i = 0; i < res.data.length; i++) {
+                                (function () {
+                                    var datai = res.data[i];
+                                    if (datai.customerID == customerId) {
+
+
+                                        var temp = document.getElementById("supportTicketTemplate");
+                                        var clone = temp.content.cloneNode(true);
+                                        clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${String(datai.ticketId).padStart(3, '0')}`;
+                                        console.log(datai.ticketId);
+                                        var dateTime = new Date(datai.created_time);
+                                        var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
+                                        clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
+
+                                        // Update ticket title
+                                        clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
+
+                                        // Change status button
+                                        var status = datai.status;
+                                        var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
+
+                                        if (status.toLowerCase() == "pending") {
+                                            sbutton.classList.add("pending");
+                                            sbutton.textContent = "Pending";
+                                        }
+                                        else if (status.toLowerCase() == "solved") {
+                                            sbutton.classList.add("solved");
+                                            sbutton.textContent = "Solved";
+                                        }
+                                        else {
+                                            sbutton.classList.add("on_review");
+                                            sbutton.textContent = "On Review";
+                                        }
+
+                                        clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
+                                            showsupportTicket(res, datai.ticketId, name);
+                                            console.log(res, datai.ticketId, name);
+
+                                        });
+                                        document.getElementById("no_support_tickets").style.display = "none";
+                                        document.getElementById("support_ticket_list").style.display = "block";
+                                        document.getElementById("support_ticket_list").appendChild(clone);
+                                    }
+                                })();
+
+
+                            }
+                            $("#load-container").hide();
+                        }
+                        else {
+                            console.log("error");
+                        }
+                    }
+                })
+
+            }
+            else {
+                $("#load-container").hide();
+                document.getElementById("no_support_tickets").style.display = "block";
+                document.getElementById("support_ticket_list").style.display = "none";
+
+            }
+        }
+
+    }
 
 }
 
