@@ -16,8 +16,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet("/Admin/SPlist")
-
+@WebServlet(urlPatterns = "/Admin/SPlist")
 public class AdminSPListServlet extends HttpServlet{
     @Resource(name = "java:comp/env/roadRescue")
     DataSource ds;

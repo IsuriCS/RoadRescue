@@ -80,7 +80,7 @@ function showcus() {
         url: API_URL + "/Admin/CustomerList",
         method: "GET",
         success: function (res) {
-            console.log(res);
+
             if (res.status == 200) {
                 $("#load-container").hide();
 
@@ -347,53 +347,105 @@ function showServiceProviders() {
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
-
+    console.log("service provider");
+    var garage = document.getElementById("garages");
+    var mp = document.getElementById("maintainancep");
+    var tableBody = document.querySelector("#SPList tbody");
 
     $.ajax({
-        URL: API_URL + "/Admin/ServiceProviderList",
-    })
+        url: API_URL + "/Admin/SPlist",
+        method: "GET",
+        success: function (res) {
 
 
+            if (res.status == 200) {
+
+                tableBody.innerHTML = "";
+                for (var i = 0; i < res.data.length; i++) {
+
+                    var datai = res.data[i];
+                    var row = tableBody.insertRow();
+                    row.insertCell(0).textContent = datai.id || '-';
+                    row.insertCell(1).textContent = datai.garageName || '--';
+                    row.insertCell(2).textContent = datai.phoneNumber || '-';
+                    row.insertCell(3).textContent = datai.comRequests || '0';
+                    row.insertCell(4).textContent = datai.supTickets || '0';
+
+                    row.addEventListener('click', function () {
+                        var id = this.cells[0].textContent;
+                        showSPprof(res, id);
+
+                    })
+
+                }
+
+
+
+            }
+            else {
+                console.log("error");
+            }
+        }
+    });
 
     $("#load-container").hide();
 
-}
-
-
-function showGarageOwner() {
-    document.querySelector("#dashboardLink").classList.remove("active");
-    document.querySelector("#UsersLink").classList.add("active");
-    document.querySelector("#profileLink").classList.remove("active");
-    document.querySelector("#verificationLink").classList.remove("active");
-    document.querySelector("#ReportLink").classList.remove("active");
-
-    document.querySelector("#customerDropdown").classList.remove("dropDownActive");
-    document.querySelector("#servicePDropdown").classList.add("dropDownActive");
-    document.querySelector("#csDropdown").classList.remove("dropDownActive");
-
-    // document.querySelector("#GarageDropDown").classList.add("submenuActive");
-    // document.querySelector("#MPDropDown").classList.remove("submenuActive");
-
-
-    document.querySelector("#dashboard").style.display = "none";
-    document.querySelector("#userCus").style.display = "none";
-    document.querySelector("#cusprof").style.display = "none";
-    document.querySelector("#csmember").style.display = "none";
-    document.querySelector("#csprof").style.display = "none";
-    // document.querySelector("#garageOwners").style.display = "block";
-    document.querySelector("#GarageProf").style.display = "none";
-    // document.querySelector("#maintainancePersonnel").style.display = "none";
-    document.querySelector("#MaintainacePersonnelProf").style.display = "none";
-    document.querySelector("#adminProfile").style.display = "none";
-    document.querySelector("#verification").style.display = "none";
-    document.querySelector("#reports").style.display = "none";
-    document.querySelector("#SupportTicketDatail").style.display = "none";
-    document.querySelector("#serviceProviders").style.display = "none";
-
+    // Search spprovider
+    document.getElementById("searchsp").addEventListener("input", function () {
+        var searchValue = this.value.toUpperCase();
+        var table = document.getElementById("SPList");
+        var tr = table.getElementsByTagName("tr");
+        for (var i = 0; i < tr.length; i++) {
+            var td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                var textValue = td.textContent || td.innerText;
+                if (textValue.toUpperCase().indexOf(searchValue) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+    );
 
 }
 
-function showGarageProf() {
+
+// function showGarageOwner() {
+//     document.querySelector("#dashboardLink").classList.remove("active");
+//     document.querySelector("#UsersLink").classList.add("active");
+//     document.querySelector("#profileLink").classList.remove("active");
+//     document.querySelector("#verificationLink").classList.remove("active");
+//     document.querySelector("#ReportLink").classList.remove("active");
+
+//     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
+//     document.querySelector("#servicePDropdown").classList.add("dropDownActive");
+//     document.querySelector("#csDropdown").classList.remove("dropDownActive");
+
+//     // document.querySelector("#GarageDropDown").classList.add("submenuActive");
+//     // document.querySelector("#MPDropDown").classList.remove("submenuActive");
+
+
+//     document.querySelector("#dashboard").style.display = "none";
+//     document.querySelector("#userCus").style.display = "none";
+//     document.querySelector("#cusprof").style.display = "none";
+//     document.querySelector("#csmember").style.display = "none";
+//     document.querySelector("#csprof").style.display = "none";
+//     // document.querySelector("#garageOwners").style.display = "block";
+//     document.querySelector("#GarageProf").style.display = "none";
+//     // document.querySelector("#maintainancePersonnel").style.display = "none";
+//     document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+//     document.querySelector("#adminProfile").style.display = "none";
+//     document.querySelector("#verification").style.display = "none";
+//     document.querySelector("#reports").style.display = "none";
+//     document.querySelector("#SupportTicketDatail").style.display = "none";
+//     document.querySelector("#serviceProviders").style.display = "none";
+
+
+// }
+
+function showSPprof(res, id) {
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
@@ -410,7 +462,128 @@ function showGarageProf() {
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
 
+    // Update the title
+    var title = document.querySelector("#GarageProf .topRow h1");
 
+
+
+
+    for (var i = 0; i < res.data.length; i++) {
+
+        if (res.data[i].id == id) {
+
+            var datai = res.data[i];
+            if (datai.type == "Garage") {
+                title.innerHTML = `Servie Provider > G${id.padStart(3, '0')}`;
+            }
+            else {
+                title.innerHTML = `Servie Provider > M${id.padStart(3, '0')}`;
+            }
+
+            document.getElementById("id").innerHTML = datai.id;
+            document.getElementById("gname").innerHTML = datai.garageName || '-';
+            document.getElementById("oname").innerHTML = datai.owner_name || '-';
+            document.getElementById("pnum").innerHTML = datai.phoneNumber || '-';
+            document.getElementById("email").innerHTML = datai.email || '-';
+
+            // set locaton link
+            var locationpoints = datai.location.split(",");
+            var link = `https://www.google.com/maps/search/?api=1&query=${locationpoints[0]},${locationpoints[1]}`;
+
+            document.getElementById("location").setAttribute("href", link);
+            document.getElementById("compservice").innerHTML = datai.comRequests || '0';
+
+            // format date
+            var dateTime = new Date(datai.Date);
+            var formattedDate = dateTime.toLocaleDateString();
+            document.getElementById("date").innerHTML = datai.formattedDate || '0';
+
+            // View support Tickets
+            if (datai.supTickets > 0) {
+
+                // Remove created ticket cards
+                var ticketList = document.querySelectorAll(".SuppotTicketcard");
+                console.log(ticketList);
+                if (ticketList.length > 0) {
+                    ticketList.forEach(function (ticket) {
+                        ticket.remove();
+                    });
+                }
+
+                // request ticket details from backend
+                $.ajax({
+                    url: API_URL + "/customerSupport",
+                    method: "GET",
+                    success: function (res) {
+                        console.log(res);
+                        if (res.status == 200) {
+
+
+                            for (var i = 0; i < res.data.length; i++) {
+                                (function () {
+                                    var datai = res.data[i];
+                                    if (datai.customerID == customerId) {
+
+
+                                        var temp = document.getElementById("supportTicketTemplate");
+                                        var clone = temp.content.cloneNode(true);
+                                        clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${String(datai.ticketId).padStart(3, '0')}`;
+                                        console.log(datai.ticketId);
+                                        var dateTime = new Date(datai.created_time);
+                                        var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
+                                        clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
+
+                                        // Update ticket title
+                                        clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
+
+                                        // Change status button
+                                        var status = datai.status;
+                                        var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
+
+                                        if (status.toLowerCase() == "pending") {
+                                            sbutton.classList.add("pending");
+                                            sbutton.textContent = "Pending";
+                                        }
+                                        else if (status.toLowerCase() == "solved") {
+                                            sbutton.classList.add("solved");
+                                            sbutton.textContent = "Solved";
+                                        }
+                                        else {
+                                            sbutton.classList.add("on_review");
+                                            sbutton.textContent = "On Review";
+                                        }
+
+                                        clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
+                                            showsupportTicket(res, datai.ticketId, name);
+                                            console.log(res, datai.ticketId, name);
+
+                                        });
+                                        document.getElementById("no_support_tickets").style.display = "none";
+                                        document.getElementById("support_ticket_list").style.display = "block";
+                                        document.getElementById("support_ticket_list").appendChild(clone);
+                                    }
+                                })();
+
+
+                            }
+                            $("#load-container").hide();
+                        }
+                        else {
+                            console.log("error");
+                        }
+                    }
+                })
+
+            }
+            else {
+                $("#load-container").hide();
+                document.getElementById("no_support_tickets").style.display = "block";
+                document.getElementById("support_ticket_list").style.display = "none";
+
+            }
+        }
+
+    }
 }
 
 // function showMaintainancePersonnel() {
@@ -505,7 +678,7 @@ function showcsmember() {
         url: API_URL + "/Admin/CustomerSupportList",
         method: "GET",
         success: function (res) {
-            console.log(res);
+
             if (res.status == 200) {
                 $("#load-container").hide();
 

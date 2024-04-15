@@ -42,6 +42,8 @@ public class UserDataController {
 
     public JsonArray getServiceProviderList(Connection connection) throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.executeQuery(connection, "SELECT * FROM service_provider");
+        ResultSet rst2=CrudUtil.executeQuery(connection,"Select assigned_service_provider_id,count(assigned_service_provider_id) From service_request GROUP BY assigned_service_provider_id");
+        ResultSet rst3=CrudUtil.executeQuery(connection,"SELECT s.id, COUNT(t.service_provider_id) FROM service_provider s LEFT JOIN sp_support_ticket t ON s.id = t.service_provider_id GROUP BY s.id");
         JsonArrayBuilder SericeProviderArray = Json.createArrayBuilder();
         while (rst.next()) {
             int id = rst.getInt(1);
@@ -55,8 +57,20 @@ public class UserDataController {
             String type = rst.getString(9);
             String owner_name = rst.getString(10);
             String profile_pic_ref = rst.getString(11);
+            int comRequsts=0;
+            int supTickets=0;
+            while (rst2.next()){
+                if (rst2.getInt(1)==id){
+                    comRequsts=rst2.getInt(2);
+                }
 
+            }
+            while (rst3.next()){
+                if (rst3.getInt(1)==id){
+                    supTickets=rst3.getInt(2);
+                }
 
+            }
 
 
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
@@ -76,12 +90,14 @@ public class UserDataController {
             objectBuilder.add("avg_rating", avg_rating);
             objectBuilder.add("type", type);
             objectBuilder.add("owner_name", owner_name);
-          
+
             if (profile_pic_ref != null) {
                 objectBuilder.add("profile_pic_ref", profile_pic_ref);
             } else {
                 objectBuilder.addNull("profile_pic_ref");
             }
+            objectBuilder.add("comRequests",comRequsts);
+            objectBuilder.add("supTickets",supTickets);
 
 
 
