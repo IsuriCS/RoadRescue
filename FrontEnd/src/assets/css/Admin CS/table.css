@@ -56,3 +56,7 @@ th {
 .status > p {
   margin: 1vh;
 }
+
+#SPList th {
+  width: 12%;
+}

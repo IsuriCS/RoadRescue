@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 public class UserDataController {
 
     public JsonArray getCustomerList(Connection connection) throws SQLException, ClassNotFoundException {
@@ -38,6 +39,73 @@ public class UserDataController {
         return CustomerArray.build();
     }
 
+
+    public JsonArray getServiceProviderList(Connection connection) throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT * FROM service_provider");
+        ResultSet rst2=CrudUtil.executeQuery(connection,"Select assigned_service_provider_id,count(assigned_service_provider_id) From service_request GROUP BY assigned_service_provider_id");
+        ResultSet rst3=CrudUtil.executeQuery(connection,"SELECT s.id, COUNT(t.service_provider_id) FROM service_provider s LEFT JOIN sp_support_ticket t ON s.id = t.service_provider_id GROUP BY s.id");
+        JsonArrayBuilder SericeProviderArray = Json.createArrayBuilder();
+        while (rst.next()) {
+            int id = rst.getInt(1);
+            String phoneNumber= rst.getString(2);
+            String email= rst.getString(3);
+            String garageName= rst.getString(4);
+            String Date = rst.getString(5);
+            String status = rst.getString(6);
+            String location = rst.getString(7);
+            Double avg_rating = rst.getDouble(8);
+            String type = rst.getString(9);
+            String owner_name = rst.getString(10);
+            String profile_pic_ref = rst.getString(11);
+            int comRequsts=0;
+            int supTickets=0;
+            while (rst2.next()){
+                if (rst2.getInt(1)==id){
+                    comRequsts=rst2.getInt(2);
+                }
+
+            }
+            while (rst3.next()){
+                if (rst3.getInt(1)==id){
+                    supTickets=rst3.getInt(2);
+                }
+
+            }
+
+
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("id", id);
+            objectBuilder.add("phoneNumber",phoneNumber);
+
+            if (email != null) {
+                objectBuilder.add("email", email);
+            } else {
+                objectBuilder.addNull("email");
+            }
+
+            objectBuilder.add("garageName",garageName);
+            objectBuilder.add("Date",Date);
+            objectBuilder.add("status",status);
+            objectBuilder.add("location", location);
+            objectBuilder.add("avg_rating", avg_rating);
+            objectBuilder.add("type", type);
+            objectBuilder.add("owner_name", owner_name);
+
+            if (profile_pic_ref != null) {
+                objectBuilder.add("profile_pic_ref", profile_pic_ref);
+            } else {
+                objectBuilder.addNull("profile_pic_ref");
+            }
+            objectBuilder.add("comRequests",comRequsts);
+            objectBuilder.add("supTickets",supTickets);
+
+
+
+            SericeProviderArray.add(objectBuilder.build());
+        }
+
+        return SericeProviderArray.build();
+    }
 
     public JsonArray getCustomerSupportList(Connection connection) throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.executeQuery(connection, "SELECT csm.id AS member_id,csm.f_name as f_name, csm.l_name AS l_name,csm.phone_number AS phone_number,COUNT(t.id) AS tickets_solved FROM customer_support_member csm LEFT JOIN (SELECT customer_support_member_id AS id FROM customer_support_ticket UNION ALL SELECT customer_support_member_id AS id FROM sp_support_ticket) AS t ON csm.id = t.id GROUP BY csm.id, csm.f_name, csm.l_name, csm.phone_number");
