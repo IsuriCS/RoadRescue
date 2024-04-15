@@ -318,7 +318,7 @@ function showsupportTicket(res, ticketId, name) {
 }
 
 function showServiceProviders() {
-    $("#load-container").show();
+
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
     document.querySelector("#profileLink").classList.remove("active");
@@ -351,13 +351,13 @@ function showServiceProviders() {
     var garage = document.getElementById("garages");
     var mp = document.getElementById("maintainancep");
     var tableBody = document.querySelector("#SPList tbody");
-
+    $("#load-container").show();
     $.ajax({
         url: API_URL + "/Admin/SPlist",
         method: "GET",
         success: function (res) {
 
-
+            $("#load-container").hide();
             if (res.status == 200) {
 
                 tableBody.innerHTML = "";
@@ -388,7 +388,7 @@ function showServiceProviders() {
         }
     });
 
-    $("#load-container").hide();
+
 
     // Search spprovider
     document.getElementById("searchsp").addEventListener("input", function () {
