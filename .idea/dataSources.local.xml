@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="IU-231.9011.34">
-    <data-source name="road_rescue@database-1.cxaiwakqecm4.eu-north-1.rds.amazonaws.com" uuid="f40bdce8-e628-4147-841a-cb889c03a23c">
+    <data-source name="@localhost" uuid="de2ef738-e35b-493e-b422-d3876f5157a5">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
       <schema-mapping />
     </data-source>
@@ -18,6 +18,10 @@
           <node kind="schema" qname="@" />
         </introspection-scope>
       </schema-mapping>
+    </data-source>
+    <data-source name="@localhost [2]" uuid="17afa3a1-e6e1-472f-b368-188474a0c8f6">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+      <schema-mapping />
     </data-source>
   </component>
 </project>
