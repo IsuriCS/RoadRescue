@@ -1009,6 +1009,28 @@ function showVerification() {
                         verifyButton.type = "button";
                         verifyButton.className = "verifyBu verify";
                         verifyButton.textContent = "Verify";
+                        // verifyButton.addEventListener('click', function () {
+                        //     datai.verify = "Yes";
+                        //     const data = {
+                        //         id: datai.id,
+                        //         verify: "Yes",
+                        //         option: "verify"
+                        //     }
+                        //     $.ajax({
+                        //         url: API_URL + "/Admin/SPlist",
+                        //         method: "PUT",
+                        //         contentType: "application/json",
+                        //         data: JSON.stringify(data),
+                        //         success: function (res) {
+                        //             if (res.status == 200) {
+                        //                 row.remove();
+                        //             }
+                        //             else {
+                        //                 console.log("error");
+                        //             }
+                        //         }
+                        //     });
+                        // });
                         actionButtonCell.appendChild(verifyButton);
 
                         var cancelButton = document.createElement("button");
@@ -1017,24 +1039,53 @@ function showVerification() {
                         cancelButton.textContent = "Cancel";
                         actionButtonCell.appendChild(cancelButton);
 
-                        // Add click event listeners for buttons
-                        // viewButton.addEventListener('click', function () {
-                        //     var locationpoints = datai.location.split(",");
-                        //     var link = `https://www.google.com/maps/search/?api=1&query=${locationpoints[0]},${locationpoints[1]}`;
 
-                        //     document.querySelector("#verificationList tbody td .locview a").setAttribute("href", link);
+                        (function (verifyButton, row, datai) {
+                            verifyButton.addEventListener('click', function () {
 
-                        // });
-
-                        verifyButton.addEventListener('click', function () {
-                            // Handle verify button click event
-                            // You can implement your logic here
-                        });
+                                datai.verify = "Yes";
+                                const data = {
+                                    id: datai.id,
+                                    verify: "Yes",
+                                    option: "verify"
+                                }
+                                console.log(data);
+                                $.ajax({
+                                    url: API_URL + "/Admin/SPlist",
+                                    method: "PUT",
+                                    method: "PUT",
+                                    contentType: "application/json",
+                                    data: JSON.stringify(data),
+                                    success: function (res) {
+                                        if (res.status == 200) {
+                                            verifyButton.style.display = "none";
+                                            // Remove row on success
+                                            row.remove();
+                                        } else {
+                                            console.log("error");
+                                        }
+                                    }
+                                });
+                            });
+                        })(verifyButton, row, datai);
 
                         cancelButton.addEventListener('click', function () {
-                            // Handle cancel button click event
-                            // You can implement your logic here
+                            // Send DELETE request with the id of datai
+                            $.ajax({
+                                url: API_URL + "/Admin/SPlist?id=" + datai.id,
+                                method: "DELETE",
+                                success: function (res) {
+                                    if (res.status == 200) {
+                                        // Optionally, perform any actions after successful deletion
+                                        console.log("Item deleted successfully");
+                                    } else {
+                                        console.log("error");
+                                    }
+                                }
+                            });
                         });
+
+
                     }
                     // row.addEventListener('click', function () {
                     //     var csid = this.cells[0].textContent;

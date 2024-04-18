@@ -1,4 +1,5 @@
 package controllers.AdminController;
+import models.TechnicianModel;
 import utils.CrudUtil;
 
 import javax.json.*;
@@ -134,4 +135,14 @@ public class UserDataController {
 
         return CustomerArray.build();
     }
+
+    public boolean verifySP(Connection connection, int id ) throws SQLException, ClassNotFoundException {
+
+        boolean verificationResult= CrudUtil.executeUpdate(connection,"UPDATE service_provider SET Verified = 'Yes' WHERE id = ?" , id);
+
+
+        return verificationResult;
+    }
+
+
 }
