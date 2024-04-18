@@ -13,6 +13,19 @@ import java.util.List;
 public class TechnicianController {
 
 
+    public JsonArray getTechnicians(Connection connection,int garageId) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT id,f_name,l_name FROM technician WHERE status=? AND service_provider_id=?", 1, 1);
+        JsonArrayBuilder technicianArray = Json.createArrayBuilder();
+        while (resultSet.next()) {
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("techId", resultSet.getString(1));
+            objectBuilder.add("f_name", resultSet.getString(2));
+            objectBuilder.add("l_name", resultSet.getString(3));
+            technicianArray.add(objectBuilder.build());
+        }
+        return technicianArray.build();
+    }
+
     public JsonArray getAll(Connection connection) throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.executeQuery(connection, "select  id,f_name,l_name,status,phone_number,profile_pic_ref from technician where service_provider_id=?",1);
         JsonArrayBuilder technicianArray = Json.createArrayBuilder();

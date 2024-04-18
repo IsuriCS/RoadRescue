@@ -19,6 +19,7 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @WebServlet(urlPatterns = "/garage")
 public class GarageServlet extends HttpServlet {
@@ -27,6 +28,7 @@ public class GarageServlet extends HttpServlet {
     DataSource ds;
 
     GarageController garage = new GarageController();
+    TechnicianController technician=new TechnicianController();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -49,8 +51,7 @@ public class GarageServlet extends HttpServlet {
                 try {
                     connection = ds.getConnection();
                     Garage garageDetails = garage.getGarageDetails(connection, searchId);
-                    System.out.println(garageDetails);
-
+                    JsonArray technicians=technician.getTechnicians(connection,Integer.parseInt(searchId));
                     JsonObjectBuilder garageData = Json.createObjectBuilder();
                     garageData.add("garageName",garageDetails.getGarageName());
                     garageData.add("contactNumber",garageDetails.getContactNumber());
@@ -60,6 +61,7 @@ public class GarageServlet extends HttpServlet {
                     garageData.add("garageType",garageDetails.getGarageType());
                     garageData.add("OwnerName",garageDetails.getOwnerName());
                     garageData.add("imageRef",garageDetails.getImgRef());
+                    garageData.add("availableTechnicians",technicians);
 
                     System.out.println(garageDetails.getImgRef().isEmpty());
                     System.out.println(garageDetails.getImgRef());
