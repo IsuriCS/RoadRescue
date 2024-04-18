@@ -13,6 +13,7 @@ public class TechnicianModel {
     private List<String> expertiseArias;
     private int status;
     private int serviceProviderId;
+    private String saveImageRef;
 
 
 
@@ -39,6 +40,23 @@ public class TechnicianModel {
         this.status = status;
         this.serviceProviderId = serviceProviderId;
     }
+
+    public TechnicianModel(String id, String fName, String lName, List<String> expertiseArias, String saveImageRef) {
+        this.id = id;
+        this.fName = fName;
+        this.lName = lName;
+        this.expertiseArias = expertiseArias;
+        this.saveImageRef = saveImageRef;
+    }
+
+    public String getSaveImageRef() {
+        return saveImageRef;
+    }
+
+    public void setSaveImageRef(String saveImageRef) {
+        this.saveImageRef = saveImageRef;
+    }
+
 
     public Timestamp getTimestamp() {
         return timestamp;

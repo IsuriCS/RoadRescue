@@ -383,7 +383,7 @@
               <h1>Service Providers</h1>
               <div class="search">
             <form>
-                <input type="text" placeholder="Search Customer" name="search" id="searchsp">
+                <input type="text" placeholder="Search Service Provider" name="search" id="searchsp">
                 <button onclick="searchCustomer()">
                     <span class="material-symbols-outlined">search</span>
                 </button>
@@ -392,8 +392,8 @@
             </div>
             <div>
               <!-- <input type="checkbox" id="allsp" name="allap"><label for="allsp">All</label> -->
-              <input type="checkbox" id="garages" name="garages" checked onclick="showgarage()"><label for="garages" >Garages</label>
-              <input type="checkbox" id="maintainancep" name="maintainancep" checked onclick="showmp()"><label for="maintainancep">Maintainance Personnel</label>
+              <input type="checkbox" id="garages" name="garages" checked ><label for="garages" >Garages</label>
+              <input type="checkbox" id="maintainancep" name="maintainancep" checked ><label for="maintainancep">Maintainance Personnel</label>
             
             </div>
             <div>
@@ -405,6 +405,7 @@
                     <th>Phone Number</th>
                     <th>Completed services</th>
                     <th>Support Tickets</th>
+                    <th style="display: none;">type</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -578,7 +579,7 @@
           <!-- ---------------------------------------Servise Provider------------------------------- -->
           <!-- ---------------------------------------Maintainace Personnel------------------------------- -->
 
-          <div id="maintainancePersonnel" style="display: none">
+          <!-- <div id="maintainancePersonnel" style="display: none">
             <div class="topRow">
               <h1>Maintainance Personnel</h1>
               <div class="searchboxContainer">
@@ -619,10 +620,10 @@
                 </tbody>
               </table>
             </div>
-          </div>
+          </div> -->
 
           <!-- ---------------------------------------Maintainance Personnel Profile------------------------------- -->
-          <div id="MaintainacePersonnelProf" style="display: none">
+          <!-- <div id="MaintainacePersonnelProf" style="display: none">
             <div class="topRow">
               <h1>Maintainance Personnel > c001</h1>
             </div>
@@ -630,7 +631,7 @@
             <div class="profileContent">
               <div class="leftSide">
                 <img src="../../assets/img/pic.png" alt="" />
-                <!-- Detail form +******************************************************************** -->
+               
                 <div class="row">
                   <div class="tag">
                     <h1>ID :</h1>
@@ -662,8 +663,8 @@
                   <div class="detail"><p>chamodh@gmail.com</p></div>
                 </div>
 
-                <!-- *********************Buttons**************************************************** -->
-                <div class="buttonDiv">
+                *********************Buttons**************************************************** -->
+                <!--<div class="buttonDiv">
                   <button type="submit" class="button">
                     <span class="material-symbols-outlined"> edit </span>Edit
                     Profile
@@ -683,8 +684,8 @@
                 </div>
               </div>
 
-              <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
-              <div class="rightSide">
+               +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
+              <!--<div class="rightSide">
                 <div class="row">
                   <div class="tag">
                     <h1>Location :</h1>
@@ -726,21 +727,21 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- ---------------------------------------Users------------------------------- -->
           <!-- ---------------------------------------Customer support------------------------------- -->
           <div id="csmember" style="display: none">
             <div class="topRow">
               <h1>Customer Support Members</h1>
-              <div class="searchboxContainer">
-                <input type="text" placeholder="Search Customer.." />
-                <button type="submit">
-                  <span class="material-symbols-outlined searchIcon">
-                    search
-                  </span>
+              <div class="search">
+            <form>
+                <input type="text" placeholder="Search Customer Support Member" name="search" id="searchCSMember">
+                <button onclick="searchCustomer()">
+                    <span class="material-symbols-outlined">search</span>
                 </button>
-              </div>
+            </form>
+        </div>
             </div>
             <div>
               <table id="CSupportList">
@@ -784,31 +785,31 @@
                   <div class="tag">
                     <h1>ID :</h1>
                   </div>
-                  <div class="detail"><p>001</p></div>
+                  <div class="detail"><p id="csid"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>First Name :</h1>
                   </div>
-                  <div class="detail"><p>Chamodh</p></div>
+                  <div class="detail"><p id="csfname"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Last Name :</h1>
                   </div>
-                  <div class="detail"><p>Henderson</p></div>
+                  <div class="detail"><p id="cslname"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Phone Number :</h1>
                   </div>
-                  <div class="detail"><p>0768658568</p></div>
+                  <div class="detail"><p id="cscnum"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Email :</h1>
                   </div>
-                  <div class="detail"><p>chamodh@gmail.com</p></div>
+                  <div class="detail"><p id="csemail"></p></div>
                 </div>
 
                 <!-- *********************Buttons**************************************************** -->
@@ -826,24 +827,31 @@
               <div class="rightSide">
                 <div class="stsection">
                   <h1>Support Tickets</h1>
-                  <div class="SuppotTicketcard">
+                  <h1 id="csno_support_tickets"> No Support Tickets</h1>
+                  <div id="cssupport_ticket_list" style="display:none;">
+                    <template id="cssupportTicketTemplate">
+                    <div class="csSuppotTicketcard">
                     <h1>ST-001</h1>
                     <div class="row">
                       <div class="tag">
                         <h1>Date :</h1>
                       </div>
-                      <div class="detail"><p>2323.01.23</p></div>
+                      <div class="date"><p>2323.01.23</p></div>
                     </div>
                     <div class="row">
                       <div class="tag">
                         <h1>Title :</h1>
                       </div>
-                      <div class="detail"><p>Payment Issue</p></div>
+                      <div class="title"><p>Payment Issue</p></div>
                     </div>
                     <div class="solveButton">
                       <button type="submit" class="button">Solved</button>
                     </div>
                   </div>
+                  </template>
+                  </div>
+                  
+                  
                 </div>
               </div>
             </div>
@@ -854,17 +862,17 @@
           <div id="verification" style="display: none">
             <div class="topRow">
               <h1>Verify Service Providers</h1>
-              <div class="searchboxContainer">
-                <input type="text" placeholder="Search Customer.." />
-                <button type="submit">
-                  <span class="material-symbols-outlined searchIcon">
-                    search
-                  </span>
+              <div class="search">
+            <form>
+                <input type="text" placeholder="Search Service Provider" name="search" id="searchCSMember">
+                <button onclick="searchCustomer()">
+                    <span class="material-symbols-outlined">search</span>
                 </button>
-              </div>
+            </form>
+        </div>
             </div>
             <div>
-              <table>
+              <table id="verificationList">
                 <thead>
                   <tr>
                     <th>Service Provider</th>

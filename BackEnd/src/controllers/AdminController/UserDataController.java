@@ -57,6 +57,7 @@ public class UserDataController {
             String type = rst.getString(9);
             String owner_name = rst.getString(10);
             String profile_pic_ref = rst.getString(11);
+            String verify=rst.getString(12);
             int comRequsts=0;
             int supTickets=0;
             while (rst2.next()){
@@ -96,6 +97,7 @@ public class UserDataController {
             } else {
                 objectBuilder.addNull("profile_pic_ref");
             }
+            objectBuilder.add("verify",verify);
             objectBuilder.add("comRequests",comRequsts);
             objectBuilder.add("supTickets",supTickets);
 
