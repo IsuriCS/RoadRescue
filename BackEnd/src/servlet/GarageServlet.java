@@ -1,9 +1,9 @@
 package servlet;
 
 import controllers.ControllerImpl.GarageController;
+import controllers.ControllerImpl.ServicesController;
 import controllers.ControllerImpl.TechnicianController;
 import models.Garage;
-import models.TechnicianModel;
 
 import javax.annotation.Resource;
 import javax.json.*;
@@ -19,7 +19,6 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 @WebServlet(urlPatterns = "/garage")
 public class GarageServlet extends HttpServlet {
@@ -29,6 +28,7 @@ public class GarageServlet extends HttpServlet {
 
     GarageController garage = new GarageController();
     TechnicianController technician=new TechnicianController();
+    ServicesController services =new ServicesController();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -62,9 +62,6 @@ public class GarageServlet extends HttpServlet {
                     garageData.add("OwnerName",garageDetails.getOwnerName());
                     garageData.add("imageRef",garageDetails.getImgRef());
                     garageData.add("availableTechnicians",technicians);
-
-                    System.out.println(garageDetails.getImgRef().isEmpty());
-                    System.out.println(garageDetails.getImgRef());
 
 
                     JsonObjectBuilder response = Json.createObjectBuilder();
@@ -134,6 +131,38 @@ public class GarageServlet extends HttpServlet {
 
                 break;
 
+            case "getServices":
+                try {
+                    connection=ds.getConnection();
+                    JsonArray requestServices = services.fetchService(connection);
+
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    response.add("status", 200);
+                    response.add("message", "Done");
+                    response.add("data", requestServices);
+                    writer.print(response.build());
+                    connection.close();
+
+                } catch (SQLException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "SQL Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "Class not fount Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                }
+
+
+                break;
             default:
                 // handle
         }
