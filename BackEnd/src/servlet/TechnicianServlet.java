@@ -42,6 +42,7 @@ public class TechnicianServlet extends HttpServlet {
                 try {
                     connection = ds.getConnection();
                     JsonArray allTechnicians = technician.getAll(connection);
+                    System.out.println(allTechnicians);
                     JsonObjectBuilder response = Json.createObjectBuilder();
                     response.add("status", 200);
                     response.add("message", "Done");
