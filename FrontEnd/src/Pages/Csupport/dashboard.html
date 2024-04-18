@@ -80,38 +80,14 @@
 
               <!-- =============Service Provider Sub Drop Down =========================================== -->
               <li>
-                <a id="servicePDropdown" href="#" onclick="sptoggleDropdown()"
-                  >Service Providers<span
-                    class="material-symbols-outlined spdropdownArrow"
-                  >
-                    expand_more
-                  </span></a
+                <a id="servicePDropdown" href="#serviceProviders" onclick="showServiceProviders()"
+                  >Service Providers</a
                 >
-                <ul id="spdrop" class="spdropdown-container hide">
-                  <li>
-                    <a
-                      id="GarageDropDown"
-                      href="#garageOwner"
-                      onclick="showGarageOwner()"
-                      class="submenu"
-                      >Garage Owner</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      id="MPDropDown"
-                      href="#maintainancePersonnel"
-                      class="submenu"
-                      onclick="showMaintainancePersonnel()"
-                      >Maintainance Personnel</a
-                    >
-                  </li>
-                </ul>
+                
               </li>
-
-                    
-                    </ul>
-                </li>
+             
+            </ul>
+          </li>
                 
                 <li>
                     <a 
@@ -147,6 +123,41 @@
            
 
             <!-- **************************Report Section****************************** -->
+           <div class = "ServieRequests">
+            <h1>Service Requests</h1>
+            <table>
+              <tr>
+                <th>Customer ID</th>
+                <th>Location</th>
+                <th>Issue</th>
+                <th>Status</th>
+              </tr>
+              <tr>
+                <td>C001</td>
+                <td>Online Payment Issue</td>
+                <td>Colombo</td>
+                <td><button class = "button">
+                  <span class="material-symbols-outlined">
+                    Request Accepted
+                    </span>
+                </button>
+                <button class = "button">
+                  <span class="material-symbols-outlined">
+                    Service Received
+                    </span>
+                </button>
+                <button class = "button">
+                  <span class="material-symbols-outlined">
+                    Service Completed
+                    </span>
+                </button>
+              </td>
+              </tr>
+            </table>
+           </div>
+           
+           
+           
             <div class="ReportsSection">
               <h1>Recent Reports</h1>
               <table>
@@ -298,9 +309,44 @@
 
           <!-- ---------------------------------------Users------------------------------- -->
           <!-- ---------------------------------------Service Provider------------------------------- -->
-          <!-- ---------------------------------------Garage Owner------------------------------- -->
+          
+          <div id="serviceProviders" style="display: none">
+            <div class="topRow">
+              <h1>Service Providers</h1>
+              <div class="search">
+            <form>
+                <input type="text" placeholder="Search Service Provider" name="search" id="searchsp">
+                <button onclick="searchCustomer()">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </form>
+        </div>
+            </div>
+            <div>
+              <!-- <input type="checkbox" id="allsp" name="allap"><label for="allsp">All</label> -->
+              <input type="checkbox" id="garages" name="garages" checked ><label for="garages" >Garages</label>
+              <input type="checkbox" id="maintainancep" name="maintainancep" checked ><label for="maintainancep">Maintainance Personnel</label>
+            
+            </div>
+            <div>
+              <table id="SPList">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Completed services</th>
+                    <th>Support Tickets</th>
+                    <th style="display: none;">type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
 
-          <div id="garageOwners" style="display: none">
+          <!-- <div id="garageOwners" style="display: none">
             <div class="topRow">
               <h1>Customer</h1>
               <div class="searchboxContainer">
@@ -341,7 +387,7 @@
                 </tbody>
               </table>
             </div>
-          </div>
+          </div> -->
 
           <!-- ---------------------------------------Garage  Profile------------------------------- -->
           <div id="GarageProf" style="display: none">
