@@ -374,19 +374,22 @@ function showServiceProviders() {
                 for (var i = 0; i < res.data.length; i++) {
 
                     var datai = res.data[i];
-                    var row = tableBody.insertRow();
-                    row.insertCell(0).textContent = datai.id || '-';
-                    row.insertCell(1).textContent = datai.garageName || '--';
-                    row.insertCell(2).textContent = datai.phoneNumber || '-';
-                    row.insertCell(3).textContent = datai.comRequests || '0';
-                    row.insertCell(4).textContent = datai.supTickets || '0';
-                    row.insertCell(5).textContent = datai.type || '-';
-                    row.cells[5].style.display = 'none';
-                    row.addEventListener('click', function () {
-                        var id = this.cells[0].textContent;
-                        showSPprof(res, id);
+                    if (datai.verify == "Yes") {
+                        var row = tableBody.insertRow();
+                        row.insertCell(0).textContent = datai.id || '-';
+                        row.insertCell(1).textContent = datai.garageName || '--';
+                        row.insertCell(2).textContent = datai.phoneNumber || '-';
+                        row.insertCell(3).textContent = datai.comRequests || '0';
+                        row.insertCell(4).textContent = datai.supTickets || '0';
+                        row.insertCell(5).textContent = datai.type || '-';
+                        row.cells[5].style.display = 'none';
+                        row.addEventListener('click', function () {
+                            var id = this.cells[0].textContent;
+                            showSPprof(res, id);
 
-                    })
+                        })
+                    }
+
 
                 }
 
@@ -943,6 +946,9 @@ function showVerification() {
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
 
+    document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
+
+
     // document.querySelector("#GarageDropDown").classList.remove("submenuActive");
     // document.querySelector("#MPDropDown").classList.remove("submenuActive");
 
@@ -974,9 +980,10 @@ function showVerification() {
                 $("#load-container").hide();
 
                 var tableBody = document.querySelector("#verificationList tbody");
-
+                var nodata = document.querySelector("#nodata");
                 // Start from index 1 to skip the first item in the JSON array
                 for (var i = 0; i < res.data.length; i++) {
+
                     var datai = res.data[i];
                     if (datai.verify == "No") {
                         var row = tableBody.insertRow();
@@ -1009,28 +1016,7 @@ function showVerification() {
                         verifyButton.type = "button";
                         verifyButton.className = "verifyBu verify";
                         verifyButton.textContent = "Verify";
-                        // verifyButton.addEventListener('click', function () {
-                        //     datai.verify = "Yes";
-                        //     const data = {
-                        //         id: datai.id,
-                        //         verify: "Yes",
-                        //         option: "verify"
-                        //     }
-                        //     $.ajax({
-                        //         url: API_URL + "/Admin/SPlist",
-                        //         method: "PUT",
-                        //         contentType: "application/json",
-                        //         data: JSON.stringify(data),
-                        //         success: function (res) {
-                        //             if (res.status == 200) {
-                        //                 row.remove();
-                        //             }
-                        //             else {
-                        //                 console.log("error");
-                        //             }
-                        //         }
-                        //     });
-                        // });
+
                         actionButtonCell.appendChild(verifyButton);
 
                         var cancelButton = document.createElement("button");
@@ -1040,7 +1026,7 @@ function showVerification() {
                         actionButtonCell.appendChild(cancelButton);
 
 
-                        (function (verifyButton, row, datai) {
+                        (function (verifyButton, cancelButton, row, datai) {
                             verifyButton.addEventListener('click', function () {
 
                                 datai.verify = "Yes";
@@ -1049,17 +1035,16 @@ function showVerification() {
                                     verify: "Yes",
                                     option: "verify"
                                 }
-                                console.log(data);
+
                                 $.ajax({
                                     url: API_URL + "/Admin/SPlist",
                                     method: "PUT",
-                                    method: "PUT",
+
                                     contentType: "application/json",
                                     data: JSON.stringify(data),
                                     success: function (res) {
                                         if (res.status == 200) {
-                                            verifyButton.style.display = "none";
-                                            // Remove row on success
+
                                             row.remove();
                                         } else {
                                             console.log("error");
@@ -1067,31 +1052,32 @@ function showVerification() {
                                     }
                                 });
                             });
-                        })(verifyButton, row, datai);
-
-                        cancelButton.addEventListener('click', function () {
-                            // Send DELETE request with the id of datai
-                            $.ajax({
-                                url: API_URL + "/Admin/SPlist?id=" + datai.id,
-                                method: "DELETE",
-                                success: function (res) {
-                                    if (res.status == 200) {
-                                        // Optionally, perform any actions after successful deletion
-                                        console.log("Item deleted successfully");
-                                    } else {
-                                        console.log("error");
+                            cancelButton.addEventListener('click', function () {
+                                $.ajax({
+                                    url: API_URL + "/Admin/SPlist?id=" + datai.id,
+                                    method: "DELETE",
+                                    contentType: "application/json",
+                                    success: function (res) {
+                                        if (res.status == 200) {
+                                            row.remove();
+                                        } else {
+                                            console.log("error");
+                                        }
                                     }
-                                }
+                                });
                             });
-                        });
+                        })(verifyButton, cancelButton, row, datai);
+
+
 
 
                     }
-                    // row.addEventListener('click', function () {
-                    //     var csid = this.cells[0].textContent;
-                    //     showcsprof(res, csid);
 
-                    // })
+                }
+
+                if (tableBody.rows.length == 0) {
+                    document.querySelector("#verificationList").innerHTML = '';
+                    nodata.style.display = "block";
                 }
 
             }

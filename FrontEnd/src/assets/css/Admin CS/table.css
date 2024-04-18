@@ -60,3 +60,9 @@ th {
 #SPList th {
   width: 12%;
 }
+
+#nodata h1 {
+  color: #525c9394;
+  text-align: center;
+  margin-top: 11vh;
+}

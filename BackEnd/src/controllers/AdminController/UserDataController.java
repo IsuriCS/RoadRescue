@@ -144,5 +144,12 @@ public class UserDataController {
         return verificationResult;
     }
 
+    public boolean cancelVerification(Connection connection,int id)throws SQLException, ClassNotFoundException {
+
+        boolean cancleResult= CrudUtil.executeUpdate(connection,"DELETE FROM service_provider WHERE id = ?" , id);
+
+
+        return cancleResult;
+    }
 
 }

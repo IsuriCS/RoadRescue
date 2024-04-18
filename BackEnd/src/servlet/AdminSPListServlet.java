@@ -82,7 +82,7 @@ public class AdminSPListServlet extends HttpServlet{
 
         }
 
-        
+
 
 
         PrintWriter writer = resp.getWriter();
@@ -128,4 +128,54 @@ public class AdminSPListServlet extends HttpServlet{
                 }
         }
     }
+
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // Extract the id parameter from the request URL
+        String idParam = req.getParameter("id");
+        resp.setContentType("application/json");
+        PrintWriter writer = resp.getWriter();
+
+
+            try {
+                Connection connection = ds.getConnection();
+                int id = Integer.parseInt(idParam);
+
+                boolean deletionResult = userDataController.cancelVerification(connection,id);
+
+                if (deletionResult) {
+
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    objectBuilder.add("status", 200);
+                    objectBuilder.add("message", "Verification cancel successfull.");
+                    writer.print(objectBuilder.build());
+                } else {
+
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    objectBuilder.add("status", 400);
+                    objectBuilder.add("message", "Verification cancel fail.");
+                    writer.print(objectBuilder.build());
+                }
+                connection.close();
+            } catch (SQLException e) {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                objectBuilder.add("status", 500);
+                objectBuilder.add("message", "SQL Exception Error.");
+                objectBuilder.add("data", e.getLocalizedMessage());
+                writer.print(objectBuilder.build());
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                objectBuilder.add("status", 500);
+                objectBuilder.add("message", "Class not found Exception Error.");
+                objectBuilder.add("data", e.getLocalizedMessage());
+                writer.print(objectBuilder.build());
+                e.printStackTrace();
+            }
+
+    }
+
 }
