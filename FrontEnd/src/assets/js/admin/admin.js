@@ -3,6 +3,10 @@
 const API_URL = "http://localhost:8080/roadRescue";
 
 
+var messagebox = document.querySelector("#messageBox");
+var messageimg = document.querySelector("#messageBox #proccessing_boxes #icon img");
+var messagetext = document.querySelector("#messageBox #proccessing_boxes #Text p");
+
 // Navigate
 function showDashboard() {
     document.querySelector("#dashboardLink").classList.add("active");
@@ -1027,8 +1031,10 @@ function showVerification() {
 
 
                         (function (verifyButton, cancelButton, row, datai) {
-                            verifyButton.addEventListener('click', function () {
 
+                            verifyButton.addEventListener('click', function () {
+                                messagetext.innerHTML = "Please Wait..."
+                                messagebox.style.display = "block"
                                 datai.verify = "Yes";
                                 const data = {
                                     id: datai.id,
@@ -1044,8 +1050,12 @@ function showVerification() {
                                     data: JSON.stringify(data),
                                     success: function (res) {
                                         if (res.status == 200) {
-
+                                            messagetext.innerHTML = "Verification Successfull"
+                                            messageimg.setAttribute("src", "../../assets/img/Tick.png")
                                             row.remove();
+                                            setTimeout(function () {
+                                                messagebox.style.display = "none";
+                                            }, 1000);
                                         } else {
                                             console.log("error");
                                         }
@@ -1053,19 +1063,31 @@ function showVerification() {
                                 });
                             });
                             cancelButton.addEventListener('click', function () {
+                                messagetext.innerHTML = "Please Wait..."
+                                messagebox.style.display = "block"
                                 $.ajax({
                                     url: API_URL + "/Admin/SPlist?id=" + datai.id,
                                     method: "DELETE",
                                     contentType: "application/json",
                                     success: function (res) {
                                         if (res.status == 200) {
+                                            messagetext.innerHTML = "Cancle Verification Successfull"
+                                            messageimg.setAttribute("src", "../../assets/img/Tick.png")
                                             row.remove();
+                                            setTimeout(function () {
+                                                messagebox.style.display = "none";
+                                            }, 1000);
                                         } else {
                                             console.log("error");
                                         }
                                     }
                                 });
                             });
+
+                            if (tableBody.rows.length == 0) {
+                                document.querySelector("#verificationList").innerHTML = '';
+                                nodata.style.display = "block";
+                            }
                         })(verifyButton, cancelButton, row, datai);
 
 
@@ -1079,6 +1101,7 @@ function showVerification() {
                     document.querySelector("#verificationList").innerHTML = '';
                     nodata.style.display = "block";
                 }
+
 
             }
             else {

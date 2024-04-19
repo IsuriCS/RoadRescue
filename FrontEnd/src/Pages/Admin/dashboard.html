@@ -20,13 +20,33 @@
     <link rel="stylesheet" href="../../assets/css/Admin CS/sideNav.css" />
     <link rel="stylesheet" href="../../assets/css/Admin CS/table.css" />
     <link rel="stylesheet" href="../../assets/css/Admin CS/admin.css" />
+    <link rel="stylesheet" href="../../assets/css/Admin CS/notifications.css" />
+
 
     <title>Road Rescue</title>
   </head>
 
-  <body>
+  <body >
+
+    <!-- **************Load Container************************ -->
    <div id="load-container">
     <img src="../../assets/img/Gear-0.3s-200px.gif" alt="">
+  </div>
+
+  <!-- *********************Message Boxes ************************ -->
+  <div id="messageBox" style="display: none;">
+<div class="overlay"></div>
+  <div id="proccessing_boxes">
+    <div id="icon">
+      <img src="../../assets/img/GearWhite.gif
+      " alt="">
+    </div>
+    <div id="Text">
+      <p>Verification Successfull</p>
+    </div>
+  </div>
+  
+
   </div>
     <!-- ***************************************HEADER************************************ -->
     <div class="navbar">
@@ -413,50 +433,9 @@
               </table>
             </div>
           </div>
-          <!-- ---------------------------------------Garage Owner------------------------------- -->
+          
 
-          <!-- <div id="garageOwners" style="display: none">
-            <div class="topRow">
-              <h1>Garage</h1>
-              <div class="searchboxContainer">
-                <input type="text" placeholder="Search Customer.." />
-                <button type="submit">
-                  <span class="material-symbols-outlined searchIcon">
-                    search
-                  </span>
-                </button>
-              </div>
-            </div>
-            <div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Phone Number</th>
-                    <th>Completed services</th>
-                    <th>Support Tickets</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr onclick="showGarageProf()">
-                    <td>1</td>
-                    <td>Isuri Chathurika</td>
-                    <td>0771234567</td>
-                    <td>3</td>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>--</td>
-                    <td>0771234567</td>
-                    <td>3</td>
-                    <td>2</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div> -->
+          
 
           <!-- ---------------------------------------SP profile Profile------------------------------- -->
           <div id="GarageProf" style="display: none">
@@ -576,159 +555,7 @@
             </div>
           </div>
 
-          <!-- ---------------------------------------Servise Provider------------------------------- -->
-          <!-- ---------------------------------------Maintainace Personnel------------------------------- -->
-
-          <!-- <div id="maintainancePersonnel" style="display: none">
-            <div class="topRow">
-              <h1>Maintainance Personnel</h1>
-              <div class="searchboxContainer">
-                <input type="text" placeholder="Search Customer.." />
-                <button type="submit">
-                  <span class="material-symbols-outlined searchIcon">
-                    search
-                  </span>
-                </button>
-              </div>
-            </div>
-            <div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Phone Number</th>
-                    <th>Completed services</th>
-                    <th>Support Tickets</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr onclick="showMPProf()">
-                    <td>1</td>
-                    <td>Isuri Chathurika</td>
-                    <td>0771234567</td>
-                    <td>3</td>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>--</td>
-                    <td>0771234567</td>
-                    <td>3</td>
-                    <td>2</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div> -->
-
-          <!-- ---------------------------------------Maintainance Personnel Profile------------------------------- -->
-          <!-- <div id="MaintainacePersonnelProf" style="display: none">
-            <div class="topRow">
-              <h1>Maintainance Personnel > c001</h1>
-            </div>
-
-            <div class="profileContent">
-              <div class="leftSide">
-                <img src="../../assets/img/pic.png" alt="" />
-               
-                <div class="row">
-                  <div class="tag">
-                    <h1>ID :</h1>
-                  </div>
-                  <div class="detail"><p>001</p></div>
-                </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Garage Name :</h1>
-                  </div>
-                  <div class="detail"><p>Chamodh</p></div>
-                </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Owner Name :</h1>
-                  </div>
-                  <div class="detail"><p>Henderson</p></div>
-                </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Phone Number :</h1>
-                  </div>
-                  <div class="detail"><p>0768658568</p></div>
-                </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Email :</h1>
-                  </div>
-                  <div class="detail"><p>chamodh@gmail.com</p></div>
-                </div>
-
-                *********************Buttons**************************************************** -->
-                <!--<div class="buttonDiv">
-                  <button type="submit" class="button">
-                    <span class="material-symbols-outlined"> edit </span>Edit
-                    Profile
-                  </button>
-                  <button type="submit" class="button">
-                    <span class="material-symbols-outlined"> history </span
-                    >Service History
-                  </button>
-                  <button type="submit" class="button">
-                    <span class="material-symbols-outlined"> ac_unit </span
-                    >Freeze Profile
-                  </button>
-                  <button type="submit" class="button">
-                    <span class="material-symbols-outlined"> delete </span
-                    >Delete Profile
-                  </button>
-                </div>
-              </div>
-
-               +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
-              <!--<div class="rightSide">
-                <div class="row">
-                  <div class="tag">
-                    <h1>Location :</h1>
-                  </div>
-                  <div class="detail"><p>Colombo</p></div>
-                </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Completed Services :</h1>
-                  </div>
-                  <div class="detail"><p>8</p></div>
-                </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Joined Date :</h1>
-                  </div>
-                  <div class="detail"><p>2021.10.25</p></div>
-                </div>
-                <div class="stsection">
-                  <h1>Support Tickets</h1>
-                  <div class="SuppotTicketcard">
-                    <h1>ST-001</h1>
-                    <div class="row">
-                      <div class="tag">
-                        <h1>Date :</h1>
-                      </div>
-                      <div class="detail"><p>2323.01.23</p></div>
-                    </div>
-                    <div class="row">
-                      <div class="tag">
-                        <h1>Title :</h1>
-                      </div>
-                      <div class="detail"><p>Payment Issue</p></div>
-                    </div>
-                    <div class="solveButton">
-                      <button type="submit" class="button">Solved</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
-
+         
           <!-- ---------------------------------------Users------------------------------- -->
           <!-- ---------------------------------------Customer support------------------------------- -->
           <div id="csmember" style="display: none">
