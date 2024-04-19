@@ -100,8 +100,41 @@ public class TechnicianServlet extends HttpServlet {
                     e.printStackTrace();
                 }
 
-            case "search":
-                // search content handle
+            case "filterTechByIssue":
+                try {
+                    // split searchId to issueCategory and id
+                    String[] parts = searchId.split("-");
+
+                    String issueCategory = parts[0];
+                    String id = parts[1];
+
+                    connection = ds.getConnection();
+                    JsonArray technicians=technician.getTechnicians(connection,Integer.parseInt(id),issueCategory);
+                    System.out.println(technicians);
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    response.add("status", 200);
+                    response.add("message", "Done");
+                    response.add("data", technicians);
+                    writer.print(response.build());
+                    connection.close();
+                } catch (SQLException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "SQL Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "Class not fount Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                }
+
                 break;
             default:
                 // handle

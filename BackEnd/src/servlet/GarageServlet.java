@@ -51,7 +51,6 @@ public class GarageServlet extends HttpServlet {
                 try {
                     connection = ds.getConnection();
                     Garage garageDetails = garage.getGarageDetails(connection, searchId);
-                    JsonArray technicians=technician.getTechnicians(connection,Integer.parseInt(searchId));
                     JsonObjectBuilder garageData = Json.createObjectBuilder();
                     garageData.add("garageName",garageDetails.getGarageName());
                     garageData.add("contactNumber",garageDetails.getContactNumber());
@@ -61,7 +60,6 @@ public class GarageServlet extends HttpServlet {
                     garageData.add("garageType",garageDetails.getGarageType());
                     garageData.add("OwnerName",garageDetails.getOwnerName());
                     garageData.add("imageRef",garageDetails.getImgRef());
-                    garageData.add("availableTechnicians",technicians);
 
 
                     JsonObjectBuilder response = Json.createObjectBuilder();

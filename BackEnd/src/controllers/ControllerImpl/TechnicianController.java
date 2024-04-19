@@ -13,8 +13,15 @@ import java.util.List;
 public class TechnicianController {
 
 
-    public JsonArray getTechnicians(Connection connection,int garageId) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT id,f_name,l_name FROM technician WHERE status=? AND service_provider_id=?", 1, 1);
+    public JsonArray getTechnicians(Connection connection,int garageId,String expertiseType) throws SQLException, ClassNotFoundException {
+        System.out.println(garageId);
+        System.out.println(expertiseType);
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "select t.id,t.f_name,t.l_name\n" +
+                "from technician_expertise te\n" +
+                "left join expertise e on e.id=te.expertise_id\n" +
+                "INNER JOIN technician t on te.technician_id=t.id\n" +
+                "where e.expertise=? AND t.status=? AND t.service_provider_id=?;", expertiseType,1, garageId);
+
         JsonArrayBuilder technicianArray = Json.createArrayBuilder();
         while (resultSet.next()) {
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();

@@ -65,7 +65,7 @@ public class ServicesController {
         if (resultSet.next()) {
             contactNumber=resultSet.getString(1);
         }else {
-            // default call garage contact number
+            // default call customer support contact number
             contactNumber="+94761339805";
         }
         return contactNumber;
