@@ -27,8 +27,6 @@ public class GarageServlet extends HttpServlet {
     DataSource ds;
 
     GarageController garage = new GarageController();
-    TechnicianController technician=new TechnicianController();
-    ServicesController services =new ServicesController();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -129,38 +127,6 @@ public class GarageServlet extends HttpServlet {
 
                 break;
 
-            case "getServices":
-                try {
-                    connection=ds.getConnection();
-                    JsonArray requestServices = services.fetchService(connection);
-
-                    JsonObjectBuilder response = Json.createObjectBuilder();
-                    response.add("status", 200);
-                    response.add("message", "Done");
-                    response.add("data", requestServices);
-                    writer.print(response.build());
-                    connection.close();
-
-                } catch (SQLException e) {
-                    JsonObjectBuilder response = Json.createObjectBuilder();
-                    resp.setStatus(HttpServletResponse.SC_OK);
-                    response.add("status", 500);
-                    response.add("message", "SQL Exception Error");
-                    response.add("data", e.getLocalizedMessage());
-                    writer.print(response.build());
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    JsonObjectBuilder response = Json.createObjectBuilder();
-                    resp.setStatus(HttpServletResponse.SC_OK);
-                    response.add("status", 500);
-                    response.add("message", "Class not fount Exception Error");
-                    response.add("data", e.getLocalizedMessage());
-                    writer.print(response.build());
-                    e.printStackTrace();
-                }
-
-
-                break;
             default:
                 // handle
         }

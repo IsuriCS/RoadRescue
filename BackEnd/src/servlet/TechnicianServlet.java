@@ -35,6 +35,7 @@ public class TechnicianServlet extends HttpServlet {
         String searchId = req.getParameter("searchId");
 
         PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
         Connection connection = null;
 
         switch (option) {
@@ -71,10 +72,11 @@ public class TechnicianServlet extends HttpServlet {
                 break;
 
             case "expertise":
-
+                System.out.println("hutta moko wada natte");
                 try {
                     connection= ds.getConnection();
                     JsonArray expertiseArias = technician.getExpertiseArias(connection);
+                    System.out.println(expertiseArias.toString());
                     JsonObjectBuilder response = Json.createObjectBuilder();
                     response.add("status", 200);
                     response.add("message", "Done");
@@ -99,7 +101,7 @@ public class TechnicianServlet extends HttpServlet {
                     writer.print(response.build());
                     e.printStackTrace();
                 }
-
+                break;
             case "filterTechByIssue":
                 try {
                     // split searchId to issueCategory and id
@@ -109,8 +111,8 @@ public class TechnicianServlet extends HttpServlet {
                     String id = parts[1];
 
                     connection = ds.getConnection();
+
                     JsonArray technicians=technician.getTechnicians(connection,Integer.parseInt(id),issueCategory);
-                    System.out.println(technicians);
                     JsonObjectBuilder response = Json.createObjectBuilder();
                     response.add("status", 200);
                     response.add("message", "Done");
@@ -257,7 +259,7 @@ public class TechnicianServlet extends HttpServlet {
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 resp.setStatus(HttpServletResponse.SC_OK);
                 objectBuilder.add("status", 400);
-                objectBuilder.add("message", "Technician update proceed failed.");
+                objectBuilder.add("message", "Technician update proceed failed.!");
                 objectBuilder.add("data", "");
                 writer.print(objectBuilder.build());
             }

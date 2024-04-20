@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class ServicesController {
 
     public JsonArray fetchService(Connection connection) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = CrudUtil.executeQuery(connection, "select ic.category,se.customer_id,se.description,se.approx_cost,se.request_timestamp,se.indicator_1,se.indicator_2,se.indicator_3,se.indicator_4,se.indicator_5,se.indicator_6\n" +
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "select ic.category,se.customer_id,se.description,se.approx_cost,se.request_timestamp,se.indicator_1,se.indicator_2,se.indicator_3,se.indicator_4,se.indicator_5,se.indicator_6,se.id\n" +
                 "from service_request se\n" +
                 "right join issue_category ic on se.issue_category_id=ic.id\n" +
                 "where  se.status=1;");
@@ -53,7 +53,7 @@ public class ServicesController {
             objectBuilder.add("approx_cost",resultSet.getDouble(4));
             objectBuilder.add("requestTimeStamp",  resultSet.getTime(5).toString());
             objectBuilder.add("indicatorLightStatus", indicatorLightStatus );
-
+            objectBuilder.add("serviceRequestId", resultSet.getInt(12) );
             services.add(objectBuilder.build());
         }
         return services.build();
@@ -69,5 +69,21 @@ public class ServicesController {
             contactNumber="+94761339805";
         }
         return contactNumber;
+    }
+
+    public boolean assignTechnicianForService(Connection connection, String serviceId, String serviceProviderId, String technicianId) throws SQLException, ClassNotFoundException {
+        System.out.println("3");
+        boolean result1 = CrudUtil.executeUpdate(connection, "update service_request set\n" +
+                "                           status=2,assigned_service_provider_id=?,accepted_timestamp=CONVERT_TZ(CURRENT_TIMESTAMP,'+00:00', '+05:30')\n" +
+                "where id=?",Integer.parseInt(serviceProviderId),Integer.parseInt(serviceId));
+
+        boolean result2 = add(connection, Integer.parseInt(serviceId), Integer.parseInt(technicianId));
+
+        return result1 && result2;
+    }
+
+    public boolean add(Connection connection,int serviceRequestId,int technicianId) throws SQLException, ClassNotFoundException {
+        System.out.println("4");
+       return CrudUtil.executeUpdate(connection,"INSERT INTO service_technician (technician_id,service_request_id) values(?,?)",technicianId,serviceRequestId);
     }
 }

@@ -14,8 +14,6 @@ public class TechnicianController {
 
 
     public JsonArray getTechnicians(Connection connection,int garageId,String expertiseType) throws SQLException, ClassNotFoundException {
-        System.out.println(garageId);
-        System.out.println(expertiseType);
         ResultSet resultSet = CrudUtil.executeQuery(connection, "select t.id,t.f_name,t.l_name\n" +
                 "from technician_expertise te\n" +
                 "left join expertise e on e.id=te.expertise_id\n" +
