@@ -1,9 +1,9 @@
 package servlet;
 
 import controllers.ControllerImpl.GarageController;
+import controllers.ControllerImpl.ServicesController;
 import controllers.ControllerImpl.TechnicianController;
 import models.Garage;
-import models.TechnicianModel;
 
 import javax.annotation.Resource;
 import javax.json.*;
@@ -49,8 +49,6 @@ public class GarageServlet extends HttpServlet {
                 try {
                     connection = ds.getConnection();
                     Garage garageDetails = garage.getGarageDetails(connection, searchId);
-                    System.out.println(garageDetails);
-
                     JsonObjectBuilder garageData = Json.createObjectBuilder();
                     garageData.add("garageName",garageDetails.getGarageName());
                     garageData.add("contactNumber",garageDetails.getContactNumber());
@@ -60,9 +58,6 @@ public class GarageServlet extends HttpServlet {
                     garageData.add("garageType",garageDetails.getGarageType());
                     garageData.add("OwnerName",garageDetails.getOwnerName());
                     garageData.add("imageRef",garageDetails.getImgRef());
-
-                    System.out.println(garageDetails.getImgRef().isEmpty());
-                    System.out.println(garageDetails.getImgRef());
 
 
                     JsonObjectBuilder response = Json.createObjectBuilder();

@@ -13,8 +13,26 @@ import java.util.List;
 public class TechnicianController {
 
 
+    public JsonArray getTechnicians(Connection connection,int garageId,String expertiseType) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "select t.id,t.f_name,t.l_name\n" +
+                "from technician_expertise te\n" +
+                "left join expertise e on e.id=te.expertise_id\n" +
+                "INNER JOIN technician t on te.technician_id=t.id\n" +
+                "where e.expertise=? AND t.status=? AND t.service_provider_id=?;", expertiseType,1, garageId);
+
+        JsonArrayBuilder technicianArray = Json.createArrayBuilder();
+        while (resultSet.next()) {
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("techId", resultSet.getString(1));
+            objectBuilder.add("f_name", resultSet.getString(2));
+            objectBuilder.add("l_name", resultSet.getString(3));
+            technicianArray.add(objectBuilder.build());
+        }
+        return technicianArray.build();
+    }
+
     public JsonArray getAll(Connection connection) throws SQLException, ClassNotFoundException {
-        ResultSet rst = CrudUtil.executeQuery(connection, "select  id,f_name,l_name,status,phone_number,profile_pic_ref from technician;");
+        ResultSet rst = CrudUtil.executeQuery(connection, "select  id,f_name,l_name,status,phone_number,profile_pic_ref from technician where service_provider_id=?",1);
         JsonArrayBuilder technicianArray = Json.createArrayBuilder();
 
         while (rst.next()) {
@@ -37,7 +55,7 @@ public class TechnicianController {
             objectBuilder.add("techLastName", rst.getString(3));
             objectBuilder.add("techStatus", (rst.getInt(4) == 1) ? "Available" : "Not Available");
             objectBuilder.add("techContactNumb", rst.getString(5));
-            objectBuilder.add("techProfilePicRef", rst.getString(6));
+            objectBuilder.add("techProfilePicRef", (rst.getString(6) == null) ? "0" : rst.getString(6));
             objectBuilder.add("expertiseList", expertiseList.toString());
             technicianArray.add(objectBuilder.build());
 
