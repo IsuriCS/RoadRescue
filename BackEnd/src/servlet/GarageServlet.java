@@ -4,6 +4,7 @@ import controllers.ControllerImpl.GarageController;
 import controllers.ControllerImpl.ServicesController;
 import controllers.ControllerImpl.TechnicianController;
 import models.Garage;
+import models.SpSupportTicket;
 
 import javax.annotation.Resource;
 import javax.json.*;
@@ -31,7 +32,6 @@ public class GarageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        System.out.println("mobile request is ok ");
 
         String option = req.getParameter("option");
         String searchId = req.getParameter("searchId");
@@ -127,6 +127,66 @@ public class GarageServlet extends HttpServlet {
 
                 break;
 
+            case "activities":
+                System.out.println(option);
+                try {
+                    connection=ds.getConnection();
+                    JsonArray activities = garage.getActivities(connection);
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    response.add("status", 200);
+                    response.add("message", "Done");
+                    response.add("data", activities);
+                    writer.print(response.build());
+                    connection.close();
+
+                } catch (SQLException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "SQL Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "Class not fount Exception Error ");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                }
+                break;
+            case "customerSupport":
+                try {
+                    connection=ds.getConnection();
+                    JsonArray customerSupports = garage.getCustomerSupports(connection);
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    response.add("status", 200);
+                    response.add("message", "Done");
+                    response.add("data", customerSupports);
+                    writer.print(response.build());
+                    connection.close();
+                } catch (SQLException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "SQL Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "Class not fount Exception Error ");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                }
+
+
+                break;
             default:
                 // handle
         }
@@ -136,12 +196,75 @@ public class GarageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        String serviceProId;
+        String title;
+        String description;
+        String option;
+
+        PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
+
+        try (Reader stringReader = new InputStreamReader(req.getInputStream())) {
+            JsonReader reader = Json.createReader(stringReader);
+            JsonObject jsonObject = reader.readObject();
+
+            serviceProId = jsonObject.getString("garageId");
+            title = jsonObject.getString("title");
+            description = jsonObject.getString("description");
+            option = jsonObject.getString("option");
+
+        }
+
+        SpSupportTicket supportTicket=new SpSupportTicket(serviceProId,title,description);
+
+        switch (option){
+            case "supportTicket":
+                try {
+                    Connection connection = ds.getConnection();
+                    boolean result=garage.addSupportTicker(connection,supportTicket);
+                    if (result) {
+                        JsonObjectBuilder response = Json.createObjectBuilder();
+                        response.add("status", 200);
+                        response.add("message", "Successfully");
+                        response.add("data", "");
+                        writer.print(response.build());
+                        connection.close();
+                    }else {
+                        JsonObjectBuilder response = Json.createObjectBuilder();
+                        response.add("status", 400);
+                        response.add("message", "Failed");
+                        response.add("data", "");
+                        writer.print(response.build());
+                        connection.close();
+                    }
+
+                } catch (SQLException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "SQL Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "Class not fount Exception Error ");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                }
+                break;
+            default:
+        }
+
+
+
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("garage update request is ok ");
 
         String id;
         String garageName ;
@@ -161,13 +284,7 @@ public class GarageServlet extends HttpServlet {
             email = jsonObject.getString("garageMail");
             imageRef = jsonObject.getString("imageRef");
 
-            System.out.println("ssssssssssss"+imageRef);
-            System.out.println("eeee"+email);
         }
-
-        System.out.println("ssssssssssss"+imageRef);
-        System.out.println("eeee"+email);
-
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
 
