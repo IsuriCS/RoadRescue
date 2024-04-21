@@ -3,6 +3,18 @@
 const API_URL = "http://localhost:8080/roadRescue";
 
 
+var messagebox = document.querySelector("#messageBox");
+var messageimg = document.querySelector("#messageBox #proccessing_boxes #icon img");
+var messagetext = document.querySelector("#messageBox #proccessing_boxes #Text p");
+
+// abc_abc ----> Abc Abc
+function formatString(str) {
+    var words = str.split('_').map(function (word) {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    });
+    return words.join(' ');
+}
+
 // Navigate
 function showDashboard() {
     document.querySelector("#dashboardLink").classList.add("active");
@@ -131,7 +143,6 @@ function showcus() {
 
 
 }
-
 
 function showprof(res, customerId) {
     $("#load-container").show();
@@ -374,19 +385,22 @@ function showServiceProviders() {
                 for (var i = 0; i < res.data.length; i++) {
 
                     var datai = res.data[i];
-                    var row = tableBody.insertRow();
-                    row.insertCell(0).textContent = datai.id || '-';
-                    row.insertCell(1).textContent = datai.garageName || '--';
-                    row.insertCell(2).textContent = datai.phoneNumber || '-';
-                    row.insertCell(3).textContent = datai.comRequests || '0';
-                    row.insertCell(4).textContent = datai.supTickets || '0';
-                    row.insertCell(5).textContent = datai.type || '-';
-                    row.cells[5].style.display = 'none';
-                    row.addEventListener('click', function () {
-                        var id = this.cells[0].textContent;
-                        showSPprof(res, id);
+                    if (datai.verify == "Yes") {
+                        var row = tableBody.insertRow();
+                        row.insertCell(0).textContent = datai.id || '-';
+                        row.insertCell(1).textContent = datai.garageName || '--';
+                        row.insertCell(2).textContent = datai.phoneNumber || '-';
+                        row.insertCell(3).textContent = datai.comRequests || '0';
+                        row.insertCell(4).textContent = datai.supTickets || '0';
+                        row.insertCell(5).textContent = datai.type || '-';
+                        row.cells[5].style.display = 'none';
+                        row.addEventListener('click', function () {
+                            var id = this.cells[0].textContent;
+                            showSPprof(res, id);
 
-                    })
+                        })
+                    }
+
 
                 }
 
@@ -503,8 +517,6 @@ function showServiceProviders() {
 
 
 }
-
-
 
 function showSPprof(res, spid) {
     document.querySelector("#dashboard").style.display = "none";
@@ -648,9 +660,6 @@ function showSPprof(res, spid) {
 
     }
 }
-
-
-
 
 function showcsmember() {
 
@@ -943,6 +952,9 @@ function showVerification() {
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
 
+    document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
+
+
     // document.querySelector("#GarageDropDown").classList.remove("submenuActive");
     // document.querySelector("#MPDropDown").classList.remove("submenuActive");
 
@@ -974,9 +986,10 @@ function showVerification() {
                 $("#load-container").hide();
 
                 var tableBody = document.querySelector("#verificationList tbody");
-
+                var nodata = document.querySelector("#nodata");
                 // Start from index 1 to skip the first item in the JSON array
                 for (var i = 0; i < res.data.length; i++) {
+
                     var datai = res.data[i];
                     if (datai.verify == "No") {
                         var row = tableBody.insertRow();
@@ -1009,6 +1022,7 @@ function showVerification() {
                         verifyButton.type = "button";
                         verifyButton.className = "verifyBu verify";
                         verifyButton.textContent = "Verify";
+
                         actionButtonCell.appendChild(verifyButton);
 
                         var cancelButton = document.createElement("button");
@@ -1017,31 +1031,79 @@ function showVerification() {
                         cancelButton.textContent = "Cancel";
                         actionButtonCell.appendChild(cancelButton);
 
-                        // Add click event listeners for buttons
-                        // viewButton.addEventListener('click', function () {
-                        //     var locationpoints = datai.location.split(",");
-                        //     var link = `https://www.google.com/maps/search/?api=1&query=${locationpoints[0]},${locationpoints[1]}`;
 
-                        //     document.querySelector("#verificationList tbody td .locview a").setAttribute("href", link);
+                        (function (verifyButton, cancelButton, row, datai) {
 
-                        // });
+                            verifyButton.addEventListener('click', function () {
+                                messagetext.innerHTML = "Please Wait..."
+                                messagebox.style.display = "block"
+                                datai.verify = "Yes";
+                                const data = {
+                                    id: datai.id,
+                                    verify: "Yes",
+                                    option: "verify"
+                                }
 
-                        verifyButton.addEventListener('click', function () {
-                            // Handle verify button click event
-                            // You can implement your logic here
-                        });
+                                $.ajax({
+                                    url: API_URL + "/Admin/SPlist",
+                                    method: "PUT",
 
-                        cancelButton.addEventListener('click', function () {
-                            // Handle cancel button click event
-                            // You can implement your logic here
-                        });
+                                    contentType: "application/json",
+                                    data: JSON.stringify(data),
+                                    success: function (res) {
+                                        if (res.status == 200) {
+                                            messagetext.innerHTML = "Verification Successfull"
+                                            messageimg.setAttribute("src", "../../assets/img/Tick.png")
+                                            row.remove();
+                                            setTimeout(function () {
+                                                messagebox.style.display = "none";
+                                            }, 1000);
+                                        } else {
+                                            console.log("error");
+                                        }
+                                    }
+                                });
+                            });
+                            cancelButton.addEventListener('click', function () {
+                                messagetext.innerHTML = "Please Wait..."
+                                messagebox.style.display = "block"
+                                $.ajax({
+                                    url: API_URL + "/Admin/SPlist?id=" + datai.id,
+                                    method: "DELETE",
+                                    contentType: "application/json",
+                                    success: function (res) {
+                                        if (res.status == 200) {
+                                            messagetext.innerHTML = "Cancle Verification Successfull"
+                                            messageimg.setAttribute("src", "../../assets/img/Tick.png")
+                                            row.remove();
+                                            setTimeout(function () {
+                                                messagebox.style.display = "none";
+                                            }, 1000);
+                                        } else {
+                                            console.log("error");
+                                        }
+                                    }
+                                });
+                            });
+
+                            if (tableBody.rows.length == 0) {
+                                document.querySelector("#verificationList").innerHTML = '';
+                                nodata.style.display = "block";
+                            }
+                        })(verifyButton, cancelButton, row, datai);
+
+
+
+
                     }
-                    // row.addEventListener('click', function () {
-                    //     var csid = this.cells[0].textContent;
-                    //     showcsprof(res, csid);
 
-                    // })
                 }
+
+                if (tableBody.rows.length == 0) {
+                    document.querySelector("#verificationList").innerHTML = '';
+                    nodata.style.display = "block";
+                }
+
 
             }
             else {
@@ -1053,6 +1115,7 @@ function showVerification() {
 }
 
 function showReports() {
+    $("#load-container").show();
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.remove("active");
     document.querySelector("#verificationLink").classList.remove("active");
@@ -1063,26 +1126,156 @@ function showReports() {
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
 
-    // document.querySelector("#GarageDropDown").classList.remove("submenuActive");
-    // document.querySelector("#MPDropDown").classList.remove("submenuActive");
-
-
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#csmember").style.display = "none";
     document.querySelector("#csprof").style.display = "none";
-    // document.querySelector("#garageOwners").style.display = "none";
     document.querySelector("#GarageProf").style.display = "none";
-    // document.querySelector("#maintainancePersonnel").style.display = "none";
-    // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#reports").style.display = "block";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
+    var customerCols;
+    var spCols;
+    var csmemberCols;
+    var supportTicketCols;
+    var paymentCols;
 
 
+
+    $.ajax({
+        url: API_URL + "/Report",
+        method: "GET",
+        success: function (res) {
+
+            if (res.status == 200) {
+                $("#load-container").hide();
+                customerCols = res.data[0];
+                spCols = res.data[1];
+                csmemberCols = res.data[2];
+                supportTicketCols = res.data[3];
+                paymentCols = res.data[4];
+
+
+
+            }
+            else {
+                console.log("error");
+            }
+        }
+    });
+
+    var areabuttonArray = document.querySelectorAll(".reportArea .areaButtons div button");
+
+    var selectedIndex = -1; // Initialize selectedIndex variable
+
+    areabuttonArray.forEach(function (button, index) {
+
+        button.addEventListener('click', function () {
+            // Remove 'selected' class from all buttons
+            areabuttonArray.forEach(function (btn) {
+                btn.classList.remove('selected');
+            });
+
+            // Add 'selected' class to the clicked button
+            this.classList.add('selected');
+
+            // Update selectedIndex with the index of the clicked button
+            selectedIndex = index;
+            console.log("Selected index: " + selectedIndex);
+
+            var selectedCols;
+            switch (selectedIndex) {
+                case 0:
+                    selectedCols = customerCols;
+                    break;
+                case 1:
+                    selectedCols = spCols;
+                    break;
+                case 2:
+                    selectedCols = spCols;
+                    break;
+                case 3:
+                    selectedCols = csmemberCols;
+                    break;
+                case 4:
+                    selectedCols = supportTicketCols;
+                    break;
+                case 5:
+                    selectedCols = paymentCols;
+                    break;
+            }
+
+            var columnsCB = document.querySelector(".columnsCB");
+            var title = document.querySelector(".columnsCB h1");
+            columnsCB.style.display = "block";
+            columnsCB.innerHTML = ""; // Clear existing checkboxes
+            columnsCB.appendChild(title);
+
+            selectedCols.forEach(function (columnName) {
+                var texttag = formatString(columnName);
+                var checkboxDiv = document.createElement("div");
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.name = "column";
+                checkbox.value = columnName;
+                var label = document.createElement("label");
+                if (columnName == "f_name") {
+                    label.textContent = "First Name";
+                }
+                else if (columnName == "l_name") {
+                    label.textContent = "Last Name";
+                }
+                else {
+                    label.textContent = texttag;
+                }
+
+                checkboxDiv.appendChild(checkbox);
+                checkboxDiv.appendChild(label);
+                columnsCB.appendChild(checkboxDiv);
+            });
+        });
+    });
+
+    document.querySelector('.ButtonsRow .preview').addEventListener('click', function () {
+
+        var reportName = document.querySelector('#reports input[placeholder="Report Name"]').value;
+        var checkedValues = [];
+
+        // Loop through the checkboxes to get the checked values
+        var checkboxes = document.querySelectorAll('.columnsCB input[type="checkbox"]');
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                checkedValues.push(checkbox.value);
+            }
+        });
+
+        // Construct the query parameter string
+        var queryParams = '?checkedValues=' + encodeURIComponent(JSON.stringify(checkedValues)) +
+            '&reportTitle=' + encodeURIComponent(reportName) +
+            '&selectedAreaIndex=' + selectedIndex;
+
+        // Open the preview.html file in a new window/tab with the query parameters
+        window.open('invoice.html' + queryParams);
+    });
+
+
+
+
+    // var reportName = document.querySelector('#reports input[placeholder="Report Name"]').value;
+    // var reportType = document.querySelector('#reports select[name="reportType"]').value;
+    // var reportFormat = document.querySelector('#reports select[name="reportFormat"]').value;
+    // var selectedAreas = document.querySelectorAll('.areaButtons button.selected')
+    // var selectedColumns = Array.from(document.querySelectorAll('.columnsCB input[type="checkbox"]:checked')).map(checkbox => checkbox.nextSibling.textContent.trim());
+    // var selectedRowId = document.querySelector('.rowsSec select').value;
+    // var specialFilters = {
+    //     key: document.querySelector('.spfilters select:first-of-type').value,
+    //     value: document.querySelector('.spfilters select:last-of-type').value
+    // };
+
+    // console.log(reportName, reportType, reportFormat, selectedAreas)
 }
 
 function showProfile() {
