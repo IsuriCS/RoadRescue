@@ -7,6 +7,14 @@ var messagebox = document.querySelector("#messageBox");
 var messageimg = document.querySelector("#messageBox #proccessing_boxes #icon img");
 var messagetext = document.querySelector("#messageBox #proccessing_boxes #Text p");
 
+// abc_abc ----> Abc Abc
+function formatString(str) {
+    var words = str.split('_').map(function (word) {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    });
+    return words.join(' ');
+}
+
 // Navigate
 function showDashboard() {
     document.querySelector("#dashboardLink").classList.add("active");
@@ -135,7 +143,6 @@ function showcus() {
 
 
 }
-
 
 function showprof(res, customerId) {
     $("#load-container").show();
@@ -511,8 +518,6 @@ function showServiceProviders() {
 
 }
 
-
-
 function showSPprof(res, spid) {
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
@@ -655,9 +660,6 @@ function showSPprof(res, spid) {
 
     }
 }
-
-
-
 
 function showcsmember() {
 
@@ -1113,6 +1115,7 @@ function showVerification() {
 }
 
 function showReports() {
+    $("#load-container").show();
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.remove("active");
     document.querySelector("#verificationLink").classList.remove("active");
@@ -1134,12 +1137,112 @@ function showReports() {
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
+    var customerCols;
+    var spCols;
+    var csmemberCols;
+    var supportTicketCols;
+    var paymentCols;
+
+    $.ajax({
+        url: API_URL + "/Report",
+        method: "GET",
+        success: function (res) {
+
+            if (res.status == 200) {
+                $("#load-container").hide();
+                customerCols = res.data[0];
+                spCols = res.data[1];
+                csmemberCols = res.data[2];
+                supportTicketCols = res.data[3];
+                paymentCols = res.data[4];
 
 
-    var reportName = document.querySelector('#reports input[placeholder="Report Name"]').value;
-    var reportType = document.querySelector('#reports select[name="reportType"]').value;
-    var reportFormat = document.querySelector('#reports select[name="reportFormat"]').value;
-    var selectedAreas = document.querySelectorAll('.areaButtons button.selected')
+
+            }
+            else {
+                console.log("error");
+            }
+        }
+    });
+    var areabuttonArray = document.querySelectorAll(".reportArea .areaButtons div button");
+
+    var selectedIndex = -1; // Initialize selectedIndex variable
+
+    areabuttonArray.forEach(function (button, index) {
+        button.addEventListener('click', function () {
+            // Remove 'selected' class from all buttons
+            areabuttonArray.forEach(function (btn) {
+                btn.classList.remove('selected');
+            });
+
+            // Add 'selected' class to the clicked button
+            this.classList.add('selected');
+
+            // Update selectedIndex with the index of the clicked button
+            selectedIndex = index;
+            console.log("Selected index: " + selectedIndex);
+
+            var selectedCols;
+            switch (selectedIndex) {
+                case 0:
+                    selectedCols = customerCols;
+                    break;
+                case 1:
+                    selectedCols = spCols;
+                    break;
+                case 2:
+                    selectedCols = spCols;
+                    break;
+                case 3:
+                    selectedCols = csmemberCols;
+                    break;
+                case 4:
+                    selectedCols = supportTicketCols;
+                    break;
+                case 5:
+                    selectedCols = paymentCols;
+                    break;
+            }
+
+            var columnsCB = document.querySelector(".columnsCB");
+            var title = document.querySelector(".columnsCB h1");
+            columnsCB.style.display = "block";
+            columnsCB.innerHTML = ""; // Clear existing checkboxes
+            columnsCB.appendChild(title);
+
+            selectedCols.forEach(function (columnName) {
+                var texttag = formatString(columnName);
+                var checkboxDiv = document.createElement("div");
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.name = "column";
+                checkbox.value = columnName;
+                var label = document.createElement("label");
+                if (columnName == "f_name") {
+                    label.textContent = "First Name";
+                }
+                else if (columnName == "l_name") {
+                    label.textContent = "Last Name";
+                }
+                else {
+                    label.textContent = texttag;
+                }
+
+                checkboxDiv.appendChild(checkbox);
+                checkboxDiv.appendChild(label);
+                columnsCB.appendChild(checkboxDiv);
+            });
+        });
+    });
+
+
+
+
+
+    // var reportName = document.querySelector('#reports input[placeholder="Report Name"]').value;
+    // var reportType = document.querySelector('#reports select[name="reportType"]').value;
+    // var reportFormat = document.querySelector('#reports select[name="reportFormat"]').value;
+    // var selectedAreas = document.querySelectorAll('.areaButtons button.selected')
     // var selectedColumns = Array.from(document.querySelectorAll('.columnsCB input[type="checkbox"]:checked')).map(checkbox => checkbox.nextSibling.textContent.trim());
     // var selectedRowId = document.querySelector('.rowsSec select').value;
     // var specialFilters = {
@@ -1147,7 +1250,7 @@ function showReports() {
     //     value: document.querySelector('.spfilters select:last-of-type').value
     // };
 
-    console.log(reportName, reportType, reportFormat, selectedAreas)
+    // console.log(reportName, reportType, reportFormat, selectedAreas)
 }
 
 function showProfile() {

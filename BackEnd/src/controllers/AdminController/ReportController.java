@@ -27,26 +27,26 @@ public class ReportController {
         JsonArrayBuilder PaymentArrayBuilder = Json.createArrayBuilder();
 
         // Extract column names from rst and add to customerArrayBuilder
-        customerArrayBuilder.add("Customers");
+
         while (rst.next()) {
             String columnName = rst.getString("column_name");
             customerArrayBuilder.add(columnName);
-            System.out.println(columnName);
+           
         }
 
         // Extract column names from rst2 and add to serviceProviderArrayBuilder
-        serviceProviderArrayBuilder.add("ServiceProviders");
+
         while (rst2.next()) {
             String columnName = rst2.getString("column_name");
             serviceProviderArrayBuilder.add(columnName);
-            System.out.println(columnName);
+
         }
 
-        CSMemberArrayBuilder.add("CustomerSupportMemeber");
+
         while (rst3.next()) {
             String columnName = rst3.getString("column_name");
             CSMemberArrayBuilder.add(columnName);
-            System.out.println(columnName);
+
         }
 
         supportTicketArrayBuilder.add("SupportTicket");
@@ -59,14 +59,14 @@ public class ReportController {
                 supportTicketArrayBuilder.add(columnName);
             }
 
-            System.out.println(columnName);
+
         }
 
-        PaymentArrayBuilder.add("Payment");
+
         while (rst5.next()) {
             String columnName = rst5.getString("column_name");
             PaymentArrayBuilder.add(columnName);
-            System.out.println(columnName);
+
         }
 
         // Build JSON arrays
