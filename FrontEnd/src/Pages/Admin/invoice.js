@@ -1,42 +1,84 @@
-
-
-
-
+const API_URL = "http://localhost:8080/roadRescue";
 // document.querySelector('#button').addEventListener('click', function () {
-//     html2canvas(document.querySelector('#content')).then((canvas) => {
-//         let base64image = canvas.toDataURL('image/png');
+//     const element = document.getElementById('content');
 
-//         // Create a new jsPDF instance with A4 dimensions
-//         let pdf = new jsPDF('p', 'mm', 'a4');
-
-//         // Add the image of the HTML content to the PDF
-//         pdf.addImage(base64image, 'PNG', 0, 0, 205, 297);
-
-//         // Save the PDF
-//         pdf.save('invoice.pdf');
+//     // Generate PDF from HTML content
+//     html2pdf(element, {
+//         filename: 'invoice.pdf',
+//         html2canvas: { scale: 2 },
+//         jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+//         margin: 0.5
 //     });
 // });
-document.querySelector('#button').addEventListener('click', function () {
-    const element = document.getElementById('content');
 
-    // Generate PDF from HTML content
-    html2pdf(element, {
-        filename: 'invoice.pdf',
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-        margin: 0.5 // Adjust the margin as per your requirement
-    });
-});
 
-// Get the query parameters from the URL
-var queryParams = new URLSearchParams(window.location.search);
-var checkedValues = [];
 
-// Check if the 'checkedValues' query parameter exists
-if (queryParams.has('checkedValues')) {
-    // Get the value of the 'checkedValues' parameter and parse it as JSON
-    checkedValues = JSON.parse(decodeURIComponent(queryParams.get('checkedValues')));
+function getQueryParams() {
+    var queryParams = {};
+    var queryString = window.location.search.substring(1);
+    var pairs = queryString.split('&');
+    for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split('=');
+        queryParams[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+    }
+    return queryParams;
 }
 
-// Now you have the checked values in the 'checkedValues' array
-console.log(checkedValues);
+var queryParams = getQueryParams();
+var reportTitle = queryParams['reportTitle'];
+var checkedValues = JSON.parse(queryParams['checkedValues']);
+var selectedAreaIndex = parseInt(queryParams['selectedAreaIndex']);
+
+document.querySelector("header h1").innerHTML = reportTitle;
+switch (selectedAreaIndex) {
+    case 0:
+        $.ajax({
+            url: API_URL + "/Admin/CustomerList",
+            method: "GET",
+            success: function (res) {
+                if (res.status == 200) {
+                    $("#load-container").hide();
+                    // console.log(res)
+                    var filteredData = res.data.map(function (rowData) {
+                        var filteredRow = {};
+                        checkedValues.forEach(function (value) {
+                            // filteredRow[value] = rowData[value] || '';
+                            var i = rowData[value]
+                            console.log(value)
+                        });
+                        return filteredRow;
+                    });
+                    console.log(filteredData)
+
+                    // Create the table
+                    var table = document.createElement("table");
+                    var thead = table.createTHead();
+                    var tbody = table.createTBody();
+                    var row = thead.insertRow();
+
+                    // Add headers for checked values
+                    checkedValues.forEach(function (value) {
+                        var th = document.createElement("th");
+                        th.textContent = value;
+                        row.appendChild(th);
+                    });
+
+                    // Insert rows with filtered data
+                    filteredData.forEach(function (rowData) {
+                        var row = tbody.insertRow();
+                        checkedValues.forEach(function (value) {
+                            var cell = row.insertCell();
+                            cell.textContent = rowData[value] || '';
+                        });
+                    });
+
+                    // Append the table to the document
+                    document.body.appendChild(table);
+                }
+                else {
+                    console.log("error");
+                }
+            }
+        });
+        break;
+}

@@ -24,31 +24,53 @@ body {
   font-size: 12px;
   font-family: Arial;
 }
+#load-container {
+  width: inherit;
+  height: 100%;
+  background-color: #ffffff8a;
+  z-index: 2;
+  position: fixed;
+}
+
+#load-container img {
+  width: 25vh;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
 
 header {
   padding: 10px 0;
   margin-bottom: 30px;
 }
-
+#topline {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
 #logo {
-  text-align: center;
+  text-align: left;
   margin-bottom: 10px;
 }
 
 #logo img {
-  width: 90px;
+  width: 134px;
 }
-
+#line {
+  margin-top: 61px;
+  border-top: #5d6975 solid;
+  width: inherit;
+}
 h1 {
-  border-top: 1px solid #5d6975;
-  border-bottom: 1px solid #5d6975;
   color: #5d6975;
-  font-size: 2.4em;
+  font-size: 2em;
   line-height: 1.4em;
   font-weight: normal;
-  text-align: center;
+
   margin: 0 0 20px 0;
-  /* background: url(dimension.png); */
 }
 
 #project {

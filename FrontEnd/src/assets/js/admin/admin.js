@@ -1143,6 +1143,8 @@ function showReports() {
     var supportTicketCols;
     var paymentCols;
 
+
+
     $.ajax({
         url: API_URL + "/Report",
         method: "GET",
@@ -1164,11 +1166,13 @@ function showReports() {
             }
         }
     });
+
     var areabuttonArray = document.querySelectorAll(".reportArea .areaButtons div button");
 
     var selectedIndex = -1; // Initialize selectedIndex variable
 
     areabuttonArray.forEach(function (button, index) {
+
         button.addEventListener('click', function () {
             // Remove 'selected' class from all buttons
             areabuttonArray.forEach(function (btn) {
@@ -1236,7 +1240,8 @@ function showReports() {
     });
 
     document.querySelector('.ButtonsRow .preview').addEventListener('click', function () {
-        // Define your array of checked text tag values here
+
+        var reportName = document.querySelector('#reports input[placeholder="Report Name"]').value;
         var checkedValues = [];
 
         // Loop through the checkboxes to get the checked values
@@ -1248,7 +1253,9 @@ function showReports() {
         });
 
         // Construct the query parameter string
-        var queryParams = '?checkedValues=' + encodeURIComponent(JSON.stringify(checkedValues));
+        var queryParams = '?checkedValues=' + encodeURIComponent(JSON.stringify(checkedValues)) +
+            '&reportTitle=' + encodeURIComponent(reportName) +
+            '&selectedAreaIndex=' + selectedIndex;
 
         // Open the preview.html file in a new window/tab with the query parameters
         window.open('invoice.html' + queryParams);
