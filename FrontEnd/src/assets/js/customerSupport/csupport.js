@@ -24,9 +24,12 @@ function showDashboard() {
     document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#ticket").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
 
 
 }
+
+
 
 
 function showcus() {
@@ -46,6 +49,7 @@ function showcus() {
     document.querySelector("#ticket").style.display = "none";
     document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
 
 
     $("#load-container").show();
@@ -108,6 +112,7 @@ function showcus() {
 
 }
 
+
 function showprof(res, customerId) {
     $("#load-container").show();
     document.querySelector("#dashboard").style.display = "none";
@@ -118,6 +123,7 @@ function showprof(res, customerId) {
     document.querySelector("#csProfile").style.display = "none";
     // document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
     
     // Update the title
     var title = document.querySelector("#cusprof .topRow h1");
@@ -232,7 +238,7 @@ function showsupportTicket(res, ticketId, name) {
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
-    // document.querySelector("#SupportTicketDatail").style.display = "block";
+    document.querySelector("#SupportTicketDatail").style.display = "block";
     // document.querySelector("#csmember").style.display = "none";
     // document.querySelector("#csprof").style.display = "none";
     document.querySelector("#GarageProf").style.display = "none";
@@ -297,17 +303,17 @@ function showServiceProviders() {
     document.querySelector("#servicePDropdown").classList.add("dropDownActive");
 
 
-
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";   
+    document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "block";
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#ticket").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
+    
   
     
-   
-
 
     var garage = document.getElementById("garages");
     var mp = document.getElementById("maintainancep");
@@ -461,13 +467,8 @@ function showSPprof(res, spid) {
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
-    // document.querySelector("#csmember").style.display = "none";
-    // document.querySelector("#csprof").style.display = "none";
-    // document.querySelector("#garageOwners").style.display = "none";
     document.querySelector("#GarageProf").style.display = "block";
-    // document.querySelector("#verification").style.display = "none";
-    // document.querySelector("#adminProfile").style.display = "none";
-    // document.querySelector("#reports").style.display = "none";
+    document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
 
@@ -600,7 +601,6 @@ function showSPprof(res, spid) {
 
 
 
-
 function showTicket(){
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.remove("active");
@@ -617,6 +617,7 @@ function showTicket(){
     document.querySelector("#ticket").style.display = "block";
     document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
  
 
 }
@@ -638,7 +639,7 @@ function showProfile  (){
     document.querySelector("#ticket").style.display = "none";
     document.querySelector("#csProfile").style.display = "block";
     document.querySelector("#serviceProviders").style.display = "none";
- 
+    document.querySelector("#SupportTicketDatail").style.display = "none";
 
 }
 

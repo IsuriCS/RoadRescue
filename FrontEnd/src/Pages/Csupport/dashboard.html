@@ -25,6 +25,12 @@
   </head>
 
   <body>
+
+    <div id="load-container">
+      <img src="../../assets/img/Gear-0.3s-200px.gif" alt="">
+    </div>
+
+    
     <!-- ***************************************HEADER************************************ -->
     <div class="navbar">
       <div class="logo">
@@ -483,58 +489,58 @@
                 <!-- Detail form +******************************************************************** -->
                 <div class="row">
                   <div class="tag">
-                    <h1>ID :</h1>
+                    <h1 >ID :</h1>
                   </div>
-                  <div class="detail"><p>001</p></div>
+                  <div class="detail"><p id="id"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Garage Name :</h1>
                   </div>
-                  <div class="detail"><p>Chamodh</p></div>
+                  <div class="detail"><p id="gname"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Owner Name :</h1>
                   </div>
-                  <div class="detail"><p>Henderson</p></div>
+                  <div class="detail"><p id="oname"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Phone Number :</h1>
                   </div>
-                  <div class="detail"><p>0768658568</p></div>
+                  <div class="detail"><p id="pnum"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Email :</h1>
                   </div>
-                  <div class="detail"><p>chamodh@gmail.com</p></div>
+                  <div class="detail"><p id="email"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Technicions :</h1>
                   </div>
-                  <div class="detail"><p>10</p></div>
+                  <div class="detail"><p id="tech"></p></div>
                 </div>
 
                 <!-- *********************Buttons**************************************************** -->
-                <button type="submit" class="button">
+                <!-- <button type="submit" class="button">
                   <span class="material-symbols-outlined"> edit </span>Edit
                   Profile
-                </button>
+                </button> -->
                 <button type="submit" class="button">
                   <span class="material-symbols-outlined"> history </span
                   >Service History
                 </button>
-                <button type="submit" class="button">
+                <!-- <button type="submit" class="button">
                   <span class="material-symbols-outlined"> ac_unit </span>Freeze
                   Profile
-                </button>
-                <button type="submit" class="button">
+                </button> -->
+                <!-- <button type="submit" class="button">
                   <span class="material-symbols-outlined"> delete </span>Delete
                   Profile
-                </button>
+                </button> -->
               </div>
 
               <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
@@ -543,44 +549,52 @@
                   <div class="tag">
                     <h1>Location :</h1>
                   </div>
-                  <div class="detail"><p>Colombo</p></div>
+                  <div class="detail"><a id="location" target="_blank">View on Map</a></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Completed Services :</h1>
                   </div>
-                  <div class="detail"><p>8</p></div>
+                  <div class="detail"><p id="compservice"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Joined Date :</h1>
                   </div>
-                  <div class="detail"><p>2021.10.25</p></div>
+                  <div class="detail"><p id="date"></p></div>
                 </div>
-                <div class="stsection">
+                <div class="spstsection">
                   <h1>Support Tickets</h1>
-                  <div class="SuppotTicketcard">
+                  <h1 id="spno_support_tickets"> No Support Tickets</h1>
+                  <div id="spsupport_ticket_list" style="display:none;">
+                    <template id="spsupportTicketTemplate">
+                    <div class="spSuppotTicketcard">
                     <h1>ST-001</h1>
                     <div class="row">
                       <div class="tag">
                         <h1>Date :</h1>
                       </div>
-                      <div class="detail"><p>2323.01.23</p></div>
+                      <div class="date"><p>2323.01.23</p></div>
                     </div>
                     <div class="row">
                       <div class="tag">
                         <h1>Title :</h1>
                       </div>
-                      <div class="detail"><p>Payment Issue</p></div>
+                      <div class="title"><p>Payment Issue</p></div>
                     </div>
                     <div class="solveButton">
                       <button type="submit" class="button">Solved</button>
                     </div>
                   </div>
+                  </template>
+                  </div>
+                  
+                  
                 </div>
               </div>
             </div>
           </div>
+
 
           <!-- ---------------------------------------Service Provider------------------------------- -->
           <!-- ---------------------------------------Maintainace Personnel------------------------------- -->
