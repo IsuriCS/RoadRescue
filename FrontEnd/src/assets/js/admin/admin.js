@@ -1123,19 +1123,12 @@ function showReports() {
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
 
-    // document.querySelector("#GarageDropDown").classList.remove("submenuActive");
-    // document.querySelector("#MPDropDown").classList.remove("submenuActive");
-
-
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#csmember").style.display = "none";
     document.querySelector("#csprof").style.display = "none";
-    // document.querySelector("#garageOwners").style.display = "none";
     document.querySelector("#GarageProf").style.display = "none";
-    // document.querySelector("#maintainancePersonnel").style.display = "none";
-    // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#reports").style.display = "block";
     document.querySelector("#serviceProviders").style.display = "none";
@@ -1143,6 +1136,18 @@ function showReports() {
     document.querySelector("#SupportTicketDatail").style.display = "none";
 
 
+    var reportName = document.querySelector('#reports input[placeholder="Report Name"]').value;
+    var reportType = document.querySelector('#reports select[name="reportType"]').value;
+    var reportFormat = document.querySelector('#reports select[name="reportFormat"]').value;
+    var selectedAreas = document.querySelectorAll('.areaButtons button.selected')
+    // var selectedColumns = Array.from(document.querySelectorAll('.columnsCB input[type="checkbox"]:checked')).map(checkbox => checkbox.nextSibling.textContent.trim());
+    // var selectedRowId = document.querySelector('.rowsSec select').value;
+    // var specialFilters = {
+    //     key: document.querySelector('.spfilters select:first-of-type').value,
+    //     value: document.querySelector('.spfilters select:last-of-type').value
+    // };
+
+    console.log(reportName, reportType, reportFormat, selectedAreas)
 }
 
 function showProfile() {
