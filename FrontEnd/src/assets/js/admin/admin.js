@@ -1235,6 +1235,24 @@ function showReports() {
         });
     });
 
+    document.querySelector('.ButtonsRow .preview').addEventListener('click', function () {
+        // Define your array of checked text tag values here
+        var checkedValues = [];
+
+        // Loop through the checkboxes to get the checked values
+        var checkboxes = document.querySelectorAll('.columnsCB input[type="checkbox"]');
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                checkedValues.push(checkbox.value);
+            }
+        });
+
+        // Construct the query parameter string
+        var queryParams = '?checkedValues=' + encodeURIComponent(JSON.stringify(checkedValues));
+
+        // Open the preview.html file in a new window/tab with the query parameters
+        window.open('invoice.html' + queryParams);
+    });
 
 
 

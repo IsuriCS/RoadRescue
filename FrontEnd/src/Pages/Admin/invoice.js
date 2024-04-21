@@ -27,3 +27,16 @@ document.querySelector('#button').addEventListener('click', function () {
         margin: 0.5 // Adjust the margin as per your requirement
     });
 });
+
+// Get the query parameters from the URL
+var queryParams = new URLSearchParams(window.location.search);
+var checkedValues = [];
+
+// Check if the 'checkedValues' query parameter exists
+if (queryParams.has('checkedValues')) {
+    // Get the value of the 'checkedValues' parameter and parse it as JSON
+    checkedValues = JSON.parse(decodeURIComponent(queryParams.get('checkedValues')));
+}
+
+// Now you have the checked values in the 'checkedValues' array
+console.log(checkedValues);
