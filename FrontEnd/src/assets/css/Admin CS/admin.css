@@ -471,7 +471,9 @@ input {
   width: 6vw;
   height: 6vw;
 }
-
+.areaButtons div .selected {
+  background-color: #809cc8;
+}
 .areaButtons div p {
   text-align: center;
 }
