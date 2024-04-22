@@ -24,6 +24,14 @@ body {
   align-items: center;
   min-height: 89.3vh;
 }
+.sidenav h1 {
+  text-align: center;
+  margin-bottom: 0;
+  font-size: 3.5vh;
+}
+.sidenav p {
+  margin-top: 0;
+}
 
 .sidenav > img {
   width: 30%;
@@ -94,8 +102,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-
-
 
 .content > .content-box > .topRow {
   display: flex;
