@@ -1331,11 +1331,13 @@ function toggleDropdown() {
 
 
 // **************DashBoard-Recent moment bar chat*******************
-var ctx = document.getElementById("barchatRecent").getContext('2d');
+
 var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var yValues = [0, 5, 10, 15, 20, 25, 30, 35, 40];
 var rdata = Array.from({ length: 12 }, () => 0);
 var ddata = Array.from({ length: 12 }, () => 0);
+var online = Array.from({ length: 12 }, () => 0);
+var cash = Array.from({ length: 12 }, () => 0);
 
 $("#load-container").show();
 
@@ -1373,6 +1375,7 @@ $.ajax({
             // Account Deletions and Registrations
             var registation = res.data[6];
             var deletions = res.data[7];
+            var Payment = res.data[8];
 
             registation.forEach(function (entry) {
                 var monthIndex = xValues.indexOf(entry.month);
@@ -1402,7 +1405,8 @@ $.ajax({
             // }
 
 
-            // Create chart
+            // **************DashBoard-Registation Bar Chart*******************
+            var ctx1 = document.getElementById("barchatRecent").getContext('2d');
             new Chart("barchatRecent", {
                 type: "bar",
                 data: {
@@ -1434,6 +1438,60 @@ $.ajax({
                     }
                 }
             });
+
+            Payment.forEach(function (entry) {
+                var monthIndex = entry.month - 1;
+
+                if (monthIndex !== -1) {
+                    online[monthIndex] += entry.online;
+                    cash[monthIndex] += entry.cash;
+                }
+            });
+
+
+            // **************DashBoard-Payment line Chart*******************
+            var ctx = document.getElementById("linePayment").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        label: 'Cash Payments', // Name the series
+                        data: cash, // Specify the data values array
+                        fill: false,
+                        borderColor: '#2196f3', // Add custom color border (Line)
+                        backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Online Payments', // Name the series
+                        data: online, // Specify the data values array
+                        fill: false,
+                        borderColor: '#00E096', // Add custom color border (Line)
+                        backgroundColor: '#00E096', // Add custom color background (Points and Fill)
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: { legend: { labels: { color: "white" } } },
+                    responsive: true, // Instruct chart js to respond nicely.
+                    maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: "white"
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: "white"
+                            }
+                        }
+                    }
+                }
+            });
+
+
         } else {
             console.log("error");
         }
@@ -1442,49 +1500,8 @@ $.ajax({
 
 
 
-// **************DashBoard-Payment line Chart*******************
-var ctx = document.getElementById("linePayment").getContext('2d');
 
 
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ["January", "February", "March", "April", "May"],
-        datasets: [{
-            label: 'Cash Payments', // Name the series
-            data: [500, 50, 2424, 1440, 1441, 411, 544, 47, 555, 811], // Specify the data values array
-            fill: false,
-            borderColor: '#2196f3', // Add custom color border (Line)
-            backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
-            borderWidth: 1
-        },
-        {
-            label: 'Online Payments', // Name the series
-            data: [50, 50, 424, 140, 141, 411, 44, 47, 55, 871], // Specify the data values array
-            fill: false,
-            borderColor: '#00E096', // Add custom color border (Line)
-            backgroundColor: '#00E096', // Add custom color background (Points and Fill)
-            borderWidth: 1
-        }]
-    },
-    options: {
-        plugins: { legend: { labels: { color: "white" } } },
-        responsive: true, // Instruct chart js to respond nicely.
-        maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
-        scales: {
-            x: {
-                ticks: {
-                    color: "white"
-                }
-            },
-            y: {
-                ticks: {
-                    color: "white"
-                }
-            }
-        }
-    }
-});
 
 // **************FAQ-Toggle answer of question*******************
 
