@@ -1327,105 +1327,181 @@ function toggleDropdown() {
     document.querySelector(".dropdownArrow").classList.toggle("uparrow");
 }
 
-// let spdropDownContainer = document.querySelector(".spdropdown-container");
-// function sptoggleDropdown() {
-//     spdropDownContainer.classList.toggle("hide");
-//     document.querySelector(".dropdownArrow").classList.toggle("uparrow");
-// }
 
-// Link table rows
-// const tableRows = document.querySelectorAll('tr[data-href]');
-// tableRows.forEach(row => {
-//     row.addEventListener('click', () => {
-//         window.location.href = row.getAttribute('data-href');
-//     });
-// });
 
 
 // **************DashBoard-Recent moment bar chat*******************
-var ctx = document.getElementById("barchatRecent").getContext('2d');
-const xValues = ["January", "February", "March", "April", "May"];
-const yValues = [0, 5, 10, 15, 20, 25, 30, 35, 40];
 
-new Chart("barchatRecent", {
-    type: "bar",
-    data: {
-        labels: xValues,
-        datasets: [{
-            label: "Registations",
-            data: [12, 19, 3, 17, 28, 24, 7],
-            backgroundColor: "#0095FF"
-        }, {
-            label: "Account Deletions",
-            data: [30, 29, 5, 5, 20, 3, 10],
-            backgroundColor: "#00E096"
-        }]
-    },
-    options: {
-        plugins: { legend: { labels: { color: "white" } } },
-        barThickness: 20,
-        scales: {
-            x: {
-                ticks: {
-                    color: "white"
-                }
-            },
-            y: {
-                ticks: {
-                    color: "white"
-                }
+var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var yValues = [0, 5, 10, 15, 20, 25, 30, 35, 40];
+var rdata = Array.from({ length: 12 }, () => 0);
+var ddata = Array.from({ length: 12 }, () => 0);
+var online = Array.from({ length: 12 }, () => 0);
+var cash = Array.from({ length: 12 }, () => 0);
+
+$("#load-container").show();
+
+$.ajax({
+    url: API_URL + "/Admin/customerCard",
+    method: "GET",
+    success: function (res) {
+        if (res.status == 200) {
+            $("#load-container").hide();
+
+            // var currentDate = new Date();
+            // var currentMonth = currentDate.getMonth();
+            // console.log(currentMonth);
+            // var currentYear = currentDate.getFullYear();
+            // var monthsToShow = [];
+
+            // Analytics Cards
+            document.querySelector("#registeredCustomersNum").innerHTML = res.data[0].CustomerNum;
+            document.querySelector("#registeredSproviders").innerHTML = res.data[0].sproviderNum;
+            document.querySelector("#completedTasksCount").innerHTML = res.data[0].CompletedTaskCount;
+            document.querySelector("#reportCount").innerHTML = res.data[0].SupportTicketCount;
+
+            var tableBody = document.querySelector("#RecentReportSection tbody");
+
+            // Recent 5 support cards table
+            for (var i = 1; i < 6; i++) {
+                var datai = res.data[i];
+                var row = tableBody.insertRow();
+                row.insertCell(0).textContent = datai.name || '';
+                row.insertCell(1).textContent = datai.title || '';
+                row.insertCell(2).textContent = datai.date || '';
+                row.insertCell(3).textContent = datai.status.charAt(0).toUpperCase() + datai.status.slice(1) || '';
             }
+
+            // Account Deletions and Registrations
+            var registation = res.data[6];
+            var deletions = res.data[7];
+            var Payment = res.data[8];
+
+            registation.forEach(function (entry) {
+                var monthIndex = xValues.indexOf(entry.month);
+
+                if (monthIndex !== -1) {
+                    rdata[monthIndex] += entry.registrations;
+                }
+            });
+
+            deletions.forEach(function (entry) {
+                var monthIndex = xValues.indexOf(entry.month);
+                if (monthIndex !== -1) {
+                    ddata[monthIndex] += entry.deletion;
+                }
+            });
+
+
+            // for (var i = 0; i < 5; i++) {
+            //     var monthIndex = (currentMonth - i) % 12;
+
+            //     if (monthIndex < 0) {
+            //         monthIndex += 12;
+            //         currentYear -= 1;
+            //     }
+
+            //     monthsToShow.unshift(`${xValues[monthIndex]} ${currentYear}`);
+            // }
+
+
+            // **************DashBoard-Registation Bar Chart*******************
+            var ctx1 = document.getElementById("barchatRecent").getContext('2d');
+            new Chart("barchatRecent", {
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        label: "Registations",
+                        data: rdata,
+                        backgroundColor: "#0095FF"
+                    }, {
+                        label: "Account Deletions",
+                        data: ddata,
+                        backgroundColor: "#00E096"
+                    }]
+                },
+                options: {
+                    plugins: { legend: { labels: { color: "white" } } },
+                    barThickness: 20,
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: "white"
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: "white"
+                            }
+                        }
+                    }
+                }
+            });
+
+            Payment.forEach(function (entry) {
+                var monthIndex = entry.month - 1;
+
+                if (monthIndex !== -1) {
+                    online[monthIndex] += entry.online;
+                    cash[monthIndex] += entry.cash;
+                }
+            });
+
+
+            // **************DashBoard-Payment line Chart*******************
+            var ctx = document.getElementById("linePayment").getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        label: 'Cash Payments', // Name the series
+                        data: cash, // Specify the data values array
+                        fill: false,
+                        borderColor: '#2196f3', // Add custom color border (Line)
+                        backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Online Payments', // Name the series
+                        data: online, // Specify the data values array
+                        fill: false,
+                        borderColor: '#00E096', // Add custom color border (Line)
+                        backgroundColor: '#00E096', // Add custom color background (Points and Fill)
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: { legend: { labels: { color: "white" } } },
+                    responsive: true, // Instruct chart js to respond nicely.
+                    maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: "white"
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: "white"
+                            }
+                        }
+                    }
+                }
+            });
+
+
+        } else {
+            console.log("error");
         }
-
     }
-
-
-
 });
 
-// **************DashBoard-Payment line Chart*******************
-var ctx = document.getElementById("linePayment").getContext('2d');
 
 
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ["January", "February", "March", "April", "May"],
-        datasets: [{
-            label: 'Cash Payments', // Name the series
-            data: [500, 50, 2424, 1440, 1441, 411, 544, 47, 555, 811], // Specify the data values array
-            fill: false,
-            borderColor: '#2196f3', // Add custom color border (Line)
-            backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
-            borderWidth: 1
-        },
-        {
-            label: 'Online Payments', // Name the series
-            data: [50, 50, 424, 140, 141, 411, 44, 47, 55, 871], // Specify the data values array
-            fill: false,
-            borderColor: '#00E096', // Add custom color border (Line)
-            backgroundColor: '#00E096', // Add custom color background (Points and Fill)
-            borderWidth: 1
-        }]
-    },
-    options: {
-        plugins: { legend: { labels: { color: "white" } } },
-        responsive: true, // Instruct chart js to respond nicely.
-        maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
-        scales: {
-            x: {
-                ticks: {
-                    color: "white"
-                }
-            },
-            y: {
-                ticks: {
-                    color: "white"
-                }
-            }
-        }
-    }
-});
+
+
 
 // **************FAQ-Toggle answer of question*******************
 
@@ -1486,35 +1562,5 @@ var myChart = new Chart(ctx, {
 // ---------------------------------------------------------------------------------------------------------------------Ajex
 
 // ++++++++++++++++++++++++Dashboard****************
-$("#load-container").show();
 
-$.ajax({
-    url: API_URL + "/Admin/customerCard",
-    method: "GET",
-    success: function (res) {
-        if (res.status == 200) {
-            $("#load-container").hide();
-            document.querySelector("#registeredCustomersNum").innerHTML = res.data[0].CustomerNum;
-            document.querySelector("#registeredSproviders").innerHTML = res.data[0].sproviderNum;
-            document.querySelector("#completedTasksCount").innerHTML = res.data[0].CompletedTaskCount;
-            document.querySelector("#reportCount").innerHTML = res.data[0].SupportTicketCount;
-
-            var tableBody = document.querySelector("#RecentReportSection tbody");
-
-            // Start from index 1 to skip the first item in the JSON array
-            for (var i = 1; i < res.data.length; i++) {
-                var datai = res.data[i];
-                var row = tableBody.insertRow();
-                row.insertCell(0).textContent = datai.name || '';
-                row.insertCell(1).textContent = datai.title || '';
-                row.insertCell(2).textContent = datai.date || '';
-                row.insertCell(3).textContent = datai.status.charAt(0).toUpperCase() + datai.status.slice(1) || '';
-            }
-
-        }
-        else {
-            console.log("error");
-        }
-    }
-});
 
