@@ -30,7 +30,7 @@ public class SPSupportTicketContraller {
             int id=resultSet.getInt(1);
             int SPid= resultSet.getInt(2);
             String status =resultSet.getString(3);
-            int customer_support_member_id =resultSet.getInt(4);
+            String customer_support_member_id =resultSet.getString(4);
             String title =resultSet.getString(5);
             String description =resultSet.getString(6);
             String created_time =resultSet.getString(7);
@@ -41,11 +41,21 @@ public class SPSupportTicketContraller {
             objectBuilder.add("ticketId",id);
             objectBuilder.add("SPid",SPid);
             objectBuilder.add("status",status);
-            objectBuilder.add("customer_support_member_id",customer_support_member_id);
+
+            if (customer_support_member_id != null) {
+                objectBuilder.add("customer_support_member_id",customer_support_member_id);
+            } else {
+                objectBuilder.addNull("customer_support_member_id");
+            }
             objectBuilder.add("title",title);
             objectBuilder.add("description",description);
             objectBuilder.add("created_time",created_time);
-            objectBuilder.add("solution",solution);
+            if (solution != null) {
+                objectBuilder.add("solution",solution);
+            } else {
+                objectBuilder.addNull("solution");
+            }
+
             SupportTickets.add(objectBuilder.build());
         }
         return SupportTickets.build();
