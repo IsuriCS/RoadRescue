@@ -378,9 +378,9 @@ function showServiceProviders() {
         method: "GET",
         success: function (res) {
 
-            $("#load-container").hide();
-            if (res.status == 200) {
 
+            if (res.status == 200) {
+                $("#load-container").hide();
                 tableBody.innerHTML = "";
                 for (var i = 0; i < res.data.length; i++) {
 
@@ -1248,9 +1248,11 @@ function showReports() {
         var checkboxes = document.querySelectorAll('.columnsCB input[type="checkbox"]');
         checkboxes.forEach(function (checkbox) {
             if (checkbox.checked) {
-                checkedValues.push(checkbox.value);
+                var labelText = checkbox.nextSibling.textContent.trim();
+                checkedValues.push(labelText);
             }
         });
+        console.log(checkedValues);
 
         // Construct the query parameter string
         var queryParams = '?checkedValues=' + encodeURIComponent(JSON.stringify(checkedValues)) +
@@ -1260,6 +1262,14 @@ function showReports() {
         // Open the preview.html file in a new window/tab with the query parameters
         window.open('invoice.html' + queryParams);
     });
+
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     document.querySelector('.ButtonsRow .download').addEventListener('click', function () {
+    //         var scriptElement = document.createElement('script');
+    //         scriptElement.src = 'invoice.js'; // Replace 'invoice.js' with the correct path to your invoice.js file
+    //         document.body.appendChild(scriptElement);
+    //     });
+    // });
 
 
 
