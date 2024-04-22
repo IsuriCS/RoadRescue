@@ -1,4 +1,6 @@
-var API_URL = "http://localhost:8082/roadRescueBackend";
+// var API_URL = "http://localhost:8082/roadRescueBackend";
+var API_URL = "http://localhost:8080/roadRescue";
+
 
 
 // Navigate
@@ -52,7 +54,7 @@ function showcus() {
     document.querySelector("#SupportTicketDatail").style.display = "none";
 
 
-    $("#load-container").show();
+    // $("#load-container").show();
     $("#CustomerList tbody").empty();
 
     $.ajax({
@@ -108,13 +110,13 @@ function showcus() {
     }
     );
 
-    
+
 
 }
 
 
 function showprof(res, customerId) {
-    $("#load-container").show();
+    // $("#load-container").show();
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "block";
@@ -124,7 +126,7 @@ function showprof(res, customerId) {
     // document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
-    
+
     // Update the title
     var title = document.querySelector("#cusprof .topRow h1");
     title.innerHTML = `Customer > C${customerId.padStart(3, '0')}`;
@@ -234,7 +236,7 @@ function showprof(res, customerId) {
 
 
 function showsupportTicket(res, ticketId, name) {
-    $("#load-container").show();
+    // $("#load-container").show();
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
@@ -305,20 +307,20 @@ function showServiceProviders() {
 
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
-    document.querySelector("#cusprof").style.display = "none";   
+    document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "block";
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#ticket").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
-    
-  
-    
+
+
+
 
     var garage = document.getElementById("garages");
     var mp = document.getElementById("maintainancep");
     var tableBody = document.querySelector("#SPList tbody");
-    $("#load-container").show();
+    // $("#load-container").show();
     $.ajax({
         url: API_URL + "/Admin/SPlist",
         method: "GET",
@@ -601,7 +603,7 @@ function showSPprof(res, spid) {
 
 
 
-function showTicket(){
+function showTicket() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.remove("active");
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
@@ -618,12 +620,12 @@ function showTicket(){
     document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
- 
+
 
 }
 
 
-function showProfile  (){
+function showProfile() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.remove("active");
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
@@ -679,13 +681,13 @@ function toggleDropdown() {
     document.querySelector(".dropdownArrow").classList.toggle("uparrow");
 }
 
-// Link table rows
-const tableRows = document.querySelectorAll('tr[data-href]');
-tableRows.forEach(row => {
-    row.addEventListener('click', () => {
-        window.location.href = row.getAttribute('data-href');
-    });
-});
+// // Link table rows
+// const tableRows = document.querySelectorAll('tr[data-href]');
+// tableRows.forEach(row => {
+//     row.addEventListener('click', () => {
+//         window.location.href = row.getAttribute('data-href');
+//     });
+// });
 
 
 
@@ -699,21 +701,21 @@ $.ajax({
     success: function (res) {
         // res = $.parseJSON(res);
         if (res.status == 200) {
-            try{
+            try {
                 res.data.forEach(customer => {
                     document.querySelector("#customer_support_member_id").innerHTML = res.data[0].customer_support_member_id;
                     document.querySelector("#description").innerHTML = res.data[0].description;
                     document.querySelector("#title").innerHTML = res.data[0].title;
                     document.querySelector("#created_time").innerHTML = res.data[0].created_time;
                 });
-                
-            }catch{
+
+            } catch {
                 console.log("error");
             }
-         
-        
+
+
+        }
     }
-}
 });
 
 
