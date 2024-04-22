@@ -27,6 +27,7 @@ public class dashboardCards {
         ResultSet registationChart=CrudUtil.executeQuery(connection,"SELECT DATE_FORMAT(reg_timestamp, '%M') AS month,COUNT(*) AS registrations,'customer' AS type FROM customer GROUP BY MONTH(reg_timestamp) UNION ALL SELECT DATE_FORMAT(reg_timestamp, '%M') AS month,COUNT(*) AS registrations, 'service_provider' AS type FROM service_provider GROUP BY MONTH(reg_timestamp) UNION ALL SELECT DATE_FORMAT(reg_timestamp, '%M') AS month,COUNT(*) AS registrations,'technician' AS type FROM technician GROUP BY MONTH(reg_timestamp)");
         ResultSet deletionChart=CrudUtil.executeQuery(connection,"SELECT DATE_FORMAT(deleted_time, '%M') AS month,COUNT(*) AS deletion, type AS type FROM deleted_accounts GROUP BY MONTH(deleted_time)");
 
+        ResultSet paymentChart=CrudUtil.executeQuery(connection,"SELECT MONTH(paid_time) AS month,YEAR(paid_time) AS year,SUM(CASE WHEN payment_method = 'online' THEN payment_amount ELSE 0 END) AS online_amount, SUM(CASE WHEN payment_method = 'cash' THEN payment_amount ELSE 0 END) AS cash_amount FROM payment GROUP BY YEAR(paid_time), MONTH(paid_time)");
         //Analytics Cards
         if (rst1.next()) {
             customerNum= rst1.getInt("customer_count");
@@ -118,6 +119,25 @@ public class dashboardCards {
 
         }
         countersForCardsArray.add(deletionArray.build());
+
+//        Payment Chart
+        JsonArrayBuilder PaymentArrray = Json.createArrayBuilder();
+        while (paymentChart.next()){
+            int month = paymentChart.getInt("month");
+            String year = paymentChart.getString("year");
+            String online=paymentChart.getString("online_amount");
+            String cash=paymentChart.getString("cash_amount");
+
+            JsonObjectBuilder Object = Json.createObjectBuilder();
+            Object.add("month",month);
+            Object.add("year",year);
+            Object.add("online",online);
+            Object.add("cash",cash);
+
+            PaymentArrray.add(Object.build());
+
+        }
+        countersForCardsArray.add(PaymentArrray.build());
 
         return countersForCardsArray.build();
     }
