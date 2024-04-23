@@ -99,7 +99,7 @@
                 <li>
                     <a 
                     id = "TicketLink"
-                    href="#ticket" 
+                    href="#TicketReports"
                     class="sideNavLink"
                     onclick="showTicket()"
                     >
@@ -107,6 +107,8 @@
                     Support Ticket
                     </a>
                 </li>
+
+           
 
                 <li id="profileLink">
                     <a href="#csProfile"
@@ -745,7 +747,7 @@
 
 
            <!-- ----------------------------support ticket--------------------------------- -->
-          <div id = "ticket" style="display: none;">
+          <!-- <div id = "ticket" style="display: none;">
           <h1>Support Ticket</h1>
 
           <div class="info">
@@ -792,7 +794,38 @@
             </div>
 
       
-          </div>
+          </div> -->
+          <div id="TicketReports" style="display: none">
+            <div class="topRow">
+              <h1>Support Tickets</h1>
+              <div class="search">
+            <form>
+                <input type="text" placeholder="Search Service Provider" name="search" id="searchCSMember">
+                <button onclick="  ">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </form>
+        </div>
+      </div>
+
+        <div class="ReportsSection">
+        <table id="RecentReportSection">
+          <thead>
+          <tr>
+            <th>Reported By</th>
+            <th>Report title</th>
+            <th>Reported Date</th>
+            <th>Status</th>
+          </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        </div>
+
+
+           
+            </div>
+          
 
 
 

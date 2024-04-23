@@ -16,6 +16,7 @@ function showDashboard() {
 
 
 
+
     document.querySelector("#dashboard").style.display = "block";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
@@ -24,7 +25,8 @@ function showDashboard() {
     // document.querySelector("#maintainancePersonnel").style.display = "none";
     // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#csProfile").style.display = "none";
-    document.querySelector("#ticket").style.display = "none";
+    // document.querySelector("#ticket").style.display = "none";
+    document.querySelector("#TicketReports").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
 
@@ -82,10 +84,11 @@ function showcus() {
     document.querySelector("#userCus").style.display = "block";
     document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#GarageProf").style.display = "none";
-    document.querySelector("#ticket").style.display = "none";
+    // document.querySelector("#ticket").style.display = "none";
     document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
+    document.querySelector("#TicketReports").style.display = "none";
 
 
     // $("#load-container").show();
@@ -155,11 +158,12 @@ function showprof(res, customerId) {
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "block";
     document.querySelector("#GarageProf").style.display = "none";
-    document.querySelector("#ticket").style.display = "none";
+    // document.querySelector("#ticket").style.display = "none";
     document.querySelector("#csProfile").style.display = "none";
     // document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
+    document.querySelector("#TicketReports").style.display = "none";
 
     // Update the title
     var title = document.querySelector("#cusprof .topRow h1");
@@ -279,6 +283,10 @@ function showsupportTicket(res, ticketId, name) {
     // document.querySelector("#csprof").style.display = "none";
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
+    document.querySelector("#TicketReports").style.display = "none";
+    
+
+    
 
 
     // Update the title
@@ -345,8 +353,9 @@ function showServiceProviders() {
     document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "block";
     document.querySelector("#GarageProf").style.display = "none";
-    document.querySelector("#ticket").style.display = "none";
+    // document.querySelector("#ticket").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
+    document.querySelector("#TicketReports").style.display = "none";
 
 
 
@@ -650,7 +659,7 @@ function showTicket() {
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#GarageProf").style.display = "none";
-    document.querySelector("#ticket").style.display = "block";
+    document.querySelector("#TicketReports").style.display = "block";
     document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
@@ -672,10 +681,11 @@ function showProfile() {
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#GarageProf").style.display = "none";
-    document.querySelector("#ticket").style.display = "none";
+    // document.querySelector("#ticket").style.display = "none";
     document.querySelector("#csProfile").style.display = "block";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
+    document.querySelector("#TicketReports").style.display = "none";
 
 }
 
@@ -729,28 +739,28 @@ function toggleDropdown() {
 
 
 // const API_URL = "http://localhost:8082/roadRescueBackend";
-$.ajax({
-    url: API_URL + "/customerSupport",
-    method: "GET",
-    success: function (res) {
-        // res = $.parseJSON(res);
-        if (res.status == 200) {
-            try {
-                res.data.forEach(customer => {
-                    document.querySelector("#customer_support_member_id").innerHTML = res.data[0].customer_support_member_id;
-                    document.querySelector("#description").innerHTML = res.data[0].description;
-                    document.querySelector("#title").innerHTML = res.data[0].title;
-                    document.querySelector("#created_time").innerHTML = res.data[0].created_time;
-                });
+// $.ajax({
+//     url: API_URL + "/customerSupport",
+//     method: "GET",
+//     success: function (res) {
+//         // res = $.parseJSON(res);
+//         if (res.status == 200) {
+//             try {
+//                 res.data.forEach(customer => {
+//                     document.querySelector("#customer_support_member_id").innerHTML = res.data[0].customer_support_member_id;
+//                     document.querySelector("#description").innerHTML = res.data[0].description;
+//                     document.querySelector("#title").innerHTML = res.data[0].title;
+//                     document.querySelector("#created_time").innerHTML = res.data[0].created_time;
+//                 });
 
-            } catch {
-                console.log("error");
-            }
+//             } catch {
+//                 console.log("error");
+//             }
 
 
-        }
-    }
-});
+//         }
+//     }
+// });
 
 
 

@@ -19,7 +19,13 @@
 
   
   /* **********************************Dash Board  Recent reports table ********************************************* */
-  
+  .ServieRequests table button{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
   .ReportsSection table {
     margin: 1vh;
   }
