@@ -17,7 +17,9 @@
 }
 
 /* *****************DASH BOARD CARDS ****************************** */
-
+#dashboard > div {
+  margin-bottom: 3vh;
+}
 .content .content-box .displayCards {
   display: flex;
   flex-flow: row;
@@ -113,6 +115,8 @@
   padding: 1vh;
   align-content: center;
   height: 4vh;
+  width: 4vh;
+  text-align: center;
 }
 .secondRow .verifications .table {
   padding-top: 0.5vh;

@@ -1,5 +1,6 @@
 package servlet;
 
+import controllers.AdminController.UserDataController;
 import controllers.AdminController.dashboardCards;
 
 import javax.annotation.Resource;
@@ -28,12 +29,18 @@ public class AdminDashboardCustomerCard extends HttpServlet{
         try {
             connection = ds.getConnection();
             dashboardCards controller = new dashboardCards();
-
+            UserDataController userDataController=new UserDataController();
+            JsonArray verification= userDataController.getServiceProviderList(connection);
             JsonArray numofCustomers= dashboardCards.getcountsForCards(connection);
+
+            JsonObjectBuilder dataBuilder = Json.createObjectBuilder();
+            dataBuilder.add("serviceP", verification);
+            dataBuilder.add("analyticsData", numofCustomers);
+
             JsonObjectBuilder response = Json.createObjectBuilder();
             response.add("status",200);
             response.add("message","Done");
-            response.add("data", numofCustomers);
+            response.add("data", dataBuilder.build());
             writer.print(response.build());
         } catch (SQLException throwables) {
             JsonObjectBuilder response = Json.createObjectBuilder();

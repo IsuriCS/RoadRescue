@@ -299,7 +299,7 @@ function showsupportTicket(res, ticketId, name) {
 
             document.getElementById("ticketID").innerHTML = datai.ticketId;
             document.getElementById("CustomerSupportID").innerHTML = datai.customer_support_member_id || '-';
-            document.getElementById("userID").innerHTML = datai.customerID || '-';
+            document.getElementById("userID").innerHTML = datai.customerID || datai.SPid || '-';
             document.getElementById("userName").innerHTML = name || '-';
             document.getElementById("title").innerHTML = datai.title || '-';
             document.getElementById("description").innerHTML = datai.description || '-';
@@ -1319,6 +1319,7 @@ function showProfile() {
 
 }
 
+
 // Dropdown side menu
 
 let dropDownContainer = document.querySelector(".dropdown-container");
@@ -1329,236 +1330,276 @@ function toggleDropdown() {
 
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    // **************DashBoard-Recent moment bar chat*******************
 
-// **************DashBoard-Recent moment bar chat*******************
+    var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var yValues = [0, 5, 10, 15, 20, 25, 30, 35, 40];
+    var rdata = Array.from({ length: 12 }, () => 0);
+    var ddata = Array.from({ length: 12 }, () => 0);
+    var online = Array.from({ length: 12 }, () => 0);
+    var cash = Array.from({ length: 12 }, () => 0);
 
-var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-var yValues = [0, 5, 10, 15, 20, 25, 30, 35, 40];
-var rdata = Array.from({ length: 12 }, () => 0);
-var ddata = Array.from({ length: 12 }, () => 0);
-var online = Array.from({ length: 12 }, () => 0);
-var cash = Array.from({ length: 12 }, () => 0);
+    $("#load-container").show();
 
-$("#load-container").show();
+    $.ajax({
+        url: API_URL + "/Admin/customerCard",
+        method: "GET",
+        success: function (res) {
+            if (res.status == 200) {
+                $("#load-container").hide();
 
-$.ajax({
-    url: API_URL + "/Admin/customerCard",
-    method: "GET",
-    success: function (res) {
-        if (res.status == 200) {
-            $("#load-container").hide();
+                var currentDate = new Date();
+                var currentMonth = currentDate.getMonth();
+                console.log(currentMonth);
+                var currentYear = currentDate.getFullYear();
+                var monthsToShow = [];
+                var months = [];
 
-            var currentDate = new Date();
-            var currentMonth = currentDate.getMonth();
-            console.log(currentMonth);
-            var currentYear = currentDate.getFullYear();
-            var monthsToShow = [];
-            var months = [];
+                var sp = res.data.serviceP;
+                var Analytics = res.data.analyticsData;
+                console.log(sp);
+                // Analytics Cards
+                document.querySelector("#registeredCustomersNum").innerHTML = Analytics[0].CustomerNum;
+                document.querySelector("#registeredSproviders").innerHTML = Analytics[0].sproviderNum;
+                document.querySelector("#completedTasksCount").innerHTML = Analytics[0].CompletedTaskCount;
+                document.querySelector("#reportCount").innerHTML = Analytics[0].SupportTicketCount;
 
-            // Analytics Cards
-            document.querySelector("#registeredCustomersNum").innerHTML = res.data[0].CustomerNum;
-            document.querySelector("#registeredSproviders").innerHTML = res.data[0].sproviderNum;
-            document.querySelector("#completedTasksCount").innerHTML = res.data[0].CompletedTaskCount;
-            document.querySelector("#reportCount").innerHTML = res.data[0].SupportTicketCount;
+                var tableBody = document.querySelector("#RecentReportSection tbody");
 
-            var tableBody = document.querySelector("#RecentReportSection tbody");
+                var formattedData = {
+                    status: 200,
+                    message: "Done",
+                    data: []
+                };
 
-            // Recent 5 support cards table
-            for (var i = 1; i < 6; i++) {
-                var datai = res.data[i];
-                var row = tableBody.insertRow();
-                row.insertCell(0).textContent = datai.name || '';
-                row.insertCell(1).textContent = datai.title || '';
-                row.insertCell(2).textContent = datai.date || '';
-                row.insertCell(3).textContent = datai.status.charAt(0).toUpperCase() + datai.status.slice(1) || '';
-            }
-
-            // Account Deletions and Registrations
-            var registation = res.data[6];
-            var deletions = res.data[7];
-            var Payment = res.data[8];
-
-            registation.forEach(function (entry) {
-                var monthIndex = xValues.indexOf(entry.month);
-
-                if (monthIndex !== -1) {
-                    rdata[monthIndex] += entry.registrations;
+                // Recent 5 support cards table
+                for (var i = 1; i < 6; i++) {
+                    (function () {
+                        var datai = Analytics[i];
+                        formattedData.data.push(datai);
+                        var row = tableBody.insertRow();
+                        row.insertCell(0).textContent = datai.name || '';
+                        row.insertCell(1).textContent = datai.title || '';
+                        row.insertCell(2).textContent = datai.date || '';
+                        row.insertCell(3).textContent = datai.status.charAt(0).toUpperCase() + datai.status.slice(1) || '';
+                        var id = datai.ticketId;
+                        row.addEventListener('click', function () {
+                            var name = this.cells[0].textContent;
+                            showsupportTicket(formattedData, id, name);
+                        });
+                    })();
                 }
-            });
-
-            deletions.forEach(function (entry) {
-                var monthIndex = xValues.indexOf(entry.month);
-                if (monthIndex !== -1) {
-                    ddata[monthIndex] += entry.deletion;
-                }
-            });
-
-            Payment.forEach(function (entry) {
-                var monthIndex = entry.month - 1;
-
-                if (monthIndex !== -1) {
-                    online[monthIndex] += entry.online;
-                    cash[monthIndex] += entry.cash;
-                }
-            });
 
 
-            for (var i = 0; i < 5; i++) {
-                var monthIndex = (currentMonth - i) % 12;
-
-                if (monthIndex < 0) {
-                    monthIndex += 12;
-                    currentYear -= 1;
-                }
-                months.unshift(`${xValues[monthIndex]}`);
-
-                monthsToShow.unshift(`${xValues[monthIndex]} ${currentYear}`);
-            }
-
-            var rdatafilter = [];
-            var ddatafilter = [];
-            var onlinefilter = [];
-            var cashfilter = [];
-            var i = 0;
-            months.forEach(function (month) {
-                var mindex = xValues.indexOf(month);
-                console.log(mindex);
-                rdatafilter[i] = rdata[mindex];
-                ddatafilter[i] = ddata[mindex];
-                onlinefilter[i] = online[mindex];
-                cashfilter[i] = cash[mindex];
-
-                i++;
-            });
-
-            var monthlyProfit = [];
-            onlinefilter.forEach(function (value) {
-                monthlyProfit.push(value * 0.1);
-            });
-
-
-            // **************DashBoard-Registation Bar Chart*******************
-            var ctx1 = document.getElementById("barchatRecent").getContext('2d');
-            new Chart("barchatRecent", {
-                type: "bar",
-                data: {
-                    labels: monthsToShow,
-                    datasets: [{
-                        label: "Registations",
-                        data: rdatafilter,
-                        backgroundColor: "#0095FF"
-                    }, {
-                        label: "Account Deletions",
-                        data: ddatafilter,
-                        backgroundColor: "#00E096"
-                    }]
-                },
-                options: {
-                    plugins: { legend: { labels: { color: "white" } } },
-                    barThickness: 20,
-                    scales: {
-                        x: {
-                            ticks: {
-                                color: "white"
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                color: "white"
+                // Verifications
+                var verificationcount = 0;
+                var templatecount = 0;
+                sp.forEach(function (entry) {
+                    if (entry.verify === "No") {
+                        verificationcount++;
+                        if (templatecount < 3) {
+                            templatecount++;
+                            var temp = document.getElementById("verificationRequestsTemplate");
+                            var clone = temp.content.cloneNode(true);
+                            var pElement = clone.querySelector("p"); // Adjusted selector
+                            if (pElement) {
+                                pElement.textContent = entry.garageName || '-';
+                                document.querySelector(".table").appendChild(clone); // Changed selector
                             }
                         }
                     }
+                });
+
+                document.querySelector("#number").textContent = verificationcount;
+
+                // Charts Data
+                // Account Deletions and Registrations
+                var registation = Analytics[6];
+                var deletions = Analytics[7];
+                var Payment = Analytics[8];
+
+                registation.forEach(function (entry) {
+                    var monthIndex = xValues.indexOf(entry.month);
+
+                    if (monthIndex !== -1) {
+                        rdata[monthIndex] += entry.registrations;
+                    }
+                });
+
+                deletions.forEach(function (entry) {
+                    var monthIndex = xValues.indexOf(entry.month);
+                    if (monthIndex !== -1) {
+                        ddata[monthIndex] += entry.deletion;
+                    }
+                });
+
+                Payment.forEach(function (entry) {
+                    var monthIndex = entry.month - 1;
+
+                    if (monthIndex !== -1) {
+                        online[monthIndex] += entry.online;
+                        cash[monthIndex] += entry.cash;
+                    }
+                });
+
+
+                for (var i = 0; i < 5; i++) {
+                    var monthIndex = (currentMonth - i) % 12;
+
+                    if (monthIndex < 0) {
+                        monthIndex += 12;
+                        currentYear -= 1;
+                    }
+                    months.unshift(`${xValues[monthIndex]}`);
+
+                    monthsToShow.unshift(`${xValues[monthIndex]} ${currentYear}`);
                 }
-            });
+
+                var rdatafilter = [];
+                var ddatafilter = [];
+                var onlinefilter = [];
+                var cashfilter = [];
+                var i = 0;
+                months.forEach(function (month) {
+                    var mindex = xValues.indexOf(month);
+
+                    rdatafilter[i] = rdata[mindex];
+                    ddatafilter[i] = ddata[mindex];
+                    onlinefilter[i] = online[mindex];
+                    cashfilter[i] = cash[mindex];
+
+                    i++;
+                });
+
+                var monthlyProfit = [];
+                onlinefilter.forEach(function (value) {
+                    monthlyProfit.push(value * 0.1);
+                });
 
 
-
-            // **************DashBoard-Payment line Chart*******************
-            var ctx = document.getElementById("linePayment").getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: monthsToShow,
-                    datasets: [{
-                        label: 'Cash Payments',
-                        data: cashfilter,
-                        fill: false,
-                        borderColor: '#2196f3',
-                        backgroundColor: '#2196f3',
-                        borderWidth: 1
+                // **************DashBoard-Registation Bar Chart*******************
+                var ctx1 = document.getElementById("barchatRecent").getContext('2d');
+                new Chart("barchatRecent", {
+                    type: "bar",
+                    data: {
+                        labels: monthsToShow,
+                        datasets: [{
+                            label: "Registations",
+                            data: rdatafilter,
+                            backgroundColor: "#0095FF"
+                        }, {
+                            label: "Account Deletions",
+                            data: ddatafilter,
+                            backgroundColor: "#00E096"
+                        }]
                     },
-                    {
-                        label: 'Online Payments',
-                        data: onlinefilter,
-                        fill: false,
-                        borderColor: '#00E096',
-                        backgroundColor: '#00E096',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    plugins: { legend: { labels: { color: "white" } } },
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            ticks: {
-                                color: "white"
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                color: "white"
+                    options: {
+                        plugins: { legend: { labels: { color: "white" } } },
+                        barThickness: 20,
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: "white"
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    color: "white"
+                                }
                             }
                         }
                     }
-                }
-            });
+                });
 
-            // *************Mounthly Profit Pie Chart*******************
-            barColors = ["#193741", "#3e5e63", "#588184", "#7ea996", "#90c5a7"]
-            new Chart("lineChartProfit", {
-                type: "line",
-                data: {
-                    labels: monthsToShow,
-                    datasets: [{
-                        label: 'Monthly Profit',
-                        data: monthlyProfit,
-                        fill: false,
-                        borderColor: '#2196f3',
-                        backgroundColor: '#2196f3',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    plugins: { legend: { labels: { color: "white" } } },
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            ticks: {
-                                color: "white"
-                            }
+
+
+                // **************DashBoard-Payment line Chart*******************
+                var ctx = document.getElementById("linePayment").getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: monthsToShow,
+                        datasets: [{
+                            label: 'Cash Payments',
+                            data: cashfilter,
+                            fill: false,
+                            borderColor: '#2196f3',
+                            backgroundColor: '#2196f3',
+                            borderWidth: 1
                         },
-                        y: {
-                            ticks: {
-                                color: "white"
+                        {
+                            label: 'Online Payments',
+                            data: onlinefilter,
+                            fill: false,
+                            borderColor: '#00E096',
+                            backgroundColor: '#00E096',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        plugins: { legend: { labels: { color: "white" } } },
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: "white"
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    color: "white"
+                                }
                             }
                         }
                     }
-                }
-            });
+                });
+
+                // *************Mounthly Profit Pie Chart*******************
+                barColors = ["#193741", "#3e5e63", "#588184", "#7ea996", "#90c5a7"]
+                new Chart("lineChartProfit", {
+                    type: "line",
+                    data: {
+                        labels: monthsToShow,
+                        datasets: [{
+                            label: 'Monthly Profit',
+                            data: monthlyProfit,
+                            fill: false,
+                            borderColor: '#2196f3',
+                            backgroundColor: '#2196f3',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        plugins: { legend: { labels: { color: "white" } } },
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: "white"
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    color: "white"
+                                }
+                            }
+                        }
+                    }
+                });
 
 
-        } else {
-            console.log("error");
+            } else {
+                console.log("error");
+            }
         }
-    }
+    });
+
+
+
 });
-
-
-
-
 
 
 // **************FAQ-Toggle answer of question*******************
