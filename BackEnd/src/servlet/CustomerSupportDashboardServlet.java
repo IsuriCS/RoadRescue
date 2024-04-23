@@ -2,13 +2,8 @@ package servlet;
 
 
 
-import controllers.CSmember.DashboardContraller;
-import controllers.ControllerImpl.CustomerSupportController;
-import controllers.ControllerImpl.CustomerSupportTicketController;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import models.CustomerSupportTicketModels;
-import models.SupportTicket;
+import controllers.CSmember.DashboardController;
+
 import javax.annotation.Resource;
 import javax.json.*;
 import javax.servlet.ServletException;
@@ -21,13 +16,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.HashMap;
+
 @WebServlet(urlPatterns = "/customerSupportDashboard")
 public class CustomerSupportDashboardServlet extends HttpServlet{
 
-    DashboardContraller dashboardContraller= new DashboardContraller();
+    DashboardController dashboardContraller= new DashboardController();
     @Resource(name="java:comp/env/roadRescue")
     DataSource ds;
 
