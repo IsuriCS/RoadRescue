@@ -31,41 +31,92 @@ function showDashboard() {
     document.querySelector("#SupportTicketDatail").style.display = "none";
 
 
-}
-
-
-
-$("#load-container").show();
-
+//Recent Reports
 $.ajax({
-    url: API_URL + "/Admin/customerCard",
+    url: API_URL + "/CSMember/customerSupportDashboard",
     method: "GET",
     success: function (res) {
+
+        $("#load-container").hide();
         if (res.status == 200) {
-            $("#load-container").hide();
-            document.querySelector("#registeredCustomersNum").innerHTML = res.data[0].CustomerNum;
-            document.querySelector("#registeredSproviders").innerHTML = res.data[0].sproviderNum;
-            document.querySelector("#completedTasksCount").innerHTML = res.data[0].CompletedTaskCount;
-            document.querySelector("#reportCount").innerHTML = res.data[0].SupportTicketCount;
 
             var tableBody = document.querySelector("#RecentReportSection tbody");
 
-            // Start from index 1 to skip the first item in the JSON array
-            for (var i = 1; i < res.data.length; i++) {
+
+            for (var i = 0; i < res.data.length; i++) {
+
                 var datai = res.data[i];
                 var row = tableBody.insertRow();
-                row.insertCell(0).textContent = datai.name || '';
-                row.insertCell(1).textContent = datai.title || '';
-                row.insertCell(2).textContent = datai.date || '';
-                row.insertCell(3).textContent = datai.status.charAt(0).toUpperCase() + datai.status.slice(1) || '';
+                row.insertCell(0).textContent = datai.CustomerID || '-';
+                row.insertCell(1).textContent = datai.location || '--';
+                row.insertCell(2).textContent = datai.status || '_';
+                
+
+                // row.addEventListener('click', function () {
+                //     var id = this.cells[0].textContent;
+                //     showsupportTicket(res, id);
+                //
+                // })
+
             }
+
+
 
         }
         else {
             console.log("error");
         }
+
     }
 });
+
+
+
+
+// Service Requests
+    $.ajax({
+        url: API_URL + "/CSMember/customerSupportServiceRequests",
+        method: "GET",
+        success: function (res) {
+
+            $("#load-container").hide();
+            if (res.status == 200) {
+
+                var tableBody = document.querySelector("#serviceRequests tbody");
+
+
+                for (var i = 0; i < res.data.length; i++) {
+
+                    var datai = res.data[i];
+                    var row = tableBody.insertRow();
+                    row.insertCell(0).textContent = datai.CustomerID || '-';
+                    row.insertCell(1).textContent = datai.location || '--';
+                    row.insertCell(2).textContent = datai.issue || '-';
+                    row.insertCell(3).textContent = datai.status || '0';
+                    
+
+                    // row.addEventListener('click', function () {
+                    //     var id = this.cells[0].textContent;
+                    //     showsupportTicket(res, id);
+                    //
+                    // })
+
+                }
+
+
+
+            }
+            else {
+                console.log("error");
+            }
+
+        }
+    });
+
+
+}
+
+
 
 
 
@@ -571,7 +622,7 @@ function showSPprof(res, spid) {
                     url: API_URL + "/SPSupportTicket",
                     method: "GET",
                     success: function (tres) {
-                        console.log(tres);
+                        
                         if (tres.status == 200) {
 
 
@@ -663,6 +714,69 @@ function showTicket() {
     document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
+
+
+
+    
+$.ajax({
+    url: API_URL + "/CSMemberTicket/customerSupportTicketList",
+    method: "GET",
+    success: function (res) {
+        
+        $("#load-container").hide();
+        if (res.status == 200) {
+
+            var tableBody = document.querySelector("#TicketList tbody");
+
+            
+            for (var i = 0; i < res.data.length; i++) {
+
+                var datai = res.data[i];
+                var row = tableBody.insertRow();
+                row.insertCell(0).textContent = datai.CustomerID || '-';
+                row.insertCell(1).textContent = datai.service_provider_id || '--';
+                row.insertCell(2).textContent = datai.description || '-';
+                row.insertCell(3).textContent = datai.created_time || '0';
+                row.insertCell(4).textContent = datai.status || '_';
+               
+                row.addEventListener('click', function () {
+                    var id = this.cells[0].textContent;
+                    showsupportTicket(res, id);
+
+                })
+
+            }
+
+
+
+        }
+        else {
+            console.log("error");
+        }
+        
+    }
+});
+
+
+
+    // Search Ticket
+    // document.getElementById("searchTicket").addEventListener("input", function () {
+    //     var searchValue = this.value.toUpperCase();
+    //     var table = document.getElementById("TicketList");
+    //     var tr = table.getElementsByTagName("tr");
+    //     for (var i = 0; i < tr.length; i++) {
+    //         var td = tr[i].getElementsByTagName("td")[1];
+    //         if (td) {
+    //             var textValue = td.textContent || td.innerText;
+    //             if (textValue.toUpperCase().indexOf(searchValue) > -1) {
+    //                 tr[i].style.display = "";
+    //             } else {
+    //                 tr[i].style.display = "none";
+    //             }
+    //         }
+    //     }
+    // }
+    // );
 
 
 }

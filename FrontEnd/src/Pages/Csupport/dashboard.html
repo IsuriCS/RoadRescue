@@ -128,20 +128,30 @@
           <!-- ---------------------------------------Dash Board------------------------------- -->
           <!-- ---------------------------------------Dash Board------------------------------- -->
           <div id="dashboard">
-          
+
+            <!-- ---------------------display card------------------------------------- -->
+            <!-- <a href="" class="button">
+              <span class="material-symbols-outlined"> report </span>
+              <h2 id="reportCount">0</h2>
+              <p>Report and Support Tickets</p></a
+            >
+           -->
            
 
             <!-- **************************Report Section****************************** -->
            <div class = "ServieRequests">
             <h1>Service Requests</h1>
-            <table>
+            <table id = "serviceRequests">
+              <thead>
               <tr>
                 <th>Customer ID</th>
                 <th>Location</th>
                 <th>Issue</th>
                 <th>Status</th>
               </tr>
-              <tr>
+            </thead>
+            <tbody></tbody>
+              <!-- <tr>
                 <td>C001</td>
                 <td>Online Payment Issue</td>
                 <td>Colombo</td>
@@ -150,7 +160,7 @@
                 
                 
               </td>
-              </tr>
+              </tr> -->
             </table>
            </div>
            
@@ -795,13 +805,15 @@
 
       
           </div> -->
+
+          <!-- -------------------------Ticket Table -------------------------------- -->
           <div id="TicketReports" style="display: none">
             <div class="topRow">
               <h1>Support Tickets</h1>
               <div class="search">
             <form>
                 <input type="text" placeholder="Search Service Provider" name="search" id="searchCSMember">
-                <button onclick="  ">
+                <button onclick="searchTicket()">
                     <span class="material-symbols-outlined">search</span>
                 </button>
             </form>
@@ -809,23 +821,66 @@
       </div>
 
         <div class="ReportsSection">
-        <table id="RecentReportSection">
+        <table id="TicketList">
           <thead>
           <tr>
             <th>Reported By</th>
-            <th>Report title</th>
-            <th>Reported Date</th>
+            <th>Garage ID</th>
+            <th>Description</th>
+            <th>Created Time</th>
             <th>Status</th>
           </tr>
           </thead>
           <tbody></tbody>
         </table>
         </div>
-
-
-           
             </div>
           
+
+
+
+             <!-- ---------------------------------------Support ticket Detail view------------------------------- -->
+          <div id="SupportTicketDatail" style="display: none">
+            <div class="topRow">
+            <h1>Reports > 001</h1>
+            <button id="button" style="display: block;">Set Solved</button>
+          </div>
+
+          <div class="info">
+            <div>
+              <p id="Detail">ID :</p>
+              <p id="ticketID">a</p>
+            </div>
+            <div>
+              <p id="Detail">Date :</p>
+              <p id="Date">a</p>
+            </div>
+            <div>
+              <p id="Detail">Assigned Customer Support ID :</p>
+              <p id="CustomerSupportID">b</p>
+              <button id="assignbtn" style="display: hide;">Assign Customer Support Member</button>
+            </div>
+            <div>
+              <p id="Detail">Ticket Owner ID:</p>
+              <p id="userID">b</p>
+            </div>
+            <div>
+              <p id="Detail">Ticket Owner :</p>
+              <p id="userName">b</p>
+            </div>
+            <div>
+              <p id="Detail">Title :</p>
+              <p id="title">b</p>
+            </div>
+            <div>
+              <p id="Detail">Description :</p>
+              <p id="description">b</p>
+            </div>
+
+            <p style="margin: 1vh; margin-left: 0">Solution:</p>
+            <textarea style="border-radius: 12px"></textarea>
+          </div>
+          </div>
 
 
 
