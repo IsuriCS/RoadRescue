@@ -26,7 +26,7 @@
   align-content: center;
 }
 
-.displayCards .button {
+.displayCards a {
   background-color: #728ab0;
   width: 30vw;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
@@ -50,6 +50,7 @@
   margin: 1vh;
   align-items: flex-start;
   margin: 1vh;
+  cursor: unset;
 }
 
 .displayCards .button span {
@@ -93,19 +94,66 @@
     0 10px 10px rgba(37, 27, 90, 0.311);
   margin: 1vh;
 }
+.secondRow .verifications {
+  margin-left: 2vw;
+  height: 100%;
+  width: inherit;
+}
+.verifications #title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.verifications #title #number {
+  background-color: white;
+  color: #253555;
+  border-radius: 6vh;
+  font-size: 3vh;
+  margin-left: 1vw;
+  padding: 1vh;
+  align-content: center;
+  height: 4vh;
+}
+.secondRow .verifications .table {
+  padding-top: 0.5vh;
+  width: 37vw;
+  height: 35vh;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
+}
+.secondRow .verifications .table div {
+  display: flex;
+  flex-direction: row;
+  background-color: #3b4966;
+  border-radius: 3vh;
+  justify-content: space-between;
+  margin: 1vw;
+  padding: 0 1vw;
+}
+.table #cards:hover {
+  background-color: #728ab0;
+  cursor: pointer;
+}
 /* .recentMoment canvas {
 } */
-
-.Payments {
-  margin-left: 2vw;
-}
 
 /* .Payments canvas {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
     0 10px 10px rgba(37, 27, 90, 0.311);
 } */
 
-/* **********************************Dash Board third Row Recent reports table ********************************************* */
+/* **********************************Dash Board third Row analytics ********************************************* */
+.thirdRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+.thirdRow .Profit {
+  margin-left: 2vw;
+}
+
+/* **********************************Dash Board Fourth Row Recent reports table ********************************************* */
 
 .ReportsSection table {
   margin: 1vh;

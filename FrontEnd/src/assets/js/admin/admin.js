@@ -1348,11 +1348,12 @@ $.ajax({
         if (res.status == 200) {
             $("#load-container").hide();
 
-            // var currentDate = new Date();
-            // var currentMonth = currentDate.getMonth();
-            // console.log(currentMonth);
-            // var currentYear = currentDate.getFullYear();
-            // var monthsToShow = [];
+            var currentDate = new Date();
+            var currentMonth = currentDate.getMonth();
+            console.log(currentMonth);
+            var currentYear = currentDate.getFullYear();
+            var monthsToShow = [];
+            var months = [];
 
             // Analytics Cards
             document.querySelector("#registeredCustomersNum").innerHTML = res.data[0].CustomerNum;
@@ -1392,17 +1393,48 @@ $.ajax({
                 }
             });
 
+            Payment.forEach(function (entry) {
+                var monthIndex = entry.month - 1;
 
-            // for (var i = 0; i < 5; i++) {
-            //     var monthIndex = (currentMonth - i) % 12;
+                if (monthIndex !== -1) {
+                    online[monthIndex] += entry.online;
+                    cash[monthIndex] += entry.cash;
+                }
+            });
 
-            //     if (monthIndex < 0) {
-            //         monthIndex += 12;
-            //         currentYear -= 1;
-            //     }
 
-            //     monthsToShow.unshift(`${xValues[monthIndex]} ${currentYear}`);
-            // }
+            for (var i = 0; i < 5; i++) {
+                var monthIndex = (currentMonth - i) % 12;
+
+                if (monthIndex < 0) {
+                    monthIndex += 12;
+                    currentYear -= 1;
+                }
+                months.unshift(`${xValues[monthIndex]}`);
+
+                monthsToShow.unshift(`${xValues[monthIndex]} ${currentYear}`);
+            }
+
+            var rdatafilter = [];
+            var ddatafilter = [];
+            var onlinefilter = [];
+            var cashfilter = [];
+            var i = 0;
+            months.forEach(function (month) {
+                var mindex = xValues.indexOf(month);
+                console.log(mindex);
+                rdatafilter[i] = rdata[mindex];
+                ddatafilter[i] = ddata[mindex];
+                onlinefilter[i] = online[mindex];
+                cashfilter[i] = cash[mindex];
+
+                i++;
+            });
+
+            var monthlyProfit = [];
+            onlinefilter.forEach(function (value) {
+                monthlyProfit.push(value * 0.1);
+            });
 
 
             // **************DashBoard-Registation Bar Chart*******************
@@ -1410,14 +1442,14 @@ $.ajax({
             new Chart("barchatRecent", {
                 type: "bar",
                 data: {
-                    labels: xValues,
+                    labels: monthsToShow,
                     datasets: [{
                         label: "Registations",
-                        data: rdata,
+                        data: rdatafilter,
                         backgroundColor: "#0095FF"
                     }, {
                         label: "Account Deletions",
-                        data: ddata,
+                        data: ddatafilter,
                         backgroundColor: "#00E096"
                     }]
                 },
@@ -1439,14 +1471,6 @@ $.ajax({
                 }
             });
 
-            Payment.forEach(function (entry) {
-                var monthIndex = entry.month - 1;
-
-                if (monthIndex !== -1) {
-                    online[monthIndex] += entry.online;
-                    cash[monthIndex] += entry.cash;
-                }
-            });
 
 
             // **************DashBoard-Payment line Chart*******************
@@ -1454,28 +1478,62 @@ $.ajax({
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: xValues,
+                    labels: monthsToShow,
                     datasets: [{
-                        label: 'Cash Payments', // Name the series
-                        data: cash, // Specify the data values array
+                        label: 'Cash Payments',
+                        data: cashfilter,
                         fill: false,
-                        borderColor: '#2196f3', // Add custom color border (Line)
-                        backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+                        borderColor: '#2196f3',
+                        backgroundColor: '#2196f3',
                         borderWidth: 1
                     },
                     {
-                        label: 'Online Payments', // Name the series
-                        data: online, // Specify the data values array
+                        label: 'Online Payments',
+                        data: onlinefilter,
                         fill: false,
-                        borderColor: '#00E096', // Add custom color border (Line)
-                        backgroundColor: '#00E096', // Add custom color background (Points and Fill)
+                        borderColor: '#00E096',
+                        backgroundColor: '#00E096',
                         borderWidth: 1
                     }]
                 },
                 options: {
                     plugins: { legend: { labels: { color: "white" } } },
-                    responsive: true, // Instruct chart js to respond nicely.
-                    maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: "white"
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: "white"
+                            }
+                        }
+                    }
+                }
+            });
+
+            // *************Mounthly Profit Pie Chart*******************
+            barColors = ["#193741", "#3e5e63", "#588184", "#7ea996", "#90c5a7"]
+            new Chart("lineChartProfit", {
+                type: "line",
+                data: {
+                    labels: monthsToShow,
+                    datasets: [{
+                        label: 'Monthly Profit',
+                        data: monthlyProfit,
+                        fill: false,
+                        borderColor: '#2196f3',
+                        backgroundColor: '#2196f3',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: { legend: { labels: { color: "white" } } },
+                    responsive: true,
+                    maintainAspectRatio: false,
                     scales: {
                         x: {
                             ticks: {
