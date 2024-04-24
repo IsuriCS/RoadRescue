@@ -373,6 +373,16 @@ input:focus {
   background-color: #1caf09;
 }
 /* *********************************Support Ticket Page ****************************** */
+#SupportTicketDatail .topRow button {
+  font-size: 2.5vh;
+  padding: 2vh;
+  border-radius: 2vh;
+}
+#SupportTicketDatail .topRow button:hover {
+  background-color: #2289c4;
+  filter: none;
+}
+
 #SupportTicketDatail .info {
   display: flex;
   flex-direction: column;

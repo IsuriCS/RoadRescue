@@ -89,6 +89,10 @@ public class CustomerSupportTicketController {
         return CrudUtil.executeUpdate(connection,"UPDATE  customer_support_ticket SET customer_support_member_id=?,status='On Review' WHERE id=?",csmid,ticketId);
     }
 
+    public boolean solveTicket(Connection connection, String ticketId,String solution) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate(connection,"UPDATE  customer_support_ticket SET solution=?,status='Solved' WHERE id=?",solution,ticketId);
+    }
+
     public JsonObject getSupportTicketByid(Connection connection, String id) throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.executeQuery(connection, "SELECT id,status,description,title,customer_support_member_id,created_time,customer_id,solution FROM customer_support_ticket WHERE id=?", id);
 

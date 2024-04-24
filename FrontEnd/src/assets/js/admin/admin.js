@@ -525,21 +525,21 @@ function showsupportTicket(ticketId, name) {
                     document.querySelector(".info textarea").innerHTML = "";
                     document.querySelector(".info textarea").disabled = false;
                     document.querySelector(".info textarea").classList.remove("disabledText");
-                    document.querySelector(".topRow #button").style.display = "block";
+                    document.querySelector(".topRow .button").style.display = "block";
                 }
                 else if (ticketStatus.toLowerCase() == "solved") {
                     asignbtn.style.display = "none";
                     document.querySelector(".info textarea").innerHTML = datai.solution || "-";
                     document.querySelector(".info textarea").disabled = true;
                     document.querySelector(".info textarea").classList.add("disabledText");
-                    document.querySelector(".topRow #button").style.display = "none";
+                    document.querySelector(".topRow .button").style.display = "none";
                 }
                 else {
                     asignbtn.style.display = "none";
                     document.querySelector(".info textarea").innerHTML = "";
                     document.querySelector(".info textarea").disabled = false;
                     document.querySelector(".info textarea").classList.remove("disabledText");
-                    document.querySelector(".topRow #button").style.display = "block";
+                    document.querySelector(".topRow .button").style.display = "block";
                 }
 
                 asignbtn.addEventListener("click", function () {
@@ -616,6 +616,56 @@ function showsupportTicket(ticketId, name) {
                 }
                 );
 
+                var solvedbtn = document.getElementById("Solvedbutton");
+
+                solvedbtn.addEventListener("click", function () {
+                    var solution = document.querySelector("textarea").value;
+                    if (solution == "") {
+                        messagebox.style.display = "block";
+                        messageimg.setAttribute("src", "../../assets/img/exclamation.png");
+                        messagetext.innerHTML = "Please provide a solution";
+                        messageimg.style.width = "13vh";
+                        messagebutton.style.display = "none";
+                        setTimeout(function () {
+                            messagebox.style.display = "none";
+                        }, 1500);
+                    }
+                    else {
+                        messagebox.style.display = "block";
+                        messageimg.setAttribute("src", "../../assets/img/Gear-0.3s-200px.gif");
+                        messagetext.innerHTML = "Updating Ticket...";
+                        messagebutton.style.display = "none";
+                        var data = {
+                            ticketId: ticketid,
+                            status: "Solved",
+                            solution: solution,
+                            option: "solveTicket"
+                        };
+
+                        $.ajax({
+                            url: API_URL + "/customerSupport",
+                            method: "POST",
+                            contentType: 'application/json',
+                            data: JSON.stringify(data),
+                            success: function (res) {
+                                if (res.status == 201) {
+                                    messagebox.style.display = "block";
+                                    messageimg.setAttribute("src", "../../assets/img/Tick.png");
+                                    messagetext.innerHTML = "Ticket Updated Successfully";
+                                    messagebutton.style.display = "none";
+                                    setTimeout(function () {
+                                        messagebox.style.display = "none";
+                                    }, 1500);
+                                    showsupportTicket(ticketId, name);
+                                }
+                                else {
+                                    console.log("error");
+                                }
+                            }
+                        });
+                    }
+
+                });
                 $("#load-container").hide();
 
             }
