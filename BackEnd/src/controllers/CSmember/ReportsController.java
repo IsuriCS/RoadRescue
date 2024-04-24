@@ -12,20 +12,22 @@ import java.sql.SQLException;
 
 public class ReportsController {
     public JsonArray getTicketList(Connection connection) throws SQLException, ClassNotFoundException {
-        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT * FROM road_rescue.sp_support_ticket WHERE status='pending'");
+        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT * FROM road_rescue.customer_support_ticket WHERE status='pending'");
 
         JsonArrayBuilder RecentRequestArrayBuilder = Json.createArrayBuilder();
 
         while (rst.next()) {
             int id = rst.getInt("id");
-            String serviceProviderId= rst.getString("service_provider_id");
-            String description = rst.getString("description");
-            int createdTime = rst.getInt("created_time");
+            int customerId= rst.getInt("customer_id");
+            int csmemberId = rst.getInt("customer_support_member_id");
+            String problem = rst.getString("title");
+            String createdTime = rst.getString("created_time");
             String status = rst.getString("status");
             JsonObjectBuilder RecentServices = Json.createObjectBuilder();
-            RecentServices.add("CustomerID", id);
-            RecentServices.add("service_provider_id", serviceProviderId);
-            RecentServices.add("description", description);
+            RecentServices.add("ticketId", id);
+            RecentServices.add("customer_id", customerId);
+            RecentServices.add("csmember_id", csmemberId);
+            RecentServices.add("title", problem);
             RecentServices.add("created_time", createdTime);
             RecentServices.add("status", status);
 

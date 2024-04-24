@@ -16,11 +16,15 @@ public class DashboardController {
 
         while (rst.next()) {
             int id = rst.getInt("customer_id");
-            String location = rst.getString("location");
-            int status = rst.getInt("status");
+            String title = rst.getString("issue_category_id");
+            String timestamp = rst.getString("request_timestamp");
+            String acceptedTime = rst.getString("accepted_timestamp");
+            String status = rst.getString("status");
             JsonObjectBuilder RecentServices = Json.createObjectBuilder();
             RecentServices.add("CustomerID", id);
-            RecentServices.add("location", location);
+            RecentServices.add("title", title);
+            RecentServices.add("Rtimestamp", timestamp);
+            RecentServices.add("Atimestamp", acceptedTime);
             RecentServices.add("status", status);
 
             RecentRequestArrayBuilder.add(RecentServices.build());

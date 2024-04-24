@@ -48,8 +48,17 @@ $.ajax({
                 var datai = res.data[i];
                 var row = tableBody.insertRow();
                 row.insertCell(0).textContent = datai.CustomerID || '-';
-                row.insertCell(1).textContent = datai.location || '--';
-                row.insertCell(2).textContent = datai.status || '_';
+                row.insertCell(1).textContent = datai.title || '--';
+                // var dateTime = new Date(datai.Rtimestamp);
+                // var formattedDate = dateTime.toLocaleDateString();
+                // row.insertCell(2).textContent = formattedDate || '_';
+                row.insertCell(2).textContent = datai.Rtimestamp || '_';
+                // var dateTime = new Date(datai.Atimestamp);
+                // var formattedDate = dateTime.toLocaleDateString();
+                // row.insertCell(3).textContent = formattedDate || '_';
+                row.insertCell(3).textContent = datai.Atimestamp || '_';
+                row.insertCell(4).textContent = datai.status || '_';
+
                 
 
                 // row.addEventListener('click', function () {
@@ -92,7 +101,7 @@ $.ajax({
                     row.insertCell(0).textContent = datai.CustomerID || '-';
                     row.insertCell(1).textContent = datai.location || '--';
                     row.insertCell(2).textContent = datai.issue || '-';
-                    row.insertCell(3).textContent = datai.status || '0';
+                    row.insertCell(3).textContent = datai.status || '_';
                     
 
                     // row.addEventListener('click', function () {
@@ -733,15 +742,21 @@ $.ajax({
 
                 var datai = res.data[i];
                 var row = tableBody.insertRow();
-                row.insertCell(0).textContent = datai.CustomerID || '-';
-                row.insertCell(1).textContent = datai.service_provider_id || '--';
-                row.insertCell(2).textContent = datai.description || '-';
-                row.insertCell(3).textContent = datai.created_time || '0';
-                row.insertCell(4).textContent = datai.status || '_';
-               
+                row.insertCell(0).textContent = datai.ticketId || '-';
+                row.insertCell(1).textContent = datai.customer_id || '--';
+                row.insertCell(2).textContent = datai.csmember_id || '--';
+                row.insertCell(3).textContent = datai.title || '-';
+                var dateTime = new Date(datai.created_time);
+                var formattedDate = dateTime.toLocaleDateString();
+                row.insertCell(4).textContent = formattedDate || '_';
+                // row.insertCell(3).textContent = datai.created_time || '0';
+                row.insertCell(5).textContent = datai.status || '_';
+                
                 row.addEventListener('click', function () {
-                    var id = this.cells[0].textContent;
-                    showsupportTicket(res, id);
+                    // const ticketID1 = datai.ticketID || '-';
+                    
+                    var ticketid = this.cells[0].textContent;
+                    showsupportTicket(res, ticketid);
 
                 })
 
