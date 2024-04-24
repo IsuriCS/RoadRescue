@@ -48,7 +48,24 @@ $.ajax({
                 var datai = res.data[i];
                 var row = tableBody.insertRow();
                 row.insertCell(0).textContent = datai.CustomerID || '-';
-                row.insertCell(1).textContent = datai.title || '--';
+
+                let TITLE;
+                if(datai.title ==1){
+                    TITLE = "Mechanical Issues";
+                }else if(datai.title ==2){
+                    TITLE = "Electrical Issues";
+                }else if(datai.title == 3){
+                    TITLE = "Engine Problems";
+                }else if(datai.title == 4){
+                    TITLE = "Fuel Issues";
+                }else if(datai.title == 5){
+                    TITLE = "Exhaust Issues";
+                }else if(datai.title == 6){
+                    TITLE = "Cooling Problems";
+                }else{
+                    TITLE = "Other";
+                }
+                row.insertCell(1).textContent = TITLE || '--';
                 // var dateTime = new Date(datai.Rtimestamp);
                 // var formattedDate = dateTime.toLocaleDateString();
                 // row.insertCell(2).textContent = formattedDate || '_';
@@ -119,7 +136,25 @@ $.ajax({
                     var row = tableBody.insertRow();
                     row.insertCell(0).textContent = datai.CustomerID || '-';
                     row.insertCell(1).textContent = datai.location || '--';
-                    row.insertCell(2).textContent = datai.issue || '-';
+
+                    let ISSUE;
+                    if(datai.issue ==1){
+                        ISSUE = "Mechanical Issues";
+                    }else if(datai.issue ==2){
+                        ISSUE = "Electrical Issues";
+                    }else if(datai.issue == 3){
+                        ISSUE = "Engine Problems";
+                    }else if(datai.issue == 4){
+                        ISSUE = "Fuel Issues";
+                    }else if(datai.issue == 5){
+                        ISSUE = "Exhaust Issues";
+                    }else if(datai.issue == 6){
+                        ISSUE = "Cooling Problems";
+                    }else{
+                        ISSUE = "Other";
+                    }
+                    row.insertCell(2).textContent = ISSUE || '-';
+
                     let ST;
                     if(datai.status==1){
                         ST="Pending.Not accepted by a garage";
@@ -192,7 +227,7 @@ function showcus() {
     $("#CustomerList tbody").empty();
 
     $.ajax({
-        url: API_URL + "/Admin/CustomerList",
+        url: API_URL + "/CSMember/CustomerList",
         method: "GET",
         success: function (res) {
 
@@ -462,7 +497,7 @@ function showServiceProviders() {
     var tableBody = document.querySelector("#SPList tbody");
     // $("#load-container").show();
     $.ajax({
-        url: API_URL + "/Admin/SPlist",
+        url: API_URL + "/CSmember/CSSPList",
         method: "GET",
         success: function (res) {
 
