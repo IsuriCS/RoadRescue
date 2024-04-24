@@ -145,6 +145,7 @@ function showcus() {
 
 }
 
+
 function showprof(customerId) {
     $("#load-container").show();
     document.querySelector("#dashboard").style.display = "none";
@@ -165,6 +166,8 @@ function showprof(customerId) {
     document.getElementById("editProfileForm").style.display = "none";
     document.getElementById("profile").style.display = "block";
     // Update the title
+
+
     var title = document.querySelector("#cusprof .topRow h1");
     title.innerHTML = `Customer > C${customerId.padStart(3, '0')}`;
     var data = {
@@ -246,7 +249,7 @@ function showprof(customerId) {
                                             }
 
                                             clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
-                                                showsupportTicket(res, datai.ticketId, name);
+                                                showsupportTicket(datai.ticketId, name);
 
 
                                             });
@@ -469,13 +472,10 @@ function showprof(customerId) {
         }
     });
 
-
-
-
-
 }
 
-function showsupportTicket(res, ticketId, name) {
+
+function showsupportTicket(ticketId, name) {
     $("#load-container").show();
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
@@ -498,49 +498,134 @@ function showsupportTicket(res, ticketId, name) {
     var ttitle = document.querySelector("#SupportTicketDatail .topRow h1");
     ttitle.innerHTML = `Reports > ST${String(ticketId).padStart(3, '0')}`;
 
+    $.ajax({
+        url: API_URL + `/Admin/supportTicket?id=${String(ticketId)}&option=getSTbyid`,
+        method: "GET",
+        success: function (res) {
 
-    for (var i = 0; i < res.data.length; i++) {
-        if (res.data[i].ticketId == ticketId) {
-            var datai = res.data[i];
+            if (res.status == 200) {
+                $("#load-container").hide();
+                var datai = res.data;
+                document.getElementById("ticketID").innerHTML = datai.ticketId;
+                document.getElementById("CustomerSupportID").innerHTML = datai.customer_support_member_id || '-';
+                document.getElementById("userID").innerHTML = datai.customerID || datai.SPid || '-';
+                document.getElementById("userName").innerHTML = name || '-';
+                document.getElementById("title").innerHTML = datai.title || '-';
+                document.getElementById("description").innerHTML = datai.description || '-';
+                var dateTime = new Date(datai.created_time);
+                var formattedDate = dateTime.toLocaleDateString();
+                document.getElementById("Date").innerHTML = formattedDate || '-';
 
-            document.getElementById("ticketID").innerHTML = datai.ticketId;
-            document.getElementById("CustomerSupportID").innerHTML = datai.customer_support_member_id || '-';
-            document.getElementById("userID").innerHTML = datai.customerID || datai.SPid || '-';
-            document.getElementById("userName").innerHTML = name || '-';
-            document.getElementById("title").innerHTML = datai.title || '-';
-            document.getElementById("description").innerHTML = datai.description || '-';
-            var dateTime = new Date(datai.created_time);
-            var formattedDate = dateTime.toLocaleDateString();
-            document.getElementById("Date").innerHTML = formattedDate || '-';
+                var ticketStatus = datai.status;
+                var ticketid = ticketId;
 
-            var ticketStatus = datai.status;
+                var asignbtn = document.getElementById("assignbtn");
+                if (ticketStatus.toLowerCase() == "pending") {
+                    asignbtn.style.display = "block";
+                    document.querySelector(".info textarea").innerHTML = "";
+                    document.querySelector(".info textarea").disabled = false;
+                    document.querySelector(".info textarea").classList.remove("disabledText");
+                    document.querySelector(".topRow #button").style.display = "block";
+                }
+                else if (ticketStatus.toLowerCase() == "solved") {
+                    asignbtn.style.display = "none";
+                    document.querySelector(".info textarea").innerHTML = datai.solution || "-";
+                    document.querySelector(".info textarea").disabled = true;
+                    document.querySelector(".info textarea").classList.add("disabledText");
+                    document.querySelector(".topRow #button").style.display = "none";
+                }
+                else {
+                    asignbtn.style.display = "none";
+                    document.querySelector(".info textarea").innerHTML = "";
+                    document.querySelector(".info textarea").disabled = false;
+                    document.querySelector(".info textarea").classList.remove("disabledText");
+                    document.querySelector(".topRow #button").style.display = "block";
+                }
 
-            var asignbtn = document.getElementById("assignbtn");
-            if (ticketStatus.toLowerCase() == "pending") {
-                asignbtn.style.display = "block";
-                document.querySelector(".info textarea").innerHTML = "";
-                document.querySelector(".info textarea").disabled = false;
-                document.querySelector(".info textarea").classList.remove("disabledText");
-                document.querySelector(".topRow #button").style.display = "block";
-            }
-            else if (ticketStatus.toLowerCase() == "solved") {
-                asignbtn.style.display = "none";
-                document.querySelector(".info textarea").innerHTML = datai.solution || "-";
-                document.querySelector(".info textarea").disabled = true;
-                document.querySelector(".info textarea").classList.add("disabledText");
-                document.querySelector(".topRow #button").style.display = "none";
+                asignbtn.addEventListener("click", function () {
+                    $("#load-container").show();
+                    var assignWindow = document.getElementById("assignCSM");
+                    assignWindow.style.display = "block";
+                    var csmtemplate = document.querySelector("#CSMCardtemplate");
+                    $.ajax({
+                        url: API_URL + "/Admin/CustomerSupportList",
+                        method: "GET",
+                        success: function (res) {
+
+                            if (res.status == 200) {
+                                // Start from index 1 to skip the first item in the JSON array
+                                for (var i = 0; i < res.data.length; i++) {
+                                    var datai = res.data[i];
+                                    var pcontent = `CS${String(datai.CSid).padStart(3, '0')} - ${datai.fname} ${datai.lname}`;
+                                    var spancontent = datai.tickets_solved || '0';
+                                    var clone = csmtemplate.content.cloneNode(true);
+
+                                    clone.querySelector("p").innerHTML = pcontent;
+                                    clone.querySelector("span").innerHTML = `Solved Tickets ${spancontent}`;
+                                    clone.querySelector(".csmcards").addEventListener("click", function () {
+                                        messagebox.style.display = "block";
+                                        messageimg.setAttribute("src", "../../assets/img/Gear-0.3s-200px.gif");
+                                        messagetext.innerHTML = "Customer Support Member Assigning...";
+                                        messagebutton.style.display = "none";
+
+                                        var csmid = String(Number(pcontent.split(" ")[0].slice(2)));
+
+                                        var data = {
+                                            ticketId: ticketid,
+                                            csmid: csmid,
+                                            status: "On Review",
+                                            option: "assignCSM"
+                                        };
+                                        console.log(JSON.stringify(data));
+                                        $.ajax({
+                                            url: API_URL + "/customerSupport",
+                                            method: "POST",
+                                            contentType: 'application/json',
+                                            data: JSON.stringify(data),
+                                            success: function (res) {
+                                                if (res.status == 201) {
+
+                                                    messagebox.style.display = "block";
+                                                    messageimg.setAttribute("src", "../../assets/img/Tick.png");
+                                                    messagetext.innerHTML = "Customer Support Member Assigned Successfully";
+                                                    messagebutton.style.display = "none";
+                                                    setTimeout(function () {
+                                                        messagebox.style.display = "none";
+                                                    }, 1500);
+                                                    assignWindow.style.display = "none";
+                                                    asignbtn.style.display = "none";
+                                                    showsupportTicket(ticketId, name);
+                                                }
+                                                else {
+                                                    console.log("error");
+                                                }
+                                            }
+                                        });
+                                    });
+                                    document.querySelector(".csmwindow").appendChild(clone);
+
+
+                                }
+                                $("#load-container").hide();
+                            }
+                            else {
+                                console.log("error");
+                            }
+                        }
+                    });
+                }
+                );
+
+                $("#load-container").hide();
+
             }
             else {
-                asignbtn.style.display = "none";
-                document.querySelector(".info textarea").innerHTML = "";
-                document.querySelector(".info textarea").disabled = false;
-                document.querySelector(".info textarea").classList.remove("disabledText");
-                document.querySelector(".topRow #button").style.display = "block";
+                console.log("error");
             }
-            $("#load-container").hide();
         }
-    }
+    });
 }
+
 
 function showServiceProviders() {
 
@@ -1577,17 +1662,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 var tableBody = document.querySelector("#RecentReportSection tbody");
 
-                var formattedData = {
-                    status: 200,
-                    message: "Done",
-                    data: []
-                };
+
 
                 // Recent 5 support cards table
                 for (var i = 1; i < 6; i++) {
                     (function () {
                         var datai = Analytics[i];
-                        formattedData.data.push(datai);
+
                         var row = tableBody.insertRow();
                         row.insertCell(0).textContent = datai.name || '';
                         row.insertCell(1).textContent = datai.title || '';
@@ -1596,7 +1677,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         var id = datai.ticketId;
                         row.addEventListener('click', function () {
                             var name = this.cells[0].textContent;
-                            showsupportTicket(formattedData, id, name);
+                            showsupportTicket(id, name);
                         });
                     })();
                 }

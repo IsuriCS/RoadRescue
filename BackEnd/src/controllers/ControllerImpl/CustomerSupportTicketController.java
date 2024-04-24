@@ -7,10 +7,7 @@ import utils.CrudUtil;
 import models.CustomerSupportTicketModels;
 import models.SupportTicket;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -87,4 +84,48 @@ public class CustomerSupportTicketController {
         }
         return SupportTickets.build();
     }
+
+    public boolean assignCSM(Connection connection, String ticketId,String csmid) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate(connection,"UPDATE  customer_support_ticket SET customer_support_member_id=?,status='On Review' WHERE id=?",csmid,ticketId);
+    }
+
+    public JsonObject getSupportTicketByid(Connection connection, String id) throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT id,status,description,title,customer_support_member_id,created_time,customer_id,solution FROM customer_support_ticket WHERE id=?", id);
+
+        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+        if (rst.next()) {
+
+
+            String status =rst.getString(2);
+            String description =rst.getString(3);
+            String title =rst.getString(4);
+            String customer_support_member_id =rst.getString(5);
+            String created_time =rst.getString(6);
+            String  customerId= rst.getString(7);
+            String solution = rst.getString(8);
+
+
+
+            objectBuilder.add("ticketId",id);
+            objectBuilder.add("status",status);
+            objectBuilder.add("description",description);
+            objectBuilder.add("title",title);
+            if (customer_support_member_id==null){
+                objectBuilder.addNull("customer_support_member_id");
+            }
+            else {
+                objectBuilder.add("customer_support_member_id",customer_support_member_id);
+            }
+
+            objectBuilder.add("created_time",created_time);
+            objectBuilder.add("customerID",customerId);
+            objectBuilder.add("solution",solution);
+
+            return objectBuilder.build();
+        } else {
+            return null;
+        }
+    }
+
+
 }

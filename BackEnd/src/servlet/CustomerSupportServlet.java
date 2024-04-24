@@ -192,7 +192,47 @@ public class CustomerSupportServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
-            default:break;
+
+            case "assignCSM":
+                String ticketid = jsonObject.getString("ticketId");
+                String csmId= jsonObject.getString("csmid");
+
+                CustomerSupportTicketController customerSupportTicketController=new CustomerSupportTicketController();
+                try {
+                    Connection connection = ds.getConnection();
+
+                    boolean result = customerSupportTicketController.assignCSM(connection,ticketid,csmId);
+
+                    if (result) {
+                        System.out.println("start send response");
+                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                        resp.setStatus(HttpServletResponse.SC_OK);
+                        objectBuilder.add("status", 201);
+                        objectBuilder.add("message", "Customer Support Member assign successfull.");
+                        objectBuilder.add("data","");
+                        writer.print(objectBuilder.build());
+//                System.out.println("end send response");
+                    }
+                    connection.close();
+                } catch (SQLException e) {
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    objectBuilder.add("status", 500);
+                    objectBuilder.add("message", "SQL Exception Error.");
+                    objectBuilder.add("data", e.getLocalizedMessage());
+                    writer.print(objectBuilder.build());
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    objectBuilder.add("status", 500);
+                    objectBuilder.add("message", "Class not fount Exception Error");
+                    objectBuilder.add("data", e.getLocalizedMessage());
+                    writer.print(objectBuilder.build());
+                    e.printStackTrace();
+                }
+
+                default:break;
         }
 
 
