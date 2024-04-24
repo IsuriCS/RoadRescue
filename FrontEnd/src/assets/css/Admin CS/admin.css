@@ -107,12 +107,12 @@
   height: 100%;
   width: inherit;
 }
-.verifications #title {
+.verifications #verificationtitle {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.verifications #title #number {
+.verifications #verificationtitle #number {
   background-color: white;
   color: #253555;
   border-radius: 6vh;
@@ -285,6 +285,7 @@ input:focus {
   border-style: none;
   width: inherit;
   justify-content: center;
+  cursor: pointer;
 }
 #cusprof button {
   width: 12vw;
@@ -372,6 +373,16 @@ input:focus {
   background-color: #1caf09;
 }
 /* *********************************Support Ticket Page ****************************** */
+#SupportTicketDatail .topRow button {
+  font-size: 2.5vh;
+  padding: 2vh;
+  border-radius: 2vh;
+}
+#SupportTicketDatail .topRow button:hover {
+  background-color: #2289c4;
+  filter: none;
+}
+
 #SupportTicketDatail .info {
   display: flex;
   flex-direction: column;
@@ -404,6 +415,105 @@ input:focus {
 }
 #SupportTicketDatail .info .disabledText {
   color: white;
+}
+
+/* *******************************Assign CSM ************************** */
+#assignCSM {
+  background-color: #162645;
+  border-radius: 2vh;
+  border: white solid 3px;
+  position: absolute;
+  top: 23vh;
+  right: 16vw;
+  height: 46vh;
+  width: 22vw;
+  padding: 1vh;
+}
+#assignCSM #outline {
+  overflow: auto;
+  height: inherit;
+}
+#outline h3 {
+  margin: 1vh;
+  color: white;
+  text-align: center;
+}
+.csmwindow div {
+  display: flex;
+  flex-direction: row;
+  background-color: #3b4966;
+  border-radius: 3vh;
+  justify-content: space-between;
+  margin: 1vw;
+  padding: 0 1vw;
+}
+.csmwindow #csmcards:hover {
+  background-color: #728ab0;
+  cursor: pointer;
+}
+
+/* *******************Hover box********************* */
+.csmcards {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+.csmcards:hover {
+  cursor: pointer;
+}
+
+.csmcards .csmcardtext {
+  visibility: hidden;
+
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  /* padding: 5px 0; */
+  border-radius: 6px;
+  position: absolute;
+  z-index: 3;
+  width: 120px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+  font-size: 2vh;
+  padding: 1vh;
+}
+
+.csmcards:hover .csmcardtext {
+  visibility: visible;
+}
+.csmcards .csmcardtext::after {
+  content: " ";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+/* **********************Scrolling bar******************** */
+::-webkit-scrollbar {
+  width: 2vh;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #728ab0;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #728ab0;
 }
 /* ************************FAQ**************************** */
 /* 
