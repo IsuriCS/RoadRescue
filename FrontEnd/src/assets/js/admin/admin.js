@@ -110,7 +110,7 @@ function showcus() {
 
                     row.addEventListener('click', function () {
                         var customerId = this.cells[0].textContent;
-                        showprof(res, customerId);
+                        showprof(customerId);
 
                     })
                 }
@@ -144,7 +144,7 @@ function showcus() {
 
 }
 
-function showprof(res, customerId) {
+function showprof(customerId) {
     $("#load-container").show();
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
@@ -161,110 +161,263 @@ function showprof(res, customerId) {
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
 
-
+    document.getElementById("editProfileForm").style.display = "none";
+    document.getElementById("profile").style.display = "block";
     // Update the title
     var title = document.querySelector("#cusprof .topRow h1");
     title.innerHTML = `Customer > C${customerId.padStart(3, '0')}`;
+    var data = {
+        customerId: customerId,
+
+        option: "getCustomerById"
+    };
+
+    $.ajax({
+        url: API_URL + "/Admin/CustomerList",
+        method: "POST",
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function (res) {
+
+            if (res.status == 201) {
+                $("#load-container").hide();
+                var datai = res.data;
+                document.getElementById("cid").innerHTML = datai.customerId;
+                document.getElementById("fname").innerHTML = datai.fname || '-';
+                document.getElementById("lname").innerHTML = datai.lname || '-';
+                document.getElementById("email").innerHTML = datai.email || '-';
+                document.getElementById("cnum").innerHTML = datai.contact || '-';
 
 
+                // Show Support Tickets and profile data
+                if (datai.nSupportTickets > 0) {
 
-    for (var i = 0; i < res.data.length; i++) {
+                    // Remove created ticket cards
+                    var ticketList = document.querySelectorAll(".SuppotTicketcard");
 
-        if (res.data[i].customerId == customerId) {
+                    if (ticketList.length > 0) {
+                        ticketList.forEach(function (ticket) {
+                            ticket.remove();
+                        });
+                    }
 
-            var datai = res.data[i];
-            var name = datai.fname + " " + datai.lname;
-            document.getElementById("cid").innerHTML = datai.customerId;
-            document.getElementById("fname").innerHTML = datai.fname || '-';
-            document.getElementById("lname").innerHTML = datai.lname || '-';
-            document.getElementById("email").innerHTML = datai.email || '-';
-            document.getElementById("cnum").innerHTML = datai.contact || '-';
+                    // request ticket details from backend
+                    $.ajax({
+                        url: API_URL + "/customerSupport",
+                        method: "GET",
+                        success: function (res) {
 
-            if (datai.nSupportTickets > 0) {
+                            if (res.status == 200) {
 
-                // Remove created ticket cards
-                var ticketList = document.querySelectorAll(".SuppotTicketcard");
-                console.log(ticketList);
-                if (ticketList.length > 0) {
-                    ticketList.forEach(function (ticket) {
-                        ticket.remove();
-                    });
+
+                                for (var i = 0; i < res.data.length; i++) {
+                                    (function () {
+                                        var datai = res.data[i];
+                                        if (datai.customerID == customerId) {
+
+
+                                            var temp = document.getElementById("supportTicketTemplate");
+                                            var clone = temp.content.cloneNode(true);
+                                            clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${String(datai.ticketId).padStart(3, '0')}`;
+
+                                            var dateTime = new Date(datai.created_time);
+                                            var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
+                                            clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
+
+                                            // Update ticket title
+                                            clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
+
+                                            // Change status button
+                                            var status = datai.status;
+                                            var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
+
+                                            if (status.toLowerCase() == "pending") {
+                                                sbutton.classList.add("pending");
+                                                sbutton.textContent = "Pending";
+                                            }
+                                            else if (status.toLowerCase() == "solved") {
+                                                sbutton.classList.add("solved");
+                                                sbutton.textContent = "Solved";
+                                            }
+                                            else {
+                                                sbutton.classList.add("on_review");
+                                                sbutton.textContent = "On Review";
+                                            }
+
+                                            clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
+                                                showsupportTicket(res, datai.ticketId, name);
+
+
+                                            });
+                                            document.getElementById("no_support_tickets").style.display = "none";
+                                            document.getElementById("support_ticket_list").style.display = "block";
+                                            document.getElementById("support_ticket_list").appendChild(clone);
+                                        }
+                                    })();
+
+
+                                }
+                                $("#load-container").hide();
+                            }
+                            else {
+                                console.log("error");
+                            }
+                        }
+                    })
+
+                }
+                else {
+                    $("#load-container").hide();
+                    document.getElementById("no_support_tickets").style.display = "block";
+                    document.getElementById("support_ticket_list").style.display = "none";
+
                 }
 
-                // request ticket details from backend
-                $.ajax({
-                    url: API_URL + "/customerSupport",
-                    method: "GET",
-                    success: function (res) {
-                        console.log(res);
-                        if (res.status == 200) {
+                var editButton = document.createElement("button");
+                editButton.id = "editProfileButton";
+                editButton.className = "button";
+                editButton.innerHTML = '<span class="material-symbols-outlined"> edit </span>Edit ';
+
+                // Append edit button to the container
+                var buttonContainer = document.getElementById("editButtonContainer");
+                buttonContainer.innerHTML = ''; // Clear previous button
+                buttonContainer.appendChild(editButton);
+
+                // Save button
+                var saveButton = document.createElement("button");
+                saveButton.id = "saveProfileButton";
+                saveButton.className = "button";
+                saveButton.innerHTML = '<span class="material-symbols-outlined" style="margin-right: 1vh; vertical-align: bottom;"> save </span>Save';
+                saveButton.style.display = "none";
+
+                // Append edit button to the container
+                buttonContainer.appendChild(saveButton);
+
+                // Delete Button
+                var deleteButton = document.createElement("button");
+                deleteButton.id = "deletebutton";
+                deleteButton.className = "deleteButton";
+                deleteButton.innerHTML = '<span class="material-symbols-outlined"> delete </span>Delete';
+                deleteButton.classList.add("button");
 
 
-                            for (var i = 0; i < res.data.length; i++) {
-                                (function () {
-                                    var datai = res.data[i];
-                                    if (datai.customerID == customerId) {
+                // Append edit button to the container
+                var deletebuttonContainer = document.getElementById("deleteButtonContainer");
+                deletebuttonContainer.innerHTML = ''; // Clear previous button
+                deletebuttonContainer.appendChild(deleteButton);
+
+                // Add event listener to the edit button
+                editButton.addEventListener("click", function () {
+
+                    var form = document.getElementById("editProfileForm");
+                    form.style.display = "block";
+                    document.getElementById("profile").style.display = "none";
+
+                    var form = document.getElementById("editProfileForm");
+                    form.style.display = "block";
+                    document.getElementById("profile").style.display = "none";
+
+                    // Display save button
+                    saveButton.style.display = "block";
+                    editButton.style.display = "none";
+
+                    // Disable delete button
+                    deletebutton.disabled = true;
+                    deletebutton.style.backgroundColor = "#6f102e";
 
 
-                                        var temp = document.getElementById("supportTicketTemplate");
-                                        var clone = temp.content.cloneNode(true);
-                                        clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${String(datai.ticketId).padStart(3, '0')}`;
-                                        console.log(datai.ticketId);
-                                        var dateTime = new Date(datai.created_time);
-                                        var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
-                                        clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
-
-                                        // Update ticket title
-                                        clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
-
-                                        // Change status button
-                                        var status = datai.status;
-                                        var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
-
-                                        if (status.toLowerCase() == "pending") {
-                                            sbutton.classList.add("pending");
-                                            sbutton.textContent = "Pending";
-                                        }
-                                        else if (status.toLowerCase() == "solved") {
-                                            sbutton.classList.add("solved");
-                                            sbutton.textContent = "Solved";
-                                        }
-                                        else {
-                                            sbutton.classList.add("on_review");
-                                            sbutton.textContent = "On Review";
-                                        }
-
-                                        clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
-                                            showsupportTicket(res, datai.ticketId, name);
-                                            console.log(res, datai.ticketId, name);
-
-                                        });
-                                        document.getElementById("no_support_tickets").style.display = "none";
-                                        document.getElementById("support_ticket_list").style.display = "block";
-                                        document.getElementById("support_ticket_list").appendChild(clone);
-                                    }
-                                })();
 
 
+                    document.querySelector("#editProfileForm #cid").innerHTML = datai.customerId;
+
+                    document.querySelector("#editProfileForm #fname").value = datai.fname;
+                    document.querySelector("#editProfileForm #lname").value = datai.lname;
+                    document.querySelector("#editProfileForm #email").value = datai.email;
+                    document.querySelector("#editProfileForm #cnum").value = datai.contact;
+
+                    saveButton.addEventListener("click", function () {
+                        messagebox.style.display = "block";
+                        messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
+                        messagetext.innerHTML = "Updating Profile...";
+                        // Retrieve the updated values from the form fields
+                        var customerId = document.querySelector("#editProfileForm #cid").innerHTML;
+                        var fname = document.querySelector("#editProfileForm #fname").value;
+                        var lname = document.querySelector("#editProfileForm #lname").value;
+                        var email = document.querySelector("#editProfileForm #email").value;
+                        var cnum = document.querySelector("#editProfileForm #cnum").value;
+
+                        // Perform validation if needed
+
+                        // Prepare the data to send via AJAX
+                        var data = {
+                            customerId: customerId,
+                            fname: fname,
+                            lname: lname,
+                            email: email,
+                            cnum: cnum,
+                            option: "updateDetails"
+                        };
+
+
+                        console.log(JSON.stringify(data));
+                        // Send an AJAX request to update the profile
+                        $.ajax({
+                            url: API_URL + '/Admin/CustomerList',
+                            method: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify(data),
+                            success: function (response) {
+
+                                messageimg.setAttribute("src", "../../assets/img/Tick.png");
+                                messagetext.innerHTML = "Update Successful";
+                                setTimeout(function () {
+                                    messagebox.style.display = "none";
+                                }, 1500);
+                                document.getElementById("editProfileForm").style.display = "none";
+                                document.getElementById("profile").style.display = "block";
+                                showprof(customerId);
+                                deletebutton.disabled = false;
+                                deletebutton.style.backgroundColor = "#c41950";
+
+                                // Change to save button
+                                saveButton.style.display = "none";
+                                editButton.style.display = "block";
+                            },
+                            error: function (error) {
+
+                                messageimg.setAttribute("src", "../../assets/img/exclametion.png");
+                                messagetext.innerHTML = "Something went wrong. Try Again";
+                                setTimeout(function () {
+                                    messagebox.style.display = "none";
+                                }, 1500);
+                                document.getElementById("editProfileForm").style.display = "none";
+                                document.getElementById("profile").style.display = "block";
+                                showprof(customerId);
+                                deletebutton.disabled = false;
+                                deletebutton.style.backgroundColor = "#c41950";
+
+                                // Change to save button
+                                saveButton.style.display = "none";
+                                editButton.style.display = "block";
+                                // Handle error response
+                                console.error('Failed to update profile:', error);
                             }
-                            $("#load-container").hide();
-                        }
-                        else {
-                            console.log("error");
-                        }
-                    }
-                })
+                        });
+                    });
+                });
+
+
+
 
             }
             else {
-                $("#load-container").hide();
-                document.getElementById("no_support_tickets").style.display = "block";
-                document.getElementById("support_ticket_list").style.display = "none";
-
+                console.log("error");
             }
         }
+    });
 
-    }
+
+
 
 
 }
@@ -299,7 +452,7 @@ function showsupportTicket(res, ticketId, name) {
 
             document.getElementById("ticketID").innerHTML = datai.ticketId;
             document.getElementById("CustomerSupportID").innerHTML = datai.customer_support_member_id || '-';
-            document.getElementById("userID").innerHTML = datai.customerID || '-';
+            document.getElementById("userID").innerHTML = datai.customerID || datai.SPid || '-';
             document.getElementById("userName").innerHTML = name || '-';
             document.getElementById("title").innerHTML = datai.title || '-';
             document.getElementById("description").innerHTML = datai.description || '-';
@@ -1057,7 +1210,7 @@ function showVerification() {
                                             row.remove();
                                             setTimeout(function () {
                                                 messagebox.style.display = "none";
-                                            }, 1000);
+                                            }, 1500);
                                         } else {
                                             console.log("error");
                                         }
@@ -1319,6 +1472,7 @@ function showProfile() {
 
 }
 
+
 // Dropdown side menu
 
 let dropDownContainer = document.querySelector(".dropdown-container");
@@ -1329,178 +1483,276 @@ function toggleDropdown() {
 
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    // **************DashBoard-Recent moment bar chat*******************
 
-// **************DashBoard-Recent moment bar chat*******************
+    var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var yValues = [0, 5, 10, 15, 20, 25, 30, 35, 40];
+    var rdata = Array.from({ length: 12 }, () => 0);
+    var ddata = Array.from({ length: 12 }, () => 0);
+    var online = Array.from({ length: 12 }, () => 0);
+    var cash = Array.from({ length: 12 }, () => 0);
 
-var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-var yValues = [0, 5, 10, 15, 20, 25, 30, 35, 40];
-var rdata = Array.from({ length: 12 }, () => 0);
-var ddata = Array.from({ length: 12 }, () => 0);
-var online = Array.from({ length: 12 }, () => 0);
-var cash = Array.from({ length: 12 }, () => 0);
+    $("#load-container").show();
 
-$("#load-container").show();
+    $.ajax({
+        url: API_URL + "/Admin/customerCard",
+        method: "GET",
+        success: function (res) {
+            if (res.status == 200) {
+                $("#load-container").hide();
 
-$.ajax({
-    url: API_URL + "/Admin/customerCard",
-    method: "GET",
-    success: function (res) {
-        if (res.status == 200) {
-            $("#load-container").hide();
+                var currentDate = new Date();
+                var currentMonth = currentDate.getMonth();
+                console.log(currentMonth);
+                var currentYear = currentDate.getFullYear();
+                var monthsToShow = [];
+                var months = [];
 
-            // var currentDate = new Date();
-            // var currentMonth = currentDate.getMonth();
-            // console.log(currentMonth);
-            // var currentYear = currentDate.getFullYear();
-            // var monthsToShow = [];
+                var sp = res.data.serviceP;
+                var Analytics = res.data.analyticsData;
+                console.log(sp);
+                // Analytics Cards
+                document.querySelector("#registeredCustomersNum").innerHTML = Analytics[0].CustomerNum;
+                document.querySelector("#registeredSproviders").innerHTML = Analytics[0].sproviderNum;
+                document.querySelector("#completedTasksCount").innerHTML = Analytics[0].CompletedTaskCount;
+                document.querySelector("#reportCount").innerHTML = Analytics[0].SupportTicketCount;
 
-            // Analytics Cards
-            document.querySelector("#registeredCustomersNum").innerHTML = res.data[0].CustomerNum;
-            document.querySelector("#registeredSproviders").innerHTML = res.data[0].sproviderNum;
-            document.querySelector("#completedTasksCount").innerHTML = res.data[0].CompletedTaskCount;
-            document.querySelector("#reportCount").innerHTML = res.data[0].SupportTicketCount;
+                var tableBody = document.querySelector("#RecentReportSection tbody");
 
-            var tableBody = document.querySelector("#RecentReportSection tbody");
+                var formattedData = {
+                    status: 200,
+                    message: "Done",
+                    data: []
+                };
 
-            // Recent 5 support cards table
-            for (var i = 1; i < 6; i++) {
-                var datai = res.data[i];
-                var row = tableBody.insertRow();
-                row.insertCell(0).textContent = datai.name || '';
-                row.insertCell(1).textContent = datai.title || '';
-                row.insertCell(2).textContent = datai.date || '';
-                row.insertCell(3).textContent = datai.status.charAt(0).toUpperCase() + datai.status.slice(1) || '';
-            }
-
-            // Account Deletions and Registrations
-            var registation = res.data[6];
-            var deletions = res.data[7];
-            var Payment = res.data[8];
-
-            registation.forEach(function (entry) {
-                var monthIndex = xValues.indexOf(entry.month);
-
-                if (monthIndex !== -1) {
-                    rdata[monthIndex] += entry.registrations;
+                // Recent 5 support cards table
+                for (var i = 1; i < 6; i++) {
+                    (function () {
+                        var datai = Analytics[i];
+                        formattedData.data.push(datai);
+                        var row = tableBody.insertRow();
+                        row.insertCell(0).textContent = datai.name || '';
+                        row.insertCell(1).textContent = datai.title || '';
+                        row.insertCell(2).textContent = datai.date || '';
+                        row.insertCell(3).textContent = datai.status.charAt(0).toUpperCase() + datai.status.slice(1) || '';
+                        var id = datai.ticketId;
+                        row.addEventListener('click', function () {
+                            var name = this.cells[0].textContent;
+                            showsupportTicket(formattedData, id, name);
+                        });
+                    })();
                 }
-            });
-
-            deletions.forEach(function (entry) {
-                var monthIndex = xValues.indexOf(entry.month);
-                if (monthIndex !== -1) {
-                    ddata[monthIndex] += entry.deletion;
-                }
-            });
 
 
-            // for (var i = 0; i < 5; i++) {
-            //     var monthIndex = (currentMonth - i) % 12;
-
-            //     if (monthIndex < 0) {
-            //         monthIndex += 12;
-            //         currentYear -= 1;
-            //     }
-
-            //     monthsToShow.unshift(`${xValues[monthIndex]} ${currentYear}`);
-            // }
-
-
-            // **************DashBoard-Registation Bar Chart*******************
-            var ctx1 = document.getElementById("barchatRecent").getContext('2d');
-            new Chart("barchatRecent", {
-                type: "bar",
-                data: {
-                    labels: xValues,
-                    datasets: [{
-                        label: "Registations",
-                        data: rdata,
-                        backgroundColor: "#0095FF"
-                    }, {
-                        label: "Account Deletions",
-                        data: ddata,
-                        backgroundColor: "#00E096"
-                    }]
-                },
-                options: {
-                    plugins: { legend: { labels: { color: "white" } } },
-                    barThickness: 20,
-                    scales: {
-                        x: {
-                            ticks: {
-                                color: "white"
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                color: "white"
+                // Verifications
+                var verificationcount = 0;
+                var templatecount = 0;
+                sp.forEach(function (entry) {
+                    if (entry.verify === "No") {
+                        verificationcount++;
+                        if (templatecount < 3) {
+                            templatecount++;
+                            var temp = document.getElementById("verificationRequestsTemplate");
+                            var clone = temp.content.cloneNode(true);
+                            var pElement = clone.querySelector("p"); // Adjusted selector
+                            if (pElement) {
+                                pElement.textContent = entry.garageName || '-';
+                                document.querySelector(".table").appendChild(clone); // Changed selector
                             }
                         }
                     }
+                });
+
+                document.querySelector("#number").textContent = verificationcount;
+
+                // Charts Data
+                // Account Deletions and Registrations
+                var registation = Analytics[6];
+                var deletions = Analytics[7];
+                var Payment = Analytics[8];
+
+                registation.forEach(function (entry) {
+                    var monthIndex = xValues.indexOf(entry.month);
+
+                    if (monthIndex !== -1) {
+                        rdata[monthIndex] += entry.registrations;
+                    }
+                });
+
+                deletions.forEach(function (entry) {
+                    var monthIndex = xValues.indexOf(entry.month);
+                    if (monthIndex !== -1) {
+                        ddata[monthIndex] += entry.deletion;
+                    }
+                });
+
+                Payment.forEach(function (entry) {
+                    var monthIndex = entry.month - 1;
+
+                    if (monthIndex !== -1) {
+                        online[monthIndex] += entry.online;
+                        cash[monthIndex] += entry.cash;
+                    }
+                });
+
+
+                for (var i = 0; i < 5; i++) {
+                    var monthIndex = (currentMonth - i) % 12;
+
+                    if (monthIndex < 0) {
+                        monthIndex += 12;
+                        currentYear -= 1;
+                    }
+                    months.unshift(`${xValues[monthIndex]}`);
+
+                    monthsToShow.unshift(`${xValues[monthIndex]} ${currentYear}`);
                 }
-            });
 
-            Payment.forEach(function (entry) {
-                var monthIndex = entry.month - 1;
+                var rdatafilter = [];
+                var ddatafilter = [];
+                var onlinefilter = [];
+                var cashfilter = [];
+                var i = 0;
+                months.forEach(function (month) {
+                    var mindex = xValues.indexOf(month);
 
-                if (monthIndex !== -1) {
-                    online[monthIndex] += entry.online;
-                    cash[monthIndex] += entry.cash;
-                }
-            });
+                    rdatafilter[i] = rdata[mindex];
+                    ddatafilter[i] = ddata[mindex];
+                    onlinefilter[i] = online[mindex];
+                    cashfilter[i] = cash[mindex];
+
+                    i++;
+                });
+
+                var monthlyProfit = [];
+                onlinefilter.forEach(function (value) {
+                    monthlyProfit.push(value * 0.1);
+                });
 
 
-            // **************DashBoard-Payment line Chart*******************
-            var ctx = document.getElementById("linePayment").getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: xValues,
-                    datasets: [{
-                        label: 'Cash Payments', // Name the series
-                        data: cash, // Specify the data values array
-                        fill: false,
-                        borderColor: '#2196f3', // Add custom color border (Line)
-                        backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
-                        borderWidth: 1
+                // **************DashBoard-Registation Bar Chart*******************
+                var ctx1 = document.getElementById("barchatRecent").getContext('2d');
+                new Chart("barchatRecent", {
+                    type: "bar",
+                    data: {
+                        labels: monthsToShow,
+                        datasets: [{
+                            label: "Registations",
+                            data: rdatafilter,
+                            backgroundColor: "#0095FF"
+                        }, {
+                            label: "Account Deletions",
+                            data: ddatafilter,
+                            backgroundColor: "#00E096"
+                        }]
                     },
-                    {
-                        label: 'Online Payments', // Name the series
-                        data: online, // Specify the data values array
-                        fill: false,
-                        borderColor: '#00E096', // Add custom color border (Line)
-                        backgroundColor: '#00E096', // Add custom color background (Points and Fill)
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    plugins: { legend: { labels: { color: "white" } } },
-                    responsive: true, // Instruct chart js to respond nicely.
-                    maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
-                    scales: {
-                        x: {
-                            ticks: {
-                                color: "white"
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                color: "white"
+                    options: {
+                        plugins: { legend: { labels: { color: "white" } } },
+                        barThickness: 20,
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: "white"
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    color: "white"
+                                }
                             }
                         }
                     }
-                }
-            });
+                });
 
 
-        } else {
-            console.log("error");
+
+                // **************DashBoard-Payment line Chart*******************
+                var ctx = document.getElementById("linePayment").getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: monthsToShow,
+                        datasets: [{
+                            label: 'Cash Payments',
+                            data: cashfilter,
+                            fill: false,
+                            borderColor: '#2196f3',
+                            backgroundColor: '#2196f3',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Online Payments',
+                            data: onlinefilter,
+                            fill: false,
+                            borderColor: '#00E096',
+                            backgroundColor: '#00E096',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        plugins: { legend: { labels: { color: "white" } } },
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: "white"
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    color: "white"
+                                }
+                            }
+                        }
+                    }
+                });
+
+                // *************Mounthly Profit Pie Chart*******************
+                barColors = ["#193741", "#3e5e63", "#588184", "#7ea996", "#90c5a7"]
+                new Chart("lineChartProfit", {
+                    type: "line",
+                    data: {
+                        labels: monthsToShow,
+                        datasets: [{
+                            label: 'Monthly Profit',
+                            data: monthlyProfit,
+                            fill: false,
+                            borderColor: '#2196f3',
+                            backgroundColor: '#2196f3',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        plugins: { legend: { labels: { color: "white" } } },
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: "white"
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    color: "white"
+                                }
+                            }
+                        }
+                    }
+                });
+
+
+            } else {
+                console.log("error");
+            }
         }
-    }
+    });
+
+
+
 });
-
-
-
-
 
 
 // **************FAQ-Toggle answer of question*******************

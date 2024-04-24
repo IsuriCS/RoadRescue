@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <title>Road Rescue</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -21,13 +21,33 @@
     <link rel="stylesheet" href="../../assets/css/Admin CS/table.css" />
     <link rel="stylesheet" href="../../assets/css/Admin CS/admin.css" />
 
-    <title>Road Rescue</title>
+    
   </head>
 
   <body>
-   <div id="load-container">
-    <img src="../../assets/img/Gear-0.3s-200px.gif" alt="">
-  </div>
+
+    <!-- **************Load Container************************ -->
+    <div id="load-container">
+      <img src="../../assets/img/Gear-0.3s-200px.gif" alt="" />
+    </div>
+
+    <!-- *********************Message Boxes ************************ -->
+    <div id="messageBox" style="display: none">
+      <div class="overlay"></div>
+      <div id="proccessing_boxes">
+        <div id="icon">
+          <img
+            src="../../assets/img/GearWhite.gif
+      "
+            alt=""
+          />
+        </div>
+        <div id="Text">
+          <p>Verification Successfull</p>
+        </div>
+      </div>
+    </div>
+
     <!-- ***************************************HEADER************************************ -->
     <div class="navbar">
       <div class="logo">
@@ -83,7 +103,10 @@
 
               <!-- =============Service Provider Sub Drop Down =========================================== -->
               <li>
-                <a id="servicePDropdown" href="#serviceProviders" onclick="showServiceProviders()"
+                <a
+                  id="servicePDropdown"
+                  href="#serviceProviders"
+                  onclick="showServiceProviders()"
                   >Service Providers</a
                 >
                 <!-- <ul id="spdrop" class="spdropdown-container hide">
@@ -125,13 +148,21 @@
             </a>
           </li>
           <li>
-            <a id="ReportLink" href="#" class="sideNavLink" onclick="showReports()"
+            <a
+              id="ReportLink"
+              href="#"
+              class="sideNavLink"
+              onclick="showReports()"
               ><span class="material-symbols-outlined"> receipt_long </span>
               Reports
             </a>
           </li>
-          <li >
-            <a id="profileLink" href="#" class="sideNavLink" onclick="showProfile()"
+          <li>
+            <a
+              id="profileLink"
+              href="#"
+              class="sideNavLink"
+              onclick="showProfile()"
               ><span class="material-symbols-outlined"> person </span>
               Profile
             </a>
@@ -148,25 +179,25 @@
             <h1>Analytics</h1>
             <!-- **************************Display Cards****************************** -->
             <div class="displayCards">
-              <a href="" class="button">
+              <a  class="button">
                 <span class="material-symbols-outlined">
                   record_voice_over
                 </span>
                 <h2 id="registeredCustomersNum">0</h2>
                 <p>Registered Customers</p></a
               >
-              <a href="" class="button">
+              <a  class="button">
                 <span class="material-symbols-outlined"> build </span>
                 <h2 id="registeredSproviders">0</h2>
                 <p>Registered Service Providers</p></a
               >
 
-              <a href="" class="button">
+              <a  class="button">
                 <span class="material-symbols-outlined"> checklist </span>
                 <h2 id="completedTasksCount">0</h2>
                 <p>Completed Tasks</p></a
               >
-              <a href="" class="button">
+              <a  class="button">
                 <span class="material-symbols-outlined"> report </span>
                 <h2 id="reportCount">0</h2>
                 <p>Report and Support Tickets</p></a
@@ -179,24 +210,50 @@
                 <h1>Recent Moment</h1>
                 <div class="graph"><canvas id="barchatRecent"></canvas></div>
               </div>
+              <!-- **************************verifications****************************** -->
+              <div class="verifications" onclick="showVerification()">
+                <div id="title"><h1>Varification Requests</h1>
+                <h1 id="number">10</h1>
+              </div>
+                
+                <div class="table">
+                  <template id="verificationRequestsTemplate">
+                  <div id="cards">
+                    <p>Garage</p>
+                  </div>
+                </template>
+
+                  
+                 
+                </div>
+              </div>
+            </div>
+
+            <div class="thirdRow">
               <!-- **************************Payment Graph****************************** -->
               <div class="Payments">
                 <h1>Payment</h1>
                 <div class="graph"><canvas id="linePayment"></canvas></div>
               </div>
+              <!-- **************************Monthly Profit Bar Chart****************************** -->
+              <div class="Profit">
+                <h1>Monthly Profit</h1>
+                <div class="graph"><canvas id="lineChartProfit"></canvas></div>
+              </div>
+              
             </div>
-
+          
             <!-- **************************Report Section****************************** -->
             <div class="ReportsSection">
               <h1>Recent Reports</h1>
               <table id="RecentReportSection">
                 <thead>
-<tr>
-                  <th>Reported By</th>
-                  <th>Report title</th>
-                  <th>Reported Date</th>
-                  <th>Status</th>
-                </tr>
+                  <tr>
+                    <th>Reported By</th>
+                    <th>Report title</th>
+                    <th>Reported Date</th>
+                    <th>Status</th>
+                  </tr>
                 </thead>
                 <tbody></tbody>
                 <!-- <tr>
@@ -214,48 +271,54 @@
               </table>
             </div>
           </div>
+        
 
-          <!-- ---------------------------------------Users------------------------------- -->
-          <!-- ---------------------------------------Customer------------------------------- -->
-          <div id="userCus" style="display: none">
-            <div class="topRow">
-              <h1>Customer</h1>
-            
-              <div class="search">
-            <form>
-                <input type="text" placeholder="Search Customer" name="search" id="searchCustomer">
+        <!-- ---------------------------------------Users------------------------------- -->
+        <!-- ---------------------------------------Customer------------------------------- -->
+        <div id="userCus" style="display: none">
+          <div class="topRow">
+            <h1>Customer</h1>
+
+            <div class="search">
+              <form>
+                <input
+                  type="text"
+                  placeholder="Search Customer"
+                  name="search"
+                  id="searchCustomer"
+                />
                 <button onclick="searchCustomer()">
-                    <span class="material-symbols-outlined">search</span>
+                  <span class="material-symbols-outlined">search</span>
                 </button>
-            </form>
-        </div>
-            </div>
-            <div>
-              <table id="CustomerList">
-                <thead>
-                  <tr>
-                    <th>Customer ID</th>
-                    <th>Name</th>
-                    <th>Phone Number</th>
-                    <th>Service Requests</th>
-                    <th>Support Tickets</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  
-                </tbody>
-              </table>
+              </form>
             </div>
           </div>
+          <div>
+            <table id="CustomerList">
+              <thead>
+                <tr>
+                  <th>Customer ID</th>
+                  <th>Name</th>
+                  <th>Phone Number</th>
+                  <th>Service Requests</th>
+                  <th>Support Tickets</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
 
-          <!-- ---------------------------------------Customer Profile------------------------------- -->
-          <div id="cusprof" style="display: none">
-            <div class="topRow">
-              <h1>Customer > c001</h1>
-            </div>
+        <!-- ---------------------------------------Customer Profile------------------------------- -->
+        <div id="cusprof" style="display: none">
+          <div class="topRow">
+            <h1>Customer > c001</h1>
+          </div>
 
-            <div class="profileContent">
-              <div class="leftSide">
+          <div class="profileContent">
+            <div class="leftSide">
+              <div id="profile" style="display: block;">
+
                 <img src="../../assets/img/pic.png" alt="" />
                 <!-- Detail form +******************************************************************** -->
                 <div class="row">
@@ -288,57 +351,98 @@
                   </div>
                   <div class="detail"><p id="email">chamodh@gmail.com</p></div>
                 </div>
-
-                <!-- *********************Buttons**************************************************** -->
-                <button type="submit" class="button">
-                  <span class="material-symbols-outlined"> edit </span>Edit
-                  Profile
-                </button>
-                <button type="submit" class="button">
-                  <span class="material-symbols-outlined"> delete </span>Delete
-                  Profile
-                </button>
               </div>
 
-              <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
-              <div class="rightSide">
-                <div class="stsection">
-                  <h1>Support Tickets</h1>
-                  <h1 id="no_support_tickets"> No Support Tickets</h1>
-                  <div id="support_ticket_list" style="display:none;">
-                    <template id="supportTicketTemplate">
+
+              <div id="editProfileForm" style="display: none;">
+                <img src="../../assets/img/pic.png" alt="" />
+                <span class="material-symbols-outlined">
+photo_camera
+</span>
+              <!-- Detail form +******************************************************************** -->
+              <div class="row">
+                <div class="tag">
+                  <h1>ID :</h1>
+                  
+                </div>
+                <div class="detail"><p id="cid"></p></div>
+              </div>
+              <div class="row">
+                <div class="tag">
+                  <h1>First Name :</h1>
+                </div>
+                <div class="detail"><input  id="fname" type="text"></div>
+              </div>
+              <div class="row">
+                <div class="tag">
+                  <h1>Last Name :</h1>
+                </div>
+                <div class="detail"><input id="lname" type="text"></div>
+              </div>
+              <div class="row">
+                <div class="tag">
+                  <h1>Phone Number :</h1>
+                </div>
+                <div class="detail"><input id="cnum" type="text"></div>
+              </div>
+              <div class="row">
+                <div class="tag">
+                  <h1>Email :</h1>
+                </div>
+                <div class="detail"><input id="email" type="text"></div>
+              </div>
+              </div>
+
+              <!-- *********************Buttons**************************************************** -->
+              <div class="buttonDiv">
+                <div id="editButtonContainer"></div>
+                <div id="deleteButtonContainer"></div>
+              </div>
+              <!-- <button id="editProfileButton" type="submit" class="button">
+                <span class="material-symbols-outlined"> edit </span>Edit
+                Profile
+              </button> -->
+              
+              
+            </div>
+
+            <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
+            <div class="rightSide">
+              <div class="stsection">
+                <h1>Support Tickets</h1>
+                <h1 id="no_support_tickets">No Support Tickets</h1>
+                <div id="support_ticket_list" style="display: none">
+                  <template id="supportTicketTemplate">
                     <div class="SuppotTicketcard">
-                    <h1>ST-001</h1>
-                    <div class="row">
-                      <div class="tag">
-                        <h1>Date :</h1>
+                      <h1>ST-001</h1>
+                      <div class="row">
+                        <div class="tag">
+                          <h1>Date :</h1>
+                        </div>
+                        <div class="date"><p>2323.01.23</p></div>
                       </div>
-                      <div class="date"><p>2323.01.23</p></div>
-                    </div>
-                    <div class="row">
-                      <div class="tag">
-                        <h1>Title :</h1>
+                      <div class="row">
+                        <div class="tag">
+                          <h1>Title :</h1>
+                        </div>
+                        <div class="title"><p>Payment Issue</p></div>
                       </div>
-                      <div class="title"><p>Payment Issue</p></div>
+                      <div class="solveButton">
+                        <button type="submit" class="button">Solved</button>
+                      </div>
                     </div>
-                    <div class="solveButton">
-                      <button type="submit" class="button">Solved</button>
-                    </div>
-                  </div>
                   </template>
-                  </div>
-                  
-                  
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- ---------------------------------------Support ticket Detail view------------------------------- -->
-          <div id="SupportTicketDatail" style="display: none">
-            <div class="topRow">
+        <!-- ---------------------------------------Support ticket Detail view------------------------------- -->
+        <div id="SupportTicketDatail" style="display: none">
+          <div class="topRow">
             <h1>Reports > 001</h1>
-            <button id="button" style="display: block;">Set Solved</button>
+            <button id="button" style="display: block">Set Solved</button>
           </div>
 
           <div class="info">
@@ -353,7 +457,9 @@
             <div>
               <p id="Detail">Assigned Customer Support ID :</p>
               <p id="CustomerSupportID">b</p>
-              <button id="assignbtn" style="display: hide;">Assign Customer Support Member</button>
+              <button id="assignbtn" style="display: hide">
+                Assign Customer Support Member
+              </button>
             </div>
             <div>
               <p id="Detail">Ticket Owner ID:</p>
@@ -375,737 +481,538 @@
             <p style="margin: 1vh; margin-left: 0">Solution:</p>
             <textarea style="border-radius: 12px"></textarea>
           </div>
-          </div>
-          <!-- ---------------------------------------Users------------------------------- -->
-          <!-- ---------------------------------------Servise Provider------------------------------- -->
-          <div id="serviceProviders" style="display: none">
-            <div class="topRow">
-              <h1>Service Providers</h1>
-              <div class="search">
-            <form>
-                <input type="text" placeholder="Search Service Provider" name="search" id="searchsp">
-                <button onclick="searchCustomer()">
-                    <span class="material-symbols-outlined">search</span>
-                </button>
-            </form>
         </div>
-            </div>
-            <div>
-              <!-- <input type="checkbox" id="allsp" name="allap"><label for="allsp">All</label> -->
-              <input type="checkbox" id="garages" name="garages" checked ><label for="garages" >Garages</label>
-              <input type="checkbox" id="maintainancep" name="maintainancep" checked ><label for="maintainancep">Maintainance Personnel</label>
-            
-            </div>
-            <div>
-              <table id="SPList">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Phone Number</th>
-                    <th>Completed services</th>
-                    <th>Support Tickets</th>
-                    <th style="display: none;">type</th>
-                  </tr>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
+        <!-- ---------------------------------------Users------------------------------- -->
+        <!-- ---------------------------------------Servise Provider------------------------------- -->
+        <div id="serviceProviders" style="display: none">
+          <div class="topRow">
+            <h1>Service Providers</h1>
+            <div class="search">
+              <form>
+                <input
+                  type="text"
+                  placeholder="Search Service Provider"
+                  name="search"
+                  id="searchsp"
+                />
+                <button onclick="searchCustomer()">
+                  <span class="material-symbols-outlined">search</span>
+                </button>
+              </form>
             </div>
           </div>
-          <!-- ---------------------------------------Garage Owner------------------------------- -->
+          <div>
+            <!-- <input type="checkbox" id="allsp" name="allap"><label for="allsp">All</label> -->
+            <input type="checkbox" id="garages" name="garages" checked /><label
+              for="garages"
+              >Garages</label
+            >
+            <input
+              type="checkbox"
+              id="maintainancep"
+              name="maintainancep"
+              checked
+            /><label for="maintainancep">Maintainance Personnel</label>
+          </div>
+          <div>
+            <table id="SPList">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Phone Number</th>
+                  <th>Completed services</th>
+                  <th>Support Tickets</th>
+                  <th style="display: none">type</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
 
-          <!-- <div id="garageOwners" style="display: none">
-            <div class="topRow">
-              <h1>Garage</h1>
-              <div class="searchboxContainer">
-                <input type="text" placeholder="Search Customer.." />
-                <button type="submit">
-                  <span class="material-symbols-outlined searchIcon">
-                    search
-                  </span>
-                </button>
+        <!-- ---------------------------------------SP profile Profile------------------------------- -->
+        <div id="GarageProf" style="display: none">
+          <div class="topRow">
+            <h1>Garage Owner > c001</h1>
+          </div>
+
+          <div class="profileContent">
+            <div class="leftSide">
+              <img src="../../assets/img/pic.png" alt="" />
+              <!-- Detail form +******************************************************************** -->
+              <div class="row">
+                <div class="tag">
+                  <h1>ID :</h1>
+                </div>
+                <div class="detail"><p id="id"></p></div>
               </div>
-            </div>
-            <div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Phone Number</th>
-                    <th>Completed services</th>
-                    <th>Support Tickets</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr onclick="showGarageProf()">
-                    <td>1</td>
-                    <td>Isuri Chathurika</td>
-                    <td>0771234567</td>
-                    <td>3</td>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>--</td>
-                    <td>0771234567</td>
-                    <td>3</td>
-                    <td>2</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div> -->
-
-          <!-- ---------------------------------------SP profile Profile------------------------------- -->
-          <div id="GarageProf" style="display: none">
-            <div class="topRow">
-              <h1>Garage Owner > c001</h1>
-            </div>
-
-            <div class="profileContent">
-              <div class="leftSide">
-                <img src="../../assets/img/pic.png" alt="" />
-                <!-- Detail form +******************************************************************** -->
-                <div class="row">
-                  <div class="tag">
-                    <h1 >ID :</h1>
-                  </div>
-                  <div class="detail"><p id="id"></p></div>
+              <div class="row">
+                <div class="tag">
+                  <h1>Garage Name :</h1>
                 </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Garage Name :</h1>
-                  </div>
-                  <div class="detail"><p id="gname"></p></div>
+                <div class="detail"><p id="gname"></p></div>
+              </div>
+              <div class="row">
+                <div class="tag">
+                  <h1>Owner Name :</h1>
                 </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Owner Name :</h1>
-                  </div>
-                  <div class="detail"><p id="oname"></p></div>
+                <div class="detail"><p id="oname"></p></div>
+              </div>
+              <div class="row">
+                <div class="tag">
+                  <h1>Phone Number :</h1>
                 </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Phone Number :</h1>
-                  </div>
-                  <div class="detail"><p id="pnum"></p></div>
+                <div class="detail"><p id="pnum"></p></div>
+              </div>
+              <div class="row">
+                <div class="tag">
+                  <h1>Email :</h1>
                 </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Email :</h1>
-                  </div>
-                  <div class="detail"><p id="email"></p></div>
+                <div class="detail"><p id="email"></p></div>
+              </div>
+              <div class="row">
+                <div class="tag">
+                  <h1>Technicions :</h1>
                 </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Technicions :</h1>
-                  </div>
-                  <div class="detail"><p id="tech"></p></div>
-                </div>
-
-                <!-- *********************Buttons**************************************************** -->
-                <button type="submit" class="button">
-                  <span class="material-symbols-outlined"> edit </span>Edit
-                  Profile
-                </button>
-                <button type="submit" class="button">
-                  <span class="material-symbols-outlined"> history </span
-                  >Service History
-                </button>
-                <button type="submit" class="button">
-                  <span class="material-symbols-outlined"> ac_unit </span>Freeze
-                  Profile
-                </button>
-                <button type="submit" class="button">
-                  <span class="material-symbols-outlined"> delete </span>Delete
-                  Profile
-                </button>
+                <div class="detail"><p id="tech"></p></div>
               </div>
 
-              <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
-              <div class="rightSide">
-                <div class="row">
-                  <div class="tag">
-                    <h1>Location :</h1>
-                  </div>
-                  <div class="detail"><a id="location" target="_blank">View on Map</a></div>
+              <!-- *********************Buttons**************************************************** -->
+              <button type="submit" class="button">
+                <span class="material-symbols-outlined"> edit </span>Edit
+                Profile
+              </button>
+              <button type="submit" class="button">
+                <span class="material-symbols-outlined"> history </span>Service
+                History
+              </button>
+              <button type="submit" class="button">
+                <span class="material-symbols-outlined"> ac_unit </span>Freeze
+                Profile
+              </button>
+              <button type="submit" class="button">
+                <span class="material-symbols-outlined"> delete </span>Delete
+                Profile
+              </button>
+            </div>
+
+            <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
+            <div class="rightSide">
+              <div class="row">
+                <div class="tag">
+                  <h1>Location :</h1>
                 </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Completed Services :</h1>
-                  </div>
-                  <div class="detail"><p id="compservice"></p></div>
+                <div class="detail">
+                  <a id="location" target="_blank">View on Map</a>
                 </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Joined Date :</h1>
-                  </div>
-                  <div class="detail"><p id="date"></p></div>
+              </div>
+              <div class="row">
+                <div class="tag">
+                  <h1>Completed Services :</h1>
                 </div>
-                <div class="spstsection">
-                  <h1>Support Tickets</h1>
-                  <h1 id="spno_support_tickets"> No Support Tickets</h1>
-                  <div id="spsupport_ticket_list" style="display:none;">
-                    <template id="spsupportTicketTemplate">
+                <div class="detail"><p id="compservice"></p></div>
+              </div>
+              <div class="row">
+                <div class="tag">
+                  <h1>Joined Date :</h1>
+                </div>
+                <div class="detail"><p id="date"></p></div>
+              </div>
+              <div class="spstsection">
+                <h1>Support Tickets</h1>
+                <h1 id="spno_support_tickets">No Support Tickets</h1>
+                <div id="spsupport_ticket_list" style="display: none">
+                  <template id="spsupportTicketTemplate">
                     <div class="spSuppotTicketcard">
-                    <h1>ST-001</h1>
-                    <div class="row">
-                      <div class="tag">
-                        <h1>Date :</h1>
+                      <h1>ST-001</h1>
+                      <div class="row">
+                        <div class="tag">
+                          <h1>Date :</h1>
+                        </div>
+                        <div class="date"><p>2323.01.23</p></div>
                       </div>
-                      <div class="date"><p>2323.01.23</p></div>
-                    </div>
-                    <div class="row">
-                      <div class="tag">
-                        <h1>Title :</h1>
+                      <div class="row">
+                        <div class="tag">
+                          <h1>Title :</h1>
+                        </div>
+                        <div class="title"><p>Payment Issue</p></div>
                       </div>
-                      <div class="title"><p>Payment Issue</p></div>
+                      <div class="solveButton">
+                        <button type="submit" class="button">Solved</button>
+                      </div>
                     </div>
-                    <div class="solveButton">
-                      <button type="submit" class="button">Solved</button>
-                    </div>
-                  </div>
                   </template>
-                  </div>
-                  
-                  
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- ---------------------------------------Servise Provider------------------------------- -->
-          <!-- ---------------------------------------Maintainace Personnel------------------------------- -->
-
-          <!-- <div id="maintainancePersonnel" style="display: none">
-            <div class="topRow">
-              <h1>Maintainance Personnel</h1>
-              <div class="searchboxContainer">
-                <input type="text" placeholder="Search Customer.." />
-                <button type="submit">
-                  <span class="material-symbols-outlined searchIcon">
-                    search
-                  </span>
-                </button>
-              </div>
-            </div>
-            <div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Phone Number</th>
-                    <th>Completed services</th>
-                    <th>Support Tickets</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr onclick="showMPProf()">
-                    <td>1</td>
-                    <td>Isuri Chathurika</td>
-                    <td>0771234567</td>
-                    <td>3</td>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>--</td>
-                    <td>0771234567</td>
-                    <td>3</td>
-                    <td>2</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div> -->
-
-          <!-- ---------------------------------------Maintainance Personnel Profile------------------------------- -->
-          <!-- <div id="MaintainacePersonnelProf" style="display: none">
-            <div class="topRow">
-              <h1>Maintainance Personnel > c001</h1>
-            </div>
-
-            <div class="profileContent">
-              <div class="leftSide">
-                <img src="../../assets/img/pic.png" alt="" />
-               
-                <div class="row">
-                  <div class="tag">
-                    <h1>ID :</h1>
-                  </div>
-                  <div class="detail"><p>001</p></div>
-                </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Garage Name :</h1>
-                  </div>
-                  <div class="detail"><p>Chamodh</p></div>
-                </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Owner Name :</h1>
-                  </div>
-                  <div class="detail"><p>Henderson</p></div>
-                </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Phone Number :</h1>
-                  </div>
-                  <div class="detail"><p>0768658568</p></div>
-                </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Email :</h1>
-                  </div>
-                  <div class="detail"><p>chamodh@gmail.com</p></div>
-                </div>
-
-                *********************Buttons**************************************************** -->
-                <!--<div class="buttonDiv">
-                  <button type="submit" class="button">
-                    <span class="material-symbols-outlined"> edit </span>Edit
-                    Profile
-                  </button>
-                  <button type="submit" class="button">
-                    <span class="material-symbols-outlined"> history </span
-                    >Service History
-                  </button>
-                  <button type="submit" class="button">
-                    <span class="material-symbols-outlined"> ac_unit </span
-                    >Freeze Profile
-                  </button>
-                  <button type="submit" class="button">
-                    <span class="material-symbols-outlined"> delete </span
-                    >Delete Profile
-                  </button>
-                </div>
-              </div>
-
-               +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
-              <!--<div class="rightSide">
-                <div class="row">
-                  <div class="tag">
-                    <h1>Location :</h1>
-                  </div>
-                  <div class="detail"><p>Colombo</p></div>
-                </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Completed Services :</h1>
-                  </div>
-                  <div class="detail"><p>8</p></div>
-                </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Joined Date :</h1>
-                  </div>
-                  <div class="detail"><p>2021.10.25</p></div>
-                </div>
-                <div class="stsection">
-                  <h1>Support Tickets</h1>
-                  <div class="SuppotTicketcard">
-                    <h1>ST-001</h1>
-                    <div class="row">
-                      <div class="tag">
-                        <h1>Date :</h1>
-                      </div>
-                      <div class="detail"><p>2323.01.23</p></div>
-                    </div>
-                    <div class="row">
-                      <div class="tag">
-                        <h1>Title :</h1>
-                      </div>
-                      <div class="detail"><p>Payment Issue</p></div>
-                    </div>
-                    <div class="solveButton">
-                      <button type="submit" class="button">Solved</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
-
-          <!-- ---------------------------------------Users------------------------------- -->
-          <!-- ---------------------------------------Customer support------------------------------- -->
-          <div id="csmember" style="display: none">
-            <div class="topRow">
-              <h1>Customer Support Members</h1>
-              <div class="search">
-            <form>
-                <input type="text" placeholder="Search Customer Support Member" name="search" id="searchCSMember">
-                <button onclick="searchCustomer()">
-                    <span class="material-symbols-outlined">search</span>
-                </button>
-            </form>
         </div>
-            </div>
-            <div>
-              <table id="CSupportList">
-                <thead>
-                  <tr>
-                    <th>Member ID</th>
-                    <th>Name</th>
-                    <th>Phone Number</th>
-                    <th>Solved Tickets</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr onclick="showcsprof()">
-                    <td>1</td>
-                    <td>Isuri Chathurika</td>
-                    <td>0771234567</td>
-                    <td>3</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Kamal</td>
-                    <td>0771234567</td>
-                    <td>3</td>
-                  </tr>
-                </tbody>
-              </table>
+
+        <!-- ---------------------------------------Users------------------------------- -->
+        <!-- ---------------------------------------Customer support------------------------------- -->
+        <div id="csmember" style="display: none">
+          <div class="topRow">
+            <h1>Customer Support Members</h1>
+            <div class="search">
+              <form>
+                <input
+                  type="text"
+                  placeholder="Search Customer Support Member"
+                  name="search"
+                  id="searchCSMember"
+                />
+                <button onclick="searchCustomer()">
+                  <span class="material-symbols-outlined">search</span>
+                </button>
+              </form>
             </div>
           </div>
+          <div>
+            <table id="CSupportList">
+              <thead>
+                <tr>
+                  <th>Member ID</th>
+                  <th>Name</th>
+                  <th>Phone Number</th>
+                  <th>Solved Tickets</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr onclick="showcsprof()">
+                  <td>1</td>
+                  <td>Isuri Chathurika</td>
+                  <td>0771234567</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Kamal</td>
+                  <td>0771234567</td>
+                  <td>3</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-          <!-- ---------------------------------------Customer Support Profile------------------------------- -->
-          <div id="csprof" style="display: none">
-            <div class="topRow">
-              <h1>Customer support> c001</h1>
-            </div>
+        <!-- ---------------------------------------Customer Support Profile------------------------------- -->
+        <div id="csprof" style="display: none">
+          <div class="topRow">
+            <h1>Customer support> c001</h1>
+          </div>
 
-            <div class="profileContent">
-              <div class="leftSide">
-                <img src="../../assets/img/pic.png" alt="" />
-                <!-- Detail form +******************************************************************** -->
-                <div class="row">
-                  <div class="tag">
-                    <h1>ID :</h1>
-                  </div>
-                  <div class="detail"><p id="csid"></p></div>
+          <div class="profileContent">
+            <div class="leftSide">
+              <img src="../../assets/img/pic.png" alt="" />
+              <!-- Detail form +******************************************************************** -->
+              <div class="row">
+                <div class="tag">
+                  <h1>ID :</h1>
                 </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>First Name :</h1>
-                  </div>
-                  <div class="detail"><p id="csfname"></p></div>
+                <div class="detail"><p id="csid"></p></div>
+              </div>
+              <div class="row">
+                <div class="tag">
+                  <h1>First Name :</h1>
                 </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Last Name :</h1>
-                  </div>
-                  <div class="detail"><p id="cslname"></p></div>
+                <div class="detail"><p id="csfname"></p></div>
+              </div>
+              <div class="row">
+                <div class="tag">
+                  <h1>Last Name :</h1>
                 </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Phone Number :</h1>
-                  </div>
-                  <div class="detail"><p id="cscnum"></p></div>
+                <div class="detail"><p id="cslname"></p></div>
+              </div>
+              <div class="row">
+                <div class="tag">
+                  <h1>Phone Number :</h1>
                 </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Email :</h1>
-                  </div>
-                  <div class="detail"><p id="csemail"></p></div>
+                <div class="detail"><p id="cscnum"></p></div>
+              </div>
+              <div class="row">
+                <div class="tag">
+                  <h1>Email :</h1>
                 </div>
-
-                <!-- *********************Buttons**************************************************** -->
-                <button type="submit" class="button">
-                  <span class="material-symbols-outlined"> edit </span>Edit
-                  Profile
-                </button>
-                <button type="submit" class="button">
-                  <span class="material-symbols-outlined"> delete </span>Delete
-                  Profile
-                </button>
+                <div class="detail"><p id="csemail"></p></div>
               </div>
 
-              <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
-              <div class="rightSide">
-                <div class="stsection">
-                  <h1>Support Tickets</h1>
-                  <h1 id="csno_support_tickets"> No Support Tickets</h1>
-                  <div id="cssupport_ticket_list" style="display:none;">
-                    <template id="cssupportTicketTemplate">
+              <!-- *********************Buttons**************************************************** -->
+              <button type="submit" class="button">
+                <span class="material-symbols-outlined"> edit </span>Edit
+                Profile
+              </button>
+              <button type="submit" class="button">
+                <span class="material-symbols-outlined"> delete </span>Delete
+                Profile
+              </button>
+            </div>
+
+            <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
+            <div class="rightSide">
+              <div class="stsection">
+                <h1>Support Tickets</h1>
+                <h1 id="csno_support_tickets">No Support Tickets</h1>
+                <div id="cssupport_ticket_list" style="display: none">
+                  <template id="cssupportTicketTemplate">
                     <div class="csSuppotTicketcard">
-                    <h1>ST-001</h1>
-                    <div class="row">
-                      <div class="tag">
-                        <h1>Date :</h1>
+                      <h1>ST-001</h1>
+                      <div class="row">
+                        <div class="tag">
+                          <h1>Date :</h1>
+                        </div>
+                        <div class="date"><p>2323.01.23</p></div>
                       </div>
-                      <div class="date"><p>2323.01.23</p></div>
-                    </div>
-                    <div class="row">
-                      <div class="tag">
-                        <h1>Title :</h1>
+                      <div class="row">
+                        <div class="tag">
+                          <h1>Title :</h1>
+                        </div>
+                        <div class="title"><p>Payment Issue</p></div>
                       </div>
-                      <div class="title"><p>Payment Issue</p></div>
+                      <div class="solveButton">
+                        <button type="submit" class="button">Solved</button>
+                      </div>
                     </div>
-                    <div class="solveButton">
-                      <button type="submit" class="button">Solved</button>
-                    </div>
-                  </div>
                   </template>
-                  </div>
-                  
-                  
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- ---------------------------------------Verifications------------------------------- -->
-          <!-- ---------------------------------------Verifications------------------------------- -->
-          <div id="verification" style="display: none">
-            <div class="topRow">
-              <h1>Verify Service Providers</h1>
-              <div class="search">
-            <form>
-                <input type="text" placeholder="Search Service Provider" name="search" id="searchCSMember">
-                <button onclick="searchCustomer()">
-                    <span class="material-symbols-outlined">search</span>
-                </button>
-            </form>
         </div>
-            </div>
-            <div>
-              <table id="verificationList">
-                <thead>
-                  <tr>
-                    <th>Service Provider</th>
-                    <th>Phone Number</th>
-                    <th>Service Catogory</th>
-                    <th>Location</th>
-                    <th style="width: 30%"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Isuri Chathurika</td>
-                    <td>0771234567</td>
-                    <td>Garage Owner</td>
-                    <td>
-                      <button type="button" class="verifyBu locView">
-                        View
-                      </button>
-                    </td>
-                    <td>
-                      <button type="button" class="verifyBu verify">
-                        Verify
-                      </button>
-                      <button type="button" class="verifyBu cancle">
-                        Cancle
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Isuri Chathurika</td>
-                    <td>0771234567</td>
-                    <td>Garage Owner</td>
-                    <td>
-                      <button type="button" class="verifyBu locView">
-                        View
-                      </button>
-                    </td>
-                    <td>
-                      <button type="button" class="verifyBu verify">
-                        Verify
-                      </button>
-                      <button type="button" class="verifyBu cancle">
-                        Cancle
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
 
-          <!-- ---------------------------------------Reports------------------------------- -->
-          <!-- ---------------------------------------Reports------------------------------- -->
-          <div id="reports" style="display: none">
-            <div class="topRow">
-              <h1>Report</h1>
-              <!-- <div class="searchboxContainer">
-                <input type="text" placeholder="Search Customer.." />
-                <button type="submit">
-                  <span class="material-symbols-outlined searchIcon">
-                    search
-                  </span>
+        <!-- ---------------------------------------Verifications------------------------------- -->
+        <!-- ---------------------------------------Verifications------------------------------- -->
+        <div id="verification" style="display: none">
+          <div class="topRow">
+            <h1>Verify Service Providers</h1>
+            <div class="search">
+              <form>
+                <input
+                  type="text"
+                  placeholder="Search Service Provider"
+                  name="search"
+                  id="searchCSMember"
+                />
+                <button onclick="searchCustomer()">
+                  <span class="material-symbols-outlined">search</span>
                 </button>
-              </div> -->
-              <div class="inputFileds">
-                <input type="text" placeholder="Report Name">
-                  <select >
-                      <option value="" disabled selected>Select Report Type</option>
-                      <option value="bulk">Bulk</option>
-                      <option value="single">Single</option>
-                  </select>
-                  <select >
-                      <option value="" disabled selected>Select Report Format</option>
-                      <option value="pdf">PDF</option>
-                      <option value="excel">Excel Sheet</option>
-                  </select>
-
-              </div>
-
-             
+              </form>
             </div>
-             <div class="reportArea">
-                <h1>Select Report Area</h1>
-                <div class="areaButtons">
-                <div >
-                  <button>
-                    <span class="material-symbols-outlined">
-                  car_crash
-                  </span></button>
-                  <p>Customers</p>
-                </div>
-                <div >
-                  <button>
-                    <span class="material-symbols-outlined">
-construction
-</span></button>
-                  <p>Garages</p>
-                </div>
-                <div >
-                  <button>
-                    <span class="material-symbols-outlined">
-manage_accounts
-</span></button>
-                  <p>Maintainance Personnel</p>
-                </div>
-                <div >
-                  <button>
-                    <span class="material-symbols-outlined">
-support_agent
-</span></button>
-                  <p>Customer Support Members</p>
-                </div>
-                <div >
-                  <button>
-                    <span class="material-symbols-outlined">
-problem
-</span></button>
-                  <p>Support Ticket</p>
-                </div>
-                <div >
-                  <button>
-                    <span class="material-symbols-outlined">
-paid
-</span></button>
-                  <p>Payments</p>
-                </div>
+          </div>
+          <div>
+            <div id="nodata" style="display: none">
+              <h1>No Data Available</h1>
+            </div>
+            <table id="verificationList">
+              <thead>
+                <tr>
+                  <th>Service Provider</th>
+                  <th>Phone Number</th>
+                  <th>Service Catogory</th>
+                  <th>Location</th>
+                  <th style="width: 30%"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Isuri Chathurika</td>
+                  <td>0771234567</td>
+                  <td>Garage Owner</td>
+                  <td>
+                    <button type="button" class="verifyBu locView">View</button>
+                  </td>
+                  <td>
+                    <button type="button" class="verifyBu verify">
+                      Verify
+                    </button>
+                    <button type="button" class="verifyBu cancle">
+                      Cancle
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Isuri Chathurika</td>
+                  <td>0771234567</td>
+                  <td>Garage Owner</td>
+                  <td>
+                    <button type="button" class="verifyBu locView">View</button>
+                  </td>
+                  <td>
+                    <button type="button" class="verifyBu verify">
+                      Verify
+                    </button>
+                    <button type="button" class="verifyBu cancle">
+                      Cancle
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
+        <!-- ---------------------------------------Reports------------------------------- -->
+        <!-- ---------------------------------------Reports------------------------------- -->
+        <div id="reports" style="display: none">
+          <div class="topRow">
+            <h1>Report</h1>
+            <div class="inputFileds">
+              <input type="text" placeholder="Report Name" />
+              <select>
+                <option value="" disabled selected>Select Report Type</option>
+                <option value="all">All</option>
+                <option value="single">Single</option>
+              </select>
+              <select>
+                <option value="" disabled selected>Select Report Format</option>
+                <option value="pdf">PDF</option>
+                <option value="excel">Excel Sheet</option>
+              </select>
+            </div>
+          </div>
+          <div class="reportArea">
+            <h1>Select Report Area</h1>
+            <div class="areaButtons">
+              <div>
+                <button>
+                  <span class="material-symbols-outlined">car_crash</span>
+                </button>
+                <p>Customers</p>
               </div>
+              <div>
+                <button>
+                  <span class="material-symbols-outlined">construction</span>
+                </button>
+                <p>Garages</p>
               </div>
-
-              <div class="selectionRow">
-                <div>
-                  <h1>Columns</h1>
-                  <div class="columnsCB">
-                    <div>
-<input type="checkbox" id="" name="" value="">
-                    <label for=""> Customer ID</label>
-                    </div>
-                   
-                    <div>
-<input type="checkbox" id="" name="" value="">
-                    <label for=""> Customer Name</label>
-                    </div>
-                    <div>
-<input type="checkbox" id="" name="" value="">
-                    <label for=""> Customer Email</label>
-                    </div>
-                    <div>
-<input type="checkbox" id="" name="" value="">
-                    <label for=""> Contact Number</label>
-                    </div>
-                    
-                  </div>
-                </div>
-                <div class="rowsSec">
-                  <h1>Rows</h1>
-                  <select>
-                    <option value="" disabled selected>Select Row ID</option>
-                    <option value="">001</option>
-                    <option value="">002</option>
-                    <option value="">003</option>
-                  </select>
-                </div>
-                <div class="spfilters">
-                  <h1>Special Filters</h1>
-                  <div>
-                  <select>
-                    <option value="" disabled selected>Select Key</option>
-                    <option value="">Name</option>
-                    <option value="">Email</option>
-                    <option value="">Contact Number</option>
-                  </select>
-                  <select>
-                    <option value="" disabled selected>Select Value</option>
-                    <option value="">Kamal</option>
-                    <option value="">Nimal</option>
-                    <option value="">Sapna</option>
-                  </select>
-                  </div>
-                </div>
+              <div>
+                <button>
+                  <span class="material-symbols-outlined">manage_accounts</span>
+                </button>
+                <p>Maintainance Personnel</p>
               </div>
-
-              <div class="ButtonsRow">
-                <button class="button"><span class="material-symbols-outlined">
-preview
-</span>Preview</button>
-                <button class="button"><span class="material-symbols-outlined">
-download
-</span>Download</button>
+              <div>
+                <button>
+                  <span class="material-symbols-outlined">support_agent</span>
+                </button>
+                <p>Customer Support Members</p>
               </div>
-            
+              <div>
+                <button>
+                  <span class="material-symbols-outlined">problem</span>
+                </button>
+                <p>Support Ticket</p>
+              </div>
+              <div>
+                <button>
+                  <span class="material-symbols-outlined">paid</span>
+                </button>
+                <p>Payments</p>
+              </div>
+            </div>
           </div>
 
-<!-- ---------------------------------------Profile------------------------------- -->
-          <!-- ---------------------------------------Profile------------------------------- -->
-<!-- ---------------------------------------Admin Profile------------------------------- -->
-          <div id="adminProfile" style="display: none">
-            <div class="topRow">
-              <h1>Profile</h1>
-            </div>
+          <div class="selectionRow">
+            <div class="columnsCB" style="display: none">
+              <h1>Columns</h1>
+              <div>
+                <div>
+                  <input type="checkbox" id="" name="" value="" />
+                  <label for=""> Customer ID</label>
+                </div>
 
-            <div class="profileContent">
-              <div class="middle_View">
-                <img src="../../assets/img/pic.png" alt="" />
-                <!-- Detail form +******************************************************************** -->
-                
-                <div class="row">
-                  <div class="tag">
-                    <h1>First Name :</h1>
-                  </div>
-                  <div class="detail"><p>Chamodh</p></div>
+                <div>
+                  <input type="checkbox" id="" name="" value="" />
+                  <label for=""> Customer Name</label>
                 </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Last Name :</h1>
-                  </div>
-                  <div class="detail"><p>Henderson</p></div>
+                <div>
+                  <input type="checkbox" id="" name="" value="" />
+                  <label for=""> Customer Email</label>
                 </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Phone Number :</h1>
-                  </div>
-                  <div class="detail"><p>0768658568</p></div>
+                <div>
+                  <input type="checkbox" id="" name="" value="" />
+                  <label for=""> Contact Number</label>
                 </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Email :</h1>
-                  </div>
-                  <div class="detail"><p>chamodh@gmail.com</p></div>
+              </div>
+            </div>
+            <div class="rowsSec" style="display: none">
+              <h1>Rows</h1>
+              <select>
+                <option value="" disabled selected>Select Row ID</option>
+                <option value="">001</option>
+                <option value="">002</option>
+                <option value="">003</option>
+              </select>
+            </div>
+            <div class="spfilters" style="display: none">
+              <h1>Special Filters</h1>
+              <div>
+                <select>
+                  <option value="" disabled selected>Select Key</option>
+                  <option value="">Name</option>
+                  <option value="">Email</option>
+                  <option value="">Contact Number</option>
+                </select>
+                <select>
+                  <option value="" disabled selected>Select Value</option>
+                  <option value="">Kamal</option>
+                  <option value="">Nimal</option>
+                  <option value="">Sapna</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="ButtonsRow">
+            <button class="button preview">
+              <span class="material-symbols-outlined"> preview </span>Preview
+            </button>
+            <button class="button download">
+              <span class="material-symbols-outlined"> download </span>Download
+            </button>
+          </div>
+        </div>
+
+        <!-- ---------------------------------------Profile------------------------------- -->
+        <!-- ---------------------------------------Profile------------------------------- -->
+        <!-- ---------------------------------------Admin Profile------------------------------- -->
+        <div id="adminProfile" style="display: none">
+          <div class="topRow">
+            <h1>Profile</h1>
+          </div>
+
+          <div class="profileContent">
+            <div class="middle_View">
+              <img src="../../assets/img/pic.png" alt="" />
+              <!-- Detail form +******************************************************************** -->
+
+              <div class="row">
+                <div class="tag">
+                  <h1>First Name :</h1>
                 </div>
- 
-                <!-- *********************Buttons**************************************************** -->
-                <!-- <button type="submit" class="button">
+                <div class="detail"><p>Chamodh</p></div>
+              </div>
+              <div class="row">
+                <div class="tag">
+                  <h1>Last Name :</h1>
+                </div>
+                <div class="detail"><p>Henderson</p></div>
+              </div>
+              <div class="row">
+                <div class="tag">
+                  <h1>Phone Number :</h1>
+                </div>
+                <div class="detail"><p>0768658568</p></div>
+              </div>
+              <div class="row">
+                <div class="tag">
+                  <h1>Email :</h1>
+                </div>
+                <div class="detail"><p>chamodh@gmail.com</p></div>
+              </div>
+
+              <!-- *********************Buttons**************************************************** -->
+              <!-- <button type="submit" class="button">
                   <span class="material-symbols-outlined"> edit </span>Edit
                   Profile
                 </button>
@@ -1114,36 +1021,31 @@ download
                   Profile
                 </button>
               </div> -->
-
-             
             </div>
-            
-            
           </div>
           <div class="buttonDiv">
-<button type="submit" class="button">
-                  <span class="material-symbols-outlined"> edit </span>Change Password
-                </button>
-                <button type="submit" class="button">
-                  <span class="material-symbols-outlined"> edit </span>Edit
-                  Profile
-                </button>
-            </div>
+            <button type="submit" class="button">
+              <span class="material-symbols-outlined"> edit </span>Change
+              Password
+            </button>
+            <button type="submit" class="button">
+              <span class="material-symbols-outlined"> edit </span>Edit Profile
+            </button>
+          </div>
         </div>
-        
       </div>
       <!-- **************************FOOTER********************** -->
-        <footer>
-          <p>
-            © 2020, All rights reserved by University of Colombo School of
-            Computing
-          </p>
-        </footer>
+      <footer>
+        <p>
+          © 2020, All rights reserved by University of Colombo School of
+          Computing
+        </p>
+      </footer>
     </div>
   </body>
 
   <!-- <script src="../../assets/js/script.js"></script> -->
-  
+
   <script src="../../assets/js/jquery-3.7.0.js"></script>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

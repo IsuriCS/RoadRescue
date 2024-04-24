@@ -22,7 +22,7 @@ public class dashboardCards {
         ResultSet spTickects = CrudUtil.executeQuery(connection, "SELECT COUNT(*) AS sp_tickets FROM sp_support_ticket");
         ResultSet completedtasksset = CrudUtil.executeQuery(connection,"SELECT COUNT(*) AS completed_tasks FROM service_request WHERE status='5'");
 
-        ResultSet resentReports = CrudUtil.executeQuery(connection,"SELECT *FROM (SELECT s.garage_name AS name,st.title,st.created_time,st.status FROM sp_support_ticket st , service_provider s WHERE st.service_provider_id=s.id UNION ALL SELECT CONCAT(c.f_name,\" \",c.l_name) AS name,ct.title,ct.created_time,ct.status FROM customer_support_ticket ct , customer c WHERE ct.customer_id=c.id) AS combined_tickets ORDER BY created_time desc LIMIT 5");
+        ResultSet resentReports = CrudUtil.executeQuery(connection,"SELECT *FROM (SELECT s.garage_name AS name,st.title,st.created_time,st.status,st.id as ticketId,st.service_provider_id As ownerid,st.customer_support_member_id As customer_support_member_id,st.description AS description,st.solution AS solution FROM sp_support_ticket st , service_provider s WHERE st.service_provider_id=s.id UNION ALL SELECT CONCAT(c.f_name,\" \",c.l_name) AS name,ct.title,ct.created_time,ct.status,ct.id as ticketId,ct.customer_id As ownerid,ct.customer_support_member_id As customer_support_member_id,ct.description AS description,ct.solution AS solution  FROM customer_support_ticket ct , customer c WHERE ct.customer_id=c.id) AS combined_tickets ORDER BY created_time desc LIMIT 5");
 
         ResultSet registationChart=CrudUtil.executeQuery(connection,"SELECT DATE_FORMAT(reg_timestamp, '%M') AS month,COUNT(*) AS registrations,'customer' AS type FROM customer GROUP BY MONTH(reg_timestamp) UNION ALL SELECT DATE_FORMAT(reg_timestamp, '%M') AS month,COUNT(*) AS registrations, 'service_provider' AS type FROM service_provider GROUP BY MONTH(reg_timestamp) UNION ALL SELECT DATE_FORMAT(reg_timestamp, '%M') AS month,COUNT(*) AS registrations,'technician' AS type FROM technician GROUP BY MONTH(reg_timestamp)");
         ResultSet deletionChart=CrudUtil.executeQuery(connection,"SELECT DATE_FORMAT(deleted_time, '%M') AS month,COUNT(*) AS deletion, type AS type FROM deleted_accounts GROUP BY MONTH(deleted_time)");
@@ -76,13 +76,19 @@ public class dashboardCards {
             SupportTicket supportTicket = new SupportTicket(resentReports.getString(1), resentReports.getString(2), resentReports.getString(3), resentReports.getString(4));
             JsonObjectBuilder recentReportsObjecct = Json.createObjectBuilder();
             recentReportsObjecct.add("name",supportTicket.getTicketOwner());
-
             recentReportsObjecct.add("title",supportTicket.getTitle());
             Timestamp timestamp = Timestamp.valueOf(supportTicket.getTimestamp());
-
             TimeStampFormatter formatterdTS = new TimeStampFormatter(timestamp);
             recentReportsObjecct.add("date", formatterdTS.extractDate());
             recentReportsObjecct.add("status",supportTicket.getTicketStatus());
+            recentReportsObjecct.add("ticketId",resentReports.getString("ticketId"));
+            recentReportsObjecct.add("SPid",resentReports.getString("ownerid"));
+
+//            recentReportsObjecct.add("customer_support_member_id",resentReports.getString("customer_support_member_id"));
+            recentReportsObjecct.add("description",resentReports.getString("description"));
+//            recentReportsObjecct.add("solution",resentReports.getString("solution"));
+
+
             countersForCardsArray.add(recentReportsObjecct.build());
         }
 
