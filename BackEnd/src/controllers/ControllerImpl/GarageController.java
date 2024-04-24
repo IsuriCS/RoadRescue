@@ -4,7 +4,6 @@ import models.Garage;
 import models.SpSupportTicket;
 import utils.CrudUtil;
 
-
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -36,13 +35,9 @@ public class GarageController {
         return garage;
     }
 
-    public String garageIsExists(Connection connection,String phoneNumber) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT id FROM service_provider WHERE phone_number=?", phoneNumber);
-        if (resultSet.next()) {
-            return resultSet.getString(1);
-        }
-        return null;
-    }
+
+
+
 
     public Boolean update(Connection connection,Garage garageModel) throws SQLException, ClassNotFoundException {
        return CrudUtil.executeUpdate(connection,"UPDATE service_provider SET phone_number=?,email=?,garage_name=?,owner_name=?,profile_pic_ref=? WHERE id=?",

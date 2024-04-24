@@ -3,7 +3,11 @@
   <component name="dataSourceStorageLocal" created-in="IU-231.9011.34">
     <data-source name="road_rescue@database-1.cxaiwakqecm4.eu-north-1.rds.amazonaws.com" uuid="f40bdce8-e628-4147-841a-cb889c03a23c">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
-      <schema-mapping />
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" negative="1" />
+        </introspection-scope>
+      </schema-mapping>
     </data-source>
     <data-source name="Mysql" uuid="236defd3-eae7-4269-a362-fb1244543298">
       <database-info product="MySQL" version="8.0.35" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.35" exact-driver-version="8.0">
@@ -15,7 +19,10 @@
       <user-name>admin</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="schema" qname="@" />
+          <node kind="schema">
+            <name qname="@" />
+            <name qname="road_rescue" />
+          </node>
         </introspection-scope>
       </schema-mapping>
     </data-source>

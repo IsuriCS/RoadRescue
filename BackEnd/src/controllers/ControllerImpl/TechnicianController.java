@@ -158,4 +158,39 @@ public class TechnicianController {
 
         return technicianExpertiseTableResult && technicianTableResult;
     }
+
+    public JsonArray fetchAssignTechnicianServices(Connection connection,String techId) throws SQLException, ClassNotFoundException {
+        System.out.println(techId);
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "select TIME_FORMAT(sr.accepted_timestamp, '%h.%i %p'),sr.description,ic.category,CONCAT(c.f_name,' ',c.l_name),c.phone_number,vm.model,sr.id\n" +
+                "from service_request sr\n" +
+                "left join service_technician st on sr.id=st.service_request_id\n" +
+                "join issue_category ic on sr.issue_category_id=ic.id\n" +
+                "join customer c on c.id = sr.customer_id\n" +
+                "join vehicle_model vm on vm.id=sr.vehicle_model_id\n" +
+                "where st.technician_id=? and sr.status=?",Integer.parseInt(techId),2);
+
+        JsonArrayBuilder assignIssue=Json.createArrayBuilder();
+
+        while (resultSet.next()) {
+
+            String time=resultSet.getString(1);
+            String description=resultSet.getString(2);
+            String issueCategory=resultSet.getString(3);
+            String customerName=resultSet.getString(4);
+            String customerContact=resultSet.getString(5);
+            String vehicleModel=resultSet.getString(6);
+            String serviceId=String.valueOf(resultSet.getInt(7));
+
+            JsonObjectBuilder objectBuilder=Json.createObjectBuilder();
+            objectBuilder.add("time",time);
+            objectBuilder.add("description",description);
+            objectBuilder.add("issueCategory",issueCategory);
+            objectBuilder.add("customerName",customerName);
+            objectBuilder.add("customerContact",customerContact);
+            objectBuilder.add("vehicleModel",vehicleModel);
+            objectBuilder.add("serviceId", serviceId);
+            assignIssue.add(objectBuilder.build());
+        }
+        return assignIssue.build();
+    }
 }

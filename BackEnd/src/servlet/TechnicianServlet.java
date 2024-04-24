@@ -1,7 +1,6 @@
 package servlet;
 
 
-import com.google.gson.Gson;
 import controllers.ControllerImpl.TechnicianController;
 import models.TechnicianModel;
 
@@ -14,10 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.*;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,9 +69,8 @@ public class TechnicianServlet extends HttpServlet {
                 break;
 
             case "expertise":
-                System.out.println("hutta moko wada natte");
                 try {
-                    connection= ds.getConnection();
+                    connection = ds.getConnection();
                     JsonArray expertiseArias = technician.getExpertiseArias(connection);
                     System.out.println(expertiseArias.toString());
                     JsonObjectBuilder response = Json.createObjectBuilder();
@@ -112,7 +108,7 @@ public class TechnicianServlet extends HttpServlet {
 
                     connection = ds.getConnection();
 
-                    JsonArray technicians=technician.getTechnicians(connection,Integer.parseInt(id),issueCategory);
+                    JsonArray technicians = technician.getTechnicians(connection, Integer.parseInt(id), issueCategory);
                     JsonObjectBuilder response = Json.createObjectBuilder();
                     response.add("status", 200);
                     response.add("message", "Done");
@@ -138,196 +134,228 @@ public class TechnicianServlet extends HttpServlet {
                 }
 
                 break;
-            default:
-                // handle
+            case "getTechServices":
+                try {
+                    connection = ds.getConnection();
+                    JsonArray expertiseArias = technician.fetchAssignTechnicianServices(connection,searchId);
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    response.add("status", 200);
+                    response.add("message", "Done");
+                    response.add("data", expertiseArias);
+                    writer.print(response.build());
+                    connection.close();
+
+                } catch (SQLException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "SQL Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "Class not fount Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                }
+
+                    break;
+                    default:
+                        // handle
+                }
         }
-    }
 
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        @Override
+        protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String fName;
-        String lName;
-        String contactNumber;
-        int techStatus;
-        JsonArray expertiseAreas;
+            String fName;
+            String lName;
+            String contactNumber;
+            int techStatus;
+            JsonArray expertiseAreas;
 
-        try (Reader stringReader = new InputStreamReader(req.getInputStream())) {
-            JsonReader reader = Json.createReader(stringReader);
-            JsonObject jsonObject = reader.readObject();
+            try (Reader stringReader = new InputStreamReader(req.getInputStream())) {
+                JsonReader reader = Json.createReader(stringReader);
+                JsonObject jsonObject = reader.readObject();
 
-            fName = jsonObject.getString("techFirstName");
-            lName = jsonObject.getString("techLastName");
-            contactNumber = jsonObject.getString("techContactNumber");
-            techStatus = jsonObject.getInt("techStatus");
-            expertiseAreas = jsonObject.getJsonArray("techExpertiseAreas");
-        }
-
-        PrintWriter writer = resp.getWriter();
-        resp.setContentType("application/json");
-
-        List<String> expertiseAreasList = new ArrayList<String>();
-
-        for (JsonValue expertiseArea : expertiseAreas
-        ) {
-            expertiseAreasList.add(String.valueOf(expertiseArea));
-        }
-
-        try {
-            Connection connection = ds.getConnection();
-            TechnicianModel technicianModel = new TechnicianModel(fName, lName, contactNumber, expertiseAreasList, techStatus, 1);
-
-            boolean result = technician.add(connection, technicianModel);
-
-            if (result) {
-                System.out.println("start send response");
-                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                resp.setStatus(HttpServletResponse.SC_OK);
-                objectBuilder.add("status", 201);
-                objectBuilder.add("message", "Technician add proceed successful.");
-                objectBuilder.add("data", "");
-                writer.print(objectBuilder.build());
-                System.out.println("end send response");
+                fName = jsonObject.getString("techFirstName");
+                lName = jsonObject.getString("techLastName");
+                contactNumber = jsonObject.getString("techContactNumber");
+                techStatus = jsonObject.getInt("techStatus");
+                expertiseAreas = jsonObject.getJsonArray("techExpertiseAreas");
             }
-            connection.close();
-        } catch (SQLException e) {
-            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            resp.setStatus(HttpServletResponse.SC_OK);
-            objectBuilder.add("status", 500);
-            objectBuilder.add("message", "SQL Exception Error.");
-            objectBuilder.add("data", e.getLocalizedMessage());
-            writer.print(objectBuilder.build());
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            resp.setStatus(HttpServletResponse.SC_OK);
-            objectBuilder.add("status", 500);
-            objectBuilder.add("message", "Class not fount Exception Error");
-            objectBuilder.add("data", e.getLocalizedMessage());
-            writer.print(objectBuilder.build());
-            e.printStackTrace();
-        }
 
 
 
-    }
+            PrintWriter writer = resp.getWriter();
+            resp.setContentType("application/json");
 
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+            List<String> expertiseAreasList = new ArrayList<String>();
 
-        String id;
-        String fName;
-        String lName;
-        String imageRef;
-        JsonArray expertiseAreas;
-
-        try (Reader stringReader = new InputStreamReader(req.getInputStream())) {
-            JsonReader reader = Json.createReader(stringReader);
-            JsonObject jsonObject = reader.readObject();
-
-            id = jsonObject.getString("techId");
-            fName = jsonObject.getString("techFirstName");
-            lName = jsonObject.getString("techLastName");
-            imageRef = jsonObject.getString("imageRef");
-            expertiseAreas = jsonObject.getJsonArray("techExpertiseAreas");
-        }
-
-        PrintWriter writer = resp.getWriter();
-        resp.setContentType("application/json");
-
-        List<String> expertiseAreasList = new ArrayList<String>();
-
-        for (JsonValue expertiseArea : expertiseAreas
-        ) {
-            expertiseAreasList.add(String.valueOf(expertiseArea));
-        }
-
-        try{
-            Connection connection = ds.getConnection();
-            TechnicianModel technicianModel=new TechnicianModel(id,fName,lName,expertiseAreasList,imageRef);
-
-            boolean updateResult = technician.update(connection, technicianModel);
-            if (updateResult){
-                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                resp.setStatus(HttpServletResponse.SC_OK);
-                objectBuilder.add("status", 200);
-                objectBuilder.add("message", "Technician update proceed successful.");
-                objectBuilder.add("data", "");
-                writer.print(objectBuilder.build());
-            }else {
-                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                resp.setStatus(HttpServletResponse.SC_OK);
-                objectBuilder.add("status", 400);
-                objectBuilder.add("message", "Technician update proceed failed.!");
-                objectBuilder.add("data", "");
-                writer.print(objectBuilder.build());
+            for (JsonValue expertiseArea : expertiseAreas
+            ) {
+                expertiseAreasList.add(String.valueOf(expertiseArea));
             }
-            connection.close();
-        } catch (SQLException e) {
-            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            resp.setStatus(HttpServletResponse.SC_OK);
-            objectBuilder.add("status", 500);
-            objectBuilder.add("message", "SQL Exception Error.");
-            objectBuilder.add("data", e.getLocalizedMessage());
-            writer.print(objectBuilder.build());
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            resp.setStatus(HttpServletResponse.SC_OK);
-            objectBuilder.add("status", 500);
-            objectBuilder.add("message", "Class not fount Exception Error");
-            objectBuilder.add("data", e.getLocalizedMessage());
-            writer.print(objectBuilder.build());
-            e.printStackTrace();
-        }
-    }
 
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String techId = req.getParameter("delId");
-        resp.setContentType("application/json");
-        PrintWriter writer = resp.getWriter();
+            try {
+                Connection connection = ds.getConnection();
+                TechnicianModel technicianModel = new TechnicianModel(fName, lName, contactNumber, expertiseAreasList, techStatus, 1);
 
-        try {
-            Connection connection = ds.getConnection();
-            boolean deleteResult = technician.delete(connection, techId);
+                boolean result = technician.add(connection, technicianModel);
 
-            if (deleteResult) {
+                if (result) {
+                    System.out.println("start send response");
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    objectBuilder.add("status", 201);
+                    objectBuilder.add("message", "Technician add proceed successful.");
+                    objectBuilder.add("data", "");
+                    writer.print(objectBuilder.build());
+                    System.out.println("end send response");
+                }
+                connection.close();
+            } catch (SQLException e) {
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 resp.setStatus(HttpServletResponse.SC_OK);
-                objectBuilder.add("status", 200);
-                objectBuilder.add("message", "Technician delete proceed successful.");
-                objectBuilder.add("data", "");
+                objectBuilder.add("status", 500);
+                objectBuilder.add("message", "SQL Exception Error.");
+                objectBuilder.add("data", e.getLocalizedMessage());
                 writer.print(objectBuilder.build());
-            } else {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                 resp.setStatus(HttpServletResponse.SC_OK);
-                objectBuilder.add("status", 400);
-                objectBuilder.add("message", "Technician delete proceed failed,because insert  technician id is wrong..!");
-                objectBuilder.add("data", "");
+                objectBuilder.add("status", 500);
+                objectBuilder.add("message", "Class not fount Exception Error");
+                objectBuilder.add("data", e.getLocalizedMessage());
                 writer.print(objectBuilder.build());
+                e.printStackTrace();
             }
-            connection.close();
-        } catch (SQLException e) {
-            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            resp.setStatus(HttpServletResponse.SC_OK);
-            objectBuilder.add("status", 500);
-            objectBuilder.add("message", "SQL Exception Error.");
-            objectBuilder.add("data", e.getLocalizedMessage());
-            writer.print(objectBuilder.build());
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-            resp.setStatus(HttpServletResponse.SC_OK);
-            objectBuilder.add("status", 500);
-            objectBuilder.add("message", "Class not found Exception Error.");
-            objectBuilder.add("data", e.getLocalizedMessage());
-            writer.print(objectBuilder.build());
-            e.printStackTrace();
+
+
+        }
+
+        @Override
+        protected void doPut (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+            String id;
+            String fName;
+            String lName;
+            String imageRef;
+            JsonArray expertiseAreas;
+
+            try (Reader stringReader = new InputStreamReader(req.getInputStream())) {
+                JsonReader reader = Json.createReader(stringReader);
+                JsonObject jsonObject = reader.readObject();
+
+                id = jsonObject.getString("techId");
+                fName = jsonObject.getString("techFirstName");
+                lName = jsonObject.getString("techLastName");
+                imageRef = jsonObject.getString("imageRef");
+                expertiseAreas = jsonObject.getJsonArray("techExpertiseAreas");
+            }
+
+            PrintWriter writer = resp.getWriter();
+            resp.setContentType("application/json");
+
+            List<String> expertiseAreasList = new ArrayList<String>();
+
+            for (JsonValue expertiseArea : expertiseAreas
+            ) {
+                expertiseAreasList.add(String.valueOf(expertiseArea));
+            }
+
+            try {
+                Connection connection = ds.getConnection();
+                TechnicianModel technicianModel = new TechnicianModel(id, fName, lName, expertiseAreasList, imageRef);
+
+                boolean updateResult = technician.update(connection, technicianModel);
+                if (updateResult) {
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    objectBuilder.add("status", 200);
+                    objectBuilder.add("message", "Technician update proceed successful.");
+                    objectBuilder.add("data", "");
+                    writer.print(objectBuilder.build());
+                } else {
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    objectBuilder.add("status", 400);
+                    objectBuilder.add("message", "Technician update proceed failed.!");
+                    objectBuilder.add("data", "");
+                    writer.print(objectBuilder.build());
+                }
+                connection.close();
+            } catch (SQLException e) {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                objectBuilder.add("status", 500);
+                objectBuilder.add("message", "SQL Exception Error.");
+                objectBuilder.add("data", e.getLocalizedMessage());
+                writer.print(objectBuilder.build());
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                objectBuilder.add("status", 500);
+                objectBuilder.add("message", "Class not fount Exception Error");
+                objectBuilder.add("data", e.getLocalizedMessage());
+                writer.print(objectBuilder.build());
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        protected void doDelete (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+        {
+            String techId = req.getParameter("delId");
+            resp.setContentType("application/json");
+            PrintWriter writer = resp.getWriter();
+
+            try {
+                Connection connection = ds.getConnection();
+                boolean deleteResult = technician.delete(connection, techId);
+
+                if (deleteResult) {
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    objectBuilder.add("status", 200);
+                    objectBuilder.add("message", "Technician delete proceed successful.");
+                    objectBuilder.add("data", "");
+                    writer.print(objectBuilder.build());
+                } else {
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    objectBuilder.add("status", 400);
+                    objectBuilder.add("message", "Technician delete proceed failed,because insert  technician id is wrong..!");
+                    objectBuilder.add("data", "");
+                    writer.print(objectBuilder.build());
+                }
+                connection.close();
+            } catch (SQLException e) {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                objectBuilder.add("status", 500);
+                objectBuilder.add("message", "SQL Exception Error.");
+                objectBuilder.add("data", e.getLocalizedMessage());
+                writer.print(objectBuilder.build());
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                objectBuilder.add("status", 500);
+                objectBuilder.add("message", "Class not found Exception Error.");
+                objectBuilder.add("data", e.getLocalizedMessage());
+                writer.print(objectBuilder.build());
+                e.printStackTrace();
+            }
         }
     }
-}
 
 
 

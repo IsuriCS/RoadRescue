@@ -1,10 +1,9 @@
 package servlet;
 
-import controllers.ControllerImpl.ServicesController;
+import controllers.ControllerImpl.LoginController;
 
 import javax.annotation.Resource;
 import javax.json.Json;
-import javax.json.JsonArray;
 import javax.json.JsonObjectBuilder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,14 +16,16 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet(urlPatterns = "/service")
-public class ServiceServlet extends HttpServlet {
+import static utils.OTP.generateOTP;
+import static utils.SMS.smsApi;
+
+@WebServlet(urlPatterns = "/login")
+public class LoginServlet extends HttpServlet {
+
     @Resource(name = "java:comp/env/roadRescue")
     DataSource ds;
 
-
-
-    ServicesController services =new ServicesController();
+    LoginController login = new LoginController();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,62 +37,26 @@ public class ServiceServlet extends HttpServlet {
         Connection connection = null;
 
         switch (option) {
-            case "getServices":
+            case "loginSearch":
                 try {
-                    connection=ds.getConnection();
-                    JsonArray requestServices = services.fetchService(connection);
-                    JsonObjectBuilder response = Json.createObjectBuilder();
-                    response.add("status", 200);
-                    response.add("message", "Done");
-                    response.add("data", requestServices);
-                    writer.print(response.build());
-                    connection.close();
+                    connection= ds.getConnection();
 
-                } catch (SQLException e) {
-                    JsonObjectBuilder response = Json.createObjectBuilder();
-                    resp.setStatus(HttpServletResponse.SC_OK);
-                    response.add("status", 500);
-                    response.add("message", "SQL Exception Error");
-                    response.add("data", e.getLocalizedMessage());
-                    writer.print(response.build());
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    JsonObjectBuilder response = Json.createObjectBuilder();
-                    resp.setStatus(HttpServletResponse.SC_OK);
-                    response.add("status", 500);
-                    response.add("message", "Class not fount Exception Error");
-                    response.add("data", e.getLocalizedMessage());
-                    writer.print(response.build());
-                    e.printStackTrace();
-                }
-
-
-                break;
-
-            case "checkPayment":
-                try {
-                    connection=ds.getConnection();
-                    String result=services.checkForCardPayment(connection,searchId);
-                    JsonObjectBuilder response = Json.createObjectBuilder();
-                    if (result.equalsIgnoreCase("Payment successful")) {
-                        System.out.println("M");
+                    String result = login.garageIsExists(connection, searchId);
+                    if (result!=null) {
+                        String otp = generateOTP();
+                        smsApi(otp,searchId);
+                        JsonObjectBuilder response = Json.createObjectBuilder();
                         response.add("status", 200);
-                        response.add("message", result);
-                    }else if (result.equalsIgnoreCase("Payment not successful.\n Try again later.")){
-                        System.out.println("N");
+                        response.add("message", "OTP "+otp);
+                        response.add("data", result);
+                        writer.print(response.build());
+                    }else{
+                        JsonObjectBuilder response = Json.createObjectBuilder();
                         response.add("status", 204);
-                        response.add("message", result);
-                    } else if (result.equalsIgnoreCase("not found")) {
-                        System.out.println("P");
-                        response.add("status", 404);
-                        response.add("message", result);
-                    }else {
-                        System.out.println("Q");
-                        response.add("status", 400);
-                        response.add("message", "Invalided id");
+                        response.add("message", searchId+" this phone Number is not register.\nPlease first register our system.");
+                        response.add("data", "notExists");
+                        writer.print(response.build());
                     }
-                    response.add("data", "");
-                    writer.print(response.build());
                     connection.close();
                 } catch (SQLException e) {
                     JsonObjectBuilder response = Json.createObjectBuilder();
@@ -105,47 +70,90 @@ public class ServiceServlet extends HttpServlet {
                     JsonObjectBuilder response = Json.createObjectBuilder();
                     resp.setStatus(HttpServletResponse.SC_OK);
                     response.add("status", 500);
-                    response.add("message", "Class not fount Exception Error");
+                    response.add("message", "Class not fount Exception Error ");
                     response.add("data", e.getLocalizedMessage());
                     writer.print(response.build());
                     e.printStackTrace();
                 }
+
                 break;
 
-            case "search":
+            case "registerSearch":
+                try {
+                    connection=ds.getConnection();
+                    boolean exitsServiceProvider = login.isExitsServiceProvider(connection, searchId);
+                    if (exitsServiceProvider) {
+                        JsonObjectBuilder response = Json.createObjectBuilder();
+                        response.add("status", 200);
+                        response.add("message", searchId+" is already exits.");
+                        response.add("data", "");
+                        writer.print(response.build());
+                    }else {
+                        String otp = generateOTP();
+//                        smsApi(otp,searchId);
+                        JsonObjectBuilder response = Json.createObjectBuilder();
+                        response.add("status", 204);
+                        response.add("message", "OTP "+otp);
+                        response.add("data", "");
+                        writer.print(response.build());
+                    }
+                } catch (SQLException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "SQL Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "Class not fount Exception Error ");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                }
 
                 break;
             default:
-                // handle
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String option = req.getParameter("option");
-        String serviceId = req.getParameter("serviceId");
-        String amount = req.getParameter("amount");
+        String longitude = req.getParameter("longitude");
+        String latitude = req.getParameter("latitude");
+        String id = req.getParameter("id");
+        String ownerName = req.getParameter("ownerName");
+        String garageName = req.getParameter("garageName");
+        String phoneNumber = req.getParameter("phoneNumber");
 
+        String location=latitude+","+longitude;
 
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
-        Connection connection= null;
+        Connection connection = null;
 
         switch (option) {
-            case "completeJob":
+            case "sp":
                 try {
                     connection= ds.getConnection();
-                    boolean result=services.updateStatusAndAmount(connection,Integer.parseInt(serviceId),Double.parseDouble(amount));
-                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    boolean result= login.updateLocationForServiceProvider(connection,location,id);
                     if (result) {
+                        JsonObjectBuilder response = Json.createObjectBuilder();
                         response.add("status", 200);
-                        response.add("message", "Payment updated successfully");
-                    }else {
+                        response.add("message", "Location Updated");
+                        response.add("data", "");
+                        writer.print(response.build());
+                    }else{
+                        JsonObjectBuilder response = Json.createObjectBuilder();
                         response.add("status", 204);
-                        response.add("message", "Payment updated Unsuccessfully");
+                        response.add("message", "Location update failed");
+                        response.add("data", "");
+                        writer.print(response.build());
                     }
-                    response.add("data", "");
-                    writer.print(response.build());
                     connection.close();
                 } catch (SQLException e) {
                     JsonObjectBuilder response = Json.createObjectBuilder();
@@ -159,10 +167,59 @@ public class ServiceServlet extends HttpServlet {
                     JsonObjectBuilder response = Json.createObjectBuilder();
                     resp.setStatus(HttpServletResponse.SC_OK);
                     response.add("status", 500);
-                    response.add("message", "Class not fount Exception Error");
+                    response.add("message", "Class not fount Exception Error ");
                     response.add("data", e.getLocalizedMessage());
                     writer.print(response.build());
                     e.printStackTrace();
+                }
+
+
+                break;
+            case "t":
+                try {
+                    connection= ds.getConnection();
+                    boolean result= login.updateLocationForTechnician(connection,location,id);
+                    if (result) {
+                        JsonObjectBuilder response = Json.createObjectBuilder();
+                        response.add("status", 200);
+                        response.add("message", "Location Updated");
+                        response.add("data", "");
+                        writer.print(response.build());
+                    }else{
+                        JsonObjectBuilder response = Json.createObjectBuilder();
+                        response.add("status", 204);
+                        response.add("message", "Location update failed");
+                        response.add("data", "");
+                        writer.print(response.build());
+                    }
+                    connection.close();
+                } catch (SQLException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "SQL Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "Class not fount Exception Error ");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                }
+                break;
+
+            case "registerUser":
+                try {
+                    connection= ds.getConnection();
+                    String tempId= login.RegisterUser(connection,ownerName,garageName,phoneNumber);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
                 }
 
                 break;
@@ -173,69 +230,7 @@ public class ServiceServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String serviceId = req.getParameter("serviceId");
-        String serviceProviderId = req.getParameter("serviceProviderId");
-        String technician = req.getParameter("technicianId");
-        String option = req.getParameter("option");
-        String[] parts = technician.split("-");
-
-        PrintWriter writer = resp.getWriter();
-        resp.setContentType("application/json");
-        Connection connection = null;
-
-        System.out.println(option);
-
-        switch (option) {
-            case "assignTechnician":
-                System.out.println("2");
-                try {
-                    connection=ds.getConnection();
-                    boolean result = services.assignTechnicianForService(connection,serviceId,serviceProviderId,parts[0]);
-                    System.out.println("6");
-                    JsonObjectBuilder response = Json.createObjectBuilder();
-                    if (result) {
-                        response.add("status", 200);
-                        response.add("message", technician+" is assigned for service.");
-                    }else {
-                        response.add("status", 400);
-                        response.add("message", "Technician assign is failed.!");
-                    }
-                    response.add("data", "");
-                    writer.print(response.build());
-
-                    connection.close();
-
-                } catch (SQLException e) {
-                    JsonObjectBuilder response = Json.createObjectBuilder();
-                    resp.setStatus(HttpServletResponse.SC_OK);
-                    response.add("status", 500);
-                    response.add("message", "SQL Exception Error");
-                    response.add("data", e.getLocalizedMessage());
-                    writer.print(response.build());
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    JsonObjectBuilder response = Json.createObjectBuilder();
-                    resp.setStatus(HttpServletResponse.SC_OK);
-                    response.add("status", 500);
-                    response.add("message", "Class not fount Exception Error");
-                    response.add("data", e.getLocalizedMessage());
-                    writer.print(response.build());
-                    e.printStackTrace();
-                }
-
-
-                break;
-
-            case "garageDetail":
-                //handel option
-                break;
-
-            case "search":
-
-                break;
-            default:
-                // handle
-        }
+        super.doPut(req, resp);
     }
 
     @Override
