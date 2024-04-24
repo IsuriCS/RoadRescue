@@ -57,7 +57,26 @@ $.ajax({
                 // var formattedDate = dateTime.toLocaleDateString();
                 // row.insertCell(3).textContent = formattedDate || '_';
                 row.insertCell(3).textContent = datai.Atimestamp || '_';
-                row.insertCell(4).textContent = datai.status || '_';
+                let ST;
+                if(datai.status==1){
+                    ST="Pending.Not accepted by a garage";
+                }else if(datai.status==2){
+                    ST="Accepted by a garage";
+                }else if(datai.status==3){
+                    ST="Garage completed providing the service";
+                }else if(datai.status==4){
+                    ST="Payment done by customer";
+                }else if(datai.status==5){
+                    ST="Completed";
+                }else if(datai.status==6){
+                    ST="Canceled by the garage";
+                }else if(datai.status==7){
+                    ST="Canceled by the customer Support member";
+                }else{
+                    ST="Error";
+                }
+
+                row.insertCell(4).textContent = ST || '_';
 
                 
 
@@ -101,7 +120,25 @@ $.ajax({
                     row.insertCell(0).textContent = datai.CustomerID || '-';
                     row.insertCell(1).textContent = datai.location || '--';
                     row.insertCell(2).textContent = datai.issue || '-';
-                    row.insertCell(3).textContent = datai.status || '_';
+                    let ST;
+                    if(datai.status==1){
+                        ST="Pending.Not accepted by a garage";
+                    }else if(datai.status==2){
+                        ST="Accepted by a garage";
+                    }else if(datai.status==3){
+                        ST="Garage completed providing the service";
+                    }else if(datai.status==4){
+                        ST="Payment done by customer";
+                    }else if(datai.status==5){
+                        ST="Completed";
+                    }else if(datai.status==6){
+                        ST="Canceled by the garage";
+                    }else if(datai.status==7){
+                        ST="Canceled by the customer Support member";
+                    }else{
+                        ST="Error";
+                    }
+                    row.insertCell(3).textContent = ST || '_';
                     
 
                     // row.addEventListener('click', function () {
