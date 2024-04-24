@@ -199,5 +199,12 @@ public class UserDataController {
         }
     }
 
+    public boolean DeleteCustomer(Connection connection,String id)throws SQLException, ClassNotFoundException {
+
+        boolean deleteResult= CrudUtil.executeUpdate(connection,"DELETE FROM customer WHERE id = ?" , id);
+
+
+        return deleteResult;
+    }
 
 }

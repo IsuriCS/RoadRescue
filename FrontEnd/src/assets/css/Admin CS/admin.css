@@ -107,12 +107,12 @@
   height: 100%;
   width: inherit;
 }
-.verifications #title {
+.verifications #verificationtitle {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.verifications #title #number {
+.verifications #verificationtitle #number {
   background-color: white;
   color: #253555;
   border-radius: 6vh;
@@ -285,6 +285,7 @@ input:focus {
   border-style: none;
   width: inherit;
   justify-content: center;
+  cursor: pointer;
 }
 #cusprof button {
   width: 12vw;

@@ -177,5 +177,49 @@ public class AdminCustomerListServlet extends HttpServlet{
 
 
     }
+
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
+        resp.setContentType("application/json");
+        PrintWriter writer = resp.getWriter();
+
+        try {
+            Connection connection = ds.getConnection();
+            boolean deleteResult = userDataController.DeleteCustomer(connection, id);
+
+            if (deleteResult) {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                objectBuilder.add("status", 200);
+                objectBuilder.add("message", "Customer delete proceed successful.");
+                objectBuilder.add("data", "");
+                writer.print(objectBuilder.build());
+            } else {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                objectBuilder.add("status", 400);
+                objectBuilder.add("message", "Customer delete proceed failed,because insert  technician id is wrong..!");
+                objectBuilder.add("data", "");
+                writer.print(objectBuilder.build());
+            }
+            connection.close();
+        } catch (SQLException e) {
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            resp.setStatus(HttpServletResponse.SC_OK);
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "SQL Exception Error.");
+            objectBuilder.add("data", e.getLocalizedMessage());
+            writer.print(objectBuilder.build());
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            resp.setStatus(HttpServletResponse.SC_OK);
+            objectBuilder.add("status", 500);
+            objectBuilder.add("message", "Class not found Exception Error.");
+            objectBuilder.add("data", e.getLocalizedMessage());
+            writer.print(objectBuilder.build());
+            e.printStackTrace();
+        }
+    }
 }
 

@@ -6,6 +6,7 @@ const API_URL = "http://localhost:8080/roadRescue";
 var messagebox = document.querySelector("#messageBox");
 var messageimg = document.querySelector("#messageBox #proccessing_boxes #icon img");
 var messagetext = document.querySelector("#messageBox #proccessing_boxes #Text p");
+var messagebutton = document.getElementById("proccessingBoxButtons");
 
 // abc_abc ----> Abc Abc
 function formatString(str) {
@@ -339,6 +340,7 @@ function showprof(customerId) {
                         messagebox.style.display = "block";
                         messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
                         messagetext.innerHTML = "Updating Profile...";
+                        messagebutton.style.display = "none";
                         // Retrieve the updated values from the form fields
                         var customerId = document.querySelector("#editProfileForm #cid").innerHTML;
                         var fname = document.querySelector("#editProfileForm #fname").value;
@@ -370,6 +372,7 @@ function showprof(customerId) {
 
                                 messageimg.setAttribute("src", "../../assets/img/Tick.png");
                                 messagetext.innerHTML = "Update Successful";
+                                messagebutton.style.display = "none";
                                 setTimeout(function () {
                                     messagebox.style.display = "none";
                                 }, 1500);
@@ -385,8 +388,9 @@ function showprof(customerId) {
                             },
                             error: function (error) {
 
-                                messageimg.setAttribute("src", "../../assets/img/exclametion.png");
+                                messageimg.setAttribute("src", "../../assets/img/exclamation.png");
                                 messagetext.innerHTML = "Something went wrong. Try Again";
+                                messagebutton.style.display = "none";
                                 setTimeout(function () {
                                     messagebox.style.display = "none";
                                 }, 1500);
@@ -403,6 +407,55 @@ function showprof(customerId) {
                                 console.error('Failed to update profile:', error);
                             }
                         });
+                    });
+                });
+
+                deleteButton.addEventListener("click", function () {
+                    messagebox.style.display = "block";
+                    messageimg.setAttribute("src", "../../assets/img/delete.png");
+                    messageimg.style.width = "13vh";
+                    messagetext.innerHTML = "Are you sure you want to delete this user?";
+
+                    var yesButton = document.createElement("button");
+                    yesButton.id = "yesButton";
+                    yesButton.className = "button";
+                    yesButton.innerHTML = "Yes";
+                    document.getElementById("proccessingBoxButtons").appendChild(yesButton);
+
+                    var NoBUtton = document.createElement("button");
+                    NoBUtton.id = "nobutton";
+                    NoBUtton.className = "button";
+                    NoBUtton.innerHTML = "No";
+                    document.getElementById("proccessingBoxButtons").appendChild(NoBUtton);
+
+                    yesButton.addEventListener("click", function () {
+                        messagetext.innerHTML = "Please Wait..."
+                        messagebox.style.display = "block"
+                        messagebutton.style.display = "none";
+                        messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
+
+                        $.ajax({
+                            url: API_URL + '/Admin/CustomerList?id=' + customerId,
+                            method: "DELETE",
+                            success: function (res) {
+                                messagetext.innerHTML = "Customer Deleted Successfully";
+                                messageimg.setAttribute("src", "../../assets/img/Tick.png")
+                                messagebutton.style.display = "none";
+                                setTimeout(function () {
+                                    messagebox.style.display = "none";
+                                }, 1500);
+                                showcus();
+                            },
+                            error: function (error) {
+                                messageimg.setAttribute("src", "../../assets/img/exclamation.png");
+                                messagetext.innerHTML = "Something went wrong. Try Again";
+                                messagebutton.style.display = "none";
+                                setTimeout(function () {
+                                    messagebox.style.display = "none";
+                                }, 1500);
+                            }
+
+                        })
                     });
                 });
 
@@ -1190,6 +1243,7 @@ function showVerification() {
                             verifyButton.addEventListener('click', function () {
                                 messagetext.innerHTML = "Please Wait..."
                                 messagebox.style.display = "block"
+                                messagebutton.style.display = "none";
                                 datai.verify = "Yes";
                                 const data = {
                                     id: datai.id,
@@ -1205,6 +1259,7 @@ function showVerification() {
                                     data: JSON.stringify(data),
                                     success: function (res) {
                                         if (res.status == 200) {
+                                            messagebutton.style.display = "none";
                                             messagetext.innerHTML = "Verification Successfull"
                                             messageimg.setAttribute("src", "../../assets/img/Tick.png")
                                             row.remove();
@@ -1220,12 +1275,14 @@ function showVerification() {
                             cancelButton.addEventListener('click', function () {
                                 messagetext.innerHTML = "Please Wait..."
                                 messagebox.style.display = "block"
+                                messagebutton.style.display = "none";
                                 $.ajax({
                                     url: API_URL + "/Admin/SPlist?id=" + datai.id,
                                     method: "DELETE",
                                     contentType: "application/json",
                                     success: function (res) {
                                         if (res.status == 200) {
+                                            messagebutton.style.display = "none";
                                             messagetext.innerHTML = "Cancle Verification Successfull"
                                             messageimg.setAttribute("src", "../../assets/img/Tick.png")
                                             row.remove();

@@ -16,7 +16,7 @@
   border-width: 1vw;
   width: 50%;
   position: fixed;
-  top: 40%;
+  top: 30%;
   left: 35%;
   border: solid;
 }
@@ -36,4 +36,21 @@
 
 #proccessing_boxes #Text p {
   font-size: 4vh;
+}
+#proccessingBoxButtons {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 5vh;
+  margin-bottom: 4vh;
+}
+
+#proccessingBoxButtons button {
+  width: auto;
+  /* height: 10vh;
+  font-size: 3vh; */
+  /* background-color: #253555;
+  color: white; */
+  /* border: none;
+  border-top: 1px solid white; */
 }
