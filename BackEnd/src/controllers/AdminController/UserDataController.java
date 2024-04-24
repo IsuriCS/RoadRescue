@@ -1,5 +1,4 @@
 package controllers.AdminController;
-import models.TechnicianModel;
 import utils.CrudUtil;
 
 import javax.json.*;
@@ -153,5 +152,52 @@ public class UserDataController {
 
         return cancleResult;
     }
+
+    public boolean UpdateCustomer(Connection connection, String id ,String fname,String lname,String email,String contactnum) throws SQLException, ClassNotFoundException {
+
+        boolean updateResult= CrudUtil.executeUpdate(connection,"UPDATE customer SET f_name=?,l_name=?,email=?,phone_number=? WHERE id = ?" ,fname,lname,email,contactnum, id);
+
+
+        return updateResult;
+    }
+
+    public JsonObject getCoustomerbyID(Connection connection, String id) throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT c.reg_timestamp AS time ,c.id AS customerid,c.f_name AS fname,c.l_name As lname,c.email AS email, CONCAT(c.f_name, ' ', c.l_name) AS full_name, c.phone_number AS phone_number, COALESCE(sr.num_service_requests, 0) AS num_service_requests, COALESCE(st.num_support_tickets, 0) AS num_support_tickets FROM customer c LEFT JOIN ( SELECT customer_id, COUNT(*) AS num_service_requests FROM service_request GROUP BY customer_id ) sr ON c.id = sr.customer_id LEFT JOIN ( SELECT customer_id, COUNT(*) AS num_support_tickets FROM customer_support_ticket GROUP BY customer_id ) st ON c.id = st.customer_id where id=?", id);
+
+        // Check if ResultSet contains any rows
+        if (rst.next()) {
+
+            String fname= rst.getString("fname");
+            String lname= rst.getString("lname");
+            String email= rst.getString("email");
+            String name = rst.getString("full_name");
+            String contactNum = rst.getString("phone_number");
+            int num_service_requests = rst.getInt("num_service_requests");
+            int num_support_tickets = rst.getInt("num_support_tickets");
+            String time = rst.getString("time");
+
+
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("customerId", id);
+            objectBuilder.add("fname",fname);
+            objectBuilder.add("lname",lname);
+            if (email == null) {
+                objectBuilder.addNull("email");
+            } else {
+                objectBuilder.add("email", email);
+            }
+            objectBuilder.add("FullName", name);
+            objectBuilder.add("contact", contactNum);
+            objectBuilder.add("nServiceRequest", num_service_requests);
+            objectBuilder.add("nSupportTickets", num_support_tickets);
+            objectBuilder.add("Time",time);
+
+
+            return objectBuilder.build();
+        } else {
+            return null;
+        }
+    }
+
 
 }

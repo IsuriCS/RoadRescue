@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <title>Road Rescue</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -22,7 +22,8 @@
     <link rel="stylesheet" href="../../assets/css/Admin CS/admin.css" />
     <link rel="stylesheet" href="../../assets/css/Admin CS/notifications.css" />
 
-    <title>Road Rescue</title>
+
+    
   </head>
 
   <body>
@@ -218,10 +219,10 @@
                 
                 <div class="table">
                   <template id="verificationRequestsTemplate">
-  <div id="cards">
-    <p>Garage</p>
-  </div>
-</template>
+                  <div id="cards">
+                    <p>Garage</p>
+                  </div>
+                </template>
 
                   
                  
@@ -317,48 +318,93 @@
 
           <div class="profileContent">
             <div class="leftSide">
-              <img src="../../assets/img/pic.png" alt="" />
+              <div id="profile" style="display: block;">
+
+                <img src="../../assets/img/pic.png" alt="" />
+                <!-- Detail form +******************************************************************** -->
+                <div class="row">
+                  <div class="tag">
+                    <h1>ID :</h1>
+                  </div>
+                  <div class="detail"><p id="cid">001</p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>First Name :</h1>
+                  </div>
+                  <div class="detail"><p id="fname">Chamodh</p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Last Name :</h1>
+                  </div>
+                  <div class="detail"><p id="lname">Henderson</p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Phone Number :</h1>
+                  </div>
+                  <div class="detail"><p id="cnum">0768658568</p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Email :</h1>
+                  </div>
+                  <div class="detail"><p id="email">chamodh@gmail.com</p></div>
+                </div>
+              </div>
+
+
+              <div id="editProfileForm" style="display: none;">
+                <img src="../../assets/img/pic.png" alt="" />
+                <span class="material-symbols-outlined">
+photo_camera
+</span>
               <!-- Detail form +******************************************************************** -->
               <div class="row">
                 <div class="tag">
                   <h1>ID :</h1>
+                  
                 </div>
-                <div class="detail"><p id="cid">001</p></div>
+                <div class="detail"><p id="cid"></p></div>
               </div>
               <div class="row">
                 <div class="tag">
                   <h1>First Name :</h1>
                 </div>
-                <div class="detail"><p id="fname">Chamodh</p></div>
+                <div class="detail"><input  id="fname" type="text"></div>
               </div>
               <div class="row">
                 <div class="tag">
                   <h1>Last Name :</h1>
                 </div>
-                <div class="detail"><p id="lname">Henderson</p></div>
+                <div class="detail"><input id="lname" type="text"></div>
               </div>
               <div class="row">
                 <div class="tag">
                   <h1>Phone Number :</h1>
                 </div>
-                <div class="detail"><p id="cnum">0768658568</p></div>
+                <div class="detail"><input id="cnum" type="text"></div>
               </div>
               <div class="row">
                 <div class="tag">
                   <h1>Email :</h1>
                 </div>
-                <div class="detail"><p id="email">chamodh@gmail.com</p></div>
+                <div class="detail"><input id="email" type="text"></div>
+              </div>
               </div>
 
               <!-- *********************Buttons**************************************************** -->
-              <button type="submit" class="button">
+              <div class="buttonDiv">
+                <div id="editButtonContainer"></div>
+                <div id="deleteButtonContainer"></div>
+              </div>
+              <!-- <button id="editProfileButton" type="submit" class="button">
                 <span class="material-symbols-outlined"> edit </span>Edit
                 Profile
-              </button>
-              <button type="submit" class="button">
-                <span class="material-symbols-outlined"> delete </span>Delete
-                Profile
-              </button>
+              </button> -->
+              
+              
             </div>
 
             <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->

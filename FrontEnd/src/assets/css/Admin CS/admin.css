@@ -1,3 +1,4 @@
+/* b42553 delete */
 #load-container {
   width: 100vw;
   height: 100%;
@@ -15,7 +16,12 @@
   top: 0;
   bottom: 0;
 }
-
+.deleteButton {
+  background-color: #c41950;
+}
+.deleteButton:hover {
+  background-color: #911d42;
+}
 /* *****************DASH BOARD CARDS ****************************** */
 #dashboard > div {
   margin-bottom: 3vh;
@@ -227,6 +233,12 @@ input:focus {
   align-items: center;
   margin: 1vh;
 }
+.leftSide #editProfileForm .row div input {
+  background-color: #253555;
+  border: none;
+  border-bottom: white solid 1px;
+  color: white;
+}
 .row {
   display: flex;
   flex-direction: row;
@@ -250,8 +262,9 @@ input:focus {
 .leftSide .buttonDiv {
   display: flex;
   flex-flow: row wrap;
-
   align-items: center;
+  justify-content: center;
+  margin-top: 4vh;
 }
 .leftSide .buttonDiv .button {
   width: 12vw;
@@ -274,13 +287,23 @@ input:focus {
   justify-content: center;
 }
 #cusprof button {
-  width: 15vw;
+  width: 12vw;
 }
-
+#deletebutton {
+  background-color: #c41950;
+}
+#deletebutton:hover {
+  background-color: #911d42;
+}
 #cusprof .rightSide button {
   width: 7vw;
   /* background: #23a6f0; */
   margin-top: 0;
+}
+#cusprof .rightSide button:hover {
+  background: #2289c4;
+
+  text-decoration: none;
 }
 .button:hover {
   background: #2289c4;

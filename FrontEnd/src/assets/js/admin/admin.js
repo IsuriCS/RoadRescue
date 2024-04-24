@@ -110,7 +110,7 @@ function showcus() {
 
                     row.addEventListener('click', function () {
                         var customerId = this.cells[0].textContent;
-                        showprof(res, customerId);
+                        showprof(customerId);
 
                     })
                 }
@@ -144,7 +144,7 @@ function showcus() {
 
 }
 
-function showprof(res, customerId) {
+function showprof(customerId) {
     $("#load-container").show();
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
@@ -161,110 +161,263 @@ function showprof(res, customerId) {
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
 
-
+    document.getElementById("editProfileForm").style.display = "none";
+    document.getElementById("profile").style.display = "block";
     // Update the title
     var title = document.querySelector("#cusprof .topRow h1");
     title.innerHTML = `Customer > C${customerId.padStart(3, '0')}`;
+    var data = {
+        customerId: customerId,
+
+        option: "getCustomerById"
+    };
+
+    $.ajax({
+        url: API_URL + "/Admin/CustomerList",
+        method: "POST",
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function (res) {
+
+            if (res.status == 201) {
+                $("#load-container").hide();
+                var datai = res.data;
+                document.getElementById("cid").innerHTML = datai.customerId;
+                document.getElementById("fname").innerHTML = datai.fname || '-';
+                document.getElementById("lname").innerHTML = datai.lname || '-';
+                document.getElementById("email").innerHTML = datai.email || '-';
+                document.getElementById("cnum").innerHTML = datai.contact || '-';
 
 
+                // Show Support Tickets and profile data
+                if (datai.nSupportTickets > 0) {
 
-    for (var i = 0; i < res.data.length; i++) {
+                    // Remove created ticket cards
+                    var ticketList = document.querySelectorAll(".SuppotTicketcard");
 
-        if (res.data[i].customerId == customerId) {
+                    if (ticketList.length > 0) {
+                        ticketList.forEach(function (ticket) {
+                            ticket.remove();
+                        });
+                    }
 
-            var datai = res.data[i];
-            var name = datai.fname + " " + datai.lname;
-            document.getElementById("cid").innerHTML = datai.customerId;
-            document.getElementById("fname").innerHTML = datai.fname || '-';
-            document.getElementById("lname").innerHTML = datai.lname || '-';
-            document.getElementById("email").innerHTML = datai.email || '-';
-            document.getElementById("cnum").innerHTML = datai.contact || '-';
+                    // request ticket details from backend
+                    $.ajax({
+                        url: API_URL + "/customerSupport",
+                        method: "GET",
+                        success: function (res) {
 
-            if (datai.nSupportTickets > 0) {
+                            if (res.status == 200) {
 
-                // Remove created ticket cards
-                var ticketList = document.querySelectorAll(".SuppotTicketcard");
-                console.log(ticketList);
-                if (ticketList.length > 0) {
-                    ticketList.forEach(function (ticket) {
-                        ticket.remove();
-                    });
+
+                                for (var i = 0; i < res.data.length; i++) {
+                                    (function () {
+                                        var datai = res.data[i];
+                                        if (datai.customerID == customerId) {
+
+
+                                            var temp = document.getElementById("supportTicketTemplate");
+                                            var clone = temp.content.cloneNode(true);
+                                            clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${String(datai.ticketId).padStart(3, '0')}`;
+
+                                            var dateTime = new Date(datai.created_time);
+                                            var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
+                                            clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
+
+                                            // Update ticket title
+                                            clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
+
+                                            // Change status button
+                                            var status = datai.status;
+                                            var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
+
+                                            if (status.toLowerCase() == "pending") {
+                                                sbutton.classList.add("pending");
+                                                sbutton.textContent = "Pending";
+                                            }
+                                            else if (status.toLowerCase() == "solved") {
+                                                sbutton.classList.add("solved");
+                                                sbutton.textContent = "Solved";
+                                            }
+                                            else {
+                                                sbutton.classList.add("on_review");
+                                                sbutton.textContent = "On Review";
+                                            }
+
+                                            clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
+                                                showsupportTicket(res, datai.ticketId, name);
+
+
+                                            });
+                                            document.getElementById("no_support_tickets").style.display = "none";
+                                            document.getElementById("support_ticket_list").style.display = "block";
+                                            document.getElementById("support_ticket_list").appendChild(clone);
+                                        }
+                                    })();
+
+
+                                }
+                                $("#load-container").hide();
+                            }
+                            else {
+                                console.log("error");
+                            }
+                        }
+                    })
+
+                }
+                else {
+                    $("#load-container").hide();
+                    document.getElementById("no_support_tickets").style.display = "block";
+                    document.getElementById("support_ticket_list").style.display = "none";
+
                 }
 
-                // request ticket details from backend
-                $.ajax({
-                    url: API_URL + "/customerSupport",
-                    method: "GET",
-                    success: function (res) {
-                        console.log(res);
-                        if (res.status == 200) {
+                var editButton = document.createElement("button");
+                editButton.id = "editProfileButton";
+                editButton.className = "button";
+                editButton.innerHTML = '<span class="material-symbols-outlined"> edit </span>Edit ';
+
+                // Append edit button to the container
+                var buttonContainer = document.getElementById("editButtonContainer");
+                buttonContainer.innerHTML = ''; // Clear previous button
+                buttonContainer.appendChild(editButton);
+
+                // Save button
+                var saveButton = document.createElement("button");
+                saveButton.id = "saveProfileButton";
+                saveButton.className = "button";
+                saveButton.innerHTML = '<span class="material-symbols-outlined" style="margin-right: 1vh; vertical-align: bottom;"> save </span>Save';
+                saveButton.style.display = "none";
+
+                // Append edit button to the container
+                buttonContainer.appendChild(saveButton);
+
+                // Delete Button
+                var deleteButton = document.createElement("button");
+                deleteButton.id = "deletebutton";
+                deleteButton.className = "deleteButton";
+                deleteButton.innerHTML = '<span class="material-symbols-outlined"> delete </span>Delete';
+                deleteButton.classList.add("button");
 
 
-                            for (var i = 0; i < res.data.length; i++) {
-                                (function () {
-                                    var datai = res.data[i];
-                                    if (datai.customerID == customerId) {
+                // Append edit button to the container
+                var deletebuttonContainer = document.getElementById("deleteButtonContainer");
+                deletebuttonContainer.innerHTML = ''; // Clear previous button
+                deletebuttonContainer.appendChild(deleteButton);
+
+                // Add event listener to the edit button
+                editButton.addEventListener("click", function () {
+
+                    var form = document.getElementById("editProfileForm");
+                    form.style.display = "block";
+                    document.getElementById("profile").style.display = "none";
+
+                    var form = document.getElementById("editProfileForm");
+                    form.style.display = "block";
+                    document.getElementById("profile").style.display = "none";
+
+                    // Display save button
+                    saveButton.style.display = "block";
+                    editButton.style.display = "none";
+
+                    // Disable delete button
+                    deletebutton.disabled = true;
+                    deletebutton.style.backgroundColor = "#6f102e";
 
 
-                                        var temp = document.getElementById("supportTicketTemplate");
-                                        var clone = temp.content.cloneNode(true);
-                                        clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${String(datai.ticketId).padStart(3, '0')}`;
-                                        console.log(datai.ticketId);
-                                        var dateTime = new Date(datai.created_time);
-                                        var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
-                                        clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
-
-                                        // Update ticket title
-                                        clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
-
-                                        // Change status button
-                                        var status = datai.status;
-                                        var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
-
-                                        if (status.toLowerCase() == "pending") {
-                                            sbutton.classList.add("pending");
-                                            sbutton.textContent = "Pending";
-                                        }
-                                        else if (status.toLowerCase() == "solved") {
-                                            sbutton.classList.add("solved");
-                                            sbutton.textContent = "Solved";
-                                        }
-                                        else {
-                                            sbutton.classList.add("on_review");
-                                            sbutton.textContent = "On Review";
-                                        }
-
-                                        clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
-                                            showsupportTicket(res, datai.ticketId, name);
-                                            console.log(res, datai.ticketId, name);
-
-                                        });
-                                        document.getElementById("no_support_tickets").style.display = "none";
-                                        document.getElementById("support_ticket_list").style.display = "block";
-                                        document.getElementById("support_ticket_list").appendChild(clone);
-                                    }
-                                })();
 
 
+                    document.querySelector("#editProfileForm #cid").innerHTML = datai.customerId;
+
+                    document.querySelector("#editProfileForm #fname").value = datai.fname;
+                    document.querySelector("#editProfileForm #lname").value = datai.lname;
+                    document.querySelector("#editProfileForm #email").value = datai.email;
+                    document.querySelector("#editProfileForm #cnum").value = datai.contact;
+
+                    saveButton.addEventListener("click", function () {
+                        messagebox.style.display = "block";
+                        messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
+                        messagetext.innerHTML = "Updating Profile...";
+                        // Retrieve the updated values from the form fields
+                        var customerId = document.querySelector("#editProfileForm #cid").innerHTML;
+                        var fname = document.querySelector("#editProfileForm #fname").value;
+                        var lname = document.querySelector("#editProfileForm #lname").value;
+                        var email = document.querySelector("#editProfileForm #email").value;
+                        var cnum = document.querySelector("#editProfileForm #cnum").value;
+
+                        // Perform validation if needed
+
+                        // Prepare the data to send via AJAX
+                        var data = {
+                            customerId: customerId,
+                            fname: fname,
+                            lname: lname,
+                            email: email,
+                            cnum: cnum,
+                            option: "updateDetails"
+                        };
+
+
+                        console.log(JSON.stringify(data));
+                        // Send an AJAX request to update the profile
+                        $.ajax({
+                            url: API_URL + '/Admin/CustomerList',
+                            method: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify(data),
+                            success: function (response) {
+
+                                messageimg.setAttribute("src", "../../assets/img/Tick.png");
+                                messagetext.innerHTML = "Update Successful";
+                                setTimeout(function () {
+                                    messagebox.style.display = "none";
+                                }, 1500);
+                                document.getElementById("editProfileForm").style.display = "none";
+                                document.getElementById("profile").style.display = "block";
+                                showprof(customerId);
+                                deletebutton.disabled = false;
+                                deletebutton.style.backgroundColor = "#c41950";
+
+                                // Change to save button
+                                saveButton.style.display = "none";
+                                editButton.style.display = "block";
+                            },
+                            error: function (error) {
+
+                                messageimg.setAttribute("src", "../../assets/img/exclametion.png");
+                                messagetext.innerHTML = "Something went wrong. Try Again";
+                                setTimeout(function () {
+                                    messagebox.style.display = "none";
+                                }, 1500);
+                                document.getElementById("editProfileForm").style.display = "none";
+                                document.getElementById("profile").style.display = "block";
+                                showprof(customerId);
+                                deletebutton.disabled = false;
+                                deletebutton.style.backgroundColor = "#c41950";
+
+                                // Change to save button
+                                saveButton.style.display = "none";
+                                editButton.style.display = "block";
+                                // Handle error response
+                                console.error('Failed to update profile:', error);
                             }
-                            $("#load-container").hide();
-                        }
-                        else {
-                            console.log("error");
-                        }
-                    }
-                })
+                        });
+                    });
+                });
+
+
+
 
             }
             else {
-                $("#load-container").hide();
-                document.getElementById("no_support_tickets").style.display = "block";
-                document.getElementById("support_ticket_list").style.display = "none";
-
+                console.log("error");
             }
         }
+    });
 
-    }
+
+
 
 
 }
@@ -1057,7 +1210,7 @@ function showVerification() {
                                             row.remove();
                                             setTimeout(function () {
                                                 messagebox.style.display = "none";
-                                            }, 1000);
+                                            }, 1500);
                                         } else {
                                             console.log("error");
                                         }
