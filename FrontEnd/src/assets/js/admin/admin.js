@@ -6,6 +6,7 @@ const API_URL = "http://localhost:8080/roadRescue";
 var messagebox = document.querySelector("#messageBox");
 var messageimg = document.querySelector("#messageBox #proccessing_boxes #icon img");
 var messagetext = document.querySelector("#messageBox #proccessing_boxes #Text p");
+var messagebutton = document.getElementById("proccessingBoxButtons");
 
 // abc_abc ----> Abc Abc
 function formatString(str) {
@@ -144,6 +145,7 @@ function showcus() {
 
 }
 
+
 function showprof(customerId) {
     $("#load-container").show();
     document.querySelector("#dashboard").style.display = "none";
@@ -164,6 +166,8 @@ function showprof(customerId) {
     document.getElementById("editProfileForm").style.display = "none";
     document.getElementById("profile").style.display = "block";
     // Update the title
+
+
     var title = document.querySelector("#cusprof .topRow h1");
     title.innerHTML = `Customer > C${customerId.padStart(3, '0')}`;
     var data = {
@@ -245,7 +249,7 @@ function showprof(customerId) {
                                             }
 
                                             clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
-                                                showsupportTicket(res, datai.ticketId, name);
+                                                showsupportTicket(datai.ticketId, name);
 
 
                                             });
@@ -339,6 +343,7 @@ function showprof(customerId) {
                         messagebox.style.display = "block";
                         messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
                         messagetext.innerHTML = "Updating Profile...";
+                        messagebutton.style.display = "none";
                         // Retrieve the updated values from the form fields
                         var customerId = document.querySelector("#editProfileForm #cid").innerHTML;
                         var fname = document.querySelector("#editProfileForm #fname").value;
@@ -370,6 +375,7 @@ function showprof(customerId) {
 
                                 messageimg.setAttribute("src", "../../assets/img/Tick.png");
                                 messagetext.innerHTML = "Update Successful";
+                                messagebutton.style.display = "none";
                                 setTimeout(function () {
                                     messagebox.style.display = "none";
                                 }, 1500);
@@ -385,8 +391,9 @@ function showprof(customerId) {
                             },
                             error: function (error) {
 
-                                messageimg.setAttribute("src", "../../assets/img/exclametion.png");
+                                messageimg.setAttribute("src", "../../assets/img/exclamation.png");
                                 messagetext.innerHTML = "Something went wrong. Try Again";
+                                messagebutton.style.display = "none";
                                 setTimeout(function () {
                                     messagebox.style.display = "none";
                                 }, 1500);
@@ -406,6 +413,55 @@ function showprof(customerId) {
                     });
                 });
 
+                deleteButton.addEventListener("click", function () {
+                    messagebox.style.display = "block";
+                    messageimg.setAttribute("src", "../../assets/img/delete.png");
+                    messageimg.style.width = "13vh";
+                    messagetext.innerHTML = "Are you sure you want to delete this user?";
+
+                    var yesButton = document.createElement("button");
+                    yesButton.id = "yesButton";
+                    yesButton.className = "button";
+                    yesButton.innerHTML = "Yes";
+                    document.getElementById("proccessingBoxButtons").appendChild(yesButton);
+
+                    var NoBUtton = document.createElement("button");
+                    NoBUtton.id = "nobutton";
+                    NoBUtton.className = "button";
+                    NoBUtton.innerHTML = "No";
+                    document.getElementById("proccessingBoxButtons").appendChild(NoBUtton);
+
+                    yesButton.addEventListener("click", function () {
+                        messagetext.innerHTML = "Please Wait..."
+                        messagebox.style.display = "block"
+                        messagebutton.style.display = "none";
+                        messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
+
+                        $.ajax({
+                            url: API_URL + '/Admin/CustomerList?id=' + customerId,
+                            method: "DELETE",
+                            success: function (res) {
+                                messagetext.innerHTML = "Customer Deleted Successfully";
+                                messageimg.setAttribute("src", "../../assets/img/Tick.png")
+                                messagebutton.style.display = "none";
+                                setTimeout(function () {
+                                    messagebox.style.display = "none";
+                                }, 1500);
+                                showcus();
+                            },
+                            error: function (error) {
+                                messageimg.setAttribute("src", "../../assets/img/exclamation.png");
+                                messagetext.innerHTML = "Something went wrong. Try Again";
+                                messagebutton.style.display = "none";
+                                setTimeout(function () {
+                                    messagebox.style.display = "none";
+                                }, 1500);
+                            }
+
+                        })
+                    });
+                });
+
 
 
 
@@ -416,13 +472,10 @@ function showprof(customerId) {
         }
     });
 
-
-
-
-
 }
 
-function showsupportTicket(res, ticketId, name) {
+
+function showsupportTicket(ticketId, name) {
     $("#load-container").show();
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
@@ -445,49 +498,184 @@ function showsupportTicket(res, ticketId, name) {
     var ttitle = document.querySelector("#SupportTicketDatail .topRow h1");
     ttitle.innerHTML = `Reports > ST${String(ticketId).padStart(3, '0')}`;
 
+    $.ajax({
+        url: API_URL + `/Admin/supportTicket?id=${String(ticketId)}&option=getSTbyid`,
+        method: "GET",
+        success: function (res) {
 
-    for (var i = 0; i < res.data.length; i++) {
-        if (res.data[i].ticketId == ticketId) {
-            var datai = res.data[i];
+            if (res.status == 200) {
+                $("#load-container").hide();
+                var datai = res.data;
+                document.getElementById("ticketID").innerHTML = datai.ticketId;
+                document.getElementById("CustomerSupportID").innerHTML = datai.customer_support_member_id || '-';
+                document.getElementById("userID").innerHTML = datai.customerID || datai.SPid || '-';
+                document.getElementById("userName").innerHTML = name || '-';
+                document.getElementById("title").innerHTML = datai.title || '-';
+                document.getElementById("description").innerHTML = datai.description || '-';
+                var dateTime = new Date(datai.created_time);
+                var formattedDate = dateTime.toLocaleDateString();
+                document.getElementById("Date").innerHTML = formattedDate || '-';
 
-            document.getElementById("ticketID").innerHTML = datai.ticketId;
-            document.getElementById("CustomerSupportID").innerHTML = datai.customer_support_member_id || '-';
-            document.getElementById("userID").innerHTML = datai.customerID || datai.SPid || '-';
-            document.getElementById("userName").innerHTML = name || '-';
-            document.getElementById("title").innerHTML = datai.title || '-';
-            document.getElementById("description").innerHTML = datai.description || '-';
-            var dateTime = new Date(datai.created_time);
-            var formattedDate = dateTime.toLocaleDateString();
-            document.getElementById("Date").innerHTML = formattedDate || '-';
+                var ticketStatus = datai.status;
+                var ticketid = ticketId;
 
-            var ticketStatus = datai.status;
+                var asignbtn = document.getElementById("assignbtn");
+                if (ticketStatus.toLowerCase() == "pending") {
+                    asignbtn.style.display = "block";
+                    document.querySelector(".info textarea").innerHTML = "";
+                    document.querySelector(".info textarea").disabled = false;
+                    document.querySelector(".info textarea").classList.remove("disabledText");
+                    document.querySelector(".topRow .button").style.display = "block";
+                }
+                else if (ticketStatus.toLowerCase() == "solved") {
+                    asignbtn.style.display = "none";
+                    document.querySelector(".info textarea").innerHTML = datai.solution || "-";
+                    document.querySelector(".info textarea").disabled = true;
+                    document.querySelector(".info textarea").classList.add("disabledText");
+                    document.querySelector(".topRow .button").style.display = "none";
+                }
+                else {
+                    asignbtn.style.display = "none";
+                    document.querySelector(".info textarea").innerHTML = "";
+                    document.querySelector(".info textarea").disabled = false;
+                    document.querySelector(".info textarea").classList.remove("disabledText");
+                    document.querySelector(".topRow .button").style.display = "block";
+                }
 
-            var asignbtn = document.getElementById("assignbtn");
-            if (ticketStatus.toLowerCase() == "pending") {
-                asignbtn.style.display = "block";
-                document.querySelector(".info textarea").innerHTML = "";
-                document.querySelector(".info textarea").disabled = false;
-                document.querySelector(".info textarea").classList.remove("disabledText");
-                document.querySelector(".topRow #button").style.display = "block";
-            }
-            else if (ticketStatus.toLowerCase() == "solved") {
-                asignbtn.style.display = "none";
-                document.querySelector(".info textarea").innerHTML = datai.solution || "-";
-                document.querySelector(".info textarea").disabled = true;
-                document.querySelector(".info textarea").classList.add("disabledText");
-                document.querySelector(".topRow #button").style.display = "none";
+                asignbtn.addEventListener("click", function () {
+                    $("#load-container").show();
+                    var assignWindow = document.getElementById("assignCSM");
+                    assignWindow.style.display = "block";
+                    var csmtemplate = document.querySelector("#CSMCardtemplate");
+                    $.ajax({
+                        url: API_URL + "/Admin/CustomerSupportList",
+                        method: "GET",
+                        success: function (res) {
+
+                            if (res.status == 200) {
+                                // Start from index 1 to skip the first item in the JSON array
+                                for (var i = 0; i < res.data.length; i++) {
+                                    var datai = res.data[i];
+                                    var pcontent = `CS${String(datai.CSid).padStart(3, '0')} - ${datai.fname} ${datai.lname}`;
+                                    var spancontent = datai.tickets_solved || '0';
+                                    var clone = csmtemplate.content.cloneNode(true);
+
+                                    clone.querySelector("p").innerHTML = pcontent;
+                                    clone.querySelector("span").innerHTML = `Solved Tickets ${spancontent}`;
+                                    clone.querySelector(".csmcards").addEventListener("click", function () {
+                                        messagebox.style.display = "block";
+                                        messageimg.setAttribute("src", "../../assets/img/Gear-0.3s-200px.gif");
+                                        messagetext.innerHTML = "Customer Support Member Assigning...";
+                                        messagebutton.style.display = "none";
+
+                                        var csmid = String(Number(pcontent.split(" ")[0].slice(2)));
+
+                                        var data = {
+                                            ticketId: ticketid,
+                                            csmid: csmid,
+                                            status: "On Review",
+                                            option: "assignCSM"
+                                        };
+                                        console.log(JSON.stringify(data));
+                                        $.ajax({
+                                            url: API_URL + "/customerSupport",
+                                            method: "POST",
+                                            contentType: 'application/json',
+                                            data: JSON.stringify(data),
+                                            success: function (res) {
+                                                if (res.status == 201) {
+
+                                                    messagebox.style.display = "block";
+                                                    messageimg.setAttribute("src", "../../assets/img/Tick.png");
+                                                    messagetext.innerHTML = "Customer Support Member Assigned Successfully";
+                                                    messagebutton.style.display = "none";
+                                                    setTimeout(function () {
+                                                        messagebox.style.display = "none";
+                                                    }, 1500);
+                                                    assignWindow.style.display = "none";
+                                                    asignbtn.style.display = "none";
+                                                    showsupportTicket(ticketId, name);
+                                                }
+                                                else {
+                                                    console.log("error");
+                                                }
+                                            }
+                                        });
+                                    });
+                                    document.querySelector(".csmwindow").appendChild(clone);
+
+
+                                }
+                                $("#load-container").hide();
+                            }
+                            else {
+                                console.log("error");
+                            }
+                        }
+                    });
+                }
+                );
+
+                var solvedbtn = document.getElementById("Solvedbutton");
+
+                solvedbtn.addEventListener("click", function () {
+                    var solution = document.querySelector("textarea").value;
+                    if (solution == "") {
+                        messagebox.style.display = "block";
+                        messageimg.setAttribute("src", "../../assets/img/exclamation.png");
+                        messagetext.innerHTML = "Please provide a solution";
+                        messageimg.style.width = "13vh";
+                        messagebutton.style.display = "none";
+                        setTimeout(function () {
+                            messagebox.style.display = "none";
+                        }, 1500);
+                    }
+                    else {
+                        messagebox.style.display = "block";
+                        messageimg.setAttribute("src", "../../assets/img/Gear-0.3s-200px.gif");
+                        messagetext.innerHTML = "Updating Ticket...";
+                        messagebutton.style.display = "none";
+                        var data = {
+                            ticketId: ticketid,
+                            status: "Solved",
+                            solution: solution,
+                            option: "solveTicket"
+                        };
+
+                        $.ajax({
+                            url: API_URL + "/customerSupport",
+                            method: "POST",
+                            contentType: 'application/json',
+                            data: JSON.stringify(data),
+                            success: function (res) {
+                                if (res.status == 201) {
+                                    messagebox.style.display = "block";
+                                    messageimg.setAttribute("src", "../../assets/img/Tick.png");
+                                    messagetext.innerHTML = "Ticket Updated Successfully";
+                                    messagebutton.style.display = "none";
+                                    setTimeout(function () {
+                                        messagebox.style.display = "none";
+                                    }, 1500);
+                                    showsupportTicket(ticketId, name);
+                                }
+                                else {
+                                    console.log("error");
+                                }
+                            }
+                        });
+                    }
+
+                });
+                $("#load-container").hide();
+
             }
             else {
-                asignbtn.style.display = "none";
-                document.querySelector(".info textarea").innerHTML = "";
-                document.querySelector(".info textarea").disabled = false;
-                document.querySelector(".info textarea").classList.remove("disabledText");
-                document.querySelector(".topRow #button").style.display = "block";
+                console.log("error");
             }
-            $("#load-container").hide();
         }
-    }
+    });
 }
+
 
 function showServiceProviders() {
 
@@ -1190,6 +1378,7 @@ function showVerification() {
                             verifyButton.addEventListener('click', function () {
                                 messagetext.innerHTML = "Please Wait..."
                                 messagebox.style.display = "block"
+                                messagebutton.style.display = "none";
                                 datai.verify = "Yes";
                                 const data = {
                                     id: datai.id,
@@ -1205,6 +1394,7 @@ function showVerification() {
                                     data: JSON.stringify(data),
                                     success: function (res) {
                                         if (res.status == 200) {
+                                            messagebutton.style.display = "none";
                                             messagetext.innerHTML = "Verification Successfull"
                                             messageimg.setAttribute("src", "../../assets/img/Tick.png")
                                             row.remove();
@@ -1220,12 +1410,14 @@ function showVerification() {
                             cancelButton.addEventListener('click', function () {
                                 messagetext.innerHTML = "Please Wait..."
                                 messagebox.style.display = "block"
+                                messagebutton.style.display = "none";
                                 $.ajax({
                                     url: API_URL + "/Admin/SPlist?id=" + datai.id,
                                     method: "DELETE",
                                     contentType: "application/json",
                                     success: function (res) {
                                         if (res.status == 200) {
+                                            messagebutton.style.display = "none";
                                             messagetext.innerHTML = "Cancle Verification Successfull"
                                             messageimg.setAttribute("src", "../../assets/img/Tick.png")
                                             row.remove();
@@ -1520,17 +1712,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 var tableBody = document.querySelector("#RecentReportSection tbody");
 
-                var formattedData = {
-                    status: 200,
-                    message: "Done",
-                    data: []
-                };
+
 
                 // Recent 5 support cards table
                 for (var i = 1; i < 6; i++) {
                     (function () {
                         var datai = Analytics[i];
-                        formattedData.data.push(datai);
+
                         var row = tableBody.insertRow();
                         row.insertCell(0).textContent = datai.name || '';
                         row.insertCell(1).textContent = datai.title || '';
@@ -1539,7 +1727,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         var id = datai.ticketId;
                         row.addEventListener('click', function () {
                             var name = this.cells[0].textContent;
-                            showsupportTicket(formattedData, id, name);
+                            showsupportTicket(id, name);
                         });
                     })();
                 }
