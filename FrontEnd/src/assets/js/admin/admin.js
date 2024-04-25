@@ -2356,6 +2356,43 @@ function toggleDropdown() {
 }
 
 
+// Calculate the mean location of a set of coordinates
+function calculateMeanLocation(coordinates) {
+    let totalLat = 0;
+    let totalLng = 0;
+
+
+    coordinates.forEach(coord => {
+        const [lat, lng] = coord.split(',').map(parseFloat);
+        totalLat += lat;
+        totalLng += lng;
+    });
+
+    const meanLat = totalLat / coordinates.length;
+    const meanLng = totalLng / coordinates.length;
+
+    return [meanLat, meanLng];
+}
+
+
+function calculateMedianLocation(coordinates) {
+    // Convert coordinates to an array of [latitude, longitude] pairs
+    const coordsArray = coordinates.map(coord => coord.split(',').map(parseFloat));
+
+    // Sort the coordinates based on latitude
+    const sortedByLat = coordsArray.slice().sort((a, b) => a[0] - b[0]);
+
+    // Sort the coordinates based on longitude
+    const sortedByLng = coordsArray.slice().sort((a, b) => a[1] - b[1]);
+
+    // Find the median latitude
+    const medianLat = sortedByLat[Math.floor(sortedByLat.length / 2)][0];
+
+    // Find the median longitude
+    const medianLng = sortedByLng[Math.floor(sortedByLng.length / 2)][1];
+
+    return [medianLat, medianLng];
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     // **************DashBoard-Recent moment bar chat*******************
@@ -2416,203 +2453,261 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 // Verifications
-                var verificationcount = 0;
-                var templatecount = 0;
-                sp.forEach(function (entry) {
-                    if (entry.verify === "No") {
-                        verificationcount++;
-                        if (templatecount < 3) {
-                            templatecount++;
-                            var temp = document.getElementById("verificationRequestsTemplate");
-                            var clone = temp.content.cloneNode(true);
-                            var pElement = clone.querySelector("p"); // Adjusted selector
-                            if (pElement) {
-                                pElement.textContent = entry.garageName || '-';
-                                document.querySelector(".table").appendChild(clone); // Changed selector
-                            }
-                        }
-                    }
-                });
+                // var verificationcount = 0;
+                // var templatecount = 0;
+                // sp.forEach(function (entry) {
+                //     if (entry.verify === "No") {
+                //         verificationcount++;
+                //         if (templatecount < 3) {
+                //             templatecount++;
+                //             var temp = document.getElementById("verificationRequestsTemplate");
+                //             var clone = temp.content.cloneNode(true);
+                //             var pElement = clone.querySelector("p"); // Adjusted selector
+                //             if (pElement) {
+                //                 pElement.textContent = entry.garageName || '-';
+                //                 document.querySelector(".table").appendChild(clone); // Changed selector
+                //             }
+                //         }
+                //     }
+                // });
 
-                document.querySelector("#number").textContent = verificationcount;
+                // document.querySelector("#number").textContent = verificationcount;
 
                 // Charts Data
                 // Account Deletions and Registrations
-                var registation = Analytics[6];
-                var deletions = Analytics[7];
-                var Payment = Analytics[8];
+                // var registation = Analytics[6];
+                // var deletions = Analytics[7];
+                // var Payment = Analytics[8];
 
-                registation.forEach(function (entry) {
-                    var monthIndex = xValues.indexOf(entry.month);
+                // registation.forEach(function (entry) {
+                //     var monthIndex = xValues.indexOf(entry.month);
 
-                    if (monthIndex !== -1) {
-                        rdata[monthIndex] += entry.registrations;
+                //     if (monthIndex !== -1) {
+                //         rdata[monthIndex] += entry.registrations;
+                //     }
+                // });
+
+                // deletions.forEach(function (entry) {
+                //     var monthIndex = xValues.indexOf(entry.month);
+                //     if (monthIndex !== -1) {
+                //         ddata[monthIndex] += entry.deletion;
+                //     }
+                // });
+
+                // Payment.forEach(function (entry) {
+                //     var monthIndex = entry.month - 1;
+
+                //     if (monthIndex !== -1) {
+                //         online[monthIndex] += entry.online;
+                //         cash[monthIndex] += entry.cash;
+                //     }
+                // });
+
+
+                // for (var i = 0; i < 5; i++) {
+                //     var monthIndex = (currentMonth - i) % 12;
+
+                //     if (monthIndex < 0) {
+                //         monthIndex += 12;
+                //         currentYear -= 1;
+                //     }
+                //     months.unshift(`${xValues[monthIndex]}`);
+
+                //     monthsToShow.unshift(`${xValues[monthIndex]} ${currentYear}`);
+                // }
+
+                // var rdatafilter = [];
+                // var ddatafilter = [];
+                // var onlinefilter = [];
+                // var cashfilter = [];
+                // var i = 0;
+                // months.forEach(function (month) {
+                //     var mindex = xValues.indexOf(month);
+
+                //     rdatafilter[i] = rdata[mindex];
+                //     ddatafilter[i] = ddata[mindex];
+                //     onlinefilter[i] = online[mindex];
+                //     cashfilter[i] = cash[mindex];
+
+                //     i++;
+                // });
+
+                // var monthlyProfit = [];
+                // onlinefilter.forEach(function (value) {
+                //     monthlyProfit.push(value * 0.1);
+                // });
+
+
+                // // **************DashBoard-Registation Bar Chart*******************
+                // var ctx1 = document.getElementById("barchatRecent").getContext('2d');
+                // new Chart("barchatRecent", {
+                //     type: "bar",
+                //     data: {
+                //         labels: monthsToShow,
+                //         datasets: [{
+                //             label: "Registations",
+                //             data: rdatafilter,
+                //             backgroundColor: "#0095FF"
+                //         }, {
+                //             label: "Account Deletions",
+                //             data: ddatafilter,
+                //             backgroundColor: "#00E096"
+                //         }]
+                //     },
+                //     options: {
+                //         plugins: { legend: { labels: { color: "white" } } },
+                //         barThickness: 20,
+                //         scales: {
+                //             x: {
+                //                 ticks: {
+                //                     color: "white"
+                //                 }
+                //             },
+                //             y: {
+                //                 ticks: {
+                //                     color: "white"
+                //                 }
+                //             }
+                //         }
+                //     }
+                // });
+
+
+
+                // // **************DashBoard-Payment line Chart*******************
+                // var ctx = document.getElementById("linePayment").getContext('2d');
+                // var myChart = new Chart(ctx, {
+                //     type: 'line',
+                //     data: {
+                //         labels: monthsToShow,
+                //         datasets: [{
+                //             label: 'Cash Payments',
+                //             data: cashfilter,
+                //             fill: false,
+                //             borderColor: '#2196f3',
+                //             backgroundColor: '#2196f3',
+                //             borderWidth: 1
+                //         },
+                //         {
+                //             label: 'Online Payments',
+                //             data: onlinefilter,
+                //             fill: false,
+                //             borderColor: '#00E096',
+                //             backgroundColor: '#00E096',
+                //             borderWidth: 1
+                //         }]
+                //     },
+                //     options: {
+                //         plugins: { legend: { labels: { color: "white" } } },
+                //         responsive: true,
+                //         maintainAspectRatio: false,
+                //         scales: {
+                //             x: {
+                //                 ticks: {
+                //                     color: "white"
+                //                 }
+                //             },
+                //             y: {
+                //                 ticks: {
+                //                     color: "white"
+                //                 }
+                //             }
+                //         }
+                //     }
+                // });
+
+                // // *************Mounthly Profit Pie Chart*******************
+                // barColors = ["#193741", "#3e5e63", "#588184", "#7ea996", "#90c5a7"]
+                // new Chart("lineChartProfit", {
+                //     type: "line",
+                //     data: {
+                //         labels: monthsToShow,
+                //         datasets: [{
+                //             label: 'Monthly Profit',
+                //             data: monthlyProfit,
+                //             fill: false,
+                //             borderColor: '#2196f3',
+                //             backgroundColor: '#2196f3',
+                //             borderWidth: 1
+                //         }]
+                //     },
+                //     options: {
+                //         plugins: { legend: { labels: { color: "white" } } },
+                //         responsive: true,
+                //         maintainAspectRatio: false,
+                //         scales: {
+                //             x: {
+                //                 ticks: {
+                //                     color: "white"
+                //                 }
+                //             },
+                //             y: {
+                //                 ticks: {
+                //                     color: "white"
+                //                 }
+                //             }
+                //         }
+                //     }
+                // });
+
+
+                // view location
+                var splocation = res.data.locations.ServiceProviders;
+                var srlocation = res.data.locations.ServiceRequests;
+
+                var spCoordinates = splocation.map(function (location) {
+                    var coordinates = location.split(','); // Assuming coordinates are in format "latitude,longitude"
+                    return [parseFloat(coordinates[0]), parseFloat(coordinates[1])];
+                });
+
+                const srcoordinates = srlocation.map(locationString => {
+                    const matches = locationString.match(/latitude=(-?\d+\.\d+), longitude=(-?\d+\.\d+)/);
+                    if (matches) {
+                        return `${matches[1]},${matches[2]}`;
                     }
                 });
 
-                deletions.forEach(function (entry) {
-                    var monthIndex = xValues.indexOf(entry.month);
-                    if (monthIndex !== -1) {
-                        ddata[monthIndex] += entry.deletion;
-                    }
-                });
-
-                Payment.forEach(function (entry) {
-                    var monthIndex = entry.month - 1;
-
-                    if (monthIndex !== -1) {
-                        online[monthIndex] += entry.online;
-                        cash[monthIndex] += entry.cash;
-                    }
+                var srCoordinatesMark = srcoordinates.map(function (location) {
+                    var coordinates = location.split(','); // Assuming coordinates are in format "latitude,longitude"
+                    return [parseFloat(coordinates[0]), parseFloat(coordinates[1])];
                 });
 
 
-                for (var i = 0; i < 5; i++) {
-                    var monthIndex = (currentMonth - i) % 12;
+                var map = L.map("spmap").setView(calculateMedianLocation(splocation), 12);
 
-                    if (monthIndex < 0) {
-                        monthIndex += 12;
-                        currentYear -= 1;
-                    }
-                    months.unshift(`${xValues[monthIndex]}`);
+                // Add the base map tiles (you can use different tile providers)
+                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                    attribution:
+                        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                }).addTo(map);
 
-                    monthsToShow.unshift(`${xValues[monthIndex]} ${currentYear}`);
-                }
 
-                var rdatafilter = [];
-                var ddatafilter = [];
-                var onlinefilter = [];
-                var cashfilter = [];
-                var i = 0;
-                months.forEach(function (month) {
-                    var mindex = xValues.indexOf(month);
-
-                    rdatafilter[i] = rdata[mindex];
-                    ddatafilter[i] = ddata[mindex];
-                    onlinefilter[i] = online[mindex];
-                    cashfilter[i] = cash[mindex];
-
-                    i++;
+                // Loop through the locations array and add markers to the map
+                spCoordinates.forEach(function (location) {
+                    console.log(location);
+                    L.marker(location)
+                        .addTo(map)
+                        .bindPopup(location.name); // Add a popup with the location name
                 });
 
-                var monthlyProfit = [];
-                onlinefilter.forEach(function (value) {
-                    monthlyProfit.push(value * 0.1);
+                // service request location
+
+                var map = L.map("map").setView(calculateMedianLocation(srcoordinates), 12);
+
+                // Add the base map tiles (you can use different tile providers)
+                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                    attribution:
+                        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                }).addTo(map);
+
+
+                // Loop through the locations array and add markers to the map
+                srCoordinatesMark.forEach(function (location) {
+
+                    L.marker(location)
+                        .addTo(map)
+                        .bindPopup(location.name); // Add a popup with the location name
                 });
-
-
-                // **************DashBoard-Registation Bar Chart*******************
-                var ctx1 = document.getElementById("barchatRecent").getContext('2d');
-                new Chart("barchatRecent", {
-                    type: "bar",
-                    data: {
-                        labels: monthsToShow,
-                        datasets: [{
-                            label: "Registations",
-                            data: rdatafilter,
-                            backgroundColor: "#0095FF"
-                        }, {
-                            label: "Account Deletions",
-                            data: ddatafilter,
-                            backgroundColor: "#00E096"
-                        }]
-                    },
-                    options: {
-                        plugins: { legend: { labels: { color: "white" } } },
-                        barThickness: 20,
-                        scales: {
-                            x: {
-                                ticks: {
-                                    color: "white"
-                                }
-                            },
-                            y: {
-                                ticks: {
-                                    color: "white"
-                                }
-                            }
-                        }
-                    }
-                });
-
-
-
-                // **************DashBoard-Payment line Chart*******************
-                var ctx = document.getElementById("linePayment").getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: monthsToShow,
-                        datasets: [{
-                            label: 'Cash Payments',
-                            data: cashfilter,
-                            fill: false,
-                            borderColor: '#2196f3',
-                            backgroundColor: '#2196f3',
-                            borderWidth: 1
-                        },
-                        {
-                            label: 'Online Payments',
-                            data: onlinefilter,
-                            fill: false,
-                            borderColor: '#00E096',
-                            backgroundColor: '#00E096',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        plugins: { legend: { labels: { color: "white" } } },
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            x: {
-                                ticks: {
-                                    color: "white"
-                                }
-                            },
-                            y: {
-                                ticks: {
-                                    color: "white"
-                                }
-                            }
-                        }
-                    }
-                });
-
-                // *************Mounthly Profit Pie Chart*******************
-                barColors = ["#193741", "#3e5e63", "#588184", "#7ea996", "#90c5a7"]
-                new Chart("lineChartProfit", {
-                    type: "line",
-                    data: {
-                        labels: monthsToShow,
-                        datasets: [{
-                            label: 'Monthly Profit',
-                            data: monthlyProfit,
-                            fill: false,
-                            borderColor: '#2196f3',
-                            backgroundColor: '#2196f3',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        plugins: { legend: { labels: { color: "white" } } },
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            x: {
-                                ticks: {
-                                    color: "white"
-                                }
-                            },
-                            y: {
-                                ticks: {
-                                    color: "white"
-                                }
-                            }
-                        }
-                    }
-                });
-
 
             } else {
                 console.log("error");

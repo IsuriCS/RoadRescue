@@ -192,5 +192,26 @@ public class dashboardCards {
         }
     }
 
+    public JsonObject getLocations(Connection connection)throws SQLException, ClassNotFoundException{
+        ResultSet splocation = CrudUtil.executeQuery(connection,"Select location from service_provider");
+        ResultSet srlocation = CrudUtil.executeQuery(connection,"Select location from service_request");
 
+        JsonArrayBuilder splocationArray = Json.createArrayBuilder();
+        JsonArrayBuilder srlocationArray = Json.createArrayBuilder();
+
+        while (splocation.next()){
+            splocationArray.add(splocation.getString("location"));
+
+        }
+        while (srlocation.next()){
+            srlocationArray.add(srlocation.getString("location"));
+
+        }
+        JsonObjectBuilder result= Json.createObjectBuilder();
+
+        result.add("ServiceProviders",splocationArray.build());
+        result.add("ServiceRequests",srlocationArray.build());
+
+        return  result.build();
+    }
 }

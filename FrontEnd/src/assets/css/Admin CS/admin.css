@@ -140,6 +140,9 @@
   margin: 1vw;
   padding: 0 1vw;
 }
+.secondRow h1 {
+  font-size: 3.5vh;
+}
 .table #cards:hover {
   background-color: #728ab0;
   cursor: pointer;
@@ -151,6 +154,19 @@
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
     0 10px 10px rgba(37, 27, 90, 0.311);
 } */
+.mapContainer {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  margin: 1vh;
+  align-items: flex-start;
+}
+.map {
+  height: 40vh;
+  width: 97%;
+}
 
 /* **********************************Dash Board third Row analytics ********************************************* */
 .thirdRow {
