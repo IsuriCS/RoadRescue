@@ -136,6 +136,40 @@ $.ajax({
                     var row = tableBody.insertRow();
                     row.insertCell(0).textContent = datai.CustomerID || '-';
                     row.insertCell(1).textContent = datai.location || '--';
+                    // Reverse geocoding function
+                    // function getTownName(latitude, longitude) {
+                    //     return new Promise((resolve, reject) => {
+                    //         const API_KEY = "YOUR_GOOGLE_MAPS_API_KEY";
+                    //         const API_URL = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${API_KEY}`;
+
+                    //         // Make a GET request to the Geocoding API
+                    //         $.ajax({
+                    //             url: API_URL,
+                    //             method: "GET",
+                    //             success: function (res) {
+                    //                 if (res.status === "OK" && res.results.length > 0) {
+                    //                     const townName = res.results[0].formatted_address;
+                    //                     resolve(townName);
+                    //                 } else {
+                    //                     reject("Unable to retrieve town name");
+                    //                 }
+                    //             },
+                    //             error: function () {
+                    //                 reject("Error occurred while retrieving town name");
+                    //             }
+                    //         });
+                    //     });
+                    // }
+
+                    // Inside the for loop where you're populating the table
+                    // getTownName(datai.latitude, datai.longitude)
+                    //     .then(townName => {
+                    //         row.insertCell(1).textContent = townName || '--';
+                    //     })
+                    //     .catch(error => {
+                    //         console.error(error);
+                    //         row.insertCell(1).textContent = '-';
+                    //     });
 
                     let ISSUE;
                     if(datai.issue ==1){
@@ -174,6 +208,8 @@ $.ajax({
                         ST="Error";
                     }
                     row.insertCell(3).textContent = ST || '_';
+
+
                     
 
                     // row.addEventListener('click', function () {
