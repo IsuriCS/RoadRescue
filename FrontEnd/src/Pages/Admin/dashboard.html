@@ -211,7 +211,7 @@
             <div class="secondRow">
               <!-- **************************Recent Moment Bar Chart****************************** -->
               <div class="recentMoment">
-                <h1>Recent Moment</h1>
+                <h1>Account Activity Overview</h1>
                 <div class="graph"><canvas id="barchatRecent"></canvas></div>
               </div>
               <!-- **************************verifications****************************** -->
@@ -543,7 +543,7 @@ photo_camera
           </div>
           <div>
             <!-- <input type="checkbox" id="allsp" name="allap"><label for="allsp">All</label> -->
-            <input type="checkbox" id="garages" name="garages" checked /><label
+            <!-- <input type="checkbox" id="garages" name="garages" checked /><label
               for="garages"
               >Garages</label
             >
@@ -552,7 +552,7 @@ photo_camera
               id="maintainancep"
               name="maintainancep"
               checked
-            /><label for="maintainancep">Maintainance Personnel</label>
+            /><label for="maintainancep">Maintainance Personnel</label> -->
           </div>
           <div>
             <table id="SPList">
@@ -579,47 +579,100 @@ photo_camera
 
           <div class="profileContent">
             <div class="leftSide">
-              <img src="../../assets/img/pic.png" alt="" />
+              <div id="spprofile" >
+
+                <img src="../../assets/img/pic.png" alt="" />
+                <!-- Detail form +******************************************************************** -->
+                <div class="row">
+                  <div class="tag">
+                    <h1>ID :</h1>
+                  </div>
+                  <div class="detail"><p id="id"></p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Garage Name :</h1>
+                  </div>
+                  <div class="detail"><p id="gname"></p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Owner Name :</h1>
+                  </div>
+                  <div class="detail"><p id="oname"></p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Phone Number :</h1>
+                  </div>
+                  <div class="detail"><p id="pnum"></p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Email :</h1>
+                  </div>
+                  <div class="detail"><p id="spemail"></p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Technicions :</h1>
+                  </div>
+                  <div class="detail"><p id="tech"></p></div>
+                </div>
+              </div>
+
+
+              <div id="speditProfileForm" style="display: none;">
+                <img src="../../assets/img/pic.png" alt="" />
+                <span class="material-symbols-outlined">photo_camera</span>
               <!-- Detail form +******************************************************************** -->
               <div class="row">
                 <div class="tag">
                   <h1>ID :</h1>
+                  
                 </div>
-                <div class="detail"><p id="id"></p></div>
+                <div class="detail"><p id="cid"></p></div>
               </div>
               <div class="row">
                 <div class="tag">
                   <h1>Garage Name :</h1>
                 </div>
-                <div class="detail"><p id="gname"></p></div>
+                <div class="detail"><input  id="gname" type="text"></div>
               </div>
               <div class="row">
                 <div class="tag">
                   <h1>Owner Name :</h1>
                 </div>
-                <div class="detail"><p id="oname"></p></div>
+                <div class="detail"><input id="oname" type="text"></div>
               </div>
               <div class="row">
                 <div class="tag">
                   <h1>Phone Number :</h1>
                 </div>
-                <div class="detail"><p id="pnum"></p></div>
+                <div class="detail"><input id="cnum" type="text"></div>
               </div>
               <div class="row">
                 <div class="tag">
                   <h1>Email :</h1>
                 </div>
-                <div class="detail"><p id="email"></p></div>
+                <div class="detail"><input id="email" type="text"></div>
               </div>
               <div class="row">
-                <div class="tag">
-                  <h1>Technicions :</h1>
+                  <div class="tag">
+                    <h1>Technicions :</h1>
+                  </div>
+                  <div class="detail"><p id="tech"></p></div>
                 </div>
-                <div class="detail"><p id="tech"></p></div>
               </div>
 
               <!-- *********************Buttons**************************************************** -->
-              <button type="submit" class="button">
+              <div class="spbuttonDiv">
+                <div id="editButtonContainer"></div>
+                <div id="deleteButtonContainer"></div>
+                <!-- <div id="serviceHistoryButton"></div> -->
+              </div>
+              <!-- *********************Buttons**************************************************** -->
+              <!-- <button type="submit" class="button">
                 <span class="material-symbols-outlined"> edit </span>Edit
                 Profile
               </button>
@@ -634,7 +687,7 @@ photo_camera
               <button type="submit" class="button">
                 <span class="material-symbols-outlined"> delete </span>Delete
                 Profile
-              </button>
+              </button> -->
             </div>
 
             <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
@@ -744,48 +797,86 @@ photo_camera
 
           <div class="profileContent">
             <div class="leftSide">
-              <img src="../../assets/img/pic.png" alt="" />
+              <div id="csmprofile">
+
+                <img src="../../assets/img/pic.png" alt="" />
+                <!-- Detail form +******************************************************************** -->
+                <div class="row">
+                  <div class="tag">
+                    <h1>ID :</h1>
+                  </div>
+                  <div class="detail"><p id="csid"></p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>First Name :</h1>
+                  </div>
+                  <div class="detail"><p id="csfname"></p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Last Name :</h1>
+                  </div>
+                  <div class="detail"><p id="cslname"></p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Phone Number :</h1>
+                  </div>
+                  <div class="detail"><p id="cscnum"></p></div>
+                </div>
+                <!-- <div class="row">
+                  <div class="tag">
+                    <h1>Email :</h1>
+                  </div>
+                  <div class="detail"><p id="csemail"></p></div>
+                </div> -->
+              </div>
+
+               <div id="csmeditProfileForm" style="display: none;">
+                <img src="../../assets/img/pic.png" alt="" />
+                <span class="material-symbols-outlined">
+photo_camera
+</span>
               <!-- Detail form +******************************************************************** -->
               <div class="row">
                 <div class="tag">
                   <h1>ID :</h1>
+                  
                 </div>
-                <div class="detail"><p id="csid"></p></div>
+                <div class="detail"><p id="cid"></p></div>
               </div>
               <div class="row">
                 <div class="tag">
                   <h1>First Name :</h1>
                 </div>
-                <div class="detail"><p id="csfname"></p></div>
+                <div class="detail"><input  id="fname" type="text"></div>
               </div>
               <div class="row">
                 <div class="tag">
                   <h1>Last Name :</h1>
                 </div>
-                <div class="detail"><p id="cslname"></p></div>
+                <div class="detail"><input id="lname" type="text"></div>
               </div>
               <div class="row">
                 <div class="tag">
                   <h1>Phone Number :</h1>
                 </div>
-                <div class="detail"><p id="cscnum"></p></div>
+                <div class="detail"><input id="cnum" type="text"></div>
               </div>
-              <div class="row">
+              <!-- <div class="row">
                 <div class="tag">
                   <h1>Email :</h1>
                 </div>
-                <div class="detail"><p id="csemail"></p></div>
+                <div class="detail"><input id="email" type="text"></div>
+              </div> -->
               </div>
 
               <!-- *********************Buttons**************************************************** -->
-              <button type="submit" class="button">
-                <span class="material-symbols-outlined"> edit </span>Edit
-                Profile
-              </button>
-              <button type="submit" class="button">
-                <span class="material-symbols-outlined"> delete </span>Delete
-                Profile
-              </button>
+              <div class="csmbuttonDiv">
+                <div id="editButtonContainer"></div>
+                <div id="deleteButtonContainer"></div>
+              </div>
             </div>
 
             <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
@@ -1030,13 +1121,13 @@ photo_camera
                 <div class="tag">
                   <h1>First Name :</h1>
                 </div>
-                <div class="detail"><p>Chamodh</p></div>
+                <div class="detail"><p>Isuri</p></div>
               </div>
               <div class="row">
                 <div class="tag">
                   <h1>Last Name :</h1>
                 </div>
-                <div class="detail"><p>Henderson</p></div>
+                <div class="detail"><p>Chsthurika</p></div>
               </div>
               <div class="row">
                 <div class="tag">
@@ -1048,7 +1139,7 @@ photo_camera
                 <div class="tag">
                   <h1>Email :</h1>
                 </div>
-                <div class="detail"><p>chamodh@gmail.com</p></div>
+                <div class="detail"><p>isurics@gmail.com</p></div>
               </div>
 
               <!-- *********************Buttons**************************************************** -->
