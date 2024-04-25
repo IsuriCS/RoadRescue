@@ -233,7 +233,9 @@ input:focus {
   align-items: center;
   margin: 1vh;
 }
-.leftSide #editProfileForm .row div input {
+.leftSide #editProfileForm .row div input,
+#speditProfileForm .row div input,
+#csmeditProfileForm .row div input {
   background-color: #253555;
   border: none;
   border-bottom: white solid 1px;
@@ -259,14 +261,18 @@ input:focus {
   margin: 0;
 }
 
-.leftSide .buttonDiv {
+.leftSide .buttonDiv,
+.spbuttonDiv,
+.csmbuttonDiv {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
   margin-top: 4vh;
 }
-.leftSide .buttonDiv .button {
+.leftSide .buttonDiv .button,
+.spbuttonDiv .button,
+.csmbuttonDiv .button {
   width: 12vw;
   margin: 2vh;
 }
@@ -770,4 +776,8 @@ input {
   width: 10vw;
   align-items: center;
   /* padding-left: 7vw; */
+}
+/* ********************************************sp profile View***************************************** */
+#GarageProf #location {
+  color: white;
 }

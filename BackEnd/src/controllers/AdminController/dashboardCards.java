@@ -148,5 +148,49 @@ public class dashboardCards {
         return countersForCardsArray.build();
     }
 
+    public JsonObject getstbyNameandid(Connection connection, String id,String name)throws SQLException, ClassNotFoundException {
+
+        ResultSet resultSet = CrudUtil.executeQuery(connection,"SELECT *FROM (SELECT s.garage_name AS name,st.title,st.created_time,st.status,st.id as ticketId,st.service_provider_id As ownerid,st.customer_support_member_id As customer_support_member_id,st.description AS description,st.solution AS solution FROM sp_support_ticket st , service_provider s WHERE st.service_provider_id=s.id UNION ALL SELECT CONCAT(c.f_name,' ',c.l_name) AS name,ct.title,ct.created_time,ct.status,ct.id as ticketId,ct.customer_id As ownerid,ct.customer_support_member_id As customer_support_member_id,ct.description AS description,ct.solution AS solution  FROM customer_support_ticket ct , customer c WHERE ct.customer_id=c.id) AS combined_tickets WHERE ticketID=? and name=?;",id,name);
+
+
+        JsonArrayBuilder SupportTickets = Json.createArrayBuilder();
+
+        if (resultSet.next()){
+
+            int SPid= resultSet.getInt(6);
+            String status =resultSet.getString(4);
+            String customer_support_member_id =resultSet.getString(7);
+            String title =resultSet.getString(2);
+            String description =resultSet.getString("description");
+            String created_time =resultSet.getString("created_time");
+            String solution = resultSet.getString("solution");
+
+
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("ticketId",id);
+            objectBuilder.add("SPid",SPid);
+            objectBuilder.add("status",status);
+
+            if (customer_support_member_id != null) {
+                objectBuilder.add("customer_support_member_id",customer_support_member_id);
+            } else {
+                objectBuilder.addNull("customer_support_member_id");
+            }
+            objectBuilder.add("title",title);
+            objectBuilder.add("description",description);
+            objectBuilder.add("created_time",created_time);
+            if (solution != null) {
+                objectBuilder.add("solution",solution);
+            } else {
+                objectBuilder.addNull("solution");
+            }
+
+            return objectBuilder.build();
+        }
+        else {
+            return null;
+        }
+    }
+
 
 }
