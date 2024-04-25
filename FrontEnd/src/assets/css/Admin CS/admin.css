@@ -234,7 +234,8 @@ input:focus {
   margin: 1vh;
 }
 .leftSide #editProfileForm .row div input,
-#speditProfileForm .row div input {
+#speditProfileForm .row div input,
+#csmeditProfileForm .row div input {
   background-color: #253555;
   border: none;
   border-bottom: white solid 1px;
@@ -261,7 +262,8 @@ input:focus {
 }
 
 .leftSide .buttonDiv,
-.spbuttonDiv {
+.spbuttonDiv,
+.csmbuttonDiv {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -269,7 +271,8 @@ input:focus {
   margin-top: 4vh;
 }
 .leftSide .buttonDiv .button,
-.spbuttonDiv .button {
+.spbuttonDiv .button,
+.csmbuttonDiv .button {
   width: 12vw;
   margin: 2vh;
 }

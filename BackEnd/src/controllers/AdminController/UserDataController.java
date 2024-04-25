@@ -168,6 +168,12 @@ public class UserDataController {
 
         return updateResult;
     }
+
+    public boolean UpdateCSM(Connection connection, String id ,String fname,String lname,String contactnum) throws SQLException, ClassNotFoundException {
+
+        boolean updateResult= CrudUtil.executeUpdate(connection,"UPDATE customer_support_member SET f_name=?,l_name=?,phone_number=? WHERE id = ?" ,fname,lname,contactnum, id);
+        return updateResult;
+    }
     public JsonObject getCoustomerbyID(Connection connection, String id) throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.executeQuery(connection, "SELECT c.reg_timestamp AS time ,c.id AS customerid,c.f_name AS fname,c.l_name As lname,c.email AS email, CONCAT(c.f_name, ' ', c.l_name) AS full_name, c.phone_number AS phone_number, COALESCE(sr.num_service_requests, 0) AS num_service_requests, COALESCE(st.num_support_tickets, 0) AS num_support_tickets FROM customer c LEFT JOIN ( SELECT customer_id, COUNT(*) AS num_service_requests FROM service_request GROUP BY customer_id ) sr ON c.id = sr.customer_id LEFT JOIN ( SELECT customer_id, COUNT(*) AS num_support_tickets FROM customer_support_ticket GROUP BY customer_id ) st ON c.id = st.customer_id where id=?", id);
 
@@ -277,9 +283,46 @@ public class UserDataController {
 
     }
 
+    public JsonObject getCSMbyid(Connection connection,String id) throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT csm.id AS member_id,csm.f_name as f_name, csm.l_name AS l_name,csm.phone_number AS phone_number,COUNT(t.id) AS tickets_solved FROM customer_support_member csm LEFT JOIN (SELECT customer_support_member_id AS id FROM customer_support_ticket UNION ALL SELECT customer_support_member_id AS id FROM sp_support_ticket) AS t ON csm.id = t.id WHERE csm.id=?",id);
+
+        if (rst.next()) {
+            String member_id = rst.getString("member_id");
+            String fname= rst.getString("f_name");
+            String lname= rst.getString("l_name");
+            String phone_number= rst.getString("phone_number");
+            int tickets_solved = rst.getInt("tickets_solved");
+
+
+
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("CSid", member_id);
+            objectBuilder.add("fname",fname);
+            objectBuilder.add("lname",lname);
+            objectBuilder.add("phone_number",phone_number);
+            objectBuilder.add("tickets_solved", tickets_solved);
+
+
+            return objectBuilder.build();
+        }
+        else {
+            return null;
+        }
+
+
+    }
+
     public boolean DeleteCustomer(Connection connection,String id)throws SQLException, ClassNotFoundException {
 
         boolean deleteResult= CrudUtil.executeUpdate(connection,"DELETE FROM customer WHERE id = ?" , id);
+
+
+        return deleteResult;
+    }
+
+    public boolean DeleteCSM(Connection connection,String id)throws SQLException, ClassNotFoundException {
+
+        boolean deleteResult= CrudUtil.executeUpdate(connection,"DELETE FROM customer_support_member WHERE id = ?" , id);
 
 
         return deleteResult;

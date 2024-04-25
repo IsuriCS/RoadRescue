@@ -1374,7 +1374,7 @@ function showcsmember() {
 
                     row.addEventListener('click', function () {
                         var csid = this.cells[0].textContent;
-                        showcsprof(res, csid);
+                        showcsprof(csid);
 
                     })
                 }
@@ -1408,7 +1408,7 @@ function showcsmember() {
 
 }
 
-function showcsprof(res, csid) {
+function showcsprof(csid) {
     $("#load-container").show();
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
@@ -1430,169 +1430,538 @@ function showcsprof(res, csid) {
     var title = document.querySelector("#csprof .topRow h1");
     title.innerHTML = `Customer Support Member > CS${csid.padStart(3, '0')}`;
 
+    var data = {
+        csmId: csid,
+        option: "getCSMById"
+    };
+
+    console.log(JSON.stringify(data));
+    $.ajax({
+        url: API_URL + "/Admin/CustomerSupportList",
+        method: "POST",
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function (res) {
+
+            if (res.status == 201) {
+
+                var datai = res.data;
+                var name = datai.fname + " " + datai.lname;
+                document.getElementById("csid").innerHTML = datai.CSid;
+                document.getElementById("csfname").innerHTML = datai.fname || '-';
+                document.getElementById("cslname").innerHTML = datai.lname || '-';
+                // document.getElementById("csemail").innerHTML = datai.email || '-';
+                document.getElementById("cscnum").innerHTML = datai.phone_number || '-';
+
+                if (datai.tickets_solved > 0) {
+
+                    // Remove created ticket cards
+                    var ticketList = document.querySelectorAll(".csSuppotTicketcard");
+                    console.log(ticketList);
+                    if (ticketList.length > 0) {
+                        ticketList.forEach(function (ticket) {
+                            ticket.remove();
+                        });
+                    }
+
+                    // request ticket details from backend
+                    $.ajax({
+                        url: API_URL + "/customerSupport",
+                        method: "GET",
+                        success: function (res) {
+                            console.log(res);
+                            if (res.status == 200) {
+                                // $("#load-container").hide();
+
+                                for (var i = 0; i < res.data.length; i++) {
+                                    (function () {
+                                        var datai = res.data[i];
+                                        if (datai.customer_support_member_id == csid) {
 
 
-    for (var i = 0; i < res.data.length; i++) {
+                                            var temp = document.getElementById("cssupportTicketTemplate");
+                                            var clone = temp.content.cloneNode(true);
+                                            clone.querySelector(".csSuppotTicketcard h1").textContent = `CST-${String(datai.ticketId).padStart(3, '0')}`;
+                                            console.log(datai.ticketId);
+                                            var dateTime = new Date(datai.created_time);
+                                            var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
+                                            clone.querySelector(".csSuppotTicketcard .row .date p").textContent = formattedDate;
 
-        if (res.data[i].CSid == csid) {
+                                            // Update ticket title
+                                            clone.querySelector(".csSuppotTicketcard .row .title p").textContent = datai.title;
 
-            var datai = res.data[i];
-            var name = datai.fname + " " + datai.lname;
-            document.getElementById("csid").innerHTML = datai.CSid;
-            document.getElementById("csfname").innerHTML = datai.fname || '-';
-            document.getElementById("cslname").innerHTML = datai.lname || '-';
-            document.getElementById("csemail").innerHTML = datai.email || '-';
-            document.getElementById("cscnum").innerHTML = datai.phone_number || '-';
+                                            // Change status button
+                                            var status = datai.status;
+                                            var sbutton = clone.querySelector(".csSuppotTicketcard .solveButton button");
 
-            if (datai.tickets_solved > 0) {
+                                            if (status.toLowerCase() == "pending") {
+                                                sbutton.classList.add("pending");
+                                                sbutton.textContent = "Pending";
+                                            }
+                                            else if (status.toLowerCase() == "solved") {
+                                                sbutton.classList.add("solved");
+                                                sbutton.textContent = "Solved";
+                                            }
+                                            else {
+                                                sbutton.classList.add("on_review");
+                                                sbutton.textContent = "On Review";
+                                            }
 
-                // Remove created ticket cards
-                var ticketList = document.querySelectorAll(".csSuppotTicketcard");
-                console.log(ticketList);
-                if (ticketList.length > 0) {
-                    ticketList.forEach(function (ticket) {
-                        ticket.remove();
-                    });
+                                            clone.querySelector(".csSuppotTicketcard").addEventListener('click', function () {
+                                                showsupportTicket(datai.ticketId, name, "cus");
+
+
+                                            });
+                                            document.getElementById("csno_support_tickets").style.display = "none";
+                                            document.getElementById("cssupport_ticket_list").style.display = "block";
+                                            document.getElementById("cssupport_ticket_list").appendChild(clone);
+                                        }
+                                    })();
+
+
+                                }
+                                $("#load-container").hide();
+                            }
+                            else {
+                                console.log("error");
+                            }
+                        }
+                    })
+
+                    $.ajax({
+                        url: API_URL + "/SPSupportTicket",
+                        method: "GET",
+                        success: function (res) {
+                            // $("#load-container").hide();
+                            console.log(res);
+                            if (res.status == 200) {
+
+
+                                for (var i = 0; i < res.data.length; i++) {
+                                    (function () {
+                                        var datai = res.data[i];
+                                        if (datai.customer_support_member_id == csid) {
+
+
+                                            var temp = document.getElementById("cssupportTicketTemplate");
+                                            var clone = temp.content.cloneNode(true);
+                                            clone.querySelector(".csSuppotTicketcard h1").textContent = `SST-${String(datai.ticketId).padStart(3, '0')}`;
+                                            console.log(datai.ticketId);
+                                            var dateTime = new Date(datai.created_time);
+                                            var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
+                                            clone.querySelector(".csSuppotTicketcard .row .date p").textContent = formattedDate;
+
+                                            // Update ticket title
+                                            clone.querySelector(".csSuppotTicketcard .row .title p").textContent = datai.title;
+
+                                            // Change status button
+                                            var status = datai.status;
+                                            var sbutton = clone.querySelector(".csSuppotTicketcard .solveButton button");
+
+                                            if (status.toLowerCase() == "pending") {
+                                                sbutton.classList.add("pending");
+                                                sbutton.textContent = "Pending";
+                                            }
+                                            else if (status.toLowerCase() == "solved") {
+                                                sbutton.classList.add("solved");
+                                                sbutton.textContent = "Solved";
+                                            }
+                                            else {
+                                                sbutton.classList.add("on_review");
+                                                sbutton.textContent = "On Review";
+                                            }
+
+                                            clone.querySelector(".csSuppotTicketcard").addEventListener('click', function () {
+                                                showsupportTicket(datai.ticketId, name, "SP");
+
+
+                                            });
+                                            document.getElementById("csno_support_tickets").style.display = "none";
+                                            document.getElementById("cssupport_ticket_list").style.display = "block";
+                                            document.getElementById("cssupport_ticket_list").appendChild(clone);
+                                        }
+                                    })();
+
+
+                                }
+                                $("#load-container").hide();
+                            }
+                            else {
+                                console.log("error");
+                            }
+                        }
+                    })
+                    $("#load-container").hide();
+
+                }
+                else {
+                    $("#load-container").hide();
+                    document.getElementById("csno_support_tickets").style.display = "block";
+                    document.getElementById("cssupport_ticket_list").style.display = "none";
+
                 }
 
-                // request ticket details from backend
-                $.ajax({
-                    url: API_URL + "/customerSupport",
-                    method: "GET",
-                    success: function (res) {
-                        console.log(res);
-                        if (res.status == 200) {
-                            // $("#load-container").hide();
+                var editButton = document.createElement("button");
+                editButton.id = "editProfileButton";
+                editButton.className = "button";
+                editButton.innerHTML = '<span class="material-symbols-outlined"> edit </span>Edit ';
 
-                            for (var i = 0; i < res.data.length; i++) {
-                                (function () {
-                                    var datai = res.data[i];
-                                    if (datai.customer_support_member_id == csid) {
+                // Append edit button to the container
+                var buttonContainer = document.querySelector(".csmbuttonDiv #editButtonContainer");
+                buttonContainer.innerHTML = ''; // Clear previous button
+                buttonContainer.appendChild(editButton);
 
+                // Save button
+                var saveButton = document.createElement("button");
+                saveButton.id = "saveProfileButton";
+                saveButton.className = "button";
+                saveButton.innerHTML = '<span class="material-symbols-outlined" style="margin-right: 1vh; vertical-align: bottom;"> save </span>Save';
+                saveButton.style.display = "none";
 
-                                        var temp = document.getElementById("cssupportTicketTemplate");
-                                        var clone = temp.content.cloneNode(true);
-                                        clone.querySelector(".csSuppotTicketcard h1").textContent = `CST-${String(datai.ticketId).padStart(3, '0')}`;
-                                        console.log(datai.ticketId);
-                                        var dateTime = new Date(datai.created_time);
-                                        var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
-                                        clone.querySelector(".csSuppotTicketcard .row .date p").textContent = formattedDate;
+                // Append edit button to the container
+                buttonContainer.appendChild(saveButton);
 
-                                        // Update ticket title
-                                        clone.querySelector(".csSuppotTicketcard .row .title p").textContent = datai.title;
-
-                                        // Change status button
-                                        var status = datai.status;
-                                        var sbutton = clone.querySelector(".csSuppotTicketcard .solveButton button");
-
-                                        if (status.toLowerCase() == "pending") {
-                                            sbutton.classList.add("pending");
-                                            sbutton.textContent = "Pending";
-                                        }
-                                        else if (status.toLowerCase() == "solved") {
-                                            sbutton.classList.add("solved");
-                                            sbutton.textContent = "Solved";
-                                        }
-                                        else {
-                                            sbutton.classList.add("on_review");
-                                            sbutton.textContent = "On Review";
-                                        }
-
-                                        clone.querySelector(".csSuppotTicketcard").addEventListener('click', function () {
-                                            showsupportTicket(res, datai.ticketId, name);
-                                            console.log(res, datai.ticketId, name);
-
-                                        });
-                                        document.getElementById("csno_support_tickets").style.display = "none";
-                                        document.getElementById("cssupport_ticket_list").style.display = "block";
-                                        document.getElementById("cssupport_ticket_list").appendChild(clone);
-                                    }
-                                })();
+                // Delete Button
+                var deleteButton = document.createElement("button");
+                deleteButton.id = "deletebutton";
+                deleteButton.className = "deleteButton";
+                deleteButton.innerHTML = '<span class="material-symbols-outlined"> delete </span>Delete';
+                deleteButton.classList.add("button");
 
 
+                // Append edit button to the container
+                var deletebuttonContainer = document.querySelector(".csmbuttonDiv #deleteButtonContainer");
+                deletebuttonContainer.innerHTML = ''; // Clear previous button
+                deletebuttonContainer.appendChild(deleteButton);
+
+                // Add event listener to the edit button
+                editButton.addEventListener("click", function () {
+
+                    var form = document.getElementById("csmeditProfileForm");
+                    form.style.display = "block";
+                    document.getElementById("csmprofile").style.display = "none";
+
+                    var form = document.getElementById("csmeditProfileForm");
+                    form.style.display = "block";
+                    document.getElementById("csmprofile").style.display = "none";
+
+                    // Display save button
+                    saveButton.style.display = "block";
+                    editButton.style.display = "none";
+
+                    // Disable delete button
+                    deletebutton.disabled = true;
+                    deletebutton.style.backgroundColor = "#6f102e";
+
+
+
+
+                    document.querySelector("#csmeditProfileForm #cid").innerHTML = datai.CSid;
+
+                    document.querySelector("#csmeditProfileForm #fname").value = datai.fname;
+                    document.querySelector("#csmeditProfileForm #lname").value = datai.lname;
+                    // document.querySelector("#csmeditProfileForm #email").value = datai.email;
+                    document.querySelector("#csmeditProfileForm #cnum").value = datai.phone_number;
+
+                    saveButton.addEventListener("click", function () {
+                        messagebox.style.display = "block";
+                        messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
+                        messagetext.innerHTML = "Updating Profile...";
+                        messagebutton.style.display = "none";
+                        // Retrieve the updated values from the form fields
+                        var csmId = document.querySelector("#csmeditProfileForm #cid").innerHTML;
+                        var fname = document.querySelector("#csmeditProfileForm #fname").value;
+                        var lname = document.querySelector("#csmeditProfileForm #lname").value;
+                        // var email = document.querySelector("#csmeditProfileForm #email").value;
+                        var cnum = document.querySelector("#csmeditProfileForm #cnum").value;
+
+                        // Perform validation if needed
+
+                        // Prepare the data to send via AJAX
+                        var data = {
+                            csmId: csmId,
+                            fname: fname,
+                            lname: lname,
+                            // email: email,
+                            cnum: cnum,
+                            option: "updateDetails"
+                        };
+
+
+                        console.log(JSON.stringify(data));
+                        // Send an AJAX request to update the profile
+                        $.ajax({
+                            url: API_URL + '/Admin/CustomerSupportList',
+                            method: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify(data),
+                            success: function (response) {
+
+                                messageimg.setAttribute("src", "../../assets/img/Tick.png");
+                                messagetext.innerHTML = "Update Successful";
+                                messagebutton.style.display = "none";
+                                setTimeout(function () {
+                                    messagebox.style.display = "none";
+                                }, 1500);
+                                document.getElementById("csmeditProfileForm").style.display = "none";
+                                document.getElementById("csmprofile").style.display = "block";
+                                showcsprof(csmId);
+                                deletebutton.disabled = false;
+                                deletebutton.style.backgroundColor = "#c41950";
+
+                                // Change to save button
+                                saveButton.style.display = "none";
+                                editButton.style.display = "block";
+                            },
+                            error: function (error) {
+
+                                messageimg.setAttribute("src", "../../assets/img/exclamation.png");
+                                messagetext.innerHTML = "Something went wrong. Try Again";
+                                messagebutton.style.display = "none";
+                                setTimeout(function () {
+                                    messagebox.style.display = "none";
+                                }, 1500);
+                                document.getElementById("csmeditProfileForm").style.display = "none";
+                                document.getElementById("csmprofile").style.display = "block";
+                                showcsprof(csmId);
+                                deletebutton.disabled = false;
+                                deletebutton.style.backgroundColor = "#c41950";
+
+                                // Change to save button
+                                saveButton.style.display = "none";
+                                editButton.style.display = "block";
+                                // Handle error response
+                                console.error('Failed to update profile:', error);
                             }
-                            $("#load-container").hide();
-                        }
-                        else {
-                            console.log("error");
-                        }
-                    }
-                })
+                        });
+                    });
+                });
 
-                $.ajax({
-                    url: API_URL + "/SPSupportTicket",
-                    method: "GET",
-                    success: function (res) {
-                        $("#load-container").hide();
-                        console.log(res);
-                        if (res.status == 200) {
+                deleteButton.addEventListener("click", function () {
+                    messagebox.style.display = "block";
+                    messageimg.setAttribute("src", "../../assets/img/delete.png");
+                    messageimg.style.width = "13vh";
+                    messagetext.innerHTML = "Are you sure you want to delete this user?";
 
+                    var yesButton = document.createElement("button");
+                    yesButton.id = "yesButton";
+                    yesButton.className = "button";
+                    yesButton.innerHTML = "Yes";
+                    document.getElementById("proccessingBoxButtons").appendChild(yesButton);
 
-                            for (var i = 0; i < res.data.length; i++) {
-                                (function () {
-                                    var datai = res.data[i];
-                                    if (datai.customer_support_member_id == csid) {
+                    var NoBUtton = document.createElement("button");
+                    NoBUtton.id = "nobutton";
+                    NoBUtton.className = "button";
+                    NoBUtton.innerHTML = "No";
+                    NoBUtton.addEventListener("click", function () {
+                        messagebox.style.display = "none";
+                        messagebutton.innerHTML = '';
 
+                    });
+                    document.getElementById("proccessingBoxButtons").appendChild(NoBUtton);
 
-                                        var temp = document.getElementById("cssupportTicketTemplate");
-                                        var clone = temp.content.cloneNode(true);
-                                        clone.querySelector(".csSuppotTicketcard h1").textContent = `SST-${String(datai.ticketId).padStart(3, '0')}`;
-                                        console.log(datai.ticketId);
-                                        var dateTime = new Date(datai.created_time);
-                                        var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
-                                        clone.querySelector(".csSuppotTicketcard .row .date p").textContent = formattedDate;
+                    yesButton.addEventListener("click", function () {
+                        messagetext.innerHTML = "Please Wait..."
+                        messagebox.style.display = "block"
+                        messagebutton.style.display = "none";
+                        messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
 
-                                        // Update ticket title
-                                        clone.querySelector(".csSuppotTicketcard .row .title p").textContent = datai.title;
-
-                                        // Change status button
-                                        var status = datai.status;
-                                        var sbutton = clone.querySelector(".csSuppotTicketcard .solveButton button");
-
-                                        if (status.toLowerCase() == "pending") {
-                                            sbutton.classList.add("pending");
-                                            sbutton.textContent = "Pending";
-                                        }
-                                        else if (status.toLowerCase() == "solved") {
-                                            sbutton.classList.add("solved");
-                                            sbutton.textContent = "Solved";
-                                        }
-                                        else {
-                                            sbutton.classList.add("on_review");
-                                            sbutton.textContent = "On Review";
-                                        }
-
-                                        clone.querySelector(".csSuppotTicketcard").addEventListener('click', function () {
-                                            showsupportTicket(res, datai.ticketId, name);
-                                            console.log(res, datai.ticketId, name);
-
-                                        });
-                                        document.getElementById("csno_support_tickets").style.display = "none";
-                                        document.getElementById("cssupport_ticket_list").style.display = "block";
-                                        document.getElementById("cssupport_ticket_list").appendChild(clone);
-                                    }
-                                })();
-
-
+                        $.ajax({
+                            url: API_URL + '/Admin/CustomerSupportList?id=' + csmId,
+                            method: "DELETE",
+                            success: function (res) {
+                                messagetext.innerHTML = "Customer Support Member Deleted Successfully";
+                                messageimg.setAttribute("src", "../../assets/img/Tick.png")
+                                messagebutton.style.display = "none";
+                                setTimeout(function () {
+                                    messagebox.style.display = "none";
+                                }, 1500);
+                                showcsmember();
+                            },
+                            error: function (error) {
+                                messageimg.setAttribute("src", "../../assets/img/exclamation.png");
+                                messagetext.innerHTML = "Something went wrong. Try Again";
+                                messagebutton.style.display = "none";
+                                setTimeout(function () {
+                                    messagebox.style.display = "none";
+                                }, 1500);
                             }
-                            $("#load-container").hide();
-                        }
-                        else {
-                            console.log("error");
-                        }
-                    }
-                })
+
+                        })
+                    });
+                });
+
+
+
 
             }
             else {
-                $("#load-container").hide();
-                document.getElementById("csno_support_tickets").style.display = "block";
-                document.getElementById("cssupport_ticket_list").style.display = "none";
-
+                console.log("error");
             }
         }
+    });
 
-    }
+    // for (var i = 0; i < res.data.length; i++) {
+
+    //     if (res.data[i].CSid == csid) {
+
+    //         var datai = res.data[i];
+    //         var name = datai.fname + " " + datai.lname;
+    //         document.getElementById("csid").innerHTML = datai.CSid;
+    //         document.getElementById("csfname").innerHTML = datai.fname || '-';
+    //         document.getElementById("cslname").innerHTML = datai.lname || '-';
+    //         document.getElementById("csemail").innerHTML = datai.email || '-';
+    //         document.getElementById("cscnum").innerHTML = datai.phone_number || '-';
+
+    //         if (datai.tickets_solved > 0) {
+
+    //             // Remove created ticket cards
+    //             var ticketList = document.querySelectorAll(".csSuppotTicketcard");
+    //             console.log(ticketList);
+    //             if (ticketList.length > 0) {
+    //                 ticketList.forEach(function (ticket) {
+    //                     ticket.remove();
+    //                 });
+    //             }
+
+    //             // request ticket details from backend
+    //             $.ajax({
+    //                 url: API_URL + "/customerSupport",
+    //                 method: "GET",
+    //                 success: function (res) {
+    //                     console.log(res);
+    //                     if (res.status == 200) {
+    //                         // $("#load-container").hide();
+
+    //                         for (var i = 0; i < res.data.length; i++) {
+    //                             (function () {
+    //                                 var datai = res.data[i];
+    //                                 if (datai.customer_support_member_id == csid) {
+
+
+    //                                     var temp = document.getElementById("cssupportTicketTemplate");
+    //                                     var clone = temp.content.cloneNode(true);
+    //                                     clone.querySelector(".csSuppotTicketcard h1").textContent = `CST-${String(datai.ticketId).padStart(3, '0')}`;
+    //                                     console.log(datai.ticketId);
+    //                                     var dateTime = new Date(datai.created_time);
+    //                                     var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
+    //                                     clone.querySelector(".csSuppotTicketcard .row .date p").textContent = formattedDate;
+
+    //                                     // Update ticket title
+    //                                     clone.querySelector(".csSuppotTicketcard .row .title p").textContent = datai.title;
+
+    //                                     // Change status button
+    //                                     var status = datai.status;
+    //                                     var sbutton = clone.querySelector(".csSuppotTicketcard .solveButton button");
+
+    //                                     if (status.toLowerCase() == "pending") {
+    //                                         sbutton.classList.add("pending");
+    //                                         sbutton.textContent = "Pending";
+    //                                     }
+    //                                     else if (status.toLowerCase() == "solved") {
+    //                                         sbutton.classList.add("solved");
+    //                                         sbutton.textContent = "Solved";
+    //                                     }
+    //                                     else {
+    //                                         sbutton.classList.add("on_review");
+    //                                         sbutton.textContent = "On Review";
+    //                                     }
+
+    //                                     clone.querySelector(".csSuppotTicketcard").addEventListener('click', function () {
+    //                                         showsupportTicket(datai.ticketId, name, "cus");
+
+
+    //                                     });
+    //                                     document.getElementById("csno_support_tickets").style.display = "none";
+    //                                     document.getElementById("cssupport_ticket_list").style.display = "block";
+    //                                     document.getElementById("cssupport_ticket_list").appendChild(clone);
+    //                                 }
+    //                             })();
+
+
+    //                         }
+    //                         $("#load-container").hide();
+    //                     }
+    //                     else {
+    //                         console.log("error");
+    //                     }
+    //                 }
+    //             })
+
+    //             $.ajax({
+    //                 url: API_URL + "/SPSupportTicket",
+    //                 method: "GET",
+    //                 success: function (res) {
+    //                     $("#load-container").hide();
+    //                     console.log(res);
+    //                     if (res.status == 200) {
+
+
+    //                         for (var i = 0; i < res.data.length; i++) {
+    //                             (function () {
+    //                                 var datai = res.data[i];
+    //                                 if (datai.customer_support_member_id == csid) {
+
+
+    //                                     var temp = document.getElementById("cssupportTicketTemplate");
+    //                                     var clone = temp.content.cloneNode(true);
+    //                                     clone.querySelector(".csSuppotTicketcard h1").textContent = `SST-${String(datai.ticketId).padStart(3, '0')}`;
+    //                                     console.log(datai.ticketId);
+    //                                     var dateTime = new Date(datai.created_time);
+    //                                     var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
+    //                                     clone.querySelector(".csSuppotTicketcard .row .date p").textContent = formattedDate;
+
+    //                                     // Update ticket title
+    //                                     clone.querySelector(".csSuppotTicketcard .row .title p").textContent = datai.title;
+
+    //                                     // Change status button
+    //                                     var status = datai.status;
+    //                                     var sbutton = clone.querySelector(".csSuppotTicketcard .solveButton button");
+
+    //                                     if (status.toLowerCase() == "pending") {
+    //                                         sbutton.classList.add("pending");
+    //                                         sbutton.textContent = "Pending";
+    //                                     }
+    //                                     else if (status.toLowerCase() == "solved") {
+    //                                         sbutton.classList.add("solved");
+    //                                         sbutton.textContent = "Solved";
+    //                                     }
+    //                                     else {
+    //                                         sbutton.classList.add("on_review");
+    //                                         sbutton.textContent = "On Review";
+    //                                     }
+
+    //                                     clone.querySelector(".csSuppotTicketcard").addEventListener('click', function () {
+    //                                         showsupportTicket(datai.ticketId, name, "SP");
+
+
+    //                                     });
+    //                                     document.getElementById("csno_support_tickets").style.display = "none";
+    //                                     document.getElementById("cssupport_ticket_list").style.display = "block";
+    //                                     document.getElementById("cssupport_ticket_list").appendChild(clone);
+    //                                 }
+    //                             })();
+
+
+    //                         }
+    //                         $("#load-container").hide();
+    //                     }
+    //                     else {
+    //                         console.log("error");
+    //                     }
+    //                 }
+    //             })
+
+    //         }
+    //         else {
+    //             $("#load-container").hide();
+    //             document.getElementById("csno_support_tickets").style.display = "block";
+    //             document.getElementById("cssupport_ticket_list").style.display = "none";
+
+    //         }
+    //     }
+
+    // }
 
 }
 
