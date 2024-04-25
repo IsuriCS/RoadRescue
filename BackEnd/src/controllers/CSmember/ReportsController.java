@@ -39,4 +39,8 @@ public class ReportsController {
 
         return RecentRequestArrayBuilder.build();
     }
-}
+
+//     public boolean UpdateSolutionTicket(Connection connection, String solution) throws SQLException, ClassNotFoundException {
+//         return CrudUtil.executeUpdate(connection, "update customer_support_ticket set solution=? where id=?", solution, 8);
+//     }
+ }

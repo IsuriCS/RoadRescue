@@ -23,7 +23,32 @@ public class CustomerSupportTicketListServlet extends HttpServlet {
     @Resource(name = "java:comp/env/roadRescue")
     DataSource ds;
 
-@Override
+    @Override
+    // protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    //     String solution = req.getParameter("solution");
+    //     try {
+    //         Connection connection = ds.getConnection();
+    //         boolean b = reportsController.UpdateSolutionTicket(connection, solution);
+    //         if (b) {
+    //             JsonObjectBuilder response = Json.createObjectBuilder();
+    //             response.add("status", 200);
+    //             response.add("message", "Done");
+    //             resp.getWriter().print(response.build());
+    //         } else {
+    //             JsonObjectBuilder response = Json.createObjectBuilder();
+    //             response.add("status", 500);
+    //             response.add("message", "Failed");
+    //             resp.getWriter().print(response.build());
+    //         }
+    //     } catch (SQLException e) {
+    //         throw new RuntimeException(e);
+    //     } catch (ClassNotFoundException e) {
+    //         throw new RuntimeException(e);
+    //     }
+
+    // }
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");

@@ -108,6 +108,20 @@
                     </a>
                 </li>
 
+
+                <li>
+                  <a
+                  id = "FAQLink"
+                  href = "#FAQ"
+                  class = "sideNavLink"
+                  onclick = "showFAQ()"
+                  >
+                  <span class="material-symbols-outlined">
+                    quiz
+                  </span>F&Q
+                </a>
+                </li>
+
            
 
                 <li id="profileLink">
@@ -305,7 +319,7 @@
                   <div class="tag">
                     <h1>Email :</h1>
                   </div>
-                  <div class="detail"><p id="email">sandeepa@gmail.com</p></div>
+                  <div class="detail"><p id="cstEmail">sandeepa@gmail.com</p></div>
                 </div>
 
                 <!-- *********************Buttons**************************************************** -->
@@ -358,7 +372,7 @@
            <div id="SupportTicketDatail" style="display: none">
             <div class="topRow">
             <h1>Reports > 001</h1>
-            <button id="button" style="display: block;">Set Solved</button>
+            <button id="custSolutionSolveBtn" >Set Solved</button>
           </div>
 
           <div class="info">
@@ -884,6 +898,65 @@
           </div>
           </div>
 
+          <!-- ---------------------------------------FAQ------------------------------- -->
+            <!-- <div id="FAQ"  style ="display:none">
+                <h1>System > Edit FAQ</h1>
+
+                <input type="text" placeholder="newQuestion">
+                <textarea name="answer" id="answer" placeholder="newAnswer"></textarea>
+                <button id="button" onclick="addFAQ" >Add</button>
+
+                <div class = "CurrentFAQ" >
+                  <h1>Current FAQ</h1>
+                  <table id = "FAQList">
+                    <thead>
+                      <tr>
+                        <th>Question</th>
+                        <th>Answer</th>
+                        <th style="width: 30%"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>How can you make a complain?</td>
+                        <td>You can make a support ticket</td>
+                        <td>
+                          <button type="button" class="edit faq">Edit</button>
+                          <button type="button" class="delete faq">Delete</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Do you need to share your location?</td>
+                        <td>Yes, After you log in to Road Rescue or request for the service we will automatically track your location to provide you better and faster service.</td>
+                        <td>
+                          <button type="button" class="edit faq">Edit</button>
+                          <button type="button" class="delete faq">Delete</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Can you track technician location?</td>
+                        <td>Yes, After a service peovider accepts your request you can trac their location.</td>
+                        <td>
+                          <button type="button" class="edit faq">Edit</button>
+                          <button type="button" class="delete faq">Delete</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Can you choose service provider near you?</td>
+                        <td>Yes, After you log in to the system you will see nearby garage list. Then you can select service provider you want and send service request them.</td>
+                        <td>
+                          <button type="button" class="edit faq">Edit</button>
+                          <button type="button" class="delete faq">Delete</button>
+                        </td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                
+                </div>
+               
+            </div> -->
+        
 
 
           <!-- -------------------------------profile----------------------------------- -->
@@ -940,7 +1013,7 @@
                   <p>sapnanethmini@gmail.com</p>
                 </div>
               </div>
-            
+            </div>
 <!-- 
             <div class ="editbutton">
               <button type = "submit" class="button">Edit profile</button>
@@ -956,8 +1029,8 @@
             </button>
           </div>
         </div>
-        <!-- check-->
-
+      
+        </div>
           </div>
           </div>
 

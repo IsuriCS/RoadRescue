@@ -9,10 +9,9 @@ function showDashboard() {
     document.querySelector("#UsersLink").classList.remove("active");
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
-    // document.querySelector("#GarageDropDown").classList.remove("submenuActive");
-    // document.querySelector("#MPDropDown").classList.remove("submenuActive");
     document.querySelector("#TicketLink").classList.remove("active");
     document.querySelector("#profileLink").classList.remove("active");
+    // document.queryselector("#FAQLink").classList.remove("active");
 
 
 
@@ -20,15 +19,12 @@ function showDashboard() {
     document.querySelector("#dashboard").style.display = "block";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
-    // document.querySelector("#garageOwners").style.display = "none";
     document.querySelector("#GarageProf").style.display = "none";
-    // document.querySelector("#maintainancePersonnel").style.display = "none";
-    // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#csProfile").style.display = "none";
-    // document.querySelector("#ticket").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
+    document.querySelector("#FAQ").style.display = "none";
 
 
 //Recent Reports
@@ -245,6 +241,7 @@ function showcus() {
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
     document.querySelector("#TicketLink").classList.remove("active");
     document.querySelector("#profileLink").classList.remove("active");
+    // document.queryselector("#FAQLink").classList.remove("active");
 
 
 
@@ -252,11 +249,11 @@ function showcus() {
     document.querySelector("#userCus").style.display = "block";
     document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#GarageProf").style.display = "none";
-    // document.querySelector("#ticket").style.display = "none";
     document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
+    document.querySelector("#FAQ").style.display = "none";
 
 
     // $("#load-container").show();
@@ -328,10 +325,10 @@ function showprof(res, customerId) {
     document.querySelector("#GarageProf").style.display = "none";
     // document.querySelector("#ticket").style.display = "none";
     document.querySelector("#csProfile").style.display = "none";
-    // document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
+    document.queryselector("#FAQ").style.display = "none";
 
     // Update the title
     var title = document.querySelector("#cusprof .topRow h1");
@@ -452,6 +449,7 @@ function showsupportTicket(res, ticketId, name) {
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
+    document.querySelector("#FAQ").style.display = "none";
     
 
     
@@ -513,6 +511,7 @@ function showServiceProviders() {
     document.querySelector("#profileLink").classList.remove("active");
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#servicePDropdown").classList.add("dropDownActive");
+    // document.queryselector("#FAQLink").classList.remove("active");
 
 
     document.querySelector("#dashboard").style.display = "none";
@@ -524,6 +523,7 @@ function showServiceProviders() {
     // document.querySelector("#ticket").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
+    document.querySelector("#FAQ").style.display = "none";
 
 
 
@@ -684,6 +684,7 @@ function showSPprof(res, spid) {
     document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
+    document.querySelector("#FAQ").style.display = "none";
 
     // Update the title
     var title = document.querySelector("#GarageProf .topRow h1");
@@ -821,6 +822,7 @@ function showTicket() {
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
     document.querySelector("#TicketLink").classList.add("active");
     document.querySelector("#profileLink").classList.remove("active");
+    // document.queryselector("#FAQLink").classList.remove("active");
 
 
     document.querySelector("#dashboard").style.display = "none";
@@ -831,6 +833,7 @@ function showTicket() {
     document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
+    document.querySelector("#FAQ").style.display = "none";
 
 
 
@@ -905,6 +908,27 @@ $.ajax({
 }
 
 
+function showFAQ() {
+    document.querySelector("#dashboardLink").classList.remove("active");
+    document.querySelector("#UsersLink").classList.remove("active");
+    document.querySelector("#customerDropdown").classList.remove("dropDownActive");
+    document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
+    document.querySelector("#TicketLink").classList.remove("active");
+    document.querySelector("#profileLink").classList.remove("active");
+    document.querySelector("#FAQLink").classList.add("active");
+
+    document.querySelector("#dashboard").style.display = "none";
+    document.querySelector("#userCus").style.display = "none";
+    document.querySelector("#cusprof").style.display = "none";
+    document.querySelector("#GarageProf").style.display = "none";
+    // document.querySelector("#ticket").style.display = "none";
+    document.querySelector("#csProfile").style.display = "none";
+    document.querySelector("#serviceProviders").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
+    document.querySelector("#TicketReports").style.display = "none";
+    document.querySelector("#FAQ").style.display = "block";
+}
+
 function showProfile() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.remove("active");
@@ -912,6 +936,7 @@ function showProfile() {
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
     document.querySelector("#TicketLink").classList.remove("active");
     document.querySelector("#profileLink").classList.add("active");
+    // document.queryselector("#FAQLink").classList.remove("active");
 
 
     document.querySelector("#dashboard").style.display = "none";
@@ -923,6 +948,7 @@ function showProfile() {
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
+    document.querySelector("#FAQ").style.display = "none";
 
 }
 
@@ -1021,3 +1047,32 @@ function toggleDropdown() {
 //         }
 //     });
 // }
+
+$("#custSolutionSolveBtn").click(function () {
+    var solutionId = $("#solicitationTicketId").text()
+    var date = $("#solicitationTicketDate").val()
+    var assignCustomerSupport = $("#solicitationTicketAssingCustId").val()
+    var ticketOwnerId = $("#ticketOwnerId").val()
+    var ticketOwner = $("#ticketOwner").val()
+    var supportDesc = $("#supportDesc").val()
+    var custSolution = $("#custSolution").val()
+
+    console.log(solutionId)
+    console.log(custSolution)
+
+
+    $.ajax({
+        url: API_URL + `/CSMemberTicket/customerSupportTicketList?ticketId=${solutionId}&solution=` + custSolution,
+        method: "PUT",
+        contentType: "application/json",
+        success: function (res) {
+            if (res.status === 200) {
+                alert(res.message);
+            } else {
+                alert(res.data);
+            }
+        }, error: function (ob, textStatus, error) {
+            alert(textStatus);
+        }
+    });
+})
