@@ -39,7 +39,7 @@ public class TechnicianServlet extends HttpServlet {
             case "getAll":
                 try {
                     connection = ds.getConnection();
-                    JsonArray allTechnicians = technician.getAll(connection);
+                    JsonArray allTechnicians = technician.getAll(connection,searchId);
                     System.out.println(allTechnicians);
                     JsonObjectBuilder response = Json.createObjectBuilder();
                     response.add("status", 200);
@@ -164,6 +164,37 @@ public class TechnicianServlet extends HttpServlet {
                 }
 
                     break;
+
+            case "getTechnician":
+                try {
+                    connection = ds.getConnection();
+                    JsonObject technicianData = technician.getTechnicianData(connection, searchId);
+                    System.out.println(technicianData);
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    response.add("status", 200);
+                    response.add("message", "Done");
+                    response.add("data", technicianData);
+                    writer.print(response.build());
+                    connection.close();
+                } catch (SQLException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "SQL Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "Class not fount Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                }
+                break;
+
                     default:
                         // handle
                 }

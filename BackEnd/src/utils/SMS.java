@@ -29,7 +29,7 @@ public class SMS {
             String apiKey = "KG1x6UjgpV2LJZrQKxWh";
             String senderId = "NotifyDEMO";
             String to = matcher.group(1);
-            String message = "OTP : "+otp;
+            String message = "Code : "+otp+"\n Please use above Road Rescue Code/OPT to complete Your allocation\n\n.........********.........";
 
             String urlString = String.format("%s?user_id=%s&api_key=%s&sender_id=%s&to=%s&message=%s",
                     url, userId, apiKey, URLEncoder.encode(senderId, "UTF-8"),

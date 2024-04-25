@@ -31,8 +31,8 @@ public class TechnicianController {
         return technicianArray.build();
     }
 
-    public JsonArray getAll(Connection connection) throws SQLException, ClassNotFoundException {
-        ResultSet rst = CrudUtil.executeQuery(connection, "select  id,f_name,l_name,status,phone_number,profile_pic_ref from technician where service_provider_id=?",1);
+    public JsonArray getAll(Connection connection,String searchId) throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.executeQuery(connection, "select  id,f_name,l_name,status,phone_number,profile_pic_ref from technician where service_provider_id=?",searchId);
         JsonArrayBuilder technicianArray = Json.createArrayBuilder();
 
         while (rst.next()) {
@@ -154,6 +154,7 @@ public class TechnicianController {
     public boolean delete(Connection connection, String techId) throws SQLException, ClassNotFoundException {
 
         boolean technicianExpertiseTableResult = CrudUtil.executeUpdate(connection, "DELETE FROM technician_expertise WHERE technician_id=?", techId);
+        boolean serviceTechnicianResult=CrudUtil.executeUpdate(connection,"DELETE FROM service_technician WHERE technician_id=?", techId);
         boolean technicianTableResult = CrudUtil.executeUpdate(connection, "DELETE FROM technician WHERE id=?", techId);
 
         return technicianExpertiseTableResult && technicianTableResult;
@@ -161,7 +162,7 @@ public class TechnicianController {
 
     public JsonArray fetchAssignTechnicianServices(Connection connection,String techId) throws SQLException, ClassNotFoundException {
         System.out.println(techId);
-        ResultSet resultSet = CrudUtil.executeQuery(connection, "select TIME_FORMAT(sr.accepted_timestamp, '%h.%i %p'),sr.description,ic.category,CONCAT(c.f_name,' ',c.l_name),c.phone_number,vm.model,sr.id\n" +
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "select TIME_FORMAT(sr.accepted_timestamp, '%h.%i %p'),sr.description,ic.category,CONCAT(c.f_name,' ',c.l_name),c.phone_number,vm.model,sr.id,sr.location\n" +
                 "from service_request sr\n" +
                 "left join service_technician st on sr.id=st.service_request_id\n" +
                 "join issue_category ic on sr.issue_category_id=ic.id\n" +
@@ -180,6 +181,7 @@ public class TechnicianController {
             String customerContact=resultSet.getString(5);
             String vehicleModel=resultSet.getString(6);
             String serviceId=String.valueOf(resultSet.getInt(7));
+            String customerLocation=resultSet.getString(8);
 
             JsonObjectBuilder objectBuilder=Json.createObjectBuilder();
             objectBuilder.add("time",time);
@@ -189,8 +191,29 @@ public class TechnicianController {
             objectBuilder.add("customerContact",customerContact);
             objectBuilder.add("vehicleModel",vehicleModel);
             objectBuilder.add("serviceId", serviceId);
+            objectBuilder.add("customerLocation", customerLocation);
             assignIssue.add(objectBuilder.build());
         }
         return assignIssue.build();
     }
+
+    public JsonObject getTechnicianData(Connection connection, String searchId) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "select f_name,l_name,email,phone_number,profile_pic_ref from technician where id=?", Integer.parseInt(searchId));
+        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+        if (resultSet.next()){
+
+            List<String> expertiseList = fetchExpertiseArias(connection, Integer.parseInt(searchId));
+
+
+            objectBuilder.add("techFName",resultSet.getString(1));
+            objectBuilder.add("techLName",resultSet.getString(2));
+            objectBuilder.add("tecEmail",(resultSet.getString(3)==null)? "example@gmail.com": resultSet.getString(3));
+            objectBuilder.add("phoneNumber",resultSet.getString(4));
+            objectBuilder.add("imgRef",(resultSet.getString(5)==null)? "0":resultSet.getString(5));
+            objectBuilder.add("expertiseList", expertiseList.toString());
+        }
+
+        return objectBuilder.build();
+    }
+
 }

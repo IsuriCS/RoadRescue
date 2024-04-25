@@ -90,7 +90,7 @@ public class LoginServlet extends HttpServlet {
                         writer.print(response.build());
                     }else {
                         String otp = generateOTP();
-//                        smsApi(otp,searchId);
+                        smsApi(otp,searchId);
                         JsonObjectBuilder response = Json.createObjectBuilder();
                         response.add("status", 204);
                         response.add("message", "OTP "+otp);
