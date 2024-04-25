@@ -249,7 +249,7 @@ function showprof(customerId) {
                                             }
 
                                             clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
-                                                showsupportTicket(datai.ticketId, name);
+                                                showsupportTicket(datai.ticketId, name, "cus");
 
 
                                             });
@@ -475,7 +475,7 @@ function showprof(customerId) {
 }
 
 
-function showsupportTicket(ticketId, name) {
+function showsupportTicket(ticketId, name, type) {
     $("#load-container").show();
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
@@ -498,8 +498,15 @@ function showsupportTicket(ticketId, name) {
     var ttitle = document.querySelector("#SupportTicketDatail .topRow h1");
     ttitle.innerHTML = `Reports > ST${String(ticketId).padStart(3, '0')}`;
 
+    if (type == "getbyNameandId") {
+        var ajaxurl = API_URL + `/Admin/supportTicket?name=${name}&id=${String(ticketId)}&type=getbyNameandId&option=getSTbyid`;
+    }
+    else {
+        var ajaxurl = API_URL + `/Admin/supportTicket?id=${String(ticketId)}&option=getSTbyid&type=${type}`;
+    }
+
     $.ajax({
-        url: API_URL + `/Admin/supportTicket?id=${String(ticketId)}&option=getSTbyid`,
+        url: ajaxurl,
         method: "GET",
         success: function (res) {
 
@@ -547,6 +554,9 @@ function showsupportTicket(ticketId, name) {
                     var assignWindow = document.getElementById("assignCSM");
                     assignWindow.style.display = "block";
                     var csmtemplate = document.querySelector("#CSMCardtemplate");
+                    if (assignWindow.querySelector(".csmcards") != null) {
+                        assignWindow.querySelector(".csmcards").remove();
+                    }
                     $.ajax({
                         url: API_URL + "/Admin/CustomerSupportList",
                         method: "GET",
@@ -639,7 +649,8 @@ function showsupportTicket(ticketId, name) {
                             ticketId: ticketid,
                             status: "Solved",
                             solution: solution,
-                            option: "solveTicket"
+                            option: "solveTicket",
+
                         };
 
                         $.ajax({
@@ -715,7 +726,7 @@ function showServiceProviders() {
     var tableBody = document.querySelector("#SPList tbody");
     $("#load-container").show();
     $.ajax({
-        url: API_URL + "/Admin/SPlist",
+        url: API_URL + "/Admin/SPlist?option=getallsp",
         method: "GET",
         success: function (res) {
 
@@ -737,7 +748,7 @@ function showServiceProviders() {
                         row.cells[5].style.display = 'none';
                         row.addEventListener('click', function () {
                             var id = this.cells[0].textContent;
-                            showSPprof(res, id);
+                            showSPprof(id);
 
                         })
                     }
@@ -776,90 +787,91 @@ function showServiceProviders() {
     );
 
 
-    garage.addEventListener("change", function () {
+    // garage.addEventListener("change", function () {
 
-        var table = document.getElementById("SPList");
-        var tr = table.getElementsByTagName("tr");
+    //     var table = document.getElementById("SPList");
+    //     var tr = table.getElementsByTagName("tr");
 
-        for (var i = 1; i < tr.length; i++) {
-
-
-            var td = tr[i].getElementsByTagName("td")[5];
-            var textValue = td.textContent || td.innerText;
-            if (garage.checked == true && mp.checked == true) {
-                tr[i].style.display = "";
-
-            }
-            else if (garage.checked == true && mp.checked == false) {
-                if (textValue == "Garage") {
-                    tr[i].style.display = "";
-                }
-                else {
-                    tr[i].style.display = "none";
-                }
-            }
-            else if (garage.checked == false && mp.checked == true) {
-                if (textValue == "Mp") {
-                    tr[i].style.display = "";
-                }
-                else {
-                    tr[i].style.display = "none";
-                }
-            }
-
-            else {
-
-                tr[i].style.display = "none";
+    //     for (var i = 1; i < tr.length; i++) {
 
 
-            }
-        }
-    });
+    //         var td = tr[i].getElementsByTagName("td")[5];
+    //         var textValue = td.textContent || td.innerText;
+    //         if (garage.checked == true && mp.checked == true) {
+    //             tr[i].style.display = "";
 
-    mp.addEventListener("change", function () {
+    //         }
+    //         else if (garage.checked == true && mp.checked == false) {
+    //             if (textValue == "Garage") {
+    //                 tr[i].style.display = "";
+    //             }
+    //             else {
+    //                 tr[i].style.display = "none";
+    //             }
+    //         }
+    //         else if (garage.checked == false && mp.checked == true) {
+    //             if (textValue == "Mp") {
+    //                 tr[i].style.display = "";
+    //             }
+    //             else {
+    //                 tr[i].style.display = "none";
+    //             }
+    //         }
 
-        var table = document.getElementById("SPList");
-        var tr = table.getElementsByTagName("tr");
+    //         else {
 
-        for (var i = 1; i < tr.length; i++) {
-
-
-            var td = tr[i].getElementsByTagName("td")[5];
-            var textValue = td.textContent || td.innerText;
-            if (garage.checked == true && mp.checked == true) {
-                tr[i].style.display = "";
-
-            }
-            else if (garage.checked == true && mp.checked == false) {
-                if (textValue == "Garage") {
-                    tr[i].style.display = "";
-                }
-                else {
-                    tr[i].style.display = "none";
-                }
-            }
-            else if (garage.checked == false && mp.checked == true) {
-                if (textValue == "Mp") {
-                    tr[i].style.display = "";
-                }
-                else {
-                    tr[i].style.display = "none";
-                }
-            }
-
-            else {
-
-                tr[i].style.display = "none";
+    //             tr[i].style.display = "none";
 
 
-            }
-        }
-    });
+    //         }
+    //     }
+    // });
+
+    // mp.addEventListener("change", function () {
+
+    //     var table = document.getElementById("SPList");
+    //     var tr = table.getElementsByTagName("tr");
+
+    //     for (var i = 1; i < tr.length; i++) {
+
+
+    //         var td = tr[i].getElementsByTagName("td")[5];
+    //         var textValue = td.textContent || td.innerText;
+    //         if (garage.checked == true && mp.checked == true) {
+    //             tr[i].style.display = "";
+
+    //         }
+    //         else if (garage.checked == true && mp.checked == false) {
+    //             if (textValue == "Garage") {
+    //                 tr[i].style.display = "";
+    //             }
+    //             else {
+    //                 tr[i].style.display = "none";
+    //             }
+    //         }
+    //         else if (garage.checked == false && mp.checked == true) {
+    //             if (textValue == "Mp") {
+    //                 tr[i].style.display = "";
+    //             }
+    //             else {
+    //                 tr[i].style.display = "none";
+    //             }
+    //         }
+
+    //         else {
+
+    //             tr[i].style.display = "none";
+
+
+    //         }
+    //     }
+    // });
 
 
 }
 
-function showSPprof(res, spid) {
+function showSPprof(spid) {
+    $("#load-container").show();
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
@@ -879,20 +891,13 @@ function showSPprof(res, spid) {
     // Update the title
     var title = document.querySelector("#GarageProf .topRow h1");
 
+    $.ajax({
+        url: API_URL + "/Admin/SPlist?option=getSPbyid&id=" + spid,
+        method: "GET",
+        success: function (res) {
+            datai = res.data;
+            title.innerHTML = `Servie Provider > G${spid.padStart(3, '0')}`;
 
-
-
-    for (var i = 0; i < res.data.length; i++) {
-
-        if (res.data[i].id == spid) {
-
-            var datai = res.data[i];
-            if (datai.type == "Garage") {
-                title.innerHTML = `Servie Provider > G${spid.padStart(3, '0')}`;
-            }
-            else {
-                title.innerHTML = `Servie Provider > M${spid.padStart(3, '0')}`;
-            }
 
             document.getElementById("id").innerHTML = datai.id;
             document.getElementById("gname").innerHTML = datai.garageName || '-';
@@ -969,8 +974,8 @@ function showSPprof(res, spid) {
                                         }
 
                                         clone.querySelector(".spSuppotTicketcard").addEventListener('click', function () {
-                                            showsupportTicket(tres, sdatai.ticketId, name);
-                                            console.log(tres, sdatai.ticketId, name);
+                                            showsupportTicket(sdatai.ticketId, name, "SP");
+
 
                                         });
                                         document.getElementById("spno_support_tickets").style.display = "none";
@@ -984,22 +989,311 @@ function showSPprof(res, spid) {
                             }
                             $("#load-container").hide();
                         }
-                        else {
-                            console.log("error");
-                        }
                     }
                 })
-
-            }
-            else {
                 $("#load-container").hide();
-                document.getElementById("spno_support_tickets").style.display = "block";
-                document.getElementById("spsupport_ticket_list").style.display = "none";
-
             }
+            var editButton = document.createElement("button");
+            editButton.id = "editProfileButton";
+            editButton.className = "button";
+            editButton.innerHTML = '<span class="material-symbols-outlined"> edit </span>Edit ';
+
+            // Append edit button to the container
+            var buttonContainer = document.getElementById("editButtonContainer");
+            buttonContainer.innerHTML = ''; // Clear previous button
+            buttonContainer.appendChild(editButton);
+
+            // Save button
+            var saveButton = document.createElement("button");
+            saveButton.id = "saveProfileButton";
+            saveButton.className = "button";
+            saveButton.innerHTML = '<span class="material-symbols-outlined" style="margin-right: 1vh; vertical-align: bottom;"> save </span>Save';
+            saveButton.style.display = "none";
+
+            // Append edit button to the container
+            buttonContainer.appendChild(saveButton);
+
+            // Delete Button
+            var deleteButton = document.createElement("button");
+            deleteButton.id = "deletebutton";
+            deleteButton.className = "deleteButton";
+            deleteButton.innerHTML = '<span class="material-symbols-outlined"> delete </span>Delete';
+            deleteButton.classList.add("button");
+
+
+            // Append edit button to the container
+            var deletebuttonContainer = document.getElementById("deleteButtonContainer");
+            deletebuttonContainer.innerHTML = ''; // Clear previous button
+            deletebuttonContainer.appendChild(deleteButton);
+
+            // Add event listener to the edit button
+            editButton.addEventListener("click", function () {
+
+                var form = document.getElementById("editProfileForm");
+                form.style.display = "block";
+                document.getElementById("profile").style.display = "none";
+
+                var form = document.getElementById("editProfileForm");
+                form.style.display = "block";
+                document.getElementById("profile").style.display = "none";
+
+                // Display save button
+                saveButton.style.display = "block";
+                editButton.style.display = "none";
+
+                // Disable delete button
+                deletebutton.disabled = true;
+                deletebutton.style.backgroundColor = "#6f102e";
+
+
+
+
+                document.querySelector("#editProfileForm #cid").innerHTML = datai.customerId;
+
+                document.querySelector("#editProfileForm #fname").value = datai.fname;
+                document.querySelector("#editProfileForm #lname").value = datai.lname;
+                document.querySelector("#editProfileForm #email").value = datai.email;
+                document.querySelector("#editProfileForm #cnum").value = datai.contact;
+
+                saveButton.addEventListener("click", function () {
+                    messagebox.style.display = "block";
+                    messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
+                    messagetext.innerHTML = "Updating Profile...";
+                    messagebutton.style.display = "none";
+                    // Retrieve the updated values from the form fields
+                    var customerId = document.querySelector("#editProfileForm #cid").innerHTML;
+                    var fname = document.querySelector("#editProfileForm #fname").value;
+                    var lname = document.querySelector("#editProfileForm #lname").value;
+                    var email = document.querySelector("#editProfileForm #email").value;
+                    var cnum = document.querySelector("#editProfileForm #cnum").value;
+
+                    // Perform validation if needed
+
+                    // Prepare the data to send via AJAX
+                    var data = {
+                        customerId: customerId,
+                        fname: fname,
+                        lname: lname,
+                        email: email,
+                        cnum: cnum,
+                        option: "updateDetails"
+                    };
+
+
+                    console.log(JSON.stringify(data));
+                    // Send an AJAX request to update the profile
+                    $.ajax({
+                        url: API_URL + '/Admin/CustomerList',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data),
+                        success: function (response) {
+
+                            messageimg.setAttribute("src", "../../assets/img/Tick.png");
+                            messagetext.innerHTML = "Update Successful";
+                            messagebutton.style.display = "none";
+                            setTimeout(function () {
+                                messagebox.style.display = "none";
+                            }, 1500);
+                            document.getElementById("editProfileForm").style.display = "none";
+                            document.getElementById("profile").style.display = "block";
+                            showprof(customerId);
+                            deletebutton.disabled = false;
+                            deletebutton.style.backgroundColor = "#c41950";
+
+                            // Change to save button
+                            saveButton.style.display = "none";
+                            editButton.style.display = "block";
+                        },
+                        error: function (error) {
+
+                            messageimg.setAttribute("src", "../../assets/img/exclamation.png");
+                            messagetext.innerHTML = "Something went wrong. Try Again";
+                            messagebutton.style.display = "none";
+                            setTimeout(function () {
+                                messagebox.style.display = "none";
+                            }, 1500);
+                            document.getElementById("editProfileForm").style.display = "none";
+                            document.getElementById("profile").style.display = "block";
+                            showprof(customerId);
+                            deletebutton.disabled = false;
+                            deletebutton.style.backgroundColor = "#c41950";
+
+                            // Change to save button
+                            saveButton.style.display = "none";
+                            editButton.style.display = "block";
+                            // Handle error response
+                            console.error('Failed to update profile:', error);
+                        }
+                    });
+                });
+            });
+
+            deleteButton.addEventListener("click", function () {
+                messagebox.style.display = "block";
+                messageimg.setAttribute("src", "../../assets/img/delete.png");
+                messageimg.style.width = "13vh";
+                messagetext.innerHTML = "Are you sure you want to delete this user?";
+
+                var yesButton = document.createElement("button");
+                yesButton.id = "yesButton";
+                yesButton.className = "button";
+                yesButton.innerHTML = "Yes";
+                document.getElementById("proccessingBoxButtons").appendChild(yesButton);
+
+                var NoBUtton = document.createElement("button");
+                NoBUtton.id = "nobutton";
+                NoBUtton.className = "button";
+                NoBUtton.innerHTML = "No";
+                document.getElementById("proccessingBoxButtons").appendChild(NoBUtton);
+
+                yesButton.addEventListener("click", function () {
+                    messagetext.innerHTML = "Please Wait..."
+                    messagebox.style.display = "block"
+                    messagebutton.style.display = "none";
+                    messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
+
+                    $.ajax({
+                        url: API_URL + '/Admin/CustomerList?id=' + customerId,
+                        method: "DELETE",
+                        success: function (res) {
+                            messagetext.innerHTML = "Customer Deleted Successfully";
+                            messageimg.setAttribute("src", "../../assets/img/Tick.png")
+                            messagebutton.style.display = "none";
+                            setTimeout(function () {
+                                messagebox.style.display = "none";
+                            }, 1500);
+                            showcus();
+                        },
+                        error: function (error) {
+                            messageimg.setAttribute("src", "../../assets/img/exclamation.png");
+                            messagetext.innerHTML = "Something went wrong. Try Again";
+                            messagebutton.style.display = "none";
+                            setTimeout(function () {
+                                messagebox.style.display = "none";
+                            }, 1500);
+                        }
+
+                    })
+                });
+            });
         }
 
-    }
+
+        // for (var i = 0; i < res.data.length; i++) {
+
+        //     if (res.data[i].id == spid) {
+
+        //         title.innerHTML = `Servie Provider > G${spid.padStart(3, '0')}`;
+
+
+        //         document.getElementById("id").innerHTML = datai.id;
+        //         document.getElementById("gname").innerHTML = datai.garageName || '-';
+        //         document.getElementById("oname").innerHTML = datai.owner_name || '-';
+        //         document.getElementById("pnum").innerHTML = datai.phoneNumber || '-';
+        //         document.getElementById("email").innerHTML = datai.email || '-';
+
+        //         // set locaton link
+        //         var locationpoints = datai.location.split(",");
+        //         var link = `https://www.google.com/maps/search/?api=1&query=${locationpoints[0]},${locationpoints[1]}`;
+
+        //         document.getElementById("location").setAttribute("href", link);
+        //         document.getElementById("compservice").innerHTML = datai.comRequests || '0';
+
+        //         // format date
+        //         var dateTime = new Date(datai.Date);
+        //         var formattedDate = dateTime.toLocaleDateString();
+        //         document.getElementById("date").innerHTML = datai.formattedDate || '0';
+
+        //         var name = datai.owner_name;
+        //         // View support Tickets
+        //         if (datai.supTickets > 0) {
+
+        //             // Remove created ticket cards
+        //             var ticketList = document.querySelectorAll(".spSuppotTicketcard");
+        //             console.log(ticketList);
+        //             if (ticketList.length > 0) {
+        //                 ticketList.forEach(function (ticket) {
+        //                     ticket.remove();
+        //                 });
+        //             }
+
+        //             // request ticket details from backend
+        //             $.ajax({
+        //                 url: API_URL + "/SPSupportTicket",
+        //                 method: "GET",
+        //                 success: function (tres) {
+        //                     console.log(tres);
+        //                     if (tres.status == 200) {
+
+
+        //                         for (var i = 0; i < tres.data.length; i++) {
+        //                             (function () {
+        //                                 var sdatai = tres.data[i];
+        //                                 if (sdatai.SPid == spid) {
+        //                                     console.log("inside if");
+
+        //                                     var temp = document.getElementById("spsupportTicketTemplate");
+        //                                     var clone = temp.content.cloneNode(true);
+        //                                     clone.querySelector(".spSuppotTicketcard h1").textContent = `ST-${String(sdatai.ticketId).padStart(3, '0')}`;
+        //                                     console.log(sdatai.ticketId);
+        //                                     var dateTime = new Date(sdatai.created_time);
+        //                                     var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
+        //                                     clone.querySelector(".spSuppotTicketcard .row .date p").textContent = formattedDate;
+
+        //                                     // Update ticket title
+        //                                     clone.querySelector(".spSuppotTicketcard .row .title p").textContent = sdatai.title;
+
+        //                                     // Change status button
+        //                                     var status = sdatai.status;
+        //                                     var sbutton = clone.querySelector(".spSuppotTicketcard .solveButton button");
+
+        //                                     if (status.toLowerCase() == "pending") {
+        //                                         sbutton.classList.add("pending");
+        //                                         sbutton.textContent = "Pending";
+        //                                     }
+        //                                     else if (status.toLowerCase() == "solved") {
+        //                                         sbutton.classList.add("solved");
+        //                                         sbutton.textContent = "Solved";
+        //                                     }
+        //                                     else {
+        //                                         sbutton.classList.add("on_review");
+        //                                         sbutton.textContent = "On Review";
+        //                                     }
+
+        //                                     clone.querySelector(".spSuppotTicketcard").addEventListener('click', function () {
+        //                                         showsupportTicket(tres, sdatai.ticketId, name);
+        //                                         console.log(tres, sdatai.ticketId, name);
+
+        //                                     });
+        //                                     document.getElementById("spno_support_tickets").style.display = "none";
+        //                                     document.getElementById("spsupport_ticket_list").style.display = "block";
+        //                                     document.getElementById("spsupport_ticket_list").appendChild(clone);
+        //                                     console.log("appended");
+        //                                 }
+        //                             })();
+
+
+        //                         }
+        //                         $("#load-container").hide();
+        //                     }
+        //                     else {
+        //                         console.log("error");
+        //                     }
+        //                 }
+        //             })
+
+        //         }
+        //         else {
+        //             $("#load-container").hide();
+        //             document.getElementById("spno_support_tickets").style.display = "block";
+        //             document.getElementById("spsupport_ticket_list").style.display = "none";
+
+        //         }
+        //     }
+
+        // }
+    })
 }
 
 function showcsmember() {
@@ -1319,7 +1613,7 @@ function showVerification() {
     $("#verificationList tbody").empty();
 
     $.ajax({
-        url: API_URL + "/Admin/SPlist",
+        url: API_URL + "/Admin/SPlist?option=getallsp",
         method: "GET",
         success: function (res) {
 
@@ -1727,7 +2021,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         var id = datai.ticketId;
                         row.addEventListener('click', function () {
                             var name = this.cells[0].textContent;
-                            showsupportTicket(id, name);
+                            showsupportTicket(id, name, "getbyNameandId");
                         });
                     })();
                 }

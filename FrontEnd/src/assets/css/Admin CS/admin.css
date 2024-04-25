@@ -771,3 +771,7 @@ input {
   align-items: center;
   /* padding-left: 7vw; */
 }
+/* ********************************************sp profile View***************************************** */
+#GarageProf #location {
+  color: white;
+}

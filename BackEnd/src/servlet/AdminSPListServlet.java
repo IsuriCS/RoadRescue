@@ -27,41 +27,88 @@ public class AdminSPListServlet extends HttpServlet{
     UserDataController userDataController=new UserDataController();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        PrintWriter writer = resp.getWriter();
-        resp.setContentType("application/json");
+
+
         Connection connection = null;
-        try {
-            connection = ds.getConnection();
-            JsonArray allServiceP = userDataController.getServiceProviderList(connection);
-            JsonObjectBuilder response = Json.createObjectBuilder();
-            response.add("status",200);
-            response.add("message","Done");
-            response.add("data", allServiceP);
-            writer.print(response.build());
-        } catch (SQLException throwables) {
-            JsonObjectBuilder response = Json.createObjectBuilder();
-            resp.setStatus(HttpServletResponse.SC_OK);
-            response.add("status",400);
-            response.add("message","Error");
-            response.add("data",throwables.getLocalizedMessage());
-            writer.print(response.build());
-            throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            JsonObjectBuilder response = Json.createObjectBuilder();
-            resp.setStatus(HttpServletResponse.SC_OK);
-            response.add("status",400);
-            response.add("message","Error");
-            response.add("data",e.getLocalizedMessage());
-            writer.print(response.build());
-            e.printStackTrace();
-        } finally {
-            if (connection != null) {
+
+        String option = req.getParameter("option");
+        resp.setContentType("application/json");
+        PrintWriter writer = resp.getWriter();
+
+        switch (option) {
+            case "getallsp":
                 try {
-                    connection.close();
-                } catch (SQLException e) {
+                    connection = ds.getConnection();
+                    JsonArray allServiceP = userDataController.getServiceProviderList(connection);
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    response.add("status", 200);
+                    response.add("message", "Done");
+                    response.add("data", allServiceP);
+                    writer.print(response.build());
+                } catch (SQLException throwables) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 400);
+                    response.add("message", "Error");
+                    response.add("data", throwables.getLocalizedMessage());
+                    writer.print(response.build());
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 400);
+                    response.add("message", "Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } finally {
+                    if (connection != null) {
+                        try {
+                            connection.close();
+                        } catch (SQLException e) {
+
+                        }
+                    }
 
                 }
-            }
+                break;
+            case "getSPbyid":
+                String id = req.getParameter("id");
+                try {
+                    connection = ds.getConnection();
+                    JsonObject spdetail = userDataController.getSpyid(connection,id);
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    response.add("status", 200);
+                    response.add("message", "Done");
+                    response.add("data", spdetail);
+                    writer.print(response.build());
+                } catch (SQLException throwables) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 400);
+                    response.add("message", "Error");
+                    response.add("data", throwables.getLocalizedMessage());
+                    writer.print(response.build());
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 400);
+                    response.add("message", "Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } finally {
+                    if (connection != null) {
+                        try {
+                            connection.close();
+                        } catch (SQLException e) {
+
+                        }
+                    }
+
+                }
+                break;
         }
     }
 

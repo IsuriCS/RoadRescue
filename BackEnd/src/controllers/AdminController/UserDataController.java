@@ -161,6 +161,7 @@ public class UserDataController {
         return updateResult;
     }
 
+    
     public JsonObject getCoustomerbyID(Connection connection, String id) throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.executeQuery(connection, "SELECT c.reg_timestamp AS time ,c.id AS customerid,c.f_name AS fname,c.l_name As lname,c.email AS email, CONCAT(c.f_name, ' ', c.l_name) AS full_name, c.phone_number AS phone_number, COALESCE(sr.num_service_requests, 0) AS num_service_requests, COALESCE(st.num_support_tickets, 0) AS num_support_tickets FROM customer c LEFT JOIN ( SELECT customer_id, COUNT(*) AS num_service_requests FROM service_request GROUP BY customer_id ) sr ON c.id = sr.customer_id LEFT JOIN ( SELECT customer_id, COUNT(*) AS num_support_tickets FROM customer_support_ticket GROUP BY customer_id ) st ON c.id = st.customer_id where id=?", id);
 
@@ -197,6 +198,76 @@ public class UserDataController {
         } else {
             return null;
         }
+    }
+
+    public JsonObject getSpyid(Connection connection, String id) throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT * FROM service_provider WHERE id=?",id);
+        ResultSet rst2=CrudUtil.executeQuery(connection,"Select assigned_service_provider_id,count(assigned_service_provider_id) From service_request WHERE assigned_service_provider_id=? GROUP BY assigned_service_provider_id ",id);
+        ResultSet rst3=CrudUtil.executeQuery(connection,"SELECT s.id, COUNT(t.service_provider_id) FROM service_provider s LEFT JOIN sp_support_ticket t ON s.id = t.service_provider_id WHERE service_provider_id=? GROUP BY s.id ",id);
+
+        if (rst.next()) {
+
+            String phoneNumber= rst.getString(2);
+            String email= rst.getString(3);
+            String garageName= rst.getString(4);
+            String Date = rst.getString(5);
+            String status = rst.getString(6);
+            String location = rst.getString(7);
+            Double avg_rating = rst.getDouble(8);
+            String type = rst.getString(9);
+            String owner_name = rst.getString(10);
+            String profile_pic_ref = rst.getString(11);
+            String verify=rst.getString(12);
+            int comRequsts=0;
+            int supTickets=0;
+            if (rst2.next()){
+                comRequsts=rst2.getInt(2);
+            }
+            if (rst3.next()){
+                supTickets=rst3.getInt(2);
+
+
+            }
+
+
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("id", id);
+            objectBuilder.add("phoneNumber",phoneNumber);
+
+            if (email != null) {
+                objectBuilder.add("email", email);
+            } else {
+                objectBuilder.addNull("email");
+            }
+
+            objectBuilder.add("garageName",garageName);
+            objectBuilder.add("Date",Date);
+            objectBuilder.add("status",status);
+            objectBuilder.add("location", location);
+            objectBuilder.add("avg_rating", avg_rating);
+            objectBuilder.add("type", type);
+            objectBuilder.add("owner_name", owner_name);
+
+            if (profile_pic_ref != null) {
+                objectBuilder.add("profile_pic_ref", profile_pic_ref);
+            } else {
+                objectBuilder.addNull("profile_pic_ref");
+            }
+            objectBuilder.add("verify",verify);
+            objectBuilder.add("comRequests",comRequsts);
+            objectBuilder.add("supTickets",supTickets);
+
+
+
+           return objectBuilder.build();
+        }
+        else
+
+    {
+        return null;
+    }
+
+
     }
 
     public boolean DeleteCustomer(Connection connection,String id)throws SQLException, ClassNotFoundException {
