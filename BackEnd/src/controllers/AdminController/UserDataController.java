@@ -161,7 +161,13 @@ public class UserDataController {
         return updateResult;
     }
 
-    
+    public boolean UpdateServiceProvider(Connection connection, String id ,String garage,String owner,String email,String contactnum) throws SQLException, ClassNotFoundException {
+
+        boolean updateResult= CrudUtil.executeUpdate(connection,"UPDATE service_provider SET garage_name=?,owner_name=?,email=?,phone_number=? WHERE id = ?" ,garage,owner,email,contactnum, id);
+
+
+        return updateResult;
+    }
     public JsonObject getCoustomerbyID(Connection connection, String id) throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.executeQuery(connection, "SELECT c.reg_timestamp AS time ,c.id AS customerid,c.f_name AS fname,c.l_name As lname,c.email AS email, CONCAT(c.f_name, ' ', c.l_name) AS full_name, c.phone_number AS phone_number, COALESCE(sr.num_service_requests, 0) AS num_service_requests, COALESCE(st.num_support_tickets, 0) AS num_support_tickets FROM customer c LEFT JOIN ( SELECT customer_id, COUNT(*) AS num_service_requests FROM service_request GROUP BY customer_id ) sr ON c.id = sr.customer_id LEFT JOIN ( SELECT customer_id, COUNT(*) AS num_support_tickets FROM customer_support_ticket GROUP BY customer_id ) st ON c.id = st.customer_id where id=?", id);
 
@@ -199,6 +205,7 @@ public class UserDataController {
             return null;
         }
     }
+
 
     public JsonObject getSpyid(Connection connection, String id) throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.executeQuery(connection, "SELECT * FROM service_provider WHERE id=?",id);
@@ -277,5 +284,7 @@ public class UserDataController {
 
         return deleteResult;
     }
+
+
 
 }

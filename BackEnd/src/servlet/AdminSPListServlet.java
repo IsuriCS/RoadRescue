@@ -113,6 +113,115 @@ public class AdminSPListServlet extends HttpServlet{
     }
 
 
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String garage;
+        String owner;
+        String contactNumber;
+        String id;
+        String email;
+        String option;
+        PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
+
+        try (Reader stringReader = new InputStreamReader(req.getInputStream())) {
+            JsonReader reader = Json.createReader(stringReader);
+            JsonObject jsonObject = reader.readObject();
+
+            option = jsonObject.getString("option");
+            switch (option){
+                case "updateDetails":
+
+
+                    garage = jsonObject.getString("garage");
+                    owner = jsonObject.getString("owner");
+                    contactNumber = jsonObject.getString("cnum");
+                    id = jsonObject.getString("spId");
+                    email = jsonObject.getString("email");
+
+
+
+                    try {
+                        Connection connection = ds.getConnection();
+
+                        boolean result = userDataController.UpdateServiceProvider(connection,id,garage,owner,email,contactNumber);
+
+                        if (result) {
+                            System.out.println("start send response");
+                            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                            resp.setStatus(HttpServletResponse.SC_OK);
+                            objectBuilder.add("status", 201);
+                            objectBuilder.add("message", "Service Provider profile update successfull.");
+                            objectBuilder.add("data","");
+                            writer.print(objectBuilder.build());
+//                System.out.println("end send response");
+                        }
+                        connection.close();
+                    } catch (SQLException e) {
+                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                        resp.setStatus(HttpServletResponse.SC_OK);
+                        objectBuilder.add("status", 500);
+                        objectBuilder.add("message", "SQL Exception Error.");
+                        objectBuilder.add("data", e.getLocalizedMessage());
+                        writer.print(objectBuilder.build());
+                        e.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                        resp.setStatus(HttpServletResponse.SC_OK);
+                        objectBuilder.add("status", 500);
+                        objectBuilder.add("message", "Class not fount Exception Error");
+                        objectBuilder.add("data", e.getLocalizedMessage());
+                        writer.print(objectBuilder.build());
+                        e.printStackTrace();
+                    }
+                    break;
+
+                case "getSPById":
+
+
+                    id = jsonObject.getString("spId");
+
+
+
+                    try {
+                        Connection connection = ds.getConnection();
+
+                        JsonObject result = userDataController.getSpyid(connection,id);
+
+                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                        resp.setStatus(HttpServletResponse.SC_OK);
+                        objectBuilder.add("status", 201);
+                        objectBuilder.add("message", "Get Service Provider by id.");
+                        objectBuilder.add("data", result);
+                        writer.print(objectBuilder.build());
+//                System.out.println("end send response");
+
+                        connection.close();
+                    } catch (SQLException e) {
+                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                        resp.setStatus(HttpServletResponse.SC_OK);
+                        objectBuilder.add("status", 500);
+                        objectBuilder.add("message", "SQL Exception Error.");
+                        objectBuilder.add("data", e.getLocalizedMessage());
+                        writer.print(objectBuilder.build());
+                        e.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                        resp.setStatus(HttpServletResponse.SC_OK);
+                        objectBuilder.add("status", 500);
+                        objectBuilder.add("message", "Class not fount Exception Error");
+                        objectBuilder.add("data", e.getLocalizedMessage());
+                        writer.print(objectBuilder.build());
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+
+        }
+
+
+
+
+    }
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id;

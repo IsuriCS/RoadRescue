@@ -429,6 +429,11 @@ function showprof(customerId) {
                     NoBUtton.id = "nobutton";
                     NoBUtton.className = "button";
                     NoBUtton.innerHTML = "No";
+                    NoBUtton.addEventListener("click", function () {
+                        messagebox.style.display = "none";
+                        messagebutton.innerHTML = '';
+
+                    });
                     document.getElementById("proccessingBoxButtons").appendChild(NoBUtton);
 
                     yesButton.addEventListener("click", function () {
@@ -897,13 +902,14 @@ function showSPprof(spid) {
         success: function (res) {
             datai = res.data;
             title.innerHTML = `Servie Provider > G${spid.padStart(3, '0')}`;
-
+            $("#load-container").hide();
 
             document.getElementById("id").innerHTML = datai.id;
             document.getElementById("gname").innerHTML = datai.garageName || '-';
             document.getElementById("oname").innerHTML = datai.owner_name || '-';
             document.getElementById("pnum").innerHTML = datai.phoneNumber || '-';
-            document.getElementById("email").innerHTML = datai.email || '-';
+            document.getElementById("spemail").innerHTML = datai.email || '-';
+            console.log(datai.email);
 
             // set locaton link
             var locationpoints = datai.location.split(",");
@@ -915,7 +921,7 @@ function showSPprof(spid) {
             // format date
             var dateTime = new Date(datai.Date);
             var formattedDate = dateTime.toLocaleDateString();
-            document.getElementById("date").innerHTML = datai.formattedDate || '0';
+            document.getElementById("date").innerHTML = formattedDate || '0';
 
             var name = datai.owner_name;
             // View support Tickets
@@ -996,10 +1002,11 @@ function showSPprof(spid) {
             var editButton = document.createElement("button");
             editButton.id = "editProfileButton";
             editButton.className = "button";
+
             editButton.innerHTML = '<span class="material-symbols-outlined"> edit </span>Edit ';
 
             // Append edit button to the container
-            var buttonContainer = document.getElementById("editButtonContainer");
+            var buttonContainer = document.querySelector(".spbuttonDiv #editButtonContainer");
             buttonContainer.innerHTML = ''; // Clear previous button
             buttonContainer.appendChild(editButton);
 
@@ -1007,6 +1014,7 @@ function showSPprof(spid) {
             var saveButton = document.createElement("button");
             saveButton.id = "saveProfileButton";
             saveButton.className = "button";
+
             saveButton.innerHTML = '<span class="material-symbols-outlined" style="margin-right: 1vh; vertical-align: bottom;"> save </span>Save';
             saveButton.style.display = "none";
 
@@ -1017,25 +1025,26 @@ function showSPprof(spid) {
             var deleteButton = document.createElement("button");
             deleteButton.id = "deletebutton";
             deleteButton.className = "deleteButton";
+
             deleteButton.innerHTML = '<span class="material-symbols-outlined"> delete </span>Delete';
             deleteButton.classList.add("button");
 
 
             // Append edit button to the container
-            var deletebuttonContainer = document.getElementById("deleteButtonContainer");
+            var deletebuttonContainer = document.querySelector(".spbuttonDiv #deleteButtonContainer");
             deletebuttonContainer.innerHTML = ''; // Clear previous button
             deletebuttonContainer.appendChild(deleteButton);
 
             // Add event listener to the edit button
             editButton.addEventListener("click", function () {
 
-                var form = document.getElementById("editProfileForm");
+                var form = document.getElementById("speditProfileForm");
                 form.style.display = "block";
-                document.getElementById("profile").style.display = "none";
+                document.getElementById("spprofile").style.display = "none";
 
-                var form = document.getElementById("editProfileForm");
+                var form = document.getElementById("speditProfileForm");
                 form.style.display = "block";
-                document.getElementById("profile").style.display = "none";
+                document.getElementById("spprofile").style.display = "none";
 
                 // Display save button
                 saveButton.style.display = "block";
@@ -1048,12 +1057,14 @@ function showSPprof(spid) {
 
 
 
-                document.querySelector("#editProfileForm #cid").innerHTML = datai.customerId;
+                document.querySelector("#speditProfileForm #cid").innerHTML = datai.id;
 
-                document.querySelector("#editProfileForm #fname").value = datai.fname;
-                document.querySelector("#editProfileForm #lname").value = datai.lname;
-                document.querySelector("#editProfileForm #email").value = datai.email;
-                document.querySelector("#editProfileForm #cnum").value = datai.contact;
+                document.querySelector("#speditProfileForm #gname").value = datai.garageName;
+                document.querySelector("#speditProfileForm #oname").value = datai.owner_name;
+                document.querySelector("#speditProfileForm #email").value = datai.email;
+                document.querySelector("#speditProfileForm #cnum").value = datai.phoneNumber;
+
+                document.querySelector("#speditProfileForm #tech").innerHTML = datai.id;
 
                 saveButton.addEventListener("click", function () {
                     messagebox.style.display = "block";
@@ -1061,29 +1072,30 @@ function showSPprof(spid) {
                     messagetext.innerHTML = "Updating Profile...";
                     messagebutton.style.display = "none";
                     // Retrieve the updated values from the form fields
-                    var customerId = document.querySelector("#editProfileForm #cid").innerHTML;
-                    var fname = document.querySelector("#editProfileForm #fname").value;
-                    var lname = document.querySelector("#editProfileForm #lname").value;
-                    var email = document.querySelector("#editProfileForm #email").value;
-                    var cnum = document.querySelector("#editProfileForm #cnum").value;
+                    var Id = document.querySelector("#speditProfileForm #cid").innerHTML;
+                    var gname = document.querySelector("#speditProfileForm #gname").value;
+                    var oname = document.querySelector("#speditProfileForm #oname").value;
+                    var email = document.querySelector("#speditProfileForm #email").value;
+                    var cnum = document.querySelector("#speditProfileForm #cnum").value;
 
-                    // Perform validation if needed
+
 
                     // Prepare the data to send via AJAX
                     var data = {
-                        customerId: customerId,
-                        fname: fname,
-                        lname: lname,
+                        spId: Id,
+                        garage: gname,
+                        owner: oname,
                         email: email,
                         cnum: cnum,
                         option: "updateDetails"
                     };
+                    console.log(JSON.stringify(data))
 
 
                     console.log(JSON.stringify(data));
                     // Send an AJAX request to update the profile
                     $.ajax({
-                        url: API_URL + '/Admin/CustomerList',
+                        url: API_URL + '/Admin/SPlist',
                         method: 'POST',
                         contentType: 'application/json',
                         data: JSON.stringify(data),
@@ -1095,9 +1107,9 @@ function showSPprof(spid) {
                             setTimeout(function () {
                                 messagebox.style.display = "none";
                             }, 1500);
-                            document.getElementById("editProfileForm").style.display = "none";
-                            document.getElementById("profile").style.display = "block";
-                            showprof(customerId);
+                            document.getElementById("speditProfileForm").style.display = "none";
+                            document.getElementById("spprofile").style.display = "block";
+                            showSPprof(spid);
                             deletebutton.disabled = false;
                             deletebutton.style.backgroundColor = "#c41950";
 
@@ -1113,9 +1125,9 @@ function showSPprof(spid) {
                             setTimeout(function () {
                                 messagebox.style.display = "none";
                             }, 1500);
-                            document.getElementById("editProfileForm").style.display = "none";
-                            document.getElementById("profile").style.display = "block";
-                            showprof(customerId);
+                            document.getElementById("speditProfileForm").style.display = "none";
+                            document.getElementById("spprofile").style.display = "block";
+                            showSPprof(spid);
                             deletebutton.disabled = false;
                             deletebutton.style.backgroundColor = "#c41950";
 
@@ -1145,6 +1157,11 @@ function showSPprof(spid) {
                 NoBUtton.id = "nobutton";
                 NoBUtton.className = "button";
                 NoBUtton.innerHTML = "No";
+                NoBUtton.addEventListener("click", function () {
+                    messagebox.style.display = "none";
+                    messagebutton.innerHTML = '';
+
+                });
                 document.getElementById("proccessingBoxButtons").appendChild(NoBUtton);
 
                 yesButton.addEventListener("click", function () {
@@ -1154,16 +1171,16 @@ function showSPprof(spid) {
                     messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
 
                     $.ajax({
-                        url: API_URL + '/Admin/CustomerList?id=' + customerId,
+                        url: API_URL + "/Admin/SPlist?id=" + spid,
                         method: "DELETE",
                         success: function (res) {
-                            messagetext.innerHTML = "Customer Deleted Successfully";
+                            messagetext.innerHTML = "Service Provider Deleted Successfully";
                             messageimg.setAttribute("src", "../../assets/img/Tick.png")
                             messagebutton.style.display = "none";
                             setTimeout(function () {
                                 messagebox.style.display = "none";
                             }, 1500);
-                            showcus();
+                            showServiceProviders();
                         },
                         error: function (error) {
                             messageimg.setAttribute("src", "../../assets/img/exclamation.png");
@@ -1176,6 +1193,7 @@ function showSPprof(spid) {
 
                     })
                 });
+
             });
         }
 
@@ -1294,6 +1312,7 @@ function showSPprof(spid) {
 
         // }
     })
+
 }
 
 function showcsmember() {
