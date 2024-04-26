@@ -142,14 +142,45 @@
           <!-- ---------------------------------------Dash Board------------------------------- -->
           <!-- ---------------------------------------Dash Board------------------------------- -->
           <div id="dashboard">
+            <h1>Analytics</h1>
 
-            <!-- ---------------------display card------------------------------------- -->
-            <!-- <a href="" class="button">
-              <span class="material-symbols-outlined"> report </span>
-              <h2 id="reportCount">0</h2>
-              <p>Report and Support Tickets</p></a
+            <!-- ********************************Dispaly Cards******************** -->
+          <div id  = "displayCards">
+            <a  class="button">
+              <span class="material-symbols-outlined">
+                report
+              </span>
+              <h2 id="allTicketNum">0</h2>
+              <p>All Complains</p></a
             >
-           -->
+            
+            <a  class="button">
+                <span class="material-symbols-outlined">
+                  fact_check
+                  </span>
+              <h2 id="SolvedTicketNum">0</h2>
+              <p>Solved Complains</p></a
+            >
+
+
+            <a  class="button">
+                <span class="material-symbols-outlined">
+                  pending
+                </span>
+              <h2 id="PendingTicketNum">0</h2>
+              <p>Pending Complains</p></a
+            >
+
+            <a  class="button">
+              <span class="material-symbols-outlined">
+                rate_review
+                </span>
+              <h2 id="OnReviewTicketNum">0</h2>
+              <p>On Review Complains</p>
+            </a>
+
+          </div>
+            
            
 
             <!-- **************************Report Section****************************** -->
@@ -164,17 +195,15 @@
                 <th>Status</th>
               </tr>
             </thead>
-            <tbody></tbody>
-              <!-- <tr>
-                <td>C001</td>
-                <td>Online Payment Issue</td>
-                <td>Colombo</td>
-                <td>
-                  <button class = "button">Request Accepted</button>
-                
-                
-              </td>
-              </tr> -->
+            <tbody>
+             <!-- <tr>
+                <th></th>
+                <th><button type  ="button" class = "ServiceRequestLocation">View Location</button></th>
+                <th></th>
+                <th></th>
+              </tr>--> 
+            </tbody>
+           
             </table>
            </div>
            
@@ -232,7 +261,7 @@
                         <th>Name</th>
                         <th>Phone Number</th>
                         <th>Service Requests</th>
-                        <th>Support Tickets</th>
+                        <th>Complains</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -336,8 +365,8 @@
               <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
               <div class="rightSide">
                 <div class="stsection">
-                  <h1>Support Tickets</h1>
-                  <h1 id="no_support_tickets"> No Support Tickets</h1>
+                  <h1>Complains</h1>
+                  <h1 id="no_support_tickets"> No Complains</h1>
                   <div id="support_ticket_list" style="display:none;">
                     <template id="supportTicketTemplate">
                     <div class="SuppotTicketcard">
@@ -369,15 +398,15 @@
 
 
            <!-- ---------------------------------------Support ticket Detail view------------------------------- -->
-           <div id="SupportTicketDatail" style="display: none">
+           <div id="SupportTicketDetail" style="display: none">
             <div class="topRow">
             <h1>Reports > 001</h1>
-            <button id="custSolutionSolveBtn" >Set Solved</button>
+            <button id="SolutionBtn" >Set Solved</button>
           </div>
 
           <div class="info">
             <div>
-              <p id="Detail">ID :</p>
+              <p id="Detail">Ticket ID :</p>
               <p id="ticketID">a</p>
             </div>
             <div>
@@ -386,24 +415,24 @@
             </div>
             <div>
               <p id="Detail">Assigned Customer Support ID :</p>
-              <p id="CustomerSupportID">b</p>
+              <p id="CustomerSupportMemberID">b</p>
               <!-- <button id="assignbtn" style="display: hide;">Assign Customer Support Member</button> -->
             </div>
             <div>
-              <p id="Detail">Ticket Owner ID:</p>
-              <p id="userID">b</p>
+              <p id="Detail">Customer ID:</p>
+              <p id="customerID">b</p>
             </div>
             <div>
-              <p id="Detail">Ticket Owner :</p>
-              <p id="userName">b</p>
+              <p id="Detail">Customer Name :</p>
+              <p id="customerName">b</p>
             </div>
             <div>
               <p id="Detail">Title :</p>
-              <p id="title">b</p>
+              <p id="topic">b</p>
             </div>
             <div>
               <p id="Detail">Description :</p>
-              <p id="description">b</p>
+              <p id="Description">b</p>
             </div>
 
             <p style="margin: 1vh; margin-left: 0">Solution:</p>
@@ -443,7 +472,7 @@
                     <th>Name</th>
                     <th>Phone Number</th>
                     <th>Completed services</th>
-                    <th>Support Tickets</th>
+                    <th>Complains</th>
                     <th style="display: none;">type</th>
                   </tr>
                 </thead>
@@ -549,10 +578,10 @@
                   <span class="material-symbols-outlined"> edit </span>Edit
                   Profile
                 </button> -->
-                <button type="submit" class="button">
+                <!-- <button type="submit" class="button">
                   <span class="material-symbols-outlined"> history </span
                   >Service History
-                </button>
+                </button> -->
                 <!-- <button type="submit" class="button">
                   <span class="material-symbols-outlined"> ac_unit </span>Freeze
                   Profile
@@ -584,8 +613,8 @@
                   <div class="detail"><p id="date"></p></div>
                 </div>
                 <div class="spstsection">
-                  <h1>Support Tickets</h1>
-                  <h1 id="spno_support_tickets"> No Support Tickets</h1>
+                  <h1>Complains</h1>
+                  <h1 id="spno_support_tickets"> No Complains</h1>
                   <div id="spsupport_ticket_list" style="display:none;">
                     <template id="spsupportTicketTemplate">
                     <div class="spSuppotTicketcard">
@@ -824,7 +853,7 @@
           <!-- -------------------------Ticket Table -------------------------------- -->
           <div id="TicketReports" style="display: none">
             <div class="topRow">
-              <h1>Support Tickets</h1>
+              <h1>Complains</h1>
               <div class="search">
             <form>
                 <input type="text" placeholder="Search Service Provider" name="search" id="searchCSMember">
@@ -856,7 +885,7 @@
 
 
              <!-- ---------------------------------------Support ticket Detail view------------------------------- -->
-          <div id="SupportTicketDatail" style="display: none">
+          <div id="SupportTicketDetail" style="display: none">
             <div class="topRow">
             <h1>Reports > 001</h1>
             <button id="button" style="display: block;">Set Solved</button>
@@ -864,7 +893,7 @@
 
           <div class="info">
             <div>
-              <p id="Detail">ID :</p>
+              <p id="Detail">Ticket ID :</p>
               <p id="ticketID">a</p>
             </div>
             <div>
@@ -873,24 +902,24 @@
             </div>
             <div>
               <p id="Detail">Assigned Customer Support ID :</p>
-              <p id="CustomerSupportID">b</p>
+              <p id="CustomerSupportMemberID">b</p>
               <button id="assignbtn" style="display: hide;">Assign Customer Support Member</button>
             </div>
             <div>
-              <p id="Detail">Ticket Owner ID:</p>
-              <p id="userID">b</p>
+              <p id="Detail">Customer ID:</p>
+              <p id="customerID">b</p>
             </div>
             <div>
-              <p id="Detail">Ticket Owner :</p>
-              <p id="userName">b</p>
+              <p id="Detail">Customer Name:</p>
+              <p id="customerName">b</p>
             </div>
             <div>
               <p id="Detail">Title :</p>
-              <p id="title">b</p>
+              <p id="topic">b</p>
             </div>
             <div>
               <p id="Detail">Description :</p>
-              <p id="description">b</p>
+              <p id="Description">b</p>
             </div>
 
             <p style="margin: 1vh; margin-left: 0">Solution:</p>

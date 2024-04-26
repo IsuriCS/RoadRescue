@@ -16,19 +16,95 @@
   bottom: 0;
 }
 
+/* **************************Dashboard Cards************************* */
+#dashboard > div {
+  margin-bottom: 3vh;
+}
+.content .content-box #displayCards {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+}
 
+#displayCards a {
+  background-color: #728ab0;
+  width: 30vw;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
+  font-size: inherit;
+  color: white;
+  font-weight: 600;
+  border-radius: 30px;
+  border: none;
+  /* text-align: center; */
+  padding: 2vh 1vh 1vh 3vh;
+  /* text-align: center; */
+  padding: 2vh 1vh 1vh 3vh;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 1vh;
+  align-items: flex-start;
+  margin: 1vh;
+  cursor: unset;
+}
+
+#displayCards .button span {
+  color: #000;
+  background-color: white;
+  border-radius: 60px;
+  font-size: 6vh;
+  font-size: 6vh;
+  padding: 1vh;
+}
+
+#displayCards .button h2 {
+  margin-top: 1vh;
+  margin-bottom: 0;
+  color: #151d48;
+}
+
+#displayCards .button h2 {
+  margin-top: 1vh;
+  margin-bottom: 0;
+  color: #151d48;
+}
+#displayCards .button p {
+  margin-top: 1vh;
+  font-size: 2.5vh;
+  font-size: 2.5vh;
+}
   
   /* **********************************Dash Board  Recent reports table ********************************************* */
-  .ServieRequests table button{
-    display:flex;
-    align-items: center;
-    justify-content: center;
-  }
-
 
   .ReportsSection table {
     margin: 1vh;
   }
+
+  /* ******************************Dashboard Request Services************ */
+  .ServieRequests table button{
+    display:flex;
+    align-items: center;
+    text-align: -internal-center;
+    margin-left: 40%;
+    justify-content: center;
+    background-color:gold;
+    font-size: 2.3vh;
+    border-radius: 2vh;
+    padding: 1vh;
+    text-decoration: none;
+    border: none;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 3px 3px rgba(37, 27, 90, 0.311);
+    
+  }
+
+ 
   
 /* **********************************Customer page search box ********************************************* */
 .topRow {
@@ -216,26 +292,26 @@ input:focus {
   background-color: #1caf09;
 }
 /* *********************************Support Ticket Page ****************************** */
-#SupportTicketDatail .info {
+#SupportTicketDetail .info {
   display: flex;
   flex-direction: column;
   margin-left: 1.5vw;
 }
-#SupportTicketDatail .info div {
+#SupportTicketDetail .info div {
   display: flex;
   flex-direction: row;
 }
-#SupportTicketDatail .info div #Detail {
+#SupportTicketDetail .info div #Detail {
   margin-right: 2vw;
   width: 14%;
 }
 
-#SupportTicketDatail .info textarea {
+#SupportTicketDetail .info textarea {
   height: 10vh;
   font-size: 2.5vh;
   border: none;
 }
-#SupportTicketDatail .info div button {
+#SupportTicketDetail .info div button {
   width: 8vw;
   /* padding: 1vh; */
   font-size: 2vh;
@@ -246,9 +322,34 @@ input:focus {
   margin: 1vh;
   margin-left: 5vw;
 }
-#SupportTicketDatail .info .disabledText {
+#SupportTicketDetail .info .disabledText {
   color: white;
 }
+
+#SupportTicketDetail .topRow button{
+  font-size: 2.5vh;
+  padding: 2vh;
+  border-radius: 2vh;
+  margin-top: 3vh;
+  font-size: large;
+  font-weight: 600;
+  text-decoration: none;
+  color: white;
+  border-radius: 2vh;
+  background: #23a6f0;
+  display: inline-flex;
+  padding: 2vh 2vw;
+  align-items: center;
+  gap: 1vw;
+  border-style: none;
+  width: inherit;
+  justify-content: center;
+  cursor: pointer;
+}
+
+
+
+
 
 
 
