@@ -243,7 +243,7 @@ input:focus {
 }
 .leftSide {
   border-right: white solid;
-  width: 45%;
+  width: 36%;
   padding-left: 5vw;
 }
 .leftSide img {
@@ -275,7 +275,7 @@ input:focus {
   margin: 1vh;
 }
 .row .tag {
-  width: 25%;
+  width: 30%;
   margin: 1vh;
 }
 .row .tag h1 {
@@ -293,7 +293,7 @@ input:focus {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 4vh;
 }
 .leftSide .buttonDiv .button,
@@ -343,16 +343,17 @@ input:focus {
 
   text-decoration: none;
 }
-.rightSide .SuppotTicketcard .row,
-.rightSide .spSuppotTicketcard .row,
-.rightSide .csSuppotTicketcard .row {
-  margin: 0;
-}
+
 .rightSide {
   display: flex;
   flex-direction: column;
   padding-left: 5vh;
   width: 45%;
+}
+/* .rightSide .SuppotTicketcard .row,
+.rightSide .spSuppotTicketcard .row,
+.rightSide .csSuppotTicketcard .row {
+  margin: 0;
 }
 .rightSide .stsection #no_support_tickets,
 .rightSide .spstsection #spno_support_tickets,
@@ -403,7 +404,45 @@ input:focus {
 .spSuppotTicketcard .solveButton .on_review,
 .csSuppotTicketcard .solveButton .on_review {
   background-color: #1caf09;
+} */
+#cusprof .rightSide h1 {
+  font-size: 3vh;
 }
+#cusprof .rightSide {
+  padding-left: 1vw;
+  width: 55%;
+}
+
+.rightSide .firstRow {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1vh;
+}
+.cusProfilemapContainer {
+  width: 22vw;
+}
+.requestgraph {
+  padding: 2vh;
+  width: 19vw;
+  height: 37vh;
+}
+.requestChart {
+  position: absolute;
+  width: 18vw;
+  right: 6vw;
+}
+
+#cusprof .ratings {
+  margin-top: 5vh;
+}
+
+#cusprof .ratingrow {
+  padding: 2vh;
+}
+
 /* *********************************Support Ticket Page ****************************** */
 #SupportTicketDatail .topRow button {
   font-size: 2.5vh;
@@ -806,4 +845,72 @@ input {
 /* ********************************************sp profile View***************************************** */
 #GarageProf #location {
   color: white;
+}
+
+/* ************************ Rating Score Cards************************* */
+.ratingrow {
+  display: flex;
+  flex-direction: column;
+}
+.starRow {
+  display: flex;
+  flex-direction: row;
+}
+.side {
+  float: left;
+  width: 15%;
+  margin-top: 10px;
+}
+
+.middle {
+  float: left;
+  width: 70%;
+  margin-top: 10px;
+}
+
+/* Place text to the right */
+.right {
+  text-align: right;
+}
+
+/* Clear floats after the columns */
+.ratingrow:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The bar container */
+.bar-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+  color: white;
+}
+
+/* Individual bars */
+.bar-5 {
+  /* width: 60%; */
+  height: 18px;
+  background-color: #54bebe;
+}
+.bar-4 {
+  /* width: 30%; */
+  height: 18px;
+  background-color: #76c8c8;
+}
+.bar-3 {
+  /* width: 10%; */
+  height: 18px;
+  background-color: #df979e;
+}
+.bar-2 {
+  /* width: 4%; */
+  height: 18px;
+  background-color: #d7658b;
+}
+.bar-1 {
+  /* width: 15%; */
+  height: 18px;
+  background-color: #c80064;
 }

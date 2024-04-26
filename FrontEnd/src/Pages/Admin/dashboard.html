@@ -22,9 +22,6 @@
     <link rel="stylesheet" href="../../assets/css/Admin CS/table.css" />
     <link rel="stylesheet" href="../../assets/css/Admin CS/admin.css" />
     <link rel="stylesheet" href="../../assets/css/Admin CS/notifications.css" />
-
-
-    
   </head>
 
   <body>
@@ -47,9 +44,7 @@
         <div id="Text">
           <p>Verification Successfull</p>
         </div>
-        <div id="proccessingBoxButtons">
-
-        </div>
+        <div id="proccessingBoxButtons"></div>
       </div>
     </div>
     <!-- ***************************************HEADER************************************ -->
@@ -184,25 +179,25 @@
             <h1>Analytics</h1>
             <!-- **************************Display Cards****************************** -->
             <div class="displayCards">
-              <a  class="button">
+              <a class="button">
                 <span class="material-symbols-outlined">
                   record_voice_over
                 </span>
                 <h2 id="registeredCustomersNum">0</h2>
                 <p>Registered Customers</p></a
               >
-              <a  class="button">
+              <a class="button">
                 <span class="material-symbols-outlined"> build </span>
                 <h2 id="registeredSproviders">0</h2>
                 <p>Registered Service Providers</p></a
               >
 
-              <a  class="button">
+              <a class="button">
                 <span class="material-symbols-outlined"> checklist </span>
                 <h2 id="completedTasksCount">0</h2>
                 <p>Completed Tasks</p></a
               >
-              <a  class="button">
+              <a class="button">
                 <span class="material-symbols-outlined"> report </span>
                 <h2 id="reportCount">0</h2>
                 <p>Report and Support Tickets</p></a
@@ -211,7 +206,7 @@
 
             <div class="secondRow">
               <!-- **************************Recent Moment Bar Chart****************************** -->
-              
+
               <div id="srmapcontainer" class="mapContainer">
                 <h1>Service Request Destribution</h1>
                 <div id="map" class="map"></div>
@@ -243,7 +238,9 @@
               <!-- **************************Payment Graph****************************** -->
               <div class="demandChart">
                 <h1>Demand of Services</h1>
-                <div class="graph demandgraph"><canvas id="demandChart" style="width: 100%;"></canvas></div>
+                <div class="graph demandgraph">
+                  <canvas id="demandChart" style="width: 100%"></canvas>
+                </div>
               </div>
               <div class="recentMoment">
                 <h1>Account Activity Overview</h1>
@@ -258,9 +255,8 @@
                 <h1>Monthly Profit</h1>
                 <div class="graph"><canvas id="lineChartProfit"></canvas></div>
               </div> -->
-              
             </div>
-          
+
             <!-- **************************Report Section****************************** -->
             <div class="ReportsSection">
               <h1>Complaints</h1>
@@ -289,144 +285,136 @@
               </table>
             </div>
           </div>
-        
 
-        <!-- ---------------------------------------Users------------------------------- -->
-        <!-- ---------------------------------------Customer------------------------------- -->
-        <div id="userCus" style="display: none">
-          <div class="topRow">
-            <h1>Customer</h1>
+          <!-- ---------------------------------------Users------------------------------- -->
+          <!-- ---------------------------------------Customer------------------------------- -->
+          <div id="userCus" style="display: none">
+            <div class="topRow">
+              <h1>Customer</h1>
 
-            <div class="search">
-              <form>
-                <input
-                  type="text"
-                  placeholder="Search Customer"
-                  name="search"
-                  id="searchCustomer"
-                />
-                <button onclick="searchCustomer()">
-                  <span class="material-symbols-outlined">search</span>
-                </button>
-              </form>
+              <div class="search">
+                <form>
+                  <input
+                    type="text"
+                    placeholder="Search Customer"
+                    name="search"
+                    id="searchCustomer"
+                  />
+                  <button onclick="searchCustomer()">
+                    <span class="material-symbols-outlined">search</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div>
+              <table id="CustomerList">
+                <thead>
+                  <tr>
+                    <th>Customer ID</th>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Service Requests</th>
+                    <th>Support Tickets</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
             </div>
           </div>
-          <div>
-            <table id="CustomerList">
-              <thead>
-                <tr>
-                  <th>Customer ID</th>
-                  <th>Name</th>
-                  <th>Phone Number</th>
-                  <th>Service Requests</th>
-                  <th>Support Tickets</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
 
-        <!-- ---------------------------------------Customer Profile------------------------------- -->
-        <div id="cusprof" style="display: none">
-          <div class="topRow">
-            <h1>Customer > c001</h1>
-          </div>
+          <!-- ---------------------------------------Customer Profile------------------------------- -->
+          <div id="cusprof" style="display: none">
+            <div class="topRow">
+              <h1>Customer > c001</h1>
+            </div>
 
-          <div class="profileContent">
-            <div class="leftSide">
-              <div id="profile" style="display: block;">
-
-                <img src="../../assets/img/pic.png" alt="" />
-                <!-- Detail form +******************************************************************** -->
-                <div class="row">
-                  <div class="tag">
+            <div class="profileContent">
+              <div class="leftSide">
+                <div id="profile" style="display: block">
+                  <img src="../../assets/img/pic.png" alt="" />
+                  <!-- Detail form +******************************************************************** -->
+                  <div class="row">
+                    <!-- <div class="tag">
                     <h1>ID :</h1>
+                  </div> -->
+                    <!-- <div class="detail"><p id="cid">001</p></div> -->
                   </div>
-                  <div class="detail"><p id="cid">001</p></div>
-                </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>First Name :</h1>
+                  <div class="row">
+                    <div class="tag">
+                      <h1>First Name :</h1>
+                    </div>
+                    <div class="detail"><p id="fname"></p></div>
                   </div>
-                  <div class="detail"><p id="fname">Chamodh</p></div>
-                </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Last Name :</h1>
+                  <div class="row">
+                    <div class="tag">
+                      <h1>Last Name :</h1>
+                    </div>
+                    <div class="detail"><p id="lname"></p></div>
                   </div>
-                  <div class="detail"><p id="lname">Henderson</p></div>
-                </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Phone Number :</h1>
+                  <div class="row">
+                    <div class="tag">
+                      <h1>Phone Number :</h1>
+                    </div>
+                    <div class="detail"><p id="cnum"></p></div>
                   </div>
-                  <div class="detail"><p id="cnum">0768658568</p></div>
-                </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Email :</h1>
+                  <div class="row">
+                    <div class="tag">
+                      <h1>Email :</h1>
+                    </div>
+                    <div class="detail"><p id="email"></p></div>
                   </div>
-                  <div class="detail"><p id="email">chamodh@gmail.com</p></div>
                 </div>
-              </div>
 
+                <div id="editProfileForm" style="display: none">
+                  <img src="../../assets/img/pic.png" alt="" />
+                  <span class="material-symbols-outlined"> photo_camera </span>
+                  <!-- Detail form +******************************************************************** -->
+                  <div class="row">
+                    <div class="tag">
+                      <h1>ID :</h1>
+                    </div>
+                    <div class="detail"><p id="cid"></p></div>
+                  </div>
+                  <div class="row">
+                    <div class="tag">
+                      <h1>First Name :</h1>
+                    </div>
+                    <div class="detail"><input id="fname" type="text" /></div>
+                  </div>
+                  <div class="row">
+                    <div class="tag">
+                      <h1>Last Name :</h1>
+                    </div>
+                    <div class="detail"><input id="lname" type="text" /></div>
+                  </div>
+                  <div class="row">
+                    <div class="tag">
+                      <h1>Phone Number :</h1>
+                    </div>
+                    <div class="detail"><input id="cnum" type="text" /></div>
+                  </div>
+                  <div class="row">
+                    <div class="tag">
+                      <h1>Email :</h1>
+                    </div>
+                    <div class="detail"><input id="email" type="text" /></div>
+                  </div>
+                </div>
 
-              <div id="editProfileForm" style="display: none;">
-                <img src="../../assets/img/pic.png" alt="" />
-                <span class="material-symbols-outlined">
-photo_camera
-</span>
-              <!-- Detail form +******************************************************************** -->
-              <div class="row">
-                <div class="tag">
-                  <h1>ID :</h1>
-                  
+                <!-- *********************Buttons**************************************************** -->
+                <div class="buttonDiv">
+                  <div id="editButtonContainer"></div>
+                  <div id="deleteButtonContainer"></div>
                 </div>
-                <div class="detail"><p id="cid"></p></div>
-              </div>
-              <div class="row">
-                <div class="tag">
-                  <h1>First Name :</h1>
-                </div>
-                <div class="detail"><input  id="fname" type="text"></div>
-              </div>
-              <div class="row">
-                <div class="tag">
-                  <h1>Last Name :</h1>
-                </div>
-                <div class="detail"><input id="lname" type="text"></div>
-              </div>
-              <div class="row">
-                <div class="tag">
-                  <h1>Phone Number :</h1>
-                </div>
-                <div class="detail"><input id="cnum" type="text"></div>
-              </div>
-              <div class="row">
-                <div class="tag">
-                  <h1>Email :</h1>
-                </div>
-                <div class="detail"><input id="email" type="text"></div>
-              </div>
-              </div>
-
-              <!-- *********************Buttons**************************************************** -->
-              <div class="buttonDiv">
-                <div id="editButtonContainer"></div>
-                <div id="deleteButtonContainer"></div>
-              </div>
-              <!-- <button id="editProfileButton" type="submit" class="button">
+                <!-- <button id="editProfileButton" type="submit" class="button">
                 <span class="material-symbols-outlined"> edit </span>Edit
                 Profile
               </button> -->
-              
-              
-            </div>
+              </div>
 
-            <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
-            <div class="rightSide">
-              <div class="stsection">
+              <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
+              <div class="rightSide">
+                <!-- <div class="stsection">
                 <h1>Support Tickets</h1>
                 <h1 id="no_support_tickets">No Support Tickets</h1>
                 <div id="support_ticket_list" style="display: none">
@@ -451,16 +439,121 @@ photo_camera
                     </div>
                   </template>
                 </div>
+              </div> -->
+                <div class="firstRow">
+                  <div id="requestmap" class="cusProfilemapContainer">
+                    <h1>Service Request Destribution</h1>
+                    <div id="customerRequestmap" class="map"></div>
+                  </div>
+
+                  <div class="requestChart">
+                    <h1>Total Service Requests</h1>
+                    <div class="graph requestgraph">
+                      <canvas id="srpieChart" style="width: 100%"></canvas>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ratings">
+                  <div id="ratings">
+                    <h1>Ratings for Service providers</h1>
+                    <div class="ratingrow">
+                      <div class="starRow">
+                        <div class="side">
+                          <div>5 star</div>
+                        </div>
+                        <div class="middle">
+                          <div class="bar-container">
+                            <div class="bar-5"></div>
+                          </div>
+                        </div>
+                        <div class="side right text-5">
+                          <div></div>
+                        </div>
+                      </div>
+
+                      <div class="starRow">
+                        <div class="side">
+                          <div>4 star</div>
+                        </div>
+                        <div class="middle">
+                          <div class="bar-container">
+                            <div class="bar-4"></div>
+                          </div>
+                        </div>
+                        <div class="side right text-4">
+                          <div></div>
+                        </div>
+                      </div>
+
+                      <div class="starRow">
+                        <div class="side">
+                          <div>3 star</div>
+                        </div>
+                        <div class="middle">
+                          <div class="bar-container">
+                            <div class="bar-3"></div>
+                          </div>
+                        </div>
+                        <div class="side right text-3">
+                          <div></div>
+                        </div>
+                      </div>
+                      <div class="starRow">
+                        <div class="side">
+                          <div>2 star</div>
+                        </div>
+                        <div class="middle">
+                          <div class="bar-container">
+                            <div class="bar-2"></div>
+                          </div>
+                        </div>
+                        <div class="side right text-2">
+                          <div></div>
+                        </div>
+                      </div>
+                      <div class="starRow">
+                        <div class="side">
+                          <div>1 star</div>
+                        </div>
+                        <div class="middle">
+                          <div class="bar-container">
+                            <div class="bar-1"></div>
+                          </div>
+                        </div>
+                        <div class="side right text-1">
+                          <div></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="PendingTickets" onclick="showVerification()">
+                  <div id="verificationtitle">
+                    <h1>Pending Tickets</h1>
+                    <h1 id="number">10</h1>
+                  </div>
+
+                  <div class="table">
+                    <template id="verificationRequestsTemplate">
+                      <div id="cards">
+                        <p>Garage</p>
+                      </div>
+                    </template>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        
 
         <!-- ---------------------------------------Complaint Detail view------------------------------- -->
         <div id="SupportTicketDatail" style="display: none">
           <div class="topRow">
             <h1>Reports > 001</h1>
-            <button id="Solvedbutton" class="button" style="display: block">Set Solved</button>
+            <button id="Solvedbutton" class="button" style="display: block">
+              Set Solved
+            </button>
           </div>
 
           <div class="info">
@@ -500,16 +593,16 @@ photo_camera
             <textarea style="border-radius: 12px"></textarea>
           </div>
 
-          <div id="assignCSM" style="display: none;">
+          <div id="assignCSM" style="display: none">
             <div id="outline">
               <h3>Assign Customer Support Member</h3>
               <div class="csmwindow">
-                  <template id="CSMCardtemplate">
-                    <div class="csmcards" >
-                      <p>Garage</p>
-                      <span class="csmcardtext">Solved Tickets 8</span>
-                    </div>
-                    <!-- <div class="csmcards" >
+                <template id="CSMCardtemplate">
+                  <div class="csmcards">
+                    <p>Garage</p>
+                    <span class="csmcardtext">Solved Tickets 8</span>
+                  </div>
+                  <!-- <div class="csmcards" >
                       <p>Garage</p>
                       <span class="csmcardtext">Solved Tickets 8</span>
                     </div>
@@ -531,7 +624,7 @@ photo_camera
                     <div id="cards">
                       <p>Garage</p>
                     </div> -->
-                  </template>  
+                </template>
               </div>
             </div>
           </div>
@@ -593,8 +686,7 @@ photo_camera
 
           <div class="profileContent">
             <div class="leftSide">
-              <div id="spprofile" >
-
+              <div id="spprofile">
                 <img src="../../assets/img/pic.png" alt="" />
                 <!-- Detail form +******************************************************************** -->
                 <div class="row">
@@ -635,43 +727,41 @@ photo_camera
                 </div>
               </div>
 
-
-              <div id="speditProfileForm" style="display: none;">
+              <div id="speditProfileForm" style="display: none">
                 <img src="../../assets/img/pic.png" alt="" />
                 <span class="material-symbols-outlined">photo_camera</span>
-              <!-- Detail form +******************************************************************** -->
-              <div class="row">
-                <div class="tag">
-                  <h1>ID :</h1>
-                  
+                <!-- Detail form +******************************************************************** -->
+                <div class="row">
+                  <div class="tag">
+                    <h1>ID :</h1>
+                  </div>
+                  <div class="detail"><p id="cid"></p></div>
                 </div>
-                <div class="detail"><p id="cid"></p></div>
-              </div>
-              <div class="row">
-                <div class="tag">
-                  <h1>Garage Name :</h1>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Garage Name :</h1>
+                  </div>
+                  <div class="detail"><input id="gname" type="text" /></div>
                 </div>
-                <div class="detail"><input  id="gname" type="text"></div>
-              </div>
-              <div class="row">
-                <div class="tag">
-                  <h1>Owner Name :</h1>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Owner Name :</h1>
+                  </div>
+                  <div class="detail"><input id="oname" type="text" /></div>
                 </div>
-                <div class="detail"><input id="oname" type="text"></div>
-              </div>
-              <div class="row">
-                <div class="tag">
-                  <h1>Phone Number :</h1>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Phone Number :</h1>
+                  </div>
+                  <div class="detail"><input id="cnum" type="text" /></div>
                 </div>
-                <div class="detail"><input id="cnum" type="text"></div>
-              </div>
-              <div class="row">
-                <div class="tag">
-                  <h1>Email :</h1>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Email :</h1>
+                  </div>
+                  <div class="detail"><input id="email" type="text" /></div>
                 </div>
-                <div class="detail"><input id="email" type="text"></div>
-              </div>
-              <div class="row">
+                <div class="row">
                   <div class="tag">
                     <h1>Technicions :</h1>
                   </div>
@@ -812,7 +902,6 @@ photo_camera
           <div class="profileContent">
             <div class="leftSide">
               <div id="csmprofile">
-
                 <img src="../../assets/img/pic.png" alt="" />
                 <!-- Detail form +******************************************************************** -->
                 <div class="row">
@@ -847,38 +936,35 @@ photo_camera
                 </div> -->
               </div>
 
-               <div id="csmeditProfileForm" style="display: none;">
+              <div id="csmeditProfileForm" style="display: none">
                 <img src="../../assets/img/pic.png" alt="" />
-                <span class="material-symbols-outlined">
-photo_camera
-</span>
-              <!-- Detail form +******************************************************************** -->
-              <div class="row">
-                <div class="tag">
-                  <h1>ID :</h1>
-                  
+                <span class="material-symbols-outlined"> photo_camera </span>
+                <!-- Detail form +******************************************************************** -->
+                <div class="row">
+                  <div class="tag">
+                    <h1>ID :</h1>
+                  </div>
+                  <div class="detail"><p id="cid"></p></div>
                 </div>
-                <div class="detail"><p id="cid"></p></div>
-              </div>
-              <div class="row">
-                <div class="tag">
-                  <h1>First Name :</h1>
+                <div class="row">
+                  <div class="tag">
+                    <h1>First Name :</h1>
+                  </div>
+                  <div class="detail"><input id="fname" type="text" /></div>
                 </div>
-                <div class="detail"><input  id="fname" type="text"></div>
-              </div>
-              <div class="row">
-                <div class="tag">
-                  <h1>Last Name :</h1>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Last Name :</h1>
+                  </div>
+                  <div class="detail"><input id="lname" type="text" /></div>
                 </div>
-                <div class="detail"><input id="lname" type="text"></div>
-              </div>
-              <div class="row">
-                <div class="tag">
-                  <h1>Phone Number :</h1>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Phone Number :</h1>
+                  </div>
+                  <div class="detail"><input id="cnum" type="text" /></div>
                 </div>
-                <div class="detail"><input id="cnum" type="text"></div>
-              </div>
-              <!-- <div class="row">
+                <!-- <div class="row">
                 <div class="tag">
                   <h1>Email :</h1>
                 </div>

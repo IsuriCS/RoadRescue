@@ -328,6 +328,55 @@ public class UserDataController {
         return deleteResult;
     }
 
+//   Customer analytics
+    public JsonArray getrequestLocationsCustomer(Connection connection,String cusID)throws SQLException, ClassNotFoundException{
+        ResultSet resultSet=CrudUtil.executeQuery(connection,"SELECT location FROM service_request WHERE customer_id=? ",cusID);
 
+        JsonArrayBuilder rlarray=Json.createArrayBuilder();
+        while (resultSet.next()){
+            rlarray.add(resultSet.getString("location"));
+        }
+        return rlarray.build();
+    }
+
+    public JsonArray getrequeststatusCustomer(Connection connection,String cusID)throws SQLException,ClassNotFoundException{
+        ResultSet resultSet= CrudUtil.executeQuery(connection,"SELECT CASE WHEN status IN ('1', '2', '3', '4', '5') THEN 'Complete' WHEN status IN ('6', '7') THEN 'Cancel' END AS status_group,COUNT(*) AS total_requests FROM service_request WHERE customer_id = ? GROUP BY CASE WHEN status IN ('1', '2', '3', '4', '5') THEN 'Complete' WHEN status IN ('6', '7') THEN 'Cancel'END",cusID);
+
+        JsonArrayBuilder array= Json.createArrayBuilder();
+
+        while (resultSet.next()){
+            JsonObjectBuilder objectBuilder=Json.createObjectBuilder();
+
+            String status = resultSet.getString("status_group");
+            String count=resultSet.getString("total_requests");
+
+            objectBuilder.add("status",status);
+            objectBuilder.add("count",count);
+            array.add(objectBuilder.build());
+        }
+        return array.build();
+
+
+    }
+
+    public JsonArray getratingsbycustomer(Connection connection,String cusID)throws SQLException,ClassNotFoundException{
+        ResultSet resultSet= CrudUtil.executeQuery(connection,"SELECT rating, COUNT(*) AS rating_count FROM service_request WHERE customer_id =? AND rating IS NOT NULL GROUP BY rating;",cusID);
+
+        JsonArrayBuilder array= Json.createArrayBuilder();
+
+        while (resultSet.next()){
+            JsonObjectBuilder objectBuilder=Json.createObjectBuilder();
+
+            String rating = resultSet.getString("rating");
+            String count=resultSet.getString("rating_count");
+
+            objectBuilder.add("rating",rating);
+            objectBuilder.add("count",count);
+            array.add(objectBuilder.build());
+        }
+        return array.build();
+
+
+    }
 
 }

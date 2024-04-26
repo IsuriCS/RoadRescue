@@ -47,7 +47,368 @@ function showDashboard() {
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
 
+    document.addEventListener("DOMContentLoaded", function () {
+        // **************DashBoard-Recent moment bar chat*******************
 
+        var xValues = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var yValues = [0, 5, 10, 15, 20, 25, 30, 35, 40];
+        var rdata = Array.from({ length: 12 }, () => 0);
+        var ddata = Array.from({ length: 12 }, () => 0);
+        var online = Array.from({ length: 12 }, () => 0);
+        var cash = Array.from({ length: 12 }, () => 0);
+
+        $("#load-container").show();
+
+        $.ajax({
+            url: API_URL + "/Admin/customerCard",
+            method: "GET",
+            success: function (res) {
+                if (res.status == 200) {
+                    $("#load-container").hide();
+
+                    var currentDate = new Date();
+                    var currentMonth = currentDate.getMonth();
+                    console.log(currentMonth);
+                    var currentYear = currentDate.getFullYear();
+                    var monthsToShow = [];
+                    var months = [];
+
+                    var sp = res.data.serviceP;
+                    var Analytics = res.data.analyticsData;
+                    console.log(sp);
+                    // Analytics Cards
+                    document.querySelector("#registeredCustomersNum").innerHTML = Analytics[0].CustomerNum;
+                    document.querySelector("#registeredSproviders").innerHTML = Analytics[0].sproviderNum;
+                    document.querySelector("#completedTasksCount").innerHTML = Analytics[0].CompletedTaskCount;
+                    document.querySelector("#reportCount").innerHTML = Analytics[0].SupportTicketCount;
+
+                    var tableBody = document.querySelector("#RecentReportSection tbody");
+
+
+
+                    // Recent 5 support cards table
+                    var complaints = Analytics[1];
+                    for (var i = 1; i < 6; i++) {
+                        (function () {
+                            var datai = complaints[i];
+
+                            var row = tableBody.insertRow();
+                            row.insertCell(0).textContent = datai.name || '';
+                            row.insertCell(1).textContent = datai.title || '';
+                            row.insertCell(2).textContent = datai.date || '';
+                            row.insertCell(3).textContent = datai.status.charAt(0).toUpperCase() + datai.status.slice(1) || '';
+                            var id = datai.ticketId;
+                            row.addEventListener('click', function () {
+                                var name = this.cells[0].textContent;
+                                showsupportTicket(id, name, "getbyNameandId");
+                            });
+                        })();
+                    }
+
+
+                    // Verifications
+                    // var verificationcount = 0;
+                    // var templatecount = 0;
+                    // sp.forEach(function (entry) {
+                    //     if (entry.verify === "No") {
+                    //         verificationcount++;
+                    //         if (templatecount < 3) {
+                    //             templatecount++;
+                    //             var temp = document.getElementById("verificationRequestsTemplate");
+                    //             var clone = temp.content.cloneNode(true);
+                    //             var pElement = clone.querySelector("p"); // Adjusted selector
+                    //             if (pElement) {
+                    //                 pElement.textContent = entry.garageName || '-';
+                    //                 document.querySelector(".table").appendChild(clone); // Changed selector
+                    //             }
+                    //         }
+                    //     }
+                    // });
+
+                    // document.querySelector("#number").textContent = verificationcount;
+
+                    // Charts Data
+                    // Account Deletions and Registrations
+                    var registation = Analytics[2];
+                    var deletions = Analytics[3];
+                    var Payment = Analytics[4];
+
+                    registation.forEach(function (entry) {
+                        var monthIndex = xValues.indexOf(entry.month);
+
+                        if (monthIndex !== -1) {
+                            rdata[monthIndex] += entry.registrations;
+                        }
+                    });
+
+                    deletions.forEach(function (entry) {
+                        var monthIndex = xValues.indexOf(entry.month);
+                        if (monthIndex !== -1) {
+                            ddata[monthIndex] += entry.deletion;
+                        }
+                    });
+
+                    // Payment.forEach(function (entry) {
+                    //     var monthIndex = entry.month - 1;
+
+                    //     if (monthIndex !== -1) {
+                    //         online[monthIndex] += entry.online;
+                    //         cash[monthIndex] += entry.cash;
+                    //     }
+                    // });
+
+
+                    for (var i = 0; i < 5; i++) {
+                        var monthIndex = (currentMonth - i) % 12;
+
+                        if (monthIndex < 0) {
+                            monthIndex += 12;
+                            currentYear -= 1;
+                        }
+                        months.unshift(`${xValues[monthIndex]}`);
+
+                        monthsToShow.unshift(`${xValues[monthIndex]} ${currentYear}`);
+                    }
+
+                    var rdatafilter = [];
+                    var ddatafilter = [];
+                    // var onlinefilter = [];
+                    // var cashfilter = [];
+                    var i = 0;
+                    months.forEach(function (month) {
+                        var mindex = xValues.indexOf(month);
+
+                        rdatafilter[i] = rdata[mindex];
+                        ddatafilter[i] = ddata[mindex];
+                        // onlinefilter[i] = online[mindex];
+                        // cashfilter[i] = cash[mindex];
+
+                        i++;
+                    });
+
+                    // var monthlyProfit = [];
+                    // onlinefilter.forEach(function (value) {
+                    //     monthlyProfit.push(value * 0.1);
+                    // });
+
+
+                    // **************DashBoard-Registation Bar Chart*******************
+                    var ctx1 = document.getElementById("barchatRecent").getContext('2d');
+                    new Chart("barchatRecent", {
+                        type: "bar",
+                        data: {
+                            labels: monthsToShow,
+                            datasets: [{
+                                label: "Registations",
+                                data: rdatafilter,
+                                backgroundColor: "#54bebe"
+                            }, {
+                                label: "Account Deletions",
+                                data: ddatafilter,
+                                backgroundColor: "#c80064"
+                            }]
+                        },
+                        options: {
+                            maintainAspectRatio: false,
+                            plugins: { legend: { labels: { color: "white" } } },
+                            barThickness: 20,
+                            scales: {
+                                x: {
+                                    ticks: {
+                                        color: "white"
+                                    }
+                                },
+                                y: {
+                                    ticks: {
+                                        color: "white"
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+
+
+                    // // **************DashBoard-Payment line Chart*******************
+                    // var ctx = document.getElementById("linePayment").getContext('2d');
+                    // var myChart = new Chart(ctx, {
+                    //     type: 'line',
+                    //     data: {
+                    //         labels: monthsToShow,
+                    //         datasets: [{
+                    //             label: 'Cash Payments',
+                    //             data: cashfilter,
+                    //             fill: false,
+                    //             borderColor: '#2196f3',
+                    //             backgroundColor: '#2196f3',
+                    //             borderWidth: 1
+                    //         },
+                    //         {
+                    //             label: 'Online Payments',
+                    //             data: onlinefilter,
+                    //             fill: false,
+                    //             borderColor: '#00E096',
+                    //             backgroundColor: '#00E096',
+                    //             borderWidth: 1
+                    //         }]
+                    //     },
+                    //     options: {
+                    //         plugins: { legend: { labels: { color: "white" } } },
+                    //         responsive: true,
+                    //         maintainAspectRatio: false,
+                    //         scales: {
+                    //             x: {
+                    //                 ticks: {
+                    //                     color: "white"
+                    //                 }
+                    //             },
+                    //             y: {
+                    //                 ticks: {
+                    //                     color: "white"
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
+                    // });
+
+                    // // *************Mounthly Profit Pie Chart*******************
+                    // barColors = ["#193741", "#3e5e63", "#588184", "#7ea996", "#90c5a7"]
+                    // new Chart("lineChartProfit", {
+                    //     type: "line",
+                    //     data: {
+                    //         labels: monthsToShow,
+                    //         datasets: [{
+                    //             label: 'Monthly Profit',
+                    //             data: monthlyProfit,
+                    //             fill: false,
+                    //             borderColor: '#2196f3',
+                    //             backgroundColor: '#2196f3',
+                    //             borderWidth: 1
+                    //         }]
+                    //     },
+                    //     options: {
+                    //         plugins: { legend: { labels: { color: "white" } } },
+                    //         responsive: true,
+                    //         maintainAspectRatio: false,
+                    //         scales: {
+                    //             x: {
+                    //                 ticks: {
+                    //                     color: "white"
+                    //                 }
+                    //             },
+                    //             y: {
+                    //                 ticks: {
+                    //                     color: "white"
+                    //                 }
+                    //             }
+                    //         }
+                    //     }
+                    // });
+
+
+                    // view location
+                    var splocation = res.data.locations.ServiceProviders;
+                    var srlocation = res.data.locations.ServiceRequests;
+
+                    var spCoordinates = splocation.map(function (location) {
+                        var coordinates = location.split(','); // Assuming coordinates are in format "latitude,longitude"
+                        return [parseFloat(coordinates[0]), parseFloat(coordinates[1])];
+                    });
+
+                    const srcoordinates = srlocation.map(locationString => {
+                        const matches = locationString.match(/latitude=(-?\d+\.\d+), longitude=(-?\d+\.\d+)/);
+                        if (matches) {
+                            return `${matches[1]},${matches[2]}`;
+                        }
+                    });
+
+                    var srCoordinatesMark = srcoordinates.map(function (location) {
+                        var coordinates = location.split(',');
+                        return [parseFloat(coordinates[0]), parseFloat(coordinates[1])];
+                    });
+
+
+                    var map = L.map("spmap").setView(calculateMedianLocation(splocation), 12);
+
+
+                    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                        attribution:
+                            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    }).addTo(map);
+
+
+
+                    spCoordinates.forEach(function (location) {
+
+                        L.marker(location)
+                            .addTo(map)
+                            .bindPopup(location.name);
+                    });
+
+
+
+                    var map = L.map("map").setView(calculateMedianLocation(srcoordinates), 12);
+
+
+                    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                        attribution:
+                            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    }).addTo(map);
+
+
+
+                    srCoordinatesMark.forEach(function (location) {
+
+                        L.marker(location)
+                            .addTo(map)
+                            .bindPopup(location.name);
+                    });
+
+
+
+                    // Demand pie chart
+                    var demand = res.data.demand;
+                    const expertiseArray = demand.map(item => item.expertise);
+                    const requestCountArray = demand.map(item => item.request_count);
+                    var barColors = ["#54bebe", "#76c8c8", "#badbdb", "#dedad2", "#df979e", "#d7658b", "#c80064"]
+
+                    new Chart("demandChart", {
+                        type: "pie",
+                        data: {
+                            labels: expertiseArray,
+                            datasets: [{
+                                backgroundColor: barColors,
+                                data: requestCountArray,
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+
+                                    position: 'right',
+                                    labels: {
+                                        color: "white"
+                                    }
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: "World Wide Wine Production"
+                            }
+                        }
+                    });
+
+                } else {
+                    console.log("error");
+                }
+            }
+        });
+
+
+
+    });
 
 
 }
@@ -172,8 +533,7 @@ function showprof(customerId) {
     title.innerHTML = `Customer > C${customerId.padStart(3, '0')}`;
     var data = {
         customerId: customerId,
-
-        option: "getCustomerById"
+        option: "getProfile"
     };
 
     $.ajax({
@@ -185,97 +545,104 @@ function showprof(customerId) {
 
             if (res.status == 201) {
                 $("#load-container").hide();
-                var datai = res.data;
-                document.getElementById("cid").innerHTML = datai.customerId;
-                document.getElementById("fname").innerHTML = datai.fname || '-';
-                document.getElementById("lname").innerHTML = datai.lname || '-';
-                document.getElementById("email").innerHTML = datai.email || '-';
-                document.getElementById("cnum").innerHTML = datai.contact || '-';
+
+                var profile = res.data.profile;
+                var ServiceRequests = res.data.requestLocations;
+                var requestStatus = res.data.requestStatus;
+                var Rating = res.data.ratings;
+                var supportTickets = res.data.complaints;
+
+
+                // document.getElementById("cid").innerHTML = profile.customerId;
+                document.getElementById("fname").innerHTML = profile.fname || '-';
+                document.getElementById("lname").innerHTML = profile.lname || '-';
+                document.getElementById("email").innerHTML = profile.email || '-';
+                document.getElementById("cnum").innerHTML = profile.contact || '-';
 
 
                 // Show Support Tickets and profile data
-                if (datai.nSupportTickets > 0) {
+                // if (datai.nSupportTickets > 0) {
 
-                    // Remove created ticket cards
-                    var ticketList = document.querySelectorAll(".SuppotTicketcard");
+                //     // Remove created ticket cards
+                //     var ticketList = document.querySelectorAll(".SuppotTicketcard");
 
-                    if (ticketList.length > 0) {
-                        ticketList.forEach(function (ticket) {
-                            ticket.remove();
-                        });
-                    }
+                //     if (ticketList.length > 0) {
+                //         ticketList.forEach(function (ticket) {
+                //             ticket.remove();
+                //         });
+                //     }
 
-                    // request ticket details from backend
-                    $.ajax({
-                        url: API_URL + "/customerSupport",
-                        method: "GET",
-                        success: function (res) {
+                //     // request ticket details from backend
+                //     $.ajax({
+                //         url: API_URL + "/customerSupport",
+                //         method: "GET",
+                //         success: function (res) {
 
-                            if (res.status == 200) {
-
-
-                                for (var i = 0; i < res.data.length; i++) {
-                                    (function () {
-                                        var datai = res.data[i];
-                                        if (datai.customerID == customerId) {
+                //             if (res.status == 200) {
 
 
-                                            var temp = document.getElementById("supportTicketTemplate");
-                                            var clone = temp.content.cloneNode(true);
-                                            clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${String(datai.ticketId).padStart(3, '0')}`;
-
-                                            var dateTime = new Date(datai.created_time);
-                                            var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
-                                            clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
-
-                                            // Update ticket title
-                                            clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
-
-                                            // Change status button
-                                            var status = datai.status;
-                                            var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
-
-                                            if (status.toLowerCase() == "pending") {
-                                                sbutton.classList.add("pending");
-                                                sbutton.textContent = "Pending";
-                                            }
-                                            else if (status.toLowerCase() == "solved") {
-                                                sbutton.classList.add("solved");
-                                                sbutton.textContent = "Solved";
-                                            }
-                                            else {
-                                                sbutton.classList.add("on_review");
-                                                sbutton.textContent = "On Review";
-                                            }
-
-                                            clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
-                                                showsupportTicket(datai.ticketId, name, "cus");
+                //                 for (var i = 0; i < res.data.length; i++) {
+                //                     (function () {
+                //                         var datai = res.data[i];
+                //                         if (datai.customerID == customerId) {
 
 
-                                            });
-                                            document.getElementById("no_support_tickets").style.display = "none";
-                                            document.getElementById("support_ticket_list").style.display = "block";
-                                            document.getElementById("support_ticket_list").appendChild(clone);
-                                        }
-                                    })();
+                //                             var temp = document.getElementById("supportTicketTemplate");
+                //                             var clone = temp.content.cloneNode(true);
+                //                             clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${String(datai.ticketId).padStart(3, '0')}`;
+
+                //                             var dateTime = new Date(datai.created_time);
+                //                             var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
+                //                             clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
+
+                //                             // Update ticket title
+                //                             clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
+
+                //                             // Change status button
+                //                             var status = datai.status;
+                //                             var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
+
+                //                             if (status.toLowerCase() == "pending") {
+                //                                 sbutton.classList.add("pending");
+                //                                 sbutton.textContent = "Pending";
+                //                             }
+                //                             else if (status.toLowerCase() == "solved") {
+                //                                 sbutton.classList.add("solved");
+                //                                 sbutton.textContent = "Solved";
+                //                             }
+                //                             else {
+                //                                 sbutton.classList.add("on_review");
+                //                                 sbutton.textContent = "On Review";
+                //                             }
+
+                //                             clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
+                //                                 showsupportTicket(datai.ticketId, name, "cus");
 
 
-                                }
-                                $("#load-container").hide();
-                            }
-                            else {
-                                console.log("error");
-                            }
-                        }
-                    })
+                //                             });
+                //                             document.getElementById("no_support_tickets").style.display = "none";
+                //                             document.getElementById("support_ticket_list").style.display = "block";
+                //                             document.getElementById("support_ticket_list").appendChild(clone);
+                //                         }
+                //                     })();
 
-                }
-                else {
-                    $("#load-container").hide();
-                    document.getElementById("no_support_tickets").style.display = "block";
-                    document.getElementById("support_ticket_list").style.display = "none";
 
-                }
+                //                 }
+                //                 $("#load-container").hide();
+                //             }
+                //             else {
+                //                 console.log("error");
+                //             }
+                //         }
+                //     })
+
+                // }
+                // else {
+                //     $("#load-container").hide();
+                //     document.getElementById("no_support_tickets").style.display = "block";
+                //     document.getElementById("support_ticket_list").style.display = "none";
+
+                // }
 
                 var editButton = document.createElement("button");
                 editButton.id = "editProfileButton";
@@ -468,7 +835,115 @@ function showprof(customerId) {
                 });
 
 
+                // Analytics
+                // map-----------------------------------
+                (function () {
 
+                })
+                const ServiceRequestsCordinatesArray = ServiceRequests.map(locationString => {
+                    const matches = locationString.match(/latitude=(-?\d+\.\d+), longitude=(-?\d+\.\d+)/);
+                    if (matches) {
+                        return `${matches[1]},${matches[2]}`;
+                    }
+                });
+
+                var ServiceRequestsCordinates = ServiceRequestsCordinatesArray.map(function (location) {
+                    var coordinates = location.split(',');
+                    return [parseFloat(coordinates[0]), parseFloat(coordinates[1])];
+                });
+
+
+                var map = L.map("customerRequestmap").setView(calculateMedianLocation(ServiceRequestsCordinatesArray), 12);
+
+
+                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                    attribution:
+                        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                }).addTo(map);
+
+
+
+                ServiceRequestsCordinates.forEach(function (location) {
+
+                    L.marker(location)
+                        .addTo(map)
+                        .bindPopup(location.name);
+                });
+
+
+                // Request Status------------------------------------------
+
+
+                var status = ["Completed Services", "Cancelled Services"];
+                var count = requestStatus.map(item => item.count);
+                document.querySelector(".requestChart h1").innerHTML = "Total Service Requests " + (Number(count[0]) + Number(count[1]));
+
+                var barColors = ["#54bebe", "#c80064"]
+
+                new Chart("srpieChart", {
+                    type: "pie",
+                    data: {
+                        labels: status,
+                        datasets: [{
+                            backgroundColor: barColors,
+                            data: count,
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+
+
+                                labels: {
+                                    color: "white"
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: "World Wide Wine Production"
+                        }
+                    }
+                });
+
+
+                // Rating------------------------------------------
+                var ratingCounts = Rating.map(item => ({ rating: parseInt(item.rating), count: parseInt(item.count) }));
+                var rating = ratingCounts.map(item => item.rating);
+                var halfcount = ratingCounts.map(item => item.count);
+                console.log(rating);
+                console.log(halfcount);
+
+                var total = 0;
+                var count = [];
+                for (i = 1; i <= 5; i++) {
+                    if (i in ratingCounts.map(item => item.rating)) {
+                        count.push(ratingCounts[i - 1].count);
+                        total += ratingCounts[i - 1].count;
+                    }
+                    else {
+                        count.push(0);
+                    }
+                }
+
+                var percentageRatings = count.map(item => ({ percentage: `${(item / total) * 100}%` }));
+                console.log(percentageRatings);
+                console.log(count);
+
+                document.querySelector(".bar-5").style.width = percentageRatings[0].percentage;
+                document.querySelector(".bar-4").style.width = percentageRatings[1].percentage;
+                document.querySelector(".bar-3").style.width = percentageRatings[2].percentage;
+                document.querySelector(".bar-2").style.width = percentageRatings[3].percentage;
+                document.querySelector(".bar-1").style.width = percentageRatings[4].percentage;
+
+
+                document.querySelector(".text-5 div").innerHTML = count[0] || '0';
+                document.querySelector(".text-4 div").innerHTML = count[1] || '0';
+                document.querySelector(".text-3 div").innerHTML = count[2] || '0';
+                document.querySelector(".text-2 div").innerHTML = count[3] || '0';
+                document.querySelector(".text-1 div").innerHTML = count[4] || '0';
 
             }
             else {
@@ -2357,22 +2832,22 @@ function toggleDropdown() {
 
 
 // Calculate the mean location of a set of coordinates
-function calculateMeanLocation(coordinates) {
-    let totalLat = 0;
-    let totalLng = 0;
+// function calculateMeanLocation(coordinates) {
+//     let totalLat = 0;
+//     let totalLng = 0;
 
 
-    coordinates.forEach(coord => {
-        const [lat, lng] = coord.split(',').map(parseFloat);
-        totalLat += lat;
-        totalLng += lng;
-    });
+//     coordinates.forEach(coord => {
+//         const [lat, lng] = coord.split(',').map(parseFloat);
+//         totalLat += lat;
+//         totalLng += lng;
+//     });
 
-    const meanLat = totalLat / coordinates.length;
-    const meanLng = totalLng / coordinates.length;
+//     const meanLat = totalLat / coordinates.length;
+//     const meanLng = totalLng / coordinates.length;
 
-    return [meanLat, meanLng];
-}
+//     return [meanLat, meanLng];
+// }
 
 
 function calculateMedianLocation(coordinates) {
@@ -2422,7 +2897,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 var sp = res.data.serviceP;
                 var Analytics = res.data.analyticsData;
-                console.log(sp);
+
                 // Analytics Cards
                 document.querySelector("#registeredCustomersNum").innerHTML = Analytics[0].CustomerNum;
                 document.querySelector("#registeredSproviders").innerHTML = Analytics[0].sproviderNum;
@@ -2478,7 +2953,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Account Deletions and Registrations
                 var registation = Analytics[2];
                 var deletions = Analytics[3];
-                var Payment = Analytics[4];
+                // var Payment = Analytics[4];
 
                 registation.forEach(function (entry) {
                     var monthIndex = xValues.indexOf(entry.month);
@@ -2495,14 +2970,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 });
 
-                Payment.forEach(function (entry) {
-                    var monthIndex = entry.month - 1;
+                // Payment.forEach(function (entry) {
+                //     var monthIndex = entry.month - 1;
 
-                    if (monthIndex !== -1) {
-                        online[monthIndex] += entry.online;
-                        cash[monthIndex] += entry.cash;
-                    }
-                });
+                //     if (monthIndex !== -1) {
+                //         online[monthIndex] += entry.online;
+                //         cash[monthIndex] += entry.cash;
+                //     }
+                // });
 
 
                 for (var i = 0; i < 5; i++) {
@@ -2519,24 +2994,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 var rdatafilter = [];
                 var ddatafilter = [];
-                var onlinefilter = [];
-                var cashfilter = [];
+                // var onlinefilter = [];
+                // var cashfilter = [];
                 var i = 0;
                 months.forEach(function (month) {
                     var mindex = xValues.indexOf(month);
 
                     rdatafilter[i] = rdata[mindex];
                     ddatafilter[i] = ddata[mindex];
-                    onlinefilter[i] = online[mindex];
-                    cashfilter[i] = cash[mindex];
+                    // onlinefilter[i] = online[mindex];
+                    // cashfilter[i] = cash[mindex];
 
                     i++;
                 });
 
-                var monthlyProfit = [];
-                onlinefilter.forEach(function (value) {
-                    monthlyProfit.push(value * 0.1);
-                });
+                // var monthlyProfit = [];
+                // onlinefilter.forEach(function (value) {
+                //     monthlyProfit.push(value * 0.1);
+                // });
 
 
                 // **************DashBoard-Registation Bar Chart*******************
@@ -2718,7 +3193,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 const expertiseArray = demand.map(item => item.expertise);
                 const requestCountArray = demand.map(item => item.request_count);
                 var barColors = ["#54bebe", "#76c8c8", "#badbdb", "#dedad2", "#df979e", "#d7658b", "#c80064"]
-
+                console.log(expertiseArray);
+                console.log(requestCountArray);
                 new Chart("demandChart", {
                     type: "pie",
                     data: {
