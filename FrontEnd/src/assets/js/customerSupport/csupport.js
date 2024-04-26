@@ -11,6 +11,7 @@ function showDashboard() {
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
     document.querySelector("#TicketLink").classList.remove("active");
     document.querySelector("#profileLink").classList.remove("active");
+    // document.querySelector('#PaymentLink').classList.remove("active");
     // document.queryselector("#FAQLink").classList.remove("active");
 
 
@@ -24,7 +25,7 @@ function showDashboard() {
     document.querySelector("#TicketReports").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
-    document.querySelector("#FAQ").style.display = "none";
+    // document.querySelector("#FAQ").style.display = "none";
 
 
 //Recent Reports
@@ -242,7 +243,7 @@ function showcus() {
     document.querySelector("#TicketLink").classList.remove("active");
     document.querySelector("#profileLink").classList.remove("active");
     // document.queryselector("#FAQLink").classList.remove("active");
-
+    // document.querySelector('#PaymentLink').classList.remove("active");
 
 
     document.querySelector("#dashboard").style.display = "none";
@@ -253,7 +254,7 @@ function showcus() {
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
-    document.querySelector("#FAQ").style.display = "none";
+    // document.querySelector("#FAQ").style.display = "none";
 
 
     // $("#load-container").show();
@@ -328,7 +329,7 @@ function showprof(res, customerId) {
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
-    document.queryselector("#FAQ").style.display = "none";
+    // document.queryselector("#FAQ").style.display = "none";
 
     // Update the title
     var title = document.querySelector("#cusprof .topRow h1");
@@ -449,7 +450,7 @@ function showsupportTicket(res, ticketId, name) {
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
-    document.querySelector("#FAQ").style.display = "none";
+    // document.querySelector("#FAQ").style.display = "none";
     
 
     
@@ -512,6 +513,8 @@ function showServiceProviders() {
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#servicePDropdown").classList.add("dropDownActive");
     // document.queryselector("#FAQLink").classList.remove("active");
+    // document.querySelector('#PaymentLink').classList.remove("active");
+    
 
 
     document.querySelector("#dashboard").style.display = "none";
@@ -523,7 +526,7 @@ function showServiceProviders() {
     // document.querySelector("#ticket").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
-    document.querySelector("#FAQ").style.display = "none";
+    // document.querySelector("#FAQ").style.display = "none";
 
 
 
@@ -684,7 +687,7 @@ function showSPprof(res, spid) {
     document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
-    document.querySelector("#FAQ").style.display = "none";
+    // document.querySelector("#FAQ").style.display = "none";
 
     // Update the title
     var title = document.querySelector("#GarageProf .topRow h1");
@@ -823,6 +826,7 @@ function showTicket() {
     document.querySelector("#TicketLink").classList.add("active");
     document.querySelector("#profileLink").classList.remove("active");
     // document.queryselector("#FAQLink").classList.remove("active");
+    // document.querySelector('#PaymentLink').classList.remove("active");
 
 
     document.querySelector("#dashboard").style.display = "none";
@@ -833,7 +837,7 @@ function showTicket() {
     document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
-    document.querySelector("#FAQ").style.display = "none";
+    // document.querySelector("#FAQ").style.display = "none";
 
 
 
@@ -908,14 +912,15 @@ $.ajax({
 }
 
 
-function showFAQ() {
+function showPayment() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.remove("active");
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
     document.querySelector("#TicketLink").classList.remove("active");
     document.querySelector("#profileLink").classList.remove("active");
-    document.querySelector("#FAQLink").classList.add("active");
+    // document.querySelector("#FAQLink").classList.add("active");
+    document.querySelector('#PaymentLink').classList.add("active");
 
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
@@ -926,8 +931,9 @@ function showFAQ() {
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
-    document.querySelector("#FAQ").style.display = "block";
-}
+    document.querySelector("Payment").style.display  = "block";
+//     document.querySelector("#FAQ").style.display = "block";
+ }
 
 function showProfile() {
     document.querySelector("#dashboardLink").classList.remove("active");
@@ -937,6 +943,7 @@ function showProfile() {
     document.querySelector("#TicketLink").classList.remove("active");
     document.querySelector("#profileLink").classList.add("active");
     // document.queryselector("#FAQLink").classList.remove("active");
+    // document.querySelector('#PaymentLink').classList.remove("active");
 
 
     document.querySelector("#dashboard").style.display = "none";
@@ -948,9 +955,10 @@ function showProfile() {
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
-    document.querySelector("#FAQ").style.display = "none";
+    // document.querySelector("#FAQ").style.display = "none";
 
 }
+
 
 
 
@@ -1048,31 +1056,32 @@ function toggleDropdown() {
 //     });
 // }
 
-$("#custSolutionSolveBtn").click(function () {
-    var solutionId = $("#solicitationTicketId").text()
-    var date = $("#solicitationTicketDate").val()
-    var assignCustomerSupport = $("#solicitationTicketAssingCustId").val()
-    var ticketOwnerId = $("#ticketOwnerId").val()
-    var ticketOwner = $("#ticketOwner").val()
-    var supportDesc = $("#supportDesc").val()
-    var custSolution = $("#custSolution").val()
+// $("#custSolutionSolveBtn").click(function () {
+//     var solutionId = $("#solicitationTicketId").text()
+//     var date = $("#solicitationTicketDate").val()
+//     var assignCustomerSupport = $("#solicitationTicketAssingCustId").val()
+//     var ticketOwnerId = $("#ticketOwnerId").val()
+//     var ticketOwner = $("#ticketOwner").val()
+//     var supportDesc = $("#supportDesc").val()
+//     var custSolution = $("#custSolution").val()
 
-    console.log(solutionId)
-    console.log(custSolution)
+//     console.log(solutionId)
+//     console.log(custSolution)
 
 
-    $.ajax({
-        url: API_URL + `/CSMemberTicket/customerSupportTicketList?ticketId=${solutionId}&solution=` + custSolution,
-        method: "PUT",
-        contentType: "application/json",
-        success: function (res) {
-            if (res.status === 200) {
-                alert(res.message);
-            } else {
-                alert(res.data);
-            }
-        }, error: function (ob, textStatus, error) {
-            alert(textStatus);
-        }
-    });
-})
+//     $.ajax({
+//         url: API_URL + `/CSMemberTicket/customerSupportTicketList?ticketId=${solutionId}&solution=` + custSolution,
+//         method: "PUT",
+//         contentType: "application/json",
+//         success: function (res) {
+//             if (res.status === 200) {
+//                 alert(res.message);
+//             } else {
+//                 alert(res.data);
+//             }
+//         }, error: function (ob, textStatus, error) {
+//             alert(textStatus);
+//         }
+//     });
+// });
+
