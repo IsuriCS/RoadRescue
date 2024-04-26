@@ -501,7 +501,7 @@ function showsupportTicket(ticketId, name, type) {
 
     // Update the title
     var ttitle = document.querySelector("#SupportTicketDatail .topRow h1");
-    ttitle.innerHTML = `Reports > ST${String(ticketId).padStart(3, '0')}`;
+    ttitle.innerHTML = `Complaints > COM${String(ticketId).padStart(3, '0')}`;
 
     if (type == "getbyNameandId") {
         var ajaxurl = API_URL + `/Admin/supportTicket?name=${name}&id=${String(ticketId)}&type=getbyNameandId&option=getSTbyid`;
@@ -520,10 +520,10 @@ function showsupportTicket(ticketId, name, type) {
                 var datai = res.data;
                 document.getElementById("ticketID").innerHTML = datai.ticketId;
                 document.getElementById("CustomerSupportID").innerHTML = datai.customer_support_member_id || '-';
-                document.getElementById("userID").innerHTML = datai.customerID || datai.SPid || '-';
+                // document.getElementById("userID").innerHTML = datai.customerID || datai.SPid || '-';
                 document.getElementById("userName").innerHTML = name || '-';
                 document.getElementById("title").innerHTML = datai.title || '-';
-                document.getElementById("description").innerHTML = datai.description || '-';
+                document.getElementById("description").innerHTML = datai.description || 'No Description Provided';
                 var dateTime = new Date(datai.created_time);
                 var formattedDate = dateTime.toLocaleDateString();
                 document.getElementById("Date").innerHTML = formattedDate || '-';
@@ -2434,9 +2434,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 // Recent 5 support cards table
+                var complaints = Analytics[1];
                 for (var i = 1; i < 6; i++) {
                     (function () {
-                        var datai = Analytics[i];
+                        var datai = complaints[i];
 
                         var row = tableBody.insertRow();
                         row.insertCell(0).textContent = datai.name || '';
@@ -2475,102 +2476,103 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // Charts Data
                 // Account Deletions and Registrations
-                // var registation = Analytics[6];
-                // var deletions = Analytics[7];
-                // var Payment = Analytics[8];
+                var registation = Analytics[2];
+                var deletions = Analytics[3];
+                var Payment = Analytics[4];
 
-                // registation.forEach(function (entry) {
-                //     var monthIndex = xValues.indexOf(entry.month);
+                registation.forEach(function (entry) {
+                    var monthIndex = xValues.indexOf(entry.month);
 
-                //     if (monthIndex !== -1) {
-                //         rdata[monthIndex] += entry.registrations;
-                //     }
-                // });
+                    if (monthIndex !== -1) {
+                        rdata[monthIndex] += entry.registrations;
+                    }
+                });
 
-                // deletions.forEach(function (entry) {
-                //     var monthIndex = xValues.indexOf(entry.month);
-                //     if (monthIndex !== -1) {
-                //         ddata[monthIndex] += entry.deletion;
-                //     }
-                // });
+                deletions.forEach(function (entry) {
+                    var monthIndex = xValues.indexOf(entry.month);
+                    if (monthIndex !== -1) {
+                        ddata[monthIndex] += entry.deletion;
+                    }
+                });
 
-                // Payment.forEach(function (entry) {
-                //     var monthIndex = entry.month - 1;
+                Payment.forEach(function (entry) {
+                    var monthIndex = entry.month - 1;
 
-                //     if (monthIndex !== -1) {
-                //         online[monthIndex] += entry.online;
-                //         cash[monthIndex] += entry.cash;
-                //     }
-                // });
-
-
-                // for (var i = 0; i < 5; i++) {
-                //     var monthIndex = (currentMonth - i) % 12;
-
-                //     if (monthIndex < 0) {
-                //         monthIndex += 12;
-                //         currentYear -= 1;
-                //     }
-                //     months.unshift(`${xValues[monthIndex]}`);
-
-                //     monthsToShow.unshift(`${xValues[monthIndex]} ${currentYear}`);
-                // }
-
-                // var rdatafilter = [];
-                // var ddatafilter = [];
-                // var onlinefilter = [];
-                // var cashfilter = [];
-                // var i = 0;
-                // months.forEach(function (month) {
-                //     var mindex = xValues.indexOf(month);
-
-                //     rdatafilter[i] = rdata[mindex];
-                //     ddatafilter[i] = ddata[mindex];
-                //     onlinefilter[i] = online[mindex];
-                //     cashfilter[i] = cash[mindex];
-
-                //     i++;
-                // });
-
-                // var monthlyProfit = [];
-                // onlinefilter.forEach(function (value) {
-                //     monthlyProfit.push(value * 0.1);
-                // });
+                    if (monthIndex !== -1) {
+                        online[monthIndex] += entry.online;
+                        cash[monthIndex] += entry.cash;
+                    }
+                });
 
 
-                // // **************DashBoard-Registation Bar Chart*******************
-                // var ctx1 = document.getElementById("barchatRecent").getContext('2d');
-                // new Chart("barchatRecent", {
-                //     type: "bar",
-                //     data: {
-                //         labels: monthsToShow,
-                //         datasets: [{
-                //             label: "Registations",
-                //             data: rdatafilter,
-                //             backgroundColor: "#0095FF"
-                //         }, {
-                //             label: "Account Deletions",
-                //             data: ddatafilter,
-                //             backgroundColor: "#00E096"
-                //         }]
-                //     },
-                //     options: {
-                //         plugins: { legend: { labels: { color: "white" } } },
-                //         barThickness: 20,
-                //         scales: {
-                //             x: {
-                //                 ticks: {
-                //                     color: "white"
-                //                 }
-                //             },
-                //             y: {
-                //                 ticks: {
-                //                     color: "white"
-                //                 }
-                //             }
-                //         }
-                //     }
-                // });
+                for (var i = 0; i < 5; i++) {
+                    var monthIndex = (currentMonth - i) % 12;
+
+                    if (monthIndex < 0) {
+                        monthIndex += 12;
+                        currentYear -= 1;
+                    }
+                    months.unshift(`${xValues[monthIndex]}`);
+
+                    monthsToShow.unshift(`${xValues[monthIndex]} ${currentYear}`);
+                }
+
+                var rdatafilter = [];
+                var ddatafilter = [];
+                var onlinefilter = [];
+                var cashfilter = [];
+                var i = 0;
+                months.forEach(function (month) {
+                    var mindex = xValues.indexOf(month);
+
+                    rdatafilter[i] = rdata[mindex];
+                    ddatafilter[i] = ddata[mindex];
+                    onlinefilter[i] = online[mindex];
+                    cashfilter[i] = cash[mindex];
+
+                    i++;
+                });
+
+                var monthlyProfit = [];
+                onlinefilter.forEach(function (value) {
+                    monthlyProfit.push(value * 0.1);
+                });
+
+
+                // **************DashBoard-Registation Bar Chart*******************
+                var ctx1 = document.getElementById("barchatRecent").getContext('2d');
+                new Chart("barchatRecent", {
+                    type: "bar",
+                    data: {
+                        labels: monthsToShow,
+                        datasets: [{
+                            label: "Registations",
+                            data: rdatafilter,
+                            backgroundColor: "#54bebe"
+                        }, {
+                            label: "Account Deletions",
+                            data: ddatafilter,
+                            backgroundColor: "#c80064"
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        plugins: { legend: { labels: { color: "white" } } },
+                        barThickness: 20,
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: "white"
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    color: "white"
+                                }
+                            }
+                        }
+                    }
+                });
 
 
 
@@ -2668,45 +2670,81 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
 
                 var srCoordinatesMark = srcoordinates.map(function (location) {
-                    var coordinates = location.split(','); // Assuming coordinates are in format "latitude,longitude"
+                    var coordinates = location.split(',');
                     return [parseFloat(coordinates[0]), parseFloat(coordinates[1])];
                 });
 
 
                 var map = L.map("spmap").setView(calculateMedianLocation(splocation), 12);
 
-                // Add the base map tiles (you can use different tile providers)
+
                 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
                     attribution:
                         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                 }).addTo(map);
 
 
-                // Loop through the locations array and add markers to the map
+
                 spCoordinates.forEach(function (location) {
-                    console.log(location);
+
                     L.marker(location)
                         .addTo(map)
-                        .bindPopup(location.name); // Add a popup with the location name
+                        .bindPopup(location.name);
                 });
 
-                // service request location
+
 
                 var map = L.map("map").setView(calculateMedianLocation(srcoordinates), 12);
 
-                // Add the base map tiles (you can use different tile providers)
+
                 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
                     attribution:
                         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                 }).addTo(map);
 
 
-                // Loop through the locations array and add markers to the map
+
                 srCoordinatesMark.forEach(function (location) {
 
                     L.marker(location)
                         .addTo(map)
-                        .bindPopup(location.name); // Add a popup with the location name
+                        .bindPopup(location.name);
+                });
+
+
+
+                // Demand pie chart
+                var demand = res.data.demand;
+                const expertiseArray = demand.map(item => item.expertise);
+                const requestCountArray = demand.map(item => item.request_count);
+                var barColors = ["#54bebe", "#76c8c8", "#badbdb", "#dedad2", "#df979e", "#d7658b", "#c80064"]
+
+                new Chart("demandChart", {
+                    type: "pie",
+                    data: {
+                        labels: expertiseArray,
+                        datasets: [{
+                            backgroundColor: barColors,
+                            data: requestCountArray,
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+
+                                position: 'right',
+                                labels: {
+                                    color: "white"
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: "World Wide Wine Production"
+                        }
+                    }
                 });
 
             } else {

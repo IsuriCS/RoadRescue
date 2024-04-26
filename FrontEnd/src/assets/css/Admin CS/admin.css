@@ -102,6 +102,12 @@
     0 10px 10px rgba(37, 27, 90, 0.311);
   margin: 1vh;
 }
+
+.demandgraph {
+  padding: 2vh;
+  width: 35vw;
+  height: 33vh;
+}
 .secondRow .verifications {
   margin-left: 2vw;
   height: 100%;
@@ -140,7 +146,7 @@
   margin: 1vw;
   padding: 0 1vw;
 }
-.secondRow h1 {
+#dashboard h1 {
   font-size: 3.5vh;
 }
 .table #cards:hover {
@@ -177,6 +183,10 @@
 }
 .thirdRow .Profit {
   margin-left: 2vw;
+}
+
+.recentMoment {
+  margin-left: 2vh;
 }
 
 /* **********************************Dash Board Fourth Row Recent reports table ********************************************* */

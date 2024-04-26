@@ -211,10 +211,7 @@
 
             <div class="secondRow">
               <!-- **************************Recent Moment Bar Chart****************************** -->
-              <!-- <div class="recentMoment">
-                <h1>Account Activity Overview</h1>
-                <div class="graph"><canvas id="barchatRecent"></canvas></div>
-              </div> -->
+              
               <div id="srmapcontainer" class="mapContainer">
                 <h1>Service Request Destribution</h1>
                 <div id="map" class="map"></div>
@@ -244,27 +241,35 @@
 
             <div class="thirdRow">
               <!-- **************************Payment Graph****************************** -->
-              <div class="Payments">
+              <div class="demandChart">
+                <h1>Demand of Services</h1>
+                <div class="graph demandgraph"><canvas id="demandChart" style="width: 100%;"></canvas></div>
+              </div>
+              <div class="recentMoment">
+                <h1>Account Activity Overview</h1>
+                <div class="graph"><canvas id="barchatRecent"></canvas></div>
+              </div>
+              <!-- <div class="Payments">
                 <h1>Payment</h1>
                 <div class="graph"><canvas id="linePayment"></canvas></div>
-              </div>
+              </div> -->
               <!-- **************************Monthly Profit Bar Chart****************************** -->
-              <div class="Profit">
+              <!-- <div class="Profit">
                 <h1>Monthly Profit</h1>
                 <div class="graph"><canvas id="lineChartProfit"></canvas></div>
-              </div>
+              </div> -->
               
             </div>
           
             <!-- **************************Report Section****************************** -->
             <div class="ReportsSection">
-              <h1>Recent Reports</h1>
+              <h1>Complaints</h1>
               <table id="RecentReportSection">
                 <thead>
                   <tr>
-                    <th>Reported By</th>
-                    <th>Report title</th>
-                    <th>Reported Date</th>
+                    <th>Complaint By</th>
+                    <th>Complaint title</th>
+                    <th>Complaint Date</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -451,7 +456,7 @@ photo_camera
           </div>
         </div>
 
-        <!-- ---------------------------------------Support ticket Detail view------------------------------- -->
+        <!-- ---------------------------------------Complaint Detail view------------------------------- -->
         <div id="SupportTicketDatail" style="display: none">
           <div class="topRow">
             <h1>Reports > 001</h1>
@@ -460,7 +465,7 @@ photo_camera
 
           <div class="info">
             <div>
-              <p id="Detail">ID :</p>
+              <p id="Detail">Complaint ID :</p>
               <p id="ticketID">a</p>
             </div>
             <div>
@@ -474,12 +479,12 @@ photo_camera
                 Assign
               </button>
             </div>
-            <div>
-              <p id="Detail">Ticket Owner ID:</p>
+            <!-- <div>
+              <p id="Detail"> Owner ID:</p>
               <p id="userID">b</p>
-            </div>
+            </div> -->
             <div>
-              <p id="Detail">Ticket Owner :</p>
+              <p id="Detail">Complaint Owner :</p>
               <p id="userName">b</p>
             </div>
             <div>
