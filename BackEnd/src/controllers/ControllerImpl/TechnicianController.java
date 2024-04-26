@@ -1,7 +1,7 @@
 package controllers.ControllerImpl;
 
-import utils.CrudUtil;
 import models.TechnicianModel;
+import utils.CrudUtil;
 
 import javax.json.*;
 import java.sql.Connection;
@@ -39,7 +39,8 @@ public class TechnicianController {
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
 
             int techId = rst.getInt(1);
-
+            int techStatus = rst.getInt(4);
+            String techStatusName="";
 
             if (techId < 10) {
                 objectBuilder.add("techId", "T-00" + techId);
@@ -49,11 +50,21 @@ public class TechnicianController {
                 objectBuilder.add("techId", "T-" + techId);
             }
 
+            if(techStatus==0){
+                techStatusName="Not Available";
+            } else if (techStatus==1) {
+                techStatusName="Available";
+            }else {
+                techStatusName="Assign for Job";
+
+            }
+
+
             List<String> expertiseList = fetchExpertiseArias(connection, techId);
 
             objectBuilder.add("techFirstName", rst.getString(2));
             objectBuilder.add("techLastName", rst.getString(3));
-            objectBuilder.add("techStatus", (rst.getInt(4) == 1) ? "Available" : "Not Available");
+            objectBuilder.add("techStatus", techStatusName);
             objectBuilder.add("techContactNumb", rst.getString(5));
             objectBuilder.add("techProfilePicRef", (rst.getString(6) == null) ? "0" : rst.getString(6));
             objectBuilder.add("expertiseList", expertiseList.toString());
@@ -93,6 +104,8 @@ public class TechnicianController {
     }
 
     public boolean add(Connection connection, TechnicianModel technicianModel) throws SQLException, ClassNotFoundException {
+
+
         // insert technician in to technician table
         boolean result_one = CrudUtil.executeUpdate(connection, "INSERT into technician (service_provider_id, phone_number, f_name, status, l_name) values(?,?,?,?,?)",
                 technicianModel.getServiceProviderId(), technicianModel.getContact(), technicianModel.getfName(), technicianModel.getStatus(), technicianModel.getlName());
@@ -122,33 +135,40 @@ public class TechnicianController {
 
     }
 
-    public boolean update(Connection connection, TechnicianModel technicianModel) throws SQLException, ClassNotFoundException {
+    public boolean update(Connection connection, TechnicianModel technicianModel,int option) throws SQLException, ClassNotFoundException {
 
-        boolean technicianUpdateRust = CrudUtil.executeUpdate(connection, "Update technician SET f_name=?,l_name=?,profile_pic_ref=? where id=?",
-                technicianModel.getfName(), technicianModel.getlName(), technicianModel.getSaveImageRef(), technicianModel.getId());
+        if (option==1) {
+            boolean technicianUpdateRust = CrudUtil.executeUpdate(connection, "Update technician SET f_name=?,l_name=?,profile_pic_ref=? where id=?",
+                    technicianModel.getfName(), technicianModel.getlName(), technicianModel.getSaveImageRef(), technicianModel.getId());
 
+            System.out.println(technicianUpdateRust);
 
-        boolean technicianExpatriateUpdateRust = false;
+            boolean technicianExpatriateUpdateRust = false;
 
-        // clear technician_expertise table for update technician
-        boolean clearResult = clearTechnicianExpertise(connection, technicianModel.getId());
-
-        if (clearResult) {
-            for (int i = 2; i < technicianModel.getExpertiseArias().size(); i += 3) {
-
-                String expertise_id = technicianModel.getExpertiseArias().get(i);
-                String[] parts = expertise_id.split("");
-                expertise_id = parts[1];
-                int expertise_idCast = Integer.parseUnsignedInt(expertise_id);
-                technicianExpatriateUpdateRust = CrudUtil.executeUpdate(connection, "INSERT into technician_expertise (technician_id,expertise_id) values(?,?);", Integer.parseInt(technicianModel.getId()), expertise_idCast);
+            // clear technician_expertise table for update technician
+            boolean clearResult = clearTechnicianExpertise(connection, technicianModel.getId());
+            System.out.println(clearResult);
+            if (clearResult) {
+                for (int i = 2; i < technicianModel.getExpertiseArias().size(); i += 3) {
+                    System.out.println(technicianModel.getExpertiseArias().get(i) + " " +technicianModel.getId());
+                    String expertise_id = technicianModel.getExpertiseArias().get(i);
+                    String[] parts = expertise_id.split("");
+                    expertise_id = parts[1];
+                    int expertise_idCast = Integer.parseUnsignedInt(expertise_id);
+                    System.out.println(expertise_idCast + " " +technicianModel.getId());
+                    technicianExpatriateUpdateRust = CrudUtil.executeUpdate(connection, "INSERT into technician_expertise (technician_id,expertise_id) values(?,?);", Integer.parseInt(technicianModel.getId()), expertise_idCast);
+                }
             }
-        }
 
-        return technicianUpdateRust && technicianExpatriateUpdateRust;
+            return technicianUpdateRust && technicianExpatriateUpdateRust;
+        }else {
+            return CrudUtil.executeUpdate(connection,"Update technician SET f_name=?,l_name=?,profile_pic_ref=?,email=? where id=?",
+                    technicianModel.getfName(),technicianModel.getlName(),technicianModel.getSaveImageRef(),technicianModel.getEmail(),technicianModel.getId());
+        }
     }
 
     private boolean clearTechnicianExpertise(Connection connection, String id) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeUpdate(connection, "DELETE FROM technician_expertise WHERE technician_id=?", id);
+        return CrudUtil.executeUpdate(connection, "DELETE FROM technician_expertise WHERE technician_id=?", Integer.parseInt(id));
     }
 
     public boolean delete(Connection connection, String techId) throws SQLException, ClassNotFoundException {
@@ -216,4 +236,63 @@ public class TechnicianController {
         return objectBuilder.build();
     }
 
+    public JsonObject getTechnicianActivities(Connection connection, String searchId) throws SQLException, ClassNotFoundException {
+        int[] countJobs = countJobs(connection, searchId);
+
+        int electricalTroubleShoot= countJobs[1];
+        int engineMaintainable= countJobs[2]+countJobs[4];
+        int oilSystem= countJobs[3];
+        int hvac= countJobs[5];
+        int other= countJobs[0] + countJobs[6];
+
+        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+        objectBuilder.add("ElectricalTroubleShoot",electricalTroubleShoot);
+        objectBuilder.add("engineMaintainable",engineMaintainable);
+        objectBuilder.add("OilSystem",oilSystem);
+        objectBuilder.add("HVAC",hvac);
+        objectBuilder.add("Other",other);
+
+        return objectBuilder.build();
+
+    }
+
+    private int[] countJobs(Connection connection, String searchId) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "select sr.issue_category_id\n" +
+                "from service_technician st\n" +
+                "join service_request sr on st.service_request_id=sr.id\n" +
+                "where st.technician_id=?", searchId);
+
+        int mechanicalIssue=0;
+        int electricalIssues=0;
+        int engineProblems=0;
+        int fuelIssues=0;
+        int exhaustIssues=0;
+        int coolingProblems=0;
+        int other=0;
+
+
+
+        while (resultSet.next()) {
+            int issueId = resultSet.getInt(1);
+            if (issueId==1){
+                mechanicalIssue++;
+            } else if (issueId==2) {
+                electricalIssues++;
+            } else if (issueId==3) {
+                engineProblems++;
+            } else if (issueId==4) {
+                fuelIssues++;
+            } else if (issueId==5) {
+                exhaustIssues++;
+            } else if (issueId==6) {
+                coolingProblems++;
+            } else if (issueId==7) {
+                other++;
+            }
+        }
+
+
+        return new int[]{mechanicalIssue,electricalIssues,engineProblems,fuelIssues,exhaustIssues,coolingProblems,other};
+
+    }
 }

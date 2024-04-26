@@ -99,5 +99,13 @@ public class GarageController {
     public boolean addSupportTicker(Connection connection, SpSupportTicket supportTicket) throws SQLException, ClassNotFoundException {
        return CrudUtil.executeUpdate(connection,"insert into sp_support_ticket (service_provider_id, status, title, description) values (?,?,?,?)",Integer.parseInt(supportTicket.getServiceProId()), "pending",supportTicket.getTitle(),supportTicket.getDescription());
     }
+
+    public boolean updateContactNumber(Connection connection, String newContactNumber, String garageId) throws SQLException, ClassNotFoundException {
+       return CrudUtil.executeUpdate(connection,"UPDATE service_provider set phone_number=? where id=?",newContactNumber,garageId);
+    }
+
+    public boolean addSupportTickerTechnician(Connection connection, SpSupportTicket supportTicket) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate(connection,"insert into technician_support_ticket (technician_id, status, title, description) values (?,?,?,?)",Integer.parseInt(supportTicket.getServiceProId()), "pending",supportTicket.getTitle(),supportTicket.getDescription());
+    }
 }
 

@@ -116,6 +116,29 @@ public class LoginServlet extends HttpServlet {
                 }
 
                 break;
+
+            case "sentOtp":
+
+                try{
+                    System.out.println( "otp ekat awa utto" );
+                    String otp = generateOTP();
+                    smsApi(otp,searchId);
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    response.add("status", 200);
+                    response.add("message", "sent OTP");
+                    response.add("data", otp);
+                    writer.print(response.build());
+                }catch (Exception e){
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "SMS Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                }
+
+                break;
             default:
         }
     }
@@ -211,19 +234,6 @@ public class LoginServlet extends HttpServlet {
                     e.printStackTrace();
                 }
                 break;
-
-            case "registerUser":
-                try {
-                    connection= ds.getConnection();
-                    String tempId= login.RegisterUser(connection,ownerName,garageName,phoneNumber);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
-
-                break;
-
             default:
         }
     }

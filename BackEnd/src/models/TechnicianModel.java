@@ -14,6 +14,7 @@ public class TechnicianModel {
     private int status;
     private int serviceProviderId;
     private String saveImageRef;
+    private String email;
 
 
 
@@ -47,6 +48,14 @@ public class TechnicianModel {
         this.lName = lName;
         this.expertiseArias = expertiseArias;
         this.saveImageRef = saveImageRef;
+    }
+
+    public TechnicianModel(String id, String fName, String lName, String saveImageRef, String email) {
+        this.id = id;
+        this.fName = fName;
+        this.lName = lName;
+        this.saveImageRef = saveImageRef;
+        this.email = email;
     }
 
     public String getSaveImageRef() {
@@ -121,6 +130,16 @@ public class TechnicianModel {
     public void setServiceProviderId(int serviceProviderId) {
         this.serviceProviderId = serviceProviderId;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
 
     @Override
     public String toString() {
