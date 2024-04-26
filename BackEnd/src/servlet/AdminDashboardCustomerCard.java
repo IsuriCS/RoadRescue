@@ -31,11 +31,15 @@ public class AdminDashboardCustomerCard extends HttpServlet{
             dashboardCards controller = new dashboardCards();
             UserDataController userDataController=new UserDataController();
             JsonArray verification= userDataController.getServiceProviderList(connection);
-            JsonArray numofCustomers= dashboardCards.getcountsForCards(connection);
+            JsonArray numofCustomers= controller.getcountsForCards(connection);
+            JsonObject locations=controller.getLocations(connection);
+            JsonArray demand=controller.getHighDemandService(connection);
 
             JsonObjectBuilder dataBuilder = Json.createObjectBuilder();
             dataBuilder.add("serviceP", verification);
             dataBuilder.add("analyticsData", numofCustomers);
+            dataBuilder.add("locations",locations);
+            dataBuilder.add("demand",demand);
 
             JsonObjectBuilder response = Json.createObjectBuilder();
             response.add("status",200);

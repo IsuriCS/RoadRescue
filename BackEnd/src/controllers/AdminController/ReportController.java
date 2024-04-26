@@ -86,4 +86,22 @@ public class ReportController {
 
         return resultArrayBuilder.build();
     }
+
+    public JsonArray getHighDemandServicebyMounth(Connection connection,String mounth)throws SQLException,ClassNotFoundException{
+        ResultSet resultSet=CrudUtil.executeQuery(connection,"SELECT e.expertise,COUNT(st.service_request_id) AS request_count FROM expertise e LEFT JOIN technician_expertise te ON e.id = te.expertise_id LEFT JOIN service_technician st ON te.technician_id = st.technician_id LEFT JOIN (SELECT COUNT(*) AS total_requests_count FROM service_request) AS total_requests ON 1=1 WHERE st.service_request_id IN (SELECT id FROM service_request WHERE request_timestamp >= DATE_SUB(CURRENT_DATE(), INTERVAL ? MONTH)) GROUP BY e.expertise;",mounth);
+
+        JsonArrayBuilder demandArray = Json.createArrayBuilder();
+        while (resultSet.next()){
+            String expertice=resultSet.getString("expertise");
+            int count = resultSet.getInt("request_count");
+
+            JsonObjectBuilder objectBuilder=Json.createObjectBuilder();
+            objectBuilder.add("expertise",expertice);
+            objectBuilder.add("request_count",count);
+
+            demandArray.add(objectBuilder.build());
+        }
+
+        return demandArray.build();
+    }
 }

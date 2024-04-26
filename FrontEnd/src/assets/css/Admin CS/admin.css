@@ -102,6 +102,12 @@
     0 10px 10px rgba(37, 27, 90, 0.311);
   margin: 1vh;
 }
+
+.demandgraph {
+  padding: 2vh;
+  width: 35vw;
+  height: 33vh;
+}
 .secondRow .verifications {
   margin-left: 2vw;
   height: 100%;
@@ -140,6 +146,9 @@
   margin: 1vw;
   padding: 0 1vw;
 }
+#dashboard h1 {
+  font-size: 3.5vh;
+}
 .table #cards:hover {
   background-color: #728ab0;
   cursor: pointer;
@@ -151,6 +160,19 @@
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
     0 10px 10px rgba(37, 27, 90, 0.311);
 } */
+.mapContainer {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  margin: 1vh;
+  align-items: flex-start;
+}
+.map {
+  height: 40vh;
+  width: 97%;
+}
 
 /* **********************************Dash Board third Row analytics ********************************************* */
 .thirdRow {
@@ -161,6 +183,10 @@
 }
 .thirdRow .Profit {
   margin-left: 2vw;
+}
+
+.recentMoment {
+  margin-left: 2vh;
 }
 
 /* **********************************Dash Board Fourth Row Recent reports table ********************************************* */
