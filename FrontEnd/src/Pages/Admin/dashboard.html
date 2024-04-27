@@ -15,6 +15,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <!-- CSS Stylesheets -->
     <link rel="stylesheet" href="../../assets/css/customerStyle.css" />
     <link rel="stylesheet" href="../../assets/css/Admin CS/sideNav.css" />
@@ -209,12 +210,17 @@
 
             <div class="secondRow">
               <!-- **************************Recent Moment Bar Chart****************************** -->
-              <div class="recentMoment">
-                <h1>Account Activity Overview</h1>
-                <div class="graph"><canvas id="barchatRecent"></canvas></div>
+              
+              <div id="srmapcontainer" class="mapContainer">
+                <h1>Service Request Destribution</h1>
+                <div id="map" class="map"></div>
+              </div>
+              <div id="spmapcontainer" class="mapContainer">
+                <h1>Service Providers Destribution</h1>
+                <div id="spmap" class="map"></div>
               </div>
               <!-- **************************verifications****************************** -->
-              <div class="verifications" onclick="showVerification()">
+              <!-- <div class="verifications" onclick="showVerification()">
                 <div id="verificationtitle"><h1>Varification Requests</h1>
                 <h1 id="number">10</h1>
               </div>
@@ -229,32 +235,40 @@
                   
                  
                 </div>
-              </div>
+              </div> -->
             </div>
 
             <div class="thirdRow">
               <!-- **************************Payment Graph****************************** -->
-              <div class="Payments">
+              <div class="demandChart">
+                <h1>Demand of Services</h1>
+                <div class="graph demandgraph"><canvas id="demandChart" style="width: 100%;"></canvas></div>
+              </div>
+              <div class="recentMoment">
+                <h1>Account Activity Overview</h1>
+                <div class="graph"><canvas id="barchatRecent"></canvas></div>
+              </div>
+              <!-- <div class="Payments">
                 <h1>Payment</h1>
                 <div class="graph"><canvas id="linePayment"></canvas></div>
-              </div>
+              </div> -->
               <!-- **************************Monthly Profit Bar Chart****************************** -->
-              <div class="Profit">
+              <!-- <div class="Profit">
                 <h1>Monthly Profit</h1>
                 <div class="graph"><canvas id="lineChartProfit"></canvas></div>
-              </div>
+              </div> -->
               
             </div>
           
             <!-- **************************Report Section****************************** -->
             <div class="ReportsSection">
-              <h1>Recent Reports</h1>
+              <h1>Complaints</h1>
               <table id="RecentReportSection">
                 <thead>
                   <tr>
-                    <th>Reported By</th>
-                    <th>Report title</th>
-                    <th>Reported Date</th>
+                    <th>Complaint By</th>
+                    <th>Complaint title</th>
+                    <th>Complaint Date</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -441,7 +455,7 @@ photo_camera
           </div>
         </div>
 
-        <!-- ---------------------------------------Support ticket Detail view------------------------------- -->
+        <!-- ---------------------------------------Complaint Detail view------------------------------- -->
         <div id="SupportTicketDatail" style="display: none">
           <div class="topRow">
             <h1>Reports > 001</h1>
@@ -450,7 +464,7 @@ photo_camera
 
           <div class="info">
             <div>
-              <p id="Detail">ID :</p>
+              <p id="Detail">Complaint ID :</p>
               <p id="ticketID">a</p>
             </div>
             <div>
@@ -464,12 +478,12 @@ photo_camera
                 Assign
               </button>
             </div>
-            <div>
-              <p id="Detail">Ticket Owner ID:</p>
+            <!-- <div>
+              <p id="Detail"> Owner ID:</p>
               <p id="userID">b</p>
-            </div>
+            </div> -->
             <div>
-              <p id="Detail">Ticket Owner :</p>
+              <p id="Detail">Complaint Owner :</p>
               <p id="userName">b</p>
             </div>
             <div>
@@ -1180,4 +1194,6 @@ photo_camera
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="../../assets/js/admin/admin.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </html>
