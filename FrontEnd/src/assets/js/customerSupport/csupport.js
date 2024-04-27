@@ -11,7 +11,7 @@ function showDashboard() {
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
     document.querySelector("#TicketLink").classList.remove("active");
     document.querySelector("#profileLink").classList.remove("active");
-    // document.querySelector('#PaymentLink').classList.remove("active");
+    // document.querySelector('#ServiceRequestslink').classList.remove("active");
     // document.queryselector("#FAQLink").classList.remove("active");
 
 
@@ -25,6 +25,7 @@ function showDashboard() {
     document.querySelector("#TicketReports").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDetail").style.display = "none";
+    document.querySelector("#ServiceRequests").style.display = "none";
     // document.querySelector("#FAQ").style.display = "none";
 
 
@@ -48,6 +49,28 @@ $.ajax({
     }
 
 })
+
+
+//Performance Cards
+$.ajax({
+    url: API_URL +"/CS/PerformanceCards",
+    method:"GET",
+    success : function (res){
+        if (res.status == 200){
+            $("#load-container").hide();
+
+            var AnalyticsCards = res.data.analyticsPerformances;
+
+
+            document.querySelector("#allPTicketNum").innerHTML = AnalyticsCards[0].AllTicketCounts;
+            document.querySelector("#SolvedPTicketNum").innerHTML = AnalyticsCards[0].SolvedTicketCounts;
+            document.querySelector("#PendingPTicketNum").innerHTML = AnalyticsCards[0].PendingTicketCounts;
+            document.querySelector("#OnReviewPTicketNum").innerHTML = AnalyticsCards[0].OnReviewTicketCounts;
+        }
+    }
+
+})
+
 
 
 
@@ -132,114 +155,6 @@ $.ajax({
 
 
 
-// Service Requests
-    $.ajax({
-        url: API_URL + "/CSMember/customerSupportServiceRequests",
-        method: "GET",
-        success: function (res) {
-
-            $("#load-container").hide();
-            if (res.status == 200) {
-
-                var tableBody = document.querySelector("#serviceRequests tbody");
-                //tableBody.empty();
-
-
-                for (var i = 0; i < res.data.length; i++) {
-
-                    var datai = res.data[i];
-                    var row = tableBody.insertRow();
-                    row.insertCell(0).textContent = datai.CustomerID || '-';
-                    //row.insertCell(1).textContent = datai.location || '--';
-
-
-                    // Add the button
-                    //var viewButtoncell = row.insertCell(1);
-                    //var viewButton = document.createElement("button");
-                    //viewButton.type = "button";
-                    //viewButton.className = "ServiceRequestLocation";
-                    //viewButton.textContent = "View Location";
-                    //var locationpoints = datai.location.split(",");
-                    //var link = `https://www.google.com/maps/search/?api=1&query=${locationpoints[0]},${locationpoints[1]}`;
-
-                    //viewButton.addEventListener("click", "window.open('" + link + "', '_blank')");
-                    //viewButtoncell.appendChild(viewButton);
-
-                  //Add the button
-                    var viewButtonCell = row.insertCell(1);
-                    var viewButton = document.createElement("button");
-                    viewButton.type = "button";
-                    viewButton.className = "ServiceRequestLocation";
-                    viewButton.textContent = "View Location";
-                    var locationPoints = datai.location.match(/latitude=(-?\d+(\.\d+)?), longitude=(-?\d+(\.\d+)?)/);
-
-                    if (locationPoints && locationPoints.length >= 5) {
-                        var latitude = parseFloat(locationPoints[1]);
-                        var longitude = parseFloat(locationPoints[3]);
-                         var link = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
-
-                     viewButton.addEventListener("click", function() {
-                     window.open(link, '_blank');
-                        });
-                    } else {
-                // Handle invalid location format
-                     viewButton.disabled = true;
-                    }
-
-                    viewButtonCell.appendChild(viewButton);
-          
-
-
-                    let ISSUE;
-                    if(datai.issue ==1){
-                        ISSUE = "Mechanical Issues";
-                    }else if(datai.issue ==2){
-                        ISSUE = "Electrical Issues";
-                    }else if(datai.issue == 3){
-                        ISSUE = "Engine Problems";
-                    }else if(datai.issue == 4){
-                        ISSUE = "Fuel Issues";
-                    }else if(datai.issue == 5){
-                        ISSUE = "Exhaust Issues";
-                    }else if(datai.issue == 6){
-                        ISSUE = "Cooling Problems";
-                    }else{
-                        ISSUE = "Other";
-                    }
-                    row.insertCell(2).textContent = ISSUE || '-';
-
-                    let ST;
-                    if(datai.status==1){
-                        ST="Pending.Not accepted by a garage";
-                    }else if(datai.status==2){
-                        ST="Accepted by a garage";
-                    }else if(datai.status==3){
-                        ST="Garage completed providing the service";
-                    }else if(datai.status==4){
-                        ST="Payment done by customer";
-                    }else if(datai.status==5){
-                        ST="Completed";
-                    }else if(datai.status==6){
-                        ST="Canceled by the garage";
-                    }else if(datai.status==7){
-                        ST="Canceled by the customer Support member";
-                    }else{
-                        ST="Error";
-                    }
-                    row.insertCell(3).textContent = ST || '_';
-
-
-                
-
-                }
-
-            }
-            else {
-                console.log("error");
-            }
-
-        }
-    });
 
 
 }
@@ -256,6 +171,7 @@ function showcus() {
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
     document.querySelector("#TicketLink").classList.remove("active");
     document.querySelector("#profileLink").classList.remove("active");
+    // document.querySelector('#ServiceRequestslink').classList.remove("active");
     // document.queryselector("#FAQLink").classList.remove("active");
     // document.querySelector('#PaymentLink').classList.remove("active");
 
@@ -268,6 +184,7 @@ function showcus() {
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDetail").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
+    document.querySelector("#ServiceRequests").style.display = "none";
     // document.querySelector("#FAQ").style.display = "none";
 
 
@@ -343,6 +260,7 @@ function showprof(res, customerId) {
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDetail").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
+    document.querySelector("#ServiceRequests").style.display = "none";
     // document.queryselector("#FAQ").style.display = "none";
 
     // Update the title
@@ -391,7 +309,7 @@ function showprof(res, customerId) {
 
                                         var temp = document.getElementById("supportTicketTemplate");
                                         var clone = temp.content.cloneNode(true);
-                                        clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${String(datai.ticketId).padStart(3, '0')}`;
+                                        clone.querySelector(".SuppotTicketcard h1").textContent = `H-${String(datai.ticketId).padStart(3, '0')}`;
                                         console.log(datai.ticketId);
                                         var dateTime = new Date(datai.created_time);
                                         var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
@@ -462,6 +380,7 @@ function showsupportTicket(res, ticketId, name) {
     document.querySelector("#GarageProf").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
+    document.querySelector("#ServiceRequests").style.display = "none";
     // document.querySelector("#FAQ").style.display = "none";
     
 
@@ -470,7 +389,7 @@ function showsupportTicket(res, ticketId, name) {
 
     // Update the title
     var ttitle = document.querySelector("#SupportTicketDetail .topRow h1");
-    ttitle.innerHTML = `Reports > ST${String(ticketId).padStart(3, '0')}`;
+    ttitle.innerHTML = `Complaints > H${String(ticketId).padStart(3, '0')}`;
 
 
     for (var i = 0; i < res.data.length; i++) {
@@ -524,6 +443,7 @@ function showServiceProviders() {
     document.querySelector("#profileLink").classList.remove("active");
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#servicePDropdown").classList.add("dropDownActive");
+    // document.querySelector('#ServiceRequestslink').classList.remove("active");
     // document.queryselector("#FAQLink").classList.remove("active");
     // document.querySelector('#PaymentLink').classList.remove("active");
     
@@ -538,6 +458,7 @@ function showServiceProviders() {
     // document.querySelector("#ticket").style.display = "none";
     document.querySelector("#SupportTicketDetail").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
+    document.querySelector("#ServiceRequests").style.display = "none";
     // document.querySelector("#FAQ").style.display = "none";
 
 
@@ -699,6 +620,7 @@ function showSPprof(res, spid) {
     document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#SupportTicketDetail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
+    document.querySelector("#ServiceRequests").style.display = "none";
     // document.querySelector("#FAQ").style.display = "none";
 
     // Update the title
@@ -767,7 +689,7 @@ function showSPprof(res, spid) {
 
                                         var temp = document.getElementById("spsupportTicketTemplate");
                                         var clone = temp.content.cloneNode(true);
-                                        clone.querySelector(".spSuppotTicketcard h1").textContent = `ST-${String(sdatai.ticketId).padStart(3, '0')}`;
+                                        clone.querySelector(".spSuppotTicketcard h1").textContent = `H${String(sdatai.ticketId).padStart(3, '0')}`;
                                         console.log(sdatai.ticketId);
                                         var dateTime = new Date(sdatai.created_time);
                                         var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
@@ -837,6 +759,7 @@ function showTicket() {
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
     document.querySelector("#TicketLink").classList.add("active");
     document.querySelector("#profileLink").classList.remove("active");
+    // document.querySelector('#ServiceRequestslink').classList.remove("active");
     // document.queryselector("#FAQLink").classList.remove("active");
     // document.querySelector('#PaymentLink').classList.remove("active");
 
@@ -849,6 +772,7 @@ function showTicket() {
     document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDetail").style.display = "none";
+    document.querySelector("#ServiceRequests").style.display = "none";
     // document.querySelector("#FAQ").style.display = "none";
 
 
@@ -871,13 +795,13 @@ $.ajax({
                 var row = tableBody.insertRow();
                 row.insertCell(0).textContent = datai.ticketId || '-';
                 row.insertCell(1).textContent = datai.customer_id || '--';
-                row.insertCell(2).textContent = datai.csmember_id || '--';
-                row.insertCell(3).textContent = datai.title || '-';
+                // row.insertCell(2).textContent = datai.csmember_id || '--';
+                row.insertCell(2).textContent = datai.title || '-';
                 var dateTime = new Date(datai.created_time);
                 var formattedDate = dateTime.toLocaleDateString();
-                row.insertCell(4).textContent = formattedDate || '_';
+                row.insertCell(3).textContent = formattedDate || '_';
                 // row.insertCell(3).textContent = datai.created_time || '0';
-                row.insertCell(5).textContent = datai.status || '_';
+                row.insertCell(4).textContent = datai.status || '_';
                 
                 row.addEventListener('click', function () {
                     // const ticketID1 = datai.ticketID || '-';
@@ -900,37 +824,37 @@ $.ajax({
 });
 
 
-
-    // Search Ticket
-    // document.getElementById("searchTicket").addEventListener("input", function () {
-    //     var searchValue = this.value.toUpperCase();
-    //     var table = document.getElementById("TicketList");
-    //     var tr = table.getElementsByTagName("tr");
-    //     for (var i = 0; i < tr.length; i++) {
-    //         var td = tr[i].getElementsByTagName("td")[1];
-    //         if (td) {
-    //             var textValue = td.textContent || td.innerText;
-    //             if (textValue.toUpperCase().indexOf(searchValue) > -1) {
-    //                 tr[i].style.display = "";
-    //             } else {
-    //                 tr[i].style.display = "none";
-    //             }
-    //         }
-    //     }
-    // }
-    // );
-
+ // Search ticket
+//  document.getElementById("searchCSTicket").addEventListener("input", function () {
+//     var searchValue = this.value.trim();
+    // var searchValue = this.value.toUpperCase();
+//     var table = document.getElementById("TicketList");
+//     var tr = table.getElementsByTagName("tr");
+//     for (var i = 0; i < tr.length; i++) {
+//         var td = tr[i].getElementsByTagName("td")[1];
+//         if (td) {
+//             var textValue = td.textContent || td.innerText;
+//             if (textValue.includes(searchValue)) {
+//                 tr[i].style.display = "";
+//             } else {
+//                 tr[i].style.display = "none";
+//             }
+//         }
+//     }
+// }
+// );
 
 }
 
 
-function showPayment() {
+function showServiceRequests() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.remove("active");
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
     document.querySelector("#TicketLink").classList.remove("active");
     document.querySelector("#profileLink").classList.remove("active");
+    // document.querySelector('#ServiceRequestslink').classList.active("active");
     // document.querySelector("#FAQLink").classList.add("active");
     // document.querySelector('#PaymentLink').classList.add("active");
 
@@ -938,13 +862,113 @@ function showPayment() {
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#GarageProf").style.display = "none";
-    // document.querySelector("#ticket").style.display = "none";
     document.querySelector("#csProfile").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDetail").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
+    document.querySelector("#ServiceRequests").style.display = "block";
     // document.querySelector("Payment").style.display  = "block";
-//     document.querySelector("#FAQ").style.display = "block";
+    // document.querySelector("#FAQ").style.display = "block";
+
+// Service Requests
+
+$("#serviceRequests tbody").empty();
+
+$.ajax({
+    url: API_URL + "/CSMember/customerSupportServiceRequests",
+    method: "GET",
+    success: function (res) {
+
+        $("#load-container").hide();
+        if (res.status == 200) {
+
+            var tableBody = document.querySelector("#serviceRequests tbody");
+            //tableBody.empty();
+
+
+            for (var i = 0; i < res.data.length; i++) {
+
+                var datai = res.data[i];
+                var row = tableBody.insertRow();
+                row.insertCell(0).textContent = datai.CustomerID || '-';
+                //row.insertCell(1).textContent = datai.location || '--';
+
+              //Add the button
+                var viewButtonCell = row.insertCell(1);
+                var viewButton = document.createElement("button");
+                viewButton.type = "button";
+                viewButton.className = "ServiceRequestLocation";
+                viewButton.textContent = "View Location";
+                var locationPoints = datai.location.match(/latitude=(-?\d+(\.\d+)?), longitude=(-?\d+(\.\d+)?)/);
+
+                if (locationPoints && locationPoints.length >= 5) {
+                    var latitude = parseFloat(locationPoints[1]);
+                    var longitude = parseFloat(locationPoints[3]);
+                     var link = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+
+                 viewButton.addEventListener("click", function() {
+                 window.open(link, '_blank');
+                    });
+                } else {
+            // Handle invalid location format
+                 viewButton.disabled = true;
+                }
+
+                viewButtonCell.appendChild(viewButton);
+      
+
+
+                let ISSUE;
+                if(datai.issue ==1){
+                    ISSUE = "Mechanical Issues";
+                }else if(datai.issue ==2){
+                    ISSUE = "Electrical Issues";
+                }else if(datai.issue == 3){
+                    ISSUE = "Engine Problems";
+                }else if(datai.issue == 4){
+                    ISSUE = "Fuel Issues";
+                }else if(datai.issue == 5){
+                    ISSUE = "Exhaust Issues";
+                }else if(datai.issue == 6){
+                    ISSUE = "Cooling Problems";
+                }else{
+                    ISSUE = "Other";
+                }
+                row.insertCell(2).textContent = ISSUE || '-';
+
+                let ST;
+                if(datai.status==1){
+                    ST="Pending.Not accepted by a garage";
+                }else if(datai.status==2){
+                    ST="Accepted by a garage";
+                }else if(datai.status==3){
+                    ST="Garage completed providing the service";
+                }else if(datai.status==4){
+                    ST="Payment done by customer";
+                }else if(datai.status==5){
+                    ST="Completed";
+                }else if(datai.status==6){
+                    ST="Canceled by the garage";
+                }else if(datai.status==7){
+                    ST="Canceled by the customer Support member";
+                }else{
+                    ST="Error";
+                }
+                row.insertCell(3).textContent = ST || '_';
+
+
+            
+
+            }
+
+        }
+        else {
+            console.log("error");
+        }
+
+    }
+});
+
  }
 
 function showProfile() {
@@ -954,20 +978,19 @@ function showProfile() {
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
     document.querySelector("#TicketLink").classList.remove("active");
     document.querySelector("#profileLink").classList.add("active");
-    // document.queryselector("#FAQLink").classList.remove("active");
-    // document.querySelector('#PaymentLink').classList.remove("active");
+    // document.querySelector('#ServiceRequestslink').classList.remove("active");
 
 
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
     document.querySelector("#GarageProf").style.display = "none";
-    // document.querySelector("#ticket").style.display = "none";
     document.querySelector("#csProfile").style.display = "block";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDetail").style.display = "none";
     document.querySelector("#TicketReports").style.display = "none";
-    // document.querySelector("#FAQ").style.display = "none";
+    document.querySelector("#ServiceRequests").style.display = "none";
+   
 
 }
 

@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class ServiceRequestsController {
     public JsonArray getServiceRequests(Connection connection) throws SQLException, ClassNotFoundException {
-        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT t.* FROM road_rescue.service_request t ORDER BY status,request_timestamp limit 10 ");
+        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT * FROM road_rescue.service_request  WHERE status = 2 OR status = 3 OR status =4 ");
 
         JsonArrayBuilder RecentRequestArrayBuilder = Json.createArrayBuilder();
 
@@ -34,3 +34,11 @@ public class ServiceRequestsController {
         return RecentRequestArrayBuilder.build();
     }
 }
+
+//    public boolean cancelRequest(Connection connection)throws SQLException, ClassNotFoundException {
+//
+//        boolean cancleRequest = CrudUtil.executeUpdate(connection,"DELETE FROM service_request WHERE );
+//
+//
+//        return cancleRequest;
+//    }

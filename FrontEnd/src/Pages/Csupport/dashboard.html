@@ -111,14 +111,14 @@
 
                 <li>
                   <a
-                  id = "Paymentink"
-                  href = "#Payment"
+                  id = "ServiceRequestsLink"
+                  href = "#ServiceRequests"
                   class = "sideNavLink"
-                  onclick = "showPayment()"
+                  onclick = "showServiceRequests()"
                   >
                   <span class="material-symbols-outlined">
-                    payments
-                    </span>Payment
+                    manage_accounts
+                    </span>Service Requests
                 </a>
                 </li>
 
@@ -142,7 +142,7 @@
           <!-- ---------------------------------------Dash Board------------------------------- -->
           <!-- ---------------------------------------Dash Board------------------------------- -->
           <div id="dashboard">
-            <h1>Analytics</h1>
+            <h1>Overall Analytics</h1>
 
             <!-- ********************************Dispaly Cards******************** -->
           <div id  = "displayCards">
@@ -178,13 +178,54 @@
               <h2 id="OnReviewTicketNum">0</h2>
               <p>On Review Complains</p>
             </a>
+            </div>
+
+
+
+
+            <h1>Performances</h1>
+
+            <!-- ********************************Display Own Performance******************** -->
+          <div id  = "PerformanceCards">
+            <a  class="button">
+              <span class="material-symbols-outlined">
+                report
+              </span>
+              <h2 id="allPTicketNum">0</h2>
+              <p>All Complains</p></a
+            >
+            
+            <a  class="button">
+                <span class="material-symbols-outlined">
+                  fact_check
+                  </span>
+              <h2 id="SolvedPTicketNum">0</h2>
+              <p>Solved Complains</p></a
+            >
+
+
+            <a  class="button">
+                <span class="material-symbols-outlined">
+                  pending
+                </span>
+              <h2 id="PendingPTicketNum">0</h2>
+              <p>Pending Complains</p></a
+            >
+
+            <a  class="button">
+              <span class="material-symbols-outlined">
+                rate_review
+                </span>
+              <h2 id="OnReviewPTicketNum">0</h2>
+              <p>On Review Complains</p>
+            </a>
 
           </div>
             
            
 
-            <!-- **************************Report Section****************************** -->
-           <div class = "ServieRequests">
+            <!-- **************************Service Requests****************************** -->
+            <!-- <div class = "ServiceRequests">
             <h1>Service Requests</h1>
             <table id = "serviceRequests">
               <thead>
@@ -195,20 +236,20 @@
                 <th>Status</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody>  -->
              <!-- <tr>
                 <th></th>
                 <th><button type  ="button" class = "ServiceRequestLocation">View Location</button></th>
                 <th></th>
                 <th></th>
               </tr>--> 
-            </tbody>
+            <!-- </tbody>
            
             </table>
-           </div>
+           </div> -->
            
            
-           
+            <!-- **************************Report Section****************************** -->
            <div class="ReportsSection">
             <h1>Recent Reports</h1>
             <table id="RecentReportSection">
@@ -397,7 +438,7 @@
           </div>
 
 
-           <!-- ---------------------------------------Support ticket Detail view------------------------------- -->
+           <!-- ---------------------------------------Support ticket Detail view-------------------------table eken ena thana ------ -->
            <div id="SupportTicketDetail" style="display: none">
             <div class="topRow">
             <h1>Reports > 001</h1>
@@ -857,7 +898,7 @@
               <div class="search">
             <form>
                 <input type="text" placeholder="Search Service Provider" name="search" id="searchCSMember">
-                <button onclick="searchTicket()">
+                <button onclick="searchCSTicket()">
                     <span class="material-symbols-outlined">search</span>
                 </button>
             </form>
@@ -870,7 +911,6 @@
           <tr>
             <th>Ticket ID</th>
             <th>Customer ID</th>
-            <th>Customer Support Member ID</th>
             <th>Description</th>
             <th>Created Time</th>
             <th>Status</th>
@@ -885,7 +925,7 @@
 
 
              <!-- ---------------------------------------Support ticket Detail view------------------------------- -->
-          <div id="SupportTicketDetail" style="display: none">
+          <div id="SupportTicketDetails" style="display: none">
             <div class="topRow">
             <h1>Reports > 001</h1>
             <button id="button" style="display: block;">Set Solved</button>
@@ -894,11 +934,11 @@
           <div class="info">
             <div>
               <p id="Detail">Ticket ID :</p>
-              <p id="ticketID">a</p>
+              <p id="tecketDetailViewId">a</p>
             </div>
             <div>
               <p id="Detail">Date :</p>
-              <p id="Date">a</p>
+              <p id="supportTickerDetailViewDate">a</p>
             </div>
             <div>
               <p id="Detail">Assigned Customer Support ID :</p>
@@ -986,11 +1026,34 @@
                
             </div> -->
         
-
-          <!-- ---------------------------------------Payment------------------------------- -->
-          <div id="Payment" style ="display: none">
-          </div>
-
+<!--  -------------------Service Request Cancelation--------------------------------------- -->
+            <div id="ServiceRequests" style="display: none">
+            <div class = "ServiceRequests">
+              <h1>Service Requests</h1>
+              <table id = "serviceRequests">
+                <thead>
+                <tr>
+                  <th>Customer ID</th>
+                  <th>Location</th>
+                  <th>Issue</th>
+                  <th>Status</th>
+                  <th style = "width : 30%" ></th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th></th>
+                  <th><button type  ="button" class = "ServiceRequestLocation">View Location</button></th>
+                  <th></th>
+                  <th></th>
+                  <th><button type = "button" class = "ServiceRequestCancel">Cancel</th>
+                </tr> 
+              </tbody>
+             
+              </table>
+             </div>
+            </div>
 
           <!-- -------------------------------profile----------------------------------- -->
           <div id = "csProfile" style = "display: none;">

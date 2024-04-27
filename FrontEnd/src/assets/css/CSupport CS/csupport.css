@@ -80,6 +80,72 @@
   font-size: 2.5vh;
   font-size: 2.5vh;
 }
+
+
+/* **************************performance Cards************************* */
+#dashboard > div {
+  margin-bottom: 3vh;
+}
+.content .content-box #PerformanceCards {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+}
+
+#PerformanceCards a {
+  background-color: #728ab0;
+  width: 30vw;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
+  font-size: inherit;
+  color: white;
+  font-weight: 600;
+  border-radius: 30px;
+  border: none;
+  /* text-align: center; */
+  padding: 2vh 1vh 1vh 3vh;
+  /* text-align: center; */
+  padding: 2vh 1vh 1vh 3vh;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 1vh;
+  align-items: flex-start;
+  margin: 1vh;
+  cursor: unset;
+}
+
+#PerformanceCards .button span {
+  color: #000;
+  background-color: white;
+  border-radius: 60px;
+  font-size: 6vh;
+  font-size: 6vh;
+  padding: 1vh;
+}
+
+#PerformanceCards .button h2 {
+  margin-top: 1vh;
+  margin-bottom: 0;
+  color: #151d48;
+}
+
+#PerformanceCards .button h2 {
+  margin-top: 1vh;
+  margin-bottom: 0;
+  color: #151d48;
+}
+#PerformanceCards .button p {
+  margin-top: 1vh;
+  font-size: 2.5vh;
+  font-size: 2.5vh;
+}
   
   /* **********************************Dash Board  Recent reports table ********************************************* */
 
@@ -88,11 +154,12 @@
   }
 
   /* ******************************Dashboard Request Services************ */
-  .ServieRequests table button{
+
+  .ServiceRequests .ServiceRequestLocation {
     display:flex;
     align-items: center;
     text-align: -internal-center;
-    margin-left: 40%;
+    margin-left: 25%;
     justify-content: center;
     background-color:gold;
     font-size: 2.3vh;
@@ -103,6 +170,21 @@
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 3px 3px rgba(37, 27, 90, 0.311);
     
   }
+  .ServiceRequests .ServiceRequestCancel{
+    display:flex;
+    align-items: center;
+    text-align: -internal-center;
+    margin-left: 25%;
+    justify-content: center;
+    background-color:#eb1212;
+    font-size: 2.3vh;
+    border-radius: 2vh;
+    padding: 1vh;
+    text-decoration: none;
+    border: none;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 3px 3px rgba(37, 27, 90, 0.311);
+  }
+
 
  
   
