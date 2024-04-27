@@ -464,17 +464,19 @@ function showcus() {
                 for (var i = 0; i < res.data.length; i++) {
                     var datai = res.data[i];
                     var row = tableBody.insertRow();
-                    row.insertCell(0).textContent = datai.customerId || '';
-                    row.insertCell(1).textContent = datai.FullName || '--';
-                    row.insertCell(2).textContent = datai.contact || '';
-                    row.insertCell(3).textContent = datai.nServiceRequest || '0';
-                    row.insertCell(4).textContent = datai.nSupportTickets || '0';
+                    // row.insertCell(0).textContent = datai.customerId || '';
+                    row.insertCell(0).textContent = datai.FullName || '--';
+                    row.insertCell(1).textContent = datai.contact || '';
+                    row.insertCell(2).textContent = datai.nServiceRequest || '0';
+                    row.insertCell(3).textContent = datai.nSupportTickets || '0';
+
+                    row.setAttribute('data-customer-id', datai.customerId);
 
                     row.addEventListener('click', function () {
-                        var customerId = this.cells[0].textContent;
+                        // Get the customer ID from the clicked row
+                        var customerId = this.getAttribute('data-customer-id');
                         showprof(customerId);
-
-                    })
+                    });
                 }
 
             }
@@ -529,8 +531,7 @@ function showprof(customerId) {
     // Update the title
 
 
-    var title = document.querySelector("#cusprof .topRow h1");
-    title.innerHTML = `Customer > C${customerId.padStart(3, '0')}`;
+
     var data = {
         customerId: customerId,
         option: "getProfile"
@@ -545,412 +546,503 @@ function showprof(customerId) {
 
             if (res.status == 201) {
                 $("#load-container").hide();
-
-                var profile = res.data.profile;
-                var ServiceRequests = res.data.requestLocations;
-                var requestStatus = res.data.requestStatus;
-                var Rating = res.data.ratings;
-                var supportTickets = res.data.complaints;
-
-
-                // document.getElementById("cid").innerHTML = profile.customerId;
-                document.getElementById("fname").innerHTML = profile.fname || '-';
-                document.getElementById("lname").innerHTML = profile.lname || '-';
-                document.getElementById("email").innerHTML = profile.email || '-';
-                document.getElementById("cnum").innerHTML = profile.contact || '-';
-
-
-                // Show Support Tickets and profile data
-                // if (datai.nSupportTickets > 0) {
-
-                //     // Remove created ticket cards
-                //     var ticketList = document.querySelectorAll(".SuppotTicketcard");
-
-                //     if (ticketList.length > 0) {
-                //         ticketList.forEach(function (ticket) {
-                //             ticket.remove();
-                //         });
-                //     }
-
-                //     // request ticket details from backend
-                //     $.ajax({
-                //         url: API_URL + "/customerSupport",
-                //         method: "GET",
-                //         success: function (res) {
-
-                //             if (res.status == 200) {
-
-
-                //                 for (var i = 0; i < res.data.length; i++) {
-                //                     (function () {
-                //                         var datai = res.data[i];
-                //                         if (datai.customerID == customerId) {
-
-
-                //                             var temp = document.getElementById("supportTicketTemplate");
-                //                             var clone = temp.content.cloneNode(true);
-                //                             clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${String(datai.ticketId).padStart(3, '0')}`;
-
-                //                             var dateTime = new Date(datai.created_time);
-                //                             var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
-                //                             clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
-
-                //                             // Update ticket title
-                //                             clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
-
-                //                             // Change status button
-                //                             var status = datai.status;
-                //                             var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
-
-                //                             if (status.toLowerCase() == "pending") {
-                //                                 sbutton.classList.add("pending");
-                //                                 sbutton.textContent = "Pending";
-                //                             }
-                //                             else if (status.toLowerCase() == "solved") {
-                //                                 sbutton.classList.add("solved");
-                //                                 sbutton.textContent = "Solved";
-                //                             }
-                //                             else {
-                //                                 sbutton.classList.add("on_review");
-                //                                 sbutton.textContent = "On Review";
-                //                             }
-
-                //                             clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
-                //                                 showsupportTicket(datai.ticketId, name, "cus");
-
-
-                //                             });
-                //                             document.getElementById("no_support_tickets").style.display = "none";
-                //                             document.getElementById("support_ticket_list").style.display = "block";
-                //                             document.getElementById("support_ticket_list").appendChild(clone);
-                //                         }
-                //                     })();
-
-
-                //                 }
-                //                 $("#load-container").hide();
-                //             }
-                //             else {
-                //                 console.log("error");
-                //             }
-                //         }
-                //     })
-
-                // }
-                // else {
-                //     $("#load-container").hide();
-                //     document.getElementById("no_support_tickets").style.display = "block";
-                //     document.getElementById("support_ticket_list").style.display = "none";
-
-                // }
-
-                var editButton = document.createElement("button");
-                editButton.id = "editProfileButton";
-                editButton.className = "button";
-                editButton.innerHTML = '<span class="material-symbols-outlined"> edit </span>Edit ';
-
-                // Append edit button to the container
-                var buttonContainer = document.getElementById("editButtonContainer");
-                buttonContainer.innerHTML = ''; // Clear previous button
-                buttonContainer.appendChild(editButton);
-
-                // Save button
-                var saveButton = document.createElement("button");
-                saveButton.id = "saveProfileButton";
-                saveButton.className = "button";
-                saveButton.innerHTML = '<span class="material-symbols-outlined" style="margin-right: 1vh; vertical-align: bottom;"> save </span>Save';
-                saveButton.style.display = "none";
-
-                // Append edit button to the container
-                buttonContainer.appendChild(saveButton);
-
-                // Delete Button
-                var deleteButton = document.createElement("button");
-                deleteButton.id = "deletebutton";
-                deleteButton.className = "deleteButton";
-                deleteButton.innerHTML = '<span class="material-symbols-outlined"> delete </span>Delete';
-                deleteButton.classList.add("button");
-
-
-                // Append edit button to the container
-                var deletebuttonContainer = document.getElementById("deleteButtonContainer");
-                deletebuttonContainer.innerHTML = ''; // Clear previous button
-                deletebuttonContainer.appendChild(deleteButton);
-
-                // Add event listener to the edit button
-                editButton.addEventListener("click", function () {
-
-                    var form = document.getElementById("editProfileForm");
-                    form.style.display = "block";
-                    document.getElementById("profile").style.display = "none";
-
-                    var form = document.getElementById("editProfileForm");
-                    form.style.display = "block";
-                    document.getElementById("profile").style.display = "none";
-
-                    // Display save button
-                    saveButton.style.display = "block";
-                    editButton.style.display = "none";
-
-                    // Disable delete button
-                    deletebutton.disabled = true;
-                    deletebutton.style.backgroundColor = "#6f102e";
-
-
-
-
-                    document.querySelector("#editProfileForm #cid").innerHTML = datai.customerId;
-
-                    document.querySelector("#editProfileForm #fname").value = datai.fname;
-                    document.querySelector("#editProfileForm #lname").value = datai.lname;
-                    document.querySelector("#editProfileForm #email").value = datai.email;
-                    document.querySelector("#editProfileForm #cnum").value = datai.contact;
-
-                    saveButton.addEventListener("click", function () {
-                        messagebox.style.display = "block";
-                        messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
-                        messagetext.innerHTML = "Updating Profile...";
-                        messagebutton.style.display = "none";
-                        // Retrieve the updated values from the form fields
-                        var customerId = document.querySelector("#editProfileForm #cid").innerHTML;
-                        var fname = document.querySelector("#editProfileForm #fname").value;
-                        var lname = document.querySelector("#editProfileForm #lname").value;
-                        var email = document.querySelector("#editProfileForm #email").value;
-                        var cnum = document.querySelector("#editProfileForm #cnum").value;
-
-                        // Perform validation if needed
-
-                        // Prepare the data to send via AJAX
-                        var data = {
-                            customerId: customerId,
-                            fname: fname,
-                            lname: lname,
-                            email: email,
-                            cnum: cnum,
-                            option: "updateDetails"
-                        };
-
-
-                        console.log(JSON.stringify(data));
-                        // Send an AJAX request to update the profile
-                        $.ajax({
-                            url: API_URL + '/Admin/CustomerList',
-                            method: 'POST',
-                            contentType: 'application/json',
-                            data: JSON.stringify(data),
-                            success: function (response) {
-
-                                messageimg.setAttribute("src", "../../assets/img/Tick.png");
-                                messagetext.innerHTML = "Update Successful";
-                                messagebutton.style.display = "none";
-                                setTimeout(function () {
-                                    messagebox.style.display = "none";
-                                }, 1500);
-                                document.getElementById("editProfileForm").style.display = "none";
-                                document.getElementById("profile").style.display = "block";
-                                showprof(customerId);
-                                deletebutton.disabled = false;
-                                deletebutton.style.backgroundColor = "#c41950";
-
-                                // Change to save button
-                                saveButton.style.display = "none";
-                                editButton.style.display = "block";
-                            },
-                            error: function (error) {
-
-                                messageimg.setAttribute("src", "../../assets/img/exclamation.png");
-                                messagetext.innerHTML = "Something went wrong. Try Again";
-                                messagebutton.style.display = "none";
-                                setTimeout(function () {
-                                    messagebox.style.display = "none";
-                                }, 1500);
-                                document.getElementById("editProfileForm").style.display = "none";
-                                document.getElementById("profile").style.display = "block";
-                                showprof(customerId);
-                                deletebutton.disabled = false;
-                                deletebutton.style.backgroundColor = "#c41950";
-
-                                // Change to save button
-                                saveButton.style.display = "none";
-                                editButton.style.display = "block";
-                                // Handle error response
-                                console.error('Failed to update profile:', error);
-                            }
-                        });
-                    });
-                });
-
-                deleteButton.addEventListener("click", function () {
-                    messagebox.style.display = "block";
-                    messageimg.setAttribute("src", "../../assets/img/delete.png");
-                    messageimg.style.width = "13vh";
-                    messagetext.innerHTML = "Are you sure you want to delete this user?";
-
-                    var yesButton = document.createElement("button");
-                    yesButton.id = "yesButton";
-                    yesButton.className = "button";
-                    yesButton.innerHTML = "Yes";
-                    document.getElementById("proccessingBoxButtons").appendChild(yesButton);
-
-                    var NoBUtton = document.createElement("button");
-                    NoBUtton.id = "nobutton";
-                    NoBUtton.className = "button";
-                    NoBUtton.innerHTML = "No";
-                    NoBUtton.addEventListener("click", function () {
-                        messagebox.style.display = "none";
-                        messagebutton.innerHTML = '';
-
-                    });
-                    document.getElementById("proccessingBoxButtons").appendChild(NoBUtton);
-
-                    yesButton.addEventListener("click", function () {
-                        messagetext.innerHTML = "Please Wait..."
-                        messagebox.style.display = "block"
-                        messagebutton.style.display = "none";
-                        messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
-
-                        $.ajax({
-                            url: API_URL + '/Admin/CustomerList?id=' + customerId,
-                            method: "DELETE",
-                            success: function (res) {
-                                messagetext.innerHTML = "Customer Deleted Successfully";
-                                messageimg.setAttribute("src", "../../assets/img/Tick.png")
-                                messagebutton.style.display = "none";
-                                setTimeout(function () {
-                                    messagebox.style.display = "none";
-                                }, 1500);
-                                showcus();
-                            },
-                            error: function (error) {
-                                messageimg.setAttribute("src", "../../assets/img/exclamation.png");
-                                messagetext.innerHTML = "Something went wrong. Try Again";
-                                messagebutton.style.display = "none";
-                                setTimeout(function () {
-                                    messagebox.style.display = "none";
-                                }, 1500);
-                            }
-
-                        })
-                    });
-                });
-
-
-                // Analytics
-                // map-----------------------------------
-                (function () {
-
-                })
-                const ServiceRequestsCordinatesArray = ServiceRequests.map(locationString => {
-                    const matches = locationString.match(/latitude=(-?\d+\.\d+), longitude=(-?\d+\.\d+)/);
-                    if (matches) {
-                        return `${matches[1]},${matches[2]}`;
-                    }
-                });
-
-                var ServiceRequestsCordinates = ServiceRequestsCordinatesArray.map(function (location) {
-                    var coordinates = location.split(',');
-                    return [parseFloat(coordinates[0]), parseFloat(coordinates[1])];
-                });
-
-
-                var map = L.map("customerRequestmap").setView(calculateMedianLocation(ServiceRequestsCordinatesArray), 12);
-
-
-                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-                    attribution:
-                        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                }).addTo(map);
-
-
-
-                ServiceRequestsCordinates.forEach(function (location) {
-
-                    L.marker(location)
-                        .addTo(map)
-                        .bindPopup(location.name);
-                });
-
-
-                // Request Status------------------------------------------
-
-
-                var status = ["Completed Services", "Cancelled Services"];
-                var count = requestStatus.map(item => item.count);
-                document.querySelector(".requestChart h1").innerHTML = "Total Service Requests " + (Number(count[0]) + Number(count[1]));
-
-                var barColors = ["#54bebe", "#c80064"]
-
-                new Chart("srpieChart", {
-                    type: "pie",
-                    data: {
-                        labels: status,
-                        datasets: [{
-                            backgroundColor: barColors,
-                            data: count,
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-
-
-                                labels: {
-                                    color: "white"
-                                }
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: "World Wide Wine Production"
-                        }
-                    }
-                });
-
-
-                // Rating------------------------------------------
-                var ratingCounts = Rating.map(item => ({ rating: parseInt(item.rating), count: parseInt(item.count) }));
-                var rating = ratingCounts.map(item => item.rating);
-                var halfcount = ratingCounts.map(item => item.count);
-                console.log(rating);
-                console.log(halfcount);
-
-                var total = 0;
-                var count = [];
-                for (i = 1; i <= 5; i++) {
-                    if (i in ratingCounts.map(item => item.rating)) {
-                        count.push(ratingCounts[i - 1].count);
-                        total += ratingCounts[i - 1].count;
-                    }
-                    else {
-                        count.push(0);
-                    }
-                }
-
-                var percentageRatings = count.map(item => ({ percentage: `${(item / total) * 100}%` }));
-                console.log(percentageRatings);
-                console.log(count);
-
-                document.querySelector(".bar-5").style.width = percentageRatings[0].percentage;
-                document.querySelector(".bar-4").style.width = percentageRatings[1].percentage;
-                document.querySelector(".bar-3").style.width = percentageRatings[2].percentage;
-                document.querySelector(".bar-2").style.width = percentageRatings[3].percentage;
-                document.querySelector(".bar-1").style.width = percentageRatings[4].percentage;
-
-
-                document.querySelector(".text-5 div").innerHTML = count[0] || '0';
-                document.querySelector(".text-4 div").innerHTML = count[1] || '0';
-                document.querySelector(".text-3 div").innerHTML = count[2] || '0';
-                document.querySelector(".text-2 div").innerHTML = count[3] || '0';
-                document.querySelector(".text-1 div").innerHTML = count[4] || '0';
-
+                CustomerAnalytics(res, customerId);
             }
             else {
                 console.log("error");
             }
         }
     });
+
+}
+
+function CustomerAnalytics(res, customerId) {
+
+
+    var profile = res.data.profile;
+    var ServiceRequests = res.data.requestLocations;
+    var requestStatus = res.data.requestStatus;
+    var Rating = res.data.ratings;
+    var supportTickets = res.data.complaints;
+
+    var title = document.querySelector("#cusprof .topRow h1");
+    title.innerHTML = `Customer > ${profile.fname} ${profile.lname}`;
+    // document.getElementById("cid").innerHTML = profile.customerId;
+    document.getElementById("fname").innerHTML = profile.fname || '-';
+    document.getElementById("lname").innerHTML = profile.lname || '-';
+    document.getElementById("email").innerHTML = profile.email || '-';
+    document.getElementById("cnum").innerHTML = profile.contact || '-';
+
+
+    // Show Support Tickets and profile data
+    if (supportTickets.length > 0) {
+
+        // Remove created ticket cards
+        // var ticketList = document.querySelectorAll(".SuppotTicketcard");
+
+        // if (ticketList.length > 0) {
+        //     ticketList.forEach(function (ticket) {
+        //         ticket.remove();
+        //     });
+        // }
+
+        // // request ticket details from backend
+        // $.ajax({
+        //     url: API_URL + "/customerSupport",
+        //     method: "GET",
+        //     success: function (res) {
+
+        //         if (res.status == 200) {
+
+
+        //             for (var i = 0; i < res.data.length; i++) {
+        //                 (function () {
+        //                     var datai = res.data[i];
+        //                     if (datai.customerID == customerId) {
+
+
+        //                         var temp = document.getElementById("supportTicketTemplate");
+        //                         var clone = temp.content.cloneNode(true);
+        //                         clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${String(datai.ticketId).padStart(3, '0')}`;
+
+        //                         var dateTime = new Date(datai.created_time);
+        //                         var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
+        //                         clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
+
+        //                         // Update ticket title
+        //                         clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
+
+        //                         // Change status button
+        //                         var status = datai.status;
+        //                         var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
+
+        //                         if (status.toLowerCase() == "pending") {
+        //                             sbutton.classList.add("pending");
+        //                             sbutton.textContent = "Pending";
+        //                         }
+        //                         else if (status.toLowerCase() == "solved") {
+        //                             sbutton.classList.add("solved");
+        //                             sbutton.textContent = "Solved";
+        //                         }
+        //                         else {
+        //                             sbutton.classList.add("on_review");
+        //                             sbutton.textContent = "On Review";
+        //                         }
+
+        //                         clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
+        //                             showsupportTicket(datai.ticketId, name, "cus");
+
+
+        //                         });
+        //                         document.getElementById("no_support_tickets").style.display = "none";
+        //                         document.getElementById("support_ticket_list").style.display = "block";
+        //                         document.getElementById("support_ticket_list").appendChild(clone);
+        //                     }
+        //                 })();
+
+
+        //             }
+        //             $("#load-container").hide();
+        //         }
+        //         else {
+        //             console.log("error");
+        //         }
+        //     }
+        // })
+
+
+        // Verifications                  
+        // supportTickets.forEach(function (entry) {
+        //     var temp = document.getElementById("customerComtemplate");
+        //     var clone = temp.content.cloneNode(true);
+        //     var pElement = clone.querySelector("p");
+        //     if (pElement) {
+        //         pElement.textContent = `H - ${entry.ticketId}`;
+        //         clone.addEventListener('click', function () {
+        //             showsupportTicket(entry.ticketId, profile.fname + " " + profile.lname, "cus");
+        //         });
+        //         document.querySelector(".table").appendChild(clone);
+        //     }
+
+
+        // });
+
+        document.querySelector(".cutomerCWindow").innerHTML = `<template id="customerComtemplate">
+                        <div class="customerComcards">
+                          <p>Garage</p>
+                          <span class="comstatus">Solved Tickets 8</span>
+                        </div>
+                        
+                      </template>`;
+        var complains = document.getElementById("PendingTickets");
+
+        var complaintTemplate = document.querySelector("#customerComtemplate");
+        if (complains.querySelector(".customerComcards") != null) {
+            complains.querySelector(".customerComcards").remove();
+        }
+
+        for (var i = 0; i < supportTickets.length; i++) {
+            var datai = supportTickets[i];
+            var pcontent = `H${String(datai.ticketId).padStart(3, '0')}`;
+            var spancontent = datai.status || 'No status';
+            var clone = complaintTemplate.content.cloneNode(true);
+
+            clone.querySelector("p").innerHTML = pcontent;
+            clone.querySelector("span").innerHTML = `${spancontent}`;
+            clone.querySelector(".customerComcards").addEventListener("click", function (ticketId) {
+                return function () {
+                    showsupportTicket(ticketId, profile.fname + " " + profile.lname, "cus");
+                };
+            }(datai.ticketId)); // Immediately invoked function to capture ticketId
+
+            document.querySelector(".cutomerCWindow").appendChild(clone);
+
+        }
+
+
+
+
+    }
+    else {
+        $("#load-container").hide();
+        document.querySelector("#PendingTickets").style.display = "none";
+
+    }
+
+    var editButton = document.createElement("button");
+    editButton.id = "editProfileButton";
+    editButton.className = "button";
+    editButton.innerHTML = '<span class="material-symbols-outlined"> edit </span>Edit ';
+
+    // Append edit button to the container
+    var buttonContainer = document.getElementById("editButtonContainer");
+    buttonContainer.innerHTML = ''; // Clear previous button
+    buttonContainer.appendChild(editButton);
+
+    // Save button
+    var saveButton = document.createElement("button");
+    saveButton.id = "saveProfileButton";
+    saveButton.className = "button";
+    saveButton.innerHTML = '<span class="material-symbols-outlined" style="margin-right: 1vh; vertical-align: bottom;"> save </span>Save';
+    saveButton.style.display = "none";
+
+    // Append edit button to the container
+    buttonContainer.appendChild(saveButton);
+
+    // Delete Button
+    var deleteButton = document.createElement("button");
+    deleteButton.id = "deletebutton";
+    deleteButton.className = "deleteButton";
+    deleteButton.innerHTML = '<span class="material-symbols-outlined"> delete </span>Delete';
+    deleteButton.classList.add("button");
+
+
+    // Append edit button to the container
+    var deletebuttonContainer = document.getElementById("deleteButtonContainer");
+    deletebuttonContainer.innerHTML = ''; // Clear previous button
+    deletebuttonContainer.appendChild(deleteButton);
+
+    // Add event listener to the edit button
+    editButton.addEventListener("click", function () {
+
+        var form = document.getElementById("editProfileForm");
+        form.style.display = "block";
+        document.getElementById("profile").style.display = "none";
+
+        var form = document.getElementById("editProfileForm");
+        form.style.display = "block";
+        document.getElementById("profile").style.display = "none";
+
+        // Display save button
+        saveButton.style.display = "block";
+        editButton.style.display = "none";
+
+        // Disable delete button
+        deletebutton.disabled = true;
+        deletebutton.style.backgroundColor = "#6f102e";
+
+
+
+
+        // document.querySelector("#editProfileForm #cid").innerHTML = datai.customerId;
+        var datai = profile;
+        document.querySelector("#editProfileForm #fname").value = datai.fname;
+        document.querySelector("#editProfileForm #lname").value = datai.lname;
+        document.querySelector("#editProfileForm #email").value = datai.email;
+        document.querySelector("#editProfileForm #cnum").value = datai.contact;
+
+        saveButton.addEventListener("click", function () {
+            messagebox.style.display = "block";
+            messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
+            messagetext.innerHTML = "Updating Profile...";
+            messagebutton.style.display = "none";
+            // Retrieve the updated values from the form fields
+            // var customerId = document.querySelector("#editProfileForm #cid").innerHTML;
+            var fname = document.querySelector("#editProfileForm #fname").value;
+            var lname = document.querySelector("#editProfileForm #lname").value;
+            var email = document.querySelector("#editProfileForm #email").value;
+            var cnum = document.querySelector("#editProfileForm #cnum").value;
+
+            // Perform validation if needed
+
+            // Prepare the data to send via AJAX
+            var data = {
+                customerId: customerId,
+                fname: fname,
+                lname: lname,
+                email: email,
+                cnum: cnum,
+                option: "updateDetails"
+            };
+
+
+
+            // Send an AJAX request to update the profile
+            $.ajax({
+                url: API_URL + '/Admin/CustomerList',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function (response) {
+
+                    messageimg.setAttribute("src", "../../assets/img/Tick.png");
+                    messagetext.innerHTML = "Update Successful";
+                    messagebutton.style.display = "none";
+                    setTimeout(function () {
+                        messagebox.style.display = "none";
+                    }, 1500);
+                    document.getElementById("editProfileForm").style.display = "none";
+                    document.getElementById("profile").style.display = "block";
+                    showprof(customerId);
+                    deletebutton.disabled = false;
+                    deletebutton.style.backgroundColor = "#c41950";
+
+                    // Change to save button
+                    saveButton.style.display = "none";
+                    editButton.style.display = "block";
+
+
+
+                },
+                error: function (error) {
+
+                    messageimg.setAttribute("src", "../../assets/img/exclamation.png");
+                    messagetext.innerHTML = "Something went wrong. Try Again";
+                    messagebutton.style.display = "none";
+                    setTimeout(function () {
+                        messagebox.style.display = "none";
+                    }, 1500);
+                    document.getElementById("editProfileForm").style.display = "none";
+                    document.getElementById("profile").style.display = "block";
+                    showprof(customerId);
+                    deletebutton.disabled = false;
+                    deletebutton.style.backgroundColor = "#c41950";
+
+                    // Change to save button
+                    saveButton.style.display = "none";
+                    editButton.style.display = "block";
+                    // Handle error response
+                    console.error('Failed to update profile:', error);
+                }
+            });
+        });
+    });
+
+    deleteButton.addEventListener("click", function () {
+        messagebox.style.display = "block";
+        messageimg.setAttribute("src", "../../assets/img/delete.png");
+        messageimg.style.width = "13vh";
+        messagetext.innerHTML = "Are you sure you want to delete this user?";
+
+        var yesButton = document.createElement("button");
+        yesButton.id = "yesButton";
+        yesButton.className = "button";
+        yesButton.innerHTML = "Yes";
+        document.getElementById("proccessingBoxButtons").appendChild(yesButton);
+
+        var NoBUtton = document.createElement("button");
+        NoBUtton.id = "nobutton";
+        NoBUtton.className = "button";
+        NoBUtton.innerHTML = "No";
+        NoBUtton.addEventListener("click", function () {
+            messagebox.style.display = "none";
+            messagebutton.innerHTML = '';
+
+        });
+        document.getElementById("proccessingBoxButtons").appendChild(NoBUtton);
+        messagebutton.style.display = "block";
+
+        yesButton.addEventListener("click", function () {
+            messagetext.innerHTML = "Please Wait..."
+            messagebox.style.display = "block"
+            messagebutton.style.display = "none";
+            messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
+
+            $.ajax({
+                url: API_URL + '/Admin/CustomerList?id=' + customerId,
+                method: "DELETE",
+                success: function (res) {
+                    if (res.status == 200) {
+                        messagetext.innerHTML = "Customer Deleted Successfully";
+                        messageimg.setAttribute("src", "../../assets/img/Tick.png")
+                        messagebutton.style.display = "none";
+                        setTimeout(function () {
+                            messagebox.style.display = "none";
+                        }, 1500);
+                        showcus();
+                    }
+                    else {
+                        messageimg.setAttribute("src", "../../assets/img/exclamation.png");
+                        messagetext.innerHTML = "Something went wrong. Try Again";
+                        messagebutton.style.display = "none";
+                        setTimeout(function () {
+                            messagebox.style.display = "none";
+                        }, 1500);
+                    }
+                },
+                error: function (error) {
+                    messageimg.setAttribute("src", "../../assets/img/exclamation.png");
+                    messagetext.innerHTML = "Something went wrong. Try Again";
+                    messagebutton.style.display = "none";
+                    setTimeout(function () {
+                        messagebox.style.display = "none";
+                    }, 1500);
+                }
+
+            })
+        });
+    });
+
+
+    // Analytics
+    // map-----------------------------------
+    document.getElementById('mapcontainer').innerHTML = `<div id="customerRequestmap" class="map"></div>`
+    const ServiceRequestsCordinatesArray = ServiceRequests.map(locationString => {
+        const matches = locationString.match(/latitude=(-?\d+\.\d+), longitude=(-?\d+\.\d+)/);
+        if (matches) {
+            return `${matches[1]},${matches[2]}`;
+        }
+    });
+
+    var ServiceRequestsCordinates = ServiceRequestsCordinatesArray.map(function (location) {
+        var coordinates = location.split(',');
+        return [parseFloat(coordinates[0]), parseFloat(coordinates[1])];
+    });
+
+
+    var container = L.DomUtil.get('map');
+    if (container != null) {
+        container._leaflet_id = null;
+    }
+
+    var map = L.map("customerRequestmap").setView(calculateMedianLocation(ServiceRequestsCordinatesArray), 12);
+
+
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+
+
+    ServiceRequestsCordinates.forEach(function (location) {
+
+        L.marker(location)
+            .addTo(map)
+            .bindPopup(location.name);
+    });
+
+
+    // Request Status------------------------------------------
+
+    document.querySelector(".requestgraph").innerHTML = '<canvas id="srpieChart" style="width: 100%"></canvas>'
+    var status = ["Completed Services", "Cancelled Services"];
+    var count = [0, 0];
+    requestStatus.forEach(function (entry) {
+        if (entry.status == "Complete") {
+            count[0] = entry.count;
+        }
+        else {
+            count[1] = entry.count;
+        }
+    });
+    document.querySelector(".requestChart h1").innerHTML = "Total Service Requests " + (Number(count[0]) + Number(count[1]));
+
+    var barColors = ["#54bebe", "#c80064"]
+
+    new Chart("srpieChart", {
+        type: "pie",
+        data: {
+            labels: status,
+            datasets: [{
+                backgroundColor: barColors,
+                data: count,
+                borderWidth: 0
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+
+
+                    labels: {
+                        color: "white"
+                    }
+                }
+            },
+            title: {
+                display: true,
+                text: "World Wide Wine Production"
+            }
+        }
+    });
+
+
+    // Rating------------------------------------------
+    var ratingCounts = Rating.map(item => ({ rating: parseInt(item.rating), count: parseInt(item.count) }));
+    var rating = ratingCounts.map(item => item.rating);
+    var halfcount = ratingCounts.map(item => item.count);
+
+
+    var total = 0;
+    var count = [0, 0, 0, 0, 0, 0];
+    for (i = 0; i <= 5; i++) {
+        if (rating.includes(i)) {
+            count[i] = halfcount[rating.indexOf(i)];
+            total += halfcount[rating.indexOf(i)];
+        }
+    }
+
+    var percentageRatings = []
+    count.forEach(function (entry) {
+        if (entry == 0) {
+            percentageRatings.push({ percentage: '0%' });
+        }
+        else {
+            percentageRatings.push({ percentage: `${(entry / total) * 100}%` });
+        }
+    });
+
+    console.log(rating);
+    console.log(halfcount);
+    console.log(percentageRatings);
+    console.log(count);
+
+
+    document.querySelector(".bar-5").style.width = percentageRatings[5].percentage;
+    document.querySelector(".bar-4").style.width = percentageRatings[4].percentage;
+    document.querySelector(".bar-3").style.width = percentageRatings[3].percentage;
+    document.querySelector(".bar-2").style.width = percentageRatings[2].percentage;
+    document.querySelector(".bar-1").style.width = percentageRatings[1].percentage;
+
+
+    document.querySelector(".text-5 div").innerHTML = count[0] || '0';
+    document.querySelector(".text-4 div").innerHTML = count[1] || '0';
+    document.querySelector(".text-3 div").innerHTML = count[2] || '0';
+    document.querySelector(".text-2 div").innerHTML = count[3] || '0';
+    document.querySelector(".text-1 div").innerHTML = count[4] || '0';
 
 }
 

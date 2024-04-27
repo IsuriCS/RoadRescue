@@ -319,6 +319,90 @@ input:focus {
   justify-content: center;
   cursor: pointer;
 }
+
+#PendingTickets {
+  background-color: #162645;
+  border-radius: 2vh;
+  /* border: white solid 3px; */
+  position: relative;
+  /* top: 23vh; */
+  /* right: 16vw; */
+  height: 30vh;
+  width: 26vw;
+  padding: 1vh;
+}
+#PendingTickets #ticketoutline {
+  overflow: auto;
+  height: inherit;
+}
+#ticketoutline h3 {
+  margin: 1vh;
+  color: white;
+  text-align: center;
+}
+.cutomerCWindow div {
+  display: flex;
+  flex-direction: row;
+  background-color: #3b4966;
+  border-radius: 3vh;
+  justify-content: space-between;
+  margin: 1vw;
+  padding: 0 1vw;
+}
+.cutomerCWindow #customerComcards:hover {
+  background-color: #728ab0;
+  cursor: pointer;
+}
+
+/* *******************Hover box********************* */
+.customerComcards {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+.customerComcards:hover {
+  cursor: pointer;
+}
+
+.customerComcards .comstatus {
+  visibility: hidden;
+
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  /* padding: 5px 0; */
+  border-radius: 6px;
+  position: absolute;
+  z-index: 3;
+  width: 120px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+  font-size: 2vh;
+  padding: 1vh;
+}
+
+.customerComcards:hover .comstatus {
+  visibility: visible;
+}
+.customerComcards .comstatus::after {
+  content: " ";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+#dashboard h1 {
+  font-size: 3.5vh;
+}
+.table #cards:hover {
+  background-color: #728ab0;
+  cursor: pointer;
+}
 #cusprof button {
   width: 12vw;
 }
@@ -418,8 +502,8 @@ input:focus {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
   margin: 1vh;
+  align-items: flex-start;
 }
 .cusProfilemapContainer {
   width: 22vw;

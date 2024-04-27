@@ -310,7 +310,7 @@
               <table id="CustomerList">
                 <thead>
                   <tr>
-                    <th>Customer ID</th>
+                    <!-- <th>Customer ID</th> -->
                     <th>Name</th>
                     <th>Phone Number</th>
                     <th>Service Requests</th>
@@ -369,12 +369,7 @@
                   <img src="../../assets/img/pic.png" alt="" />
                   <span class="material-symbols-outlined"> photo_camera </span>
                   <!-- Detail form +******************************************************************** -->
-                  <div class="row">
-                    <div class="tag">
-                      <h1>ID :</h1>
-                    </div>
-                    <div class="detail"><p id="cid"></p></div>
-                  </div>
+                  
                   <div class="row">
                     <div class="tag">
                       <h1>First Name :</h1>
@@ -410,6 +405,37 @@
                 <span class="material-symbols-outlined"> edit </span>Edit
                 Profile
               </button> -->
+              
+              <!-- <div class="PendingTickets" onclick="showVerification()">
+                  <div id="complaintTitle">
+                    <h1>Pending Complaints</h1>
+                    <h1 id="number">10</h1>
+                  </div>
+
+                  <div class="table">
+                    <template id="ComplaintTemplate">
+                      <div id="cards">
+                        <p>Garage</p>
+                      </div>
+                    </template>
+                  </div>
+                </div> -->
+
+
+                <div id="PendingTickets" >
+                  <div id="ticketoutline">
+                    <h3>Complaints</h3>
+                    <div class="cutomerCWindow">
+                      <template id="customerComtemplate">
+                        <div class="customerComcards">
+                          <p>Garage</p>
+                          <span class="comstatus">Solved Tickets 8</span>
+                        </div>
+                        
+                      </template>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
@@ -443,7 +469,10 @@
                 <div class="firstRow">
                   <div id="requestmap" class="cusProfilemapContainer">
                     <h1>Service Request Destribution</h1>
-                    <div id="customerRequestmap" class="map"></div>
+                    <div id="mapcontainer">
+                      <div id="customerRequestmap" class="map"></div>
+                    </div>
+                    
                   </div>
 
                   <div class="requestChart">
@@ -528,20 +557,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="PendingTickets" onclick="showVerification()">
-                  <div id="verificationtitle">
-                    <h1>Pending Tickets</h1>
-                    <h1 id="number">10</h1>
-                  </div>
-
-                  <div class="table">
-                    <template id="verificationRequestsTemplate">
-                      <div id="cards">
-                        <p>Garage</p>
-                      </div>
-                    </template>
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>
@@ -1283,4 +1299,7 @@
   <script src="../../assets/js/admin/admin.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  
 </html>
+
+

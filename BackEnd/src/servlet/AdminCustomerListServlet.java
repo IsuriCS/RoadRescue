@@ -174,7 +174,7 @@ public class AdminCustomerListServlet extends HttpServlet{
                         JsonArray requestLocations = userDataController.getrequestLocationsCustomer(connection,id);
                         JsonArray requstStatus=userDataController.getrequeststatusCustomer(connection,id);
                         JsonArray ratings=userDataController.getratingsbycustomer(connection,id);
-                        JsonArray supportTickets=customerSupportTicketController.getAllPendingSupportTicket(connection);
+                        JsonArray supportTickets=customerSupportTicketController.getAllSupportTicketOrderByStatus(connection,id);
 
                         dataobject.add("profile",customerDetails);
                         dataobject.add("requestLocations",requestLocations);
