@@ -777,7 +777,7 @@ function showTicket() {
 
 
 
-    
+    $("#TicketList tbody").empty();   
 $.ajax({
     url: API_URL + "/CSMemberTicket/customerSupportTicketList",
     method: "GET",
@@ -796,12 +796,13 @@ $.ajax({
                 row.insertCell(0).textContent = datai.ticketId || '-';
                 row.insertCell(1).textContent = datai.customer_id || '--';
                 // row.insertCell(2).textContent = datai.csmember_id || '--';
-                row.insertCell(2).textContent = datai.title || '-';
+                row.insertCell(2).textContent = datai.phone_number || '--';
+                row.insertCell(3).textContent = datai.title || '-';
                 var dateTime = new Date(datai.created_time);
                 var formattedDate = dateTime.toLocaleDateString();
-                row.insertCell(3).textContent = formattedDate || '_';
+                row.insertCell(4).textContent = formattedDate || '_';
                 // row.insertCell(3).textContent = datai.created_time || '0';
-                row.insertCell(4).textContent = datai.status || '_';
+                row.insertCell(5).textContent = datai.status || '_';
                 
                 row.addEventListener('click', function () {
                     // const ticketID1 = datai.ticketID || '-';
@@ -824,25 +825,25 @@ $.ajax({
 });
 
 
- // Search ticket
-//  document.getElementById("searchCSTicket").addEventListener("input", function () {
-//     var searchValue = this.value.trim();
+ //Search ticket
+ document.getElementById("searchCSTicket").addEventListener("input", function () {
+    var searchValue = this.value.trim();
     // var searchValue = this.value.toUpperCase();
-//     var table = document.getElementById("TicketList");
-//     var tr = table.getElementsByTagName("tr");
-//     for (var i = 0; i < tr.length; i++) {
-//         var td = tr[i].getElementsByTagName("td")[1];
-//         if (td) {
-//             var textValue = td.textContent || td.innerText;
-//             if (textValue.includes(searchValue)) {
-//                 tr[i].style.display = "";
-//             } else {
-//                 tr[i].style.display = "none";
-//             }
-//         }
-//     }
-// }
-// );
+    var table = document.getElementById("TicketList");
+    var tr = table.getElementsByTagName("tr");
+    for (var i = 0; i < tr.length; i++) {
+        var td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+            var textValue = td.textContent || td.innerText;
+            if (textValue.includes(searchValue)) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+);
 
 }
 
