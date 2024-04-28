@@ -9,33 +9,38 @@ td {
   height: 5vh;
   font-size: 2vh;
 }
-td + td {
-  border-left: 1px solid black;
+td {
+  border: 1px solid #515d77;
 }
 
 tr + tr td {
-  border-top: 1px solid black;
+  border-top: 1px solid #515d77;
 }
 
 td {
   text-align: left;
-  color: black;
+  color: white;
   padding: 1vh;
 }
 
-tbody > tr:nth-child(odd) {
+tr:hover {
+  background-color: #1e2a44;
+  cursor: pointer;
+}
+
+/* tbody > tr:nth-child(odd) {
   background-color: #d9d9d9;
 }
 
 tbody > tr:nth-child(even) {
   background-color: #c6c6c6;
-}
+} */
 
 th {
-  background-color: #728ab0;
+  background-color: #3b4966;
 
   padding-top: 2vh;
-  border: solid 1px white;
+  border: solid 1px #515d77;
 }
 
 #statusbar {
@@ -59,4 +64,10 @@ th {
 
 #SPList th {
   width: 12%;
+}
+
+#nodata h1 {
+  color: #525c9394;
+  text-align: center;
+  margin-top: 11vh;
 }

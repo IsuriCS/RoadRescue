@@ -1,3 +1,4 @@
+/* b42553 delete */
 #load-container {
   width: 100vw;
   height: 100%;
@@ -15,9 +16,16 @@
   top: 0;
   bottom: 0;
 }
-
+.deleteButton {
+  background-color: #c41950;
+}
+.deleteButton:hover {
+  background-color: #911d42;
+}
 /* *****************DASH BOARD CARDS ****************************** */
-
+#dashboard > div {
+  margin-bottom: 3vh;
+}
 .content .content-box .displayCards {
   display: flex;
   flex-flow: row;
@@ -26,7 +34,7 @@
   align-content: center;
 }
 
-.displayCards .button {
+.displayCards a {
   background-color: #728ab0;
   width: 30vw;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
@@ -50,6 +58,7 @@
   margin: 1vh;
   align-items: flex-start;
   margin: 1vh;
+  cursor: unset;
 }
 
 .displayCards .button span {
@@ -93,19 +102,94 @@
     0 10px 10px rgba(37, 27, 90, 0.311);
   margin: 1vh;
 }
+
+.demandgraph {
+  padding: 2vh;
+  width: 35vw;
+  height: 33vh;
+}
+.secondRow .verifications {
+  margin-left: 2vw;
+  height: 100%;
+  width: inherit;
+}
+.verifications #verificationtitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.verifications #verificationtitle #number {
+  background-color: white;
+  color: #253555;
+  border-radius: 6vh;
+  font-size: 3vh;
+  margin-left: 1vw;
+  padding: 1vh;
+  align-content: center;
+  height: 4vh;
+  width: 4vh;
+  text-align: center;
+}
+.secondRow .verifications .table {
+  padding-top: 0.5vh;
+  width: 37vw;
+  height: 35vh;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
+}
+.secondRow .verifications .table div {
+  display: flex;
+  flex-direction: row;
+  background-color: #3b4966;
+  border-radius: 3vh;
+  justify-content: space-between;
+  margin: 1vw;
+  padding: 0 1vw;
+}
+#dashboard h1 {
+  font-size: 3.5vh;
+}
+.table #cards:hover {
+  background-color: #728ab0;
+  cursor: pointer;
+}
 /* .recentMoment canvas {
 } */
-
-.Payments {
-  margin-left: 2vw;
-}
 
 /* .Payments canvas {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
     0 10px 10px rgba(37, 27, 90, 0.311);
 } */
+.mapContainer {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
 
-/* **********************************Dash Board third Row Recent reports table ********************************************* */
+  justify-content: center;
+  margin: 1vh;
+  align-items: flex-start;
+}
+.map {
+  height: 40vh;
+  width: 97%;
+}
+
+/* **********************************Dash Board third Row analytics ********************************************* */
+.thirdRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+.thirdRow .Profit {
+  margin-left: 2vw;
+}
+
+.recentMoment {
+  margin-left: 2vh;
+}
+
+/* **********************************Dash Board Fourth Row Recent reports table ********************************************* */
 
 .ReportsSection table {
   margin: 1vh;
@@ -175,6 +259,14 @@ input:focus {
   align-items: center;
   margin: 1vh;
 }
+.leftSide #editProfileForm .row div input,
+#speditProfileForm .row div input,
+#csmeditProfileForm .row div input {
+  background-color: #253555;
+  border: none;
+  border-bottom: white solid 1px;
+  color: white;
+}
 .row {
   display: flex;
   flex-direction: row;
@@ -195,13 +287,18 @@ input:focus {
   margin: 0;
 }
 
-.leftSide .buttonDiv {
+.leftSide .buttonDiv,
+.spbuttonDiv,
+.csmbuttonDiv {
   display: flex;
   flex-flow: row wrap;
-
   align-items: center;
+  justify-content: center;
+  margin-top: 4vh;
 }
-.leftSide .buttonDiv .button {
+.leftSide .buttonDiv .button,
+.spbuttonDiv .button,
+.csmbuttonDiv .button {
   width: 12vw;
   margin: 2vh;
 }
@@ -220,15 +317,26 @@ input:focus {
   border-style: none;
   width: inherit;
   justify-content: center;
+  cursor: pointer;
 }
 #cusprof button {
-  width: 15vw;
+  width: 12vw;
 }
-
+#deletebutton {
+  background-color: #c41950;
+}
+#deletebutton:hover {
+  background-color: #911d42;
+}
 #cusprof .rightSide button {
   width: 7vw;
   /* background: #23a6f0; */
   margin-top: 0;
+}
+#cusprof .rightSide button:hover {
+  background: #2289c4;
+
+  text-decoration: none;
 }
 .button:hover {
   background: #2289c4;
@@ -297,6 +405,16 @@ input:focus {
   background-color: #1caf09;
 }
 /* *********************************Support Ticket Page ****************************** */
+#SupportTicketDatail .topRow button {
+  font-size: 2.5vh;
+  padding: 2vh;
+  border-radius: 2vh;
+}
+#SupportTicketDatail .topRow button:hover {
+  background-color: #2289c4;
+  filter: none;
+}
+
 #SupportTicketDatail .info {
   display: flex;
   flex-direction: column;
@@ -329,6 +447,105 @@ input:focus {
 }
 #SupportTicketDatail .info .disabledText {
   color: white;
+}
+
+/* *******************************Assign CSM ************************** */
+#assignCSM {
+  background-color: #162645;
+  border-radius: 2vh;
+  border: white solid 3px;
+  position: absolute;
+  top: 23vh;
+  right: 16vw;
+  height: 46vh;
+  width: 22vw;
+  padding: 1vh;
+}
+#assignCSM #outline {
+  overflow: auto;
+  height: inherit;
+}
+#outline h3 {
+  margin: 1vh;
+  color: white;
+  text-align: center;
+}
+.csmwindow div {
+  display: flex;
+  flex-direction: row;
+  background-color: #3b4966;
+  border-radius: 3vh;
+  justify-content: space-between;
+  margin: 1vw;
+  padding: 0 1vw;
+}
+.csmwindow #csmcards:hover {
+  background-color: #728ab0;
+  cursor: pointer;
+}
+
+/* *******************Hover box********************* */
+.csmcards {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+.csmcards:hover {
+  cursor: pointer;
+}
+
+.csmcards .csmcardtext {
+  visibility: hidden;
+
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  /* padding: 5px 0; */
+  border-radius: 6px;
+  position: absolute;
+  z-index: 3;
+  width: 120px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+  font-size: 2vh;
+  padding: 1vh;
+}
+
+.csmcards:hover .csmcardtext {
+  visibility: visible;
+}
+.csmcards .csmcardtext::after {
+  content: " ";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+/* **********************Scrolling bar******************** */
+::-webkit-scrollbar {
+  width: 2vh;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #728ab0;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #728ab0;
 }
 /* ************************FAQ**************************** */
 /* 
@@ -416,6 +633,7 @@ input {
 }
 #verification .verify {
   background-color: #42ed36;
+  margin-right: 1vw;
 }
 #verification .cancle {
   background-color: #eb1212;
@@ -470,7 +688,9 @@ input {
   width: 6vw;
   height: 6vw;
 }
-
+.areaButtons div .selected {
+  background-color: #809cc8;
+}
 .areaButtons div p {
   text-align: center;
 }
@@ -582,4 +802,8 @@ input {
   width: 10vw;
   align-items: center;
   /* padding-left: 7vw; */
+}
+/* ********************************************sp profile View***************************************** */
+#GarageProf #location {
+  color: white;
 }

@@ -27,8 +27,11 @@ body {
 
 .sidenav h1 {
   text-align: center;
+  margin-bottom: 0;
 }
-
+.sidenav p {
+  margin-top: 0;
+}
 .sidenav > img {
   width: 30%;
 }

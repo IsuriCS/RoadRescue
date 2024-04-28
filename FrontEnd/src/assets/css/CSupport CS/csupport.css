@@ -1,322 +1,252 @@
-/* *****************DASH BOARD CARDS ****************************** */
+#load-container {
+  width: 100vw;
+  height: 100%;
+  background-color: #ffffff8a;
+  z-index: 2;
+  position: fixed;
+}
 
-.content .content-box .displayCards {
-    display: flex;
-    flex-flow: row;
-    width: 100%;
-    justify-content: center;
-    align-content: center;
-  }
+#load-container img {
+  width: 25vh;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+
   
-  .displayCards .button {
-    background-color: #728ab0;
-    width: 30vw;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
-      0 10px 10px rgba(37, 27, 90, 0.311);
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
-      0 10px 10px rgba(37, 27, 90, 0.311);
-    font-size: inherit;
-    color: white;
-    font-weight: 600;
-    border-radius: 30px;
-    border: none;
-    /* text-align: center; */
-    padding: 2vh 1vh 1vh 3vh;
-    /* text-align: center; */
-    padding: 2vh 1vh 1vh 3vh;
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    margin: 1vh;
-    align-items: flex-start;
-    margin: 1vh;
-  }
-  
-  .displayCards .button span {
-    color: #000;
-    background-color: white;
-    border-radius: 60px;
-    font-size: 6vh;
-    font-size: 6vh;
-    padding: 1vh;
-  }
-  
-  .displayCards .button h2 {
-    margin-top: 1vh;
-    margin-bottom: 0;
-    color: #151d48;
-  }
-  
-  .displayCards .button h2 {
-    margin-top: 1vh;
-    margin-bottom: 0;
-    color: #151d48;
-  }
-  .displayCards .button p {
-    margin-top: 1vh;
-    font-size: 2.5vh;
-    font-size: 2.5vh;
-  }
-  
-  /* **********************************Dash Board Second Row Recent Moment and Payment Graphs ********************************************* */
-  .secondRow {
-    display: flex;
-    flex-direction: row;
-  
-    align-items: center;
-    width: 100%;
-  }
-  .graph {
-    width: 37vw;
-    height: 35vh;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
-      0 10px 10px rgba(37, 27, 90, 0.311);
-    margin: 1vh;
-  }
-  /* .recentMoment canvas {
-  } */
-  
-  .Payments {
-    margin-left: 2vw;
-  }
-  
-  /* .Payments canvas {
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
-      0 10px 10px rgba(37, 27, 90, 0.311);
-  } */
-  
-  /* **********************************Dash Board third Row Recent reports table ********************************************* */
+  /* **********************************Dash Board  Recent reports table ********************************************* */
   
   .ReportsSection table {
     margin: 1vh;
   }
   
-  /* **********************************Customer page search box ********************************************* */
-  .topRow {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin: 1vh;
-  }
-  .topRow input {
-    width: 30vw;
-    text-decoration: none;
-    font-size: 2vh;
-    padding: 0.8vh;
-  }
-  .searchboxContainer {
-    display: flex;
-  }
-  .searchboxContainer button {
-    width: 3vw;
-    padding: 0;
-    height: 4vh;
-    border: none;
-  }
-  .searchIcon {
-    font-size: 3vh;
-  }
-  
-  /* **********************************Customer page Profile view******************************************** */
-  .profileContent {
-    display: flex;
-    flex-direction: row;
-  }
-  .leftSide {
-    border-right: white solid;
-    width: 45%;
-    padding-left: 5vw;
-  }
-  .leftSide img {
-    width: 10vw;
-    align-items: center;
-    padding-left: 7vw;
-  }
-  
-  .leftSide .content-box .profileContent {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    margin: 1vh;
-  }
-  .row {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    margin: 1vh;
-  }
-  .row .tag {
-    width: 25%;
-    margin: 1vh;
-  }
-  .row .tag h1 {
-    font-size: 2vh;
-    margin: 0;
-  }
-  
-  .row .detail p {
-    margin: 0;
-  }
-  
-  .leftSide .buttonDiv {
-    display: flex;
-    flex-flow: row wrap;
-  
-    align-items: center;
-  }
-  .leftSide .buttonDiv .button {
-    width: 12vw;
-    margin: 2vh;
-  }
-  .button {
-    margin-top: 3vh;
-    font-size: large;
-    font-weight: 600;
-    text-decoration: none;
-    color: white;
-    border-radius: 2vh;
-    background: #23a6f0;
-    display: inline-flex;
-    padding: 2vh 2vw;
-    align-items: center;
-    gap: 1vw;
-    border-style: none;
-  }
-  
-  .button:hover {
-    background: #2289c4;
-  
-    text-decoration: none;
-  }
-  
-  .rightSide {
-    display: flex;
-    flex-direction: column;
-    padding-left: 5vh;
-  }
-  .rightSide .stsection .SuppotTicketcard {
-    background-color: #728ab0;
-    padding: 3vh;
-    border-radius: 5vh;
-    width: 60vh;
-  }
-  .SuppotTicketcard .solveButton {
-    display: flex;
-    justify-content: flex-end;
-  }
-  /* ************************FAQ**************************** */
-  
-  input,
-  textarea {
-    width: 100%;
-    font-size: 2.5vh;
-  }
-  input {
-    margin-bottom: 1vh;
-  }
-  
-  #button {
-    align-items: flex-end;
-  }
-  
-  .faq h1 {
-    padding: 1vh;
-    background-color: #728ab0;
-    text-align: center;
-    margin-bottom: 0;
-  }
-  
-  .active {
-    width: 80%;
-  }
-  
-  .faq-item {
-    display: flex;
-    flex-direction: column;
-  
-    width: 100%;
-    align-items: center;
-  }
-  
-  .question {
-    min-width: 100%;
-  
-    display: flex;
-    background-color: white;
-    color: black;
-    padding: 2vh 1vw;
-    cursor: pointer;
-    justify-content: space-between;
-  
-    border: none;
-    font-size: var(--h7);
-    font-weight: var(--semi-bold);
-  }
-  
-  .question > span {
-    float: right;
-  }
-  
-  .answer {
-    font-size: var(--h8);
-    width: 100%;
-    display: none;
-    color: #000;
-    background-color: rgb(197, 197, 197);
-  }
-  
-  .answer p {
-    padding: 0 30px 0 30px;
-  }
-  
-  .clicked > .material-symbols-outlined {
-    transform: rotate(180deg);
-  }
+/* **********************************Customer page search box ********************************************* */
+.topRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1vh;
+}
 
-  #ticket > .solveButton{
-    justify-content: end;
-  }
+.search input[type="text"] {
+  width: 300px;
+  height: 25px;
 
-  /* .editbutton{
-    
-      margin-top: 3vh;
-      font-size: large;
-      font-weight: 600;
-      text-decoration: none;
-      color: white;
-      border-radius: 2vh;
-      background: #23a6f0;
-      display: inline-flex;
-      padding: 2vh 2vw;
-      align-items: center;
-      gap: 1vw;
-      border-style: none;
-      appearance : auto;
-  } */
-  
-  
-  /* .left {
-    display: flex;
-    flex-direction: row;
-  }
-   */
-  .left img {
-    width: 15vw;
-    align-items: center;
-    padding-left: 7vw;
-    margin-top: 15%;
-  }
+  border: none;
+}
 
- /* .center .info{
+input:focus {
+  outline: none;
+}
+
+.search form {
+  height: 100%;
+}
+.search {
+  float: right;
+  margin: 7px;
+  background-color: white;
+  padding: 1vh;
+}
+
+.search button {
+  background-color: transparent;
+  color: #253555;
+  float: right;
+
+  margin-right: 16px;
   font-size: 12px;
-  line-height: 1.2;
+  border: none;
+  cursor: pointer;
+}
 
- } */
+  /* **********************************Customer page Profile view******************************************** */
+.profileContent {
+  display: flex;
+  flex-direction: row;
+}
+.leftSide {
+  border-right: white solid;
+  width: 45%;
+  padding-left: 5vw;
+}
+.leftSide img {
+  width: 10vw;
+  align-items: center;
+  padding-left: 7vw;
+}
+
+.leftSide .content-box .profileContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 1vh;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 1vh;
+}
+.row .tag {
+  width: 25%;
+  margin: 1vh;
+}
+.row .tag h1 {
+  font-size: 2vh;
+  margin: 0;
+}
+
+.row .detail p {
+  margin: 0;
+}
+
+.leftSide .buttonDiv {
+  display: flex;
+  flex-flow: row wrap;
+
+  align-items: center;
+}
+.leftSide .buttonDiv .button {
+  width: 12vw;
+  margin: 2vh;
+}
+.button {
+  margin-top: 3vh;
+  font-size: large;
+  font-weight: 600;
+  text-decoration: none;
+  color: white;
+  border-radius: 2vh;
+  background: #23a6f0;
+  display: inline-flex;
+  padding: 2vh 2vw;
+  align-items: center;
+  gap: 1vw;
+  border-style: none;
+  width: inherit;
+  justify-content: center;
+}
+#cusprof button {
+  width: 15vw;
+}
+
+#cusprof .rightSide button {
+  width: 7vw;
+  /* background: #23a6f0; */
+  margin-top: 0;
+}
+.button:hover {
+  background: #2289c4;
+
+  text-decoration: none;
+}
+.rightSide .SuppotTicketcard .row,
+.rightSide .spSuppotTicketcard .row,
+.rightSide .csSuppotTicketcard .row {
+  margin: 0;
+}
+.rightSide {
+  display: flex;
+  flex-direction: column;
+  padding-left: 5vh;
+  width: 45%;
+}
+.rightSide .stsection #no_support_tickets,
+.rightSide .spstsection #spno_support_tickets,
+.rightSide .stsection #csno_support_tickets {
+  color: #525c9394;
+  text-align: center;
+  font-size: 2vw;
+  padding: 0 8vw;
+}
+.rightSide .stsection .SuppotTicketcard,
+.rightSide .spstsection .spSuppotTicketcard,
+.rightSide .stsection .csSuppotTicketcard {
+  background-color: #728ab0;
+  padding: 3vh;
+  border-radius: 5vh;
+  width: 60vh;
+  margin: 2vh;
+}
+.rightSide .SuppotTicketcard h1,
+.rightSide .spSuppotTicketcard h1,
+.rightSide .csSuppotTicketcard h1 {
+  margin: 0;
+}
+.SuppotTicketcard .solveButton,
+.spSuppotTicketcard .solveButton,
+.csSuppotTicketcard .solveButton {
+  display: flex;
+  justify-content: flex-end;
+}
+.SuppotTicketcard .solveButton button,
+.spSuppotTicketcard .solveButton button,
+.csSuppotTicketcard .solveButton button {
+  justify-content: center;
+  width: auto;
+}
+
+.SuppotTicketcard .solveButton .pending,
+.spSuppotTicketcard .solveButton .pending,
+.csSuppotTicketcard .solveButton .pending {
+  background-color: #eb1212;
+}
+.SuppotTicketcard .solveButton .solved,
+.spSuppotTicketcard .solveButton .solved,
+.csSuppotTicketcard .solveButton .solved {
+  background-color: #41b6e4;
+}
+.SuppotTicketcard .solveButton .on_review,
+.spSuppotTicketcard .solveButton .on_review,
+.csSuppotTicketcard .solveButton .on_review {
+  background-color: #1caf09;
+}
+/* *********************************Support Ticket Page ****************************** */
+#SupportTicketDatail .info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1.5vw;
+}
+#SupportTicketDatail .info div {
+  display: flex;
+  flex-direction: row;
+}
+#SupportTicketDatail .info div #Detail {
+  margin-right: 2vw;
+  width: 14%;
+}
+
+#SupportTicketDatail .info textarea {
+  height: 10vh;
+  font-size: 2.5vh;
+  border: none;
+}
+#SupportTicketDatail .info div button {
+  width: 8vw;
+  /* padding: 1vh; */
+  font-size: 2vh;
+  border-radius: 2vh;
+  border: none;
+  background-color: #23a6f0;
+  color: white;
+  margin: 1vh;
+  margin-left: 5vw;
+}
+#SupportTicketDatail .info .disabledText {
+  color: white;
+}
+
+
+
+  /* **********************************Customer support profile view******************************************** */
 
  #csProfile > .left{
     border-right: white solid;
@@ -328,8 +258,7 @@
  }
 
 #csProfile > .right{
-  /* align-items: center;
-  justify-content: center; */
+
   width: 53%;
   float: right;
   margin-top: 60px;
@@ -337,4 +266,9 @@
   
   
    
+}
+
+#csProfile > .left img{
+
+  width : 80%
 }
