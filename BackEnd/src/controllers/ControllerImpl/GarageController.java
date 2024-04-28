@@ -1,14 +1,11 @@
 package controllers.ControllerImpl;
 
+import models.BankDetail;
 import models.Garage;
 import models.SpSupportTicket;
 import utils.CrudUtil;
 
-
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,13 +33,9 @@ public class GarageController {
         return garage;
     }
 
-    public String garageIsExists(Connection connection,String phoneNumber) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT id FROM service_provider WHERE phone_number=?", phoneNumber);
-        if (resultSet.next()) {
-            return resultSet.getString(1);
-        }
-        return null;
-    }
+
+
+
 
     public Boolean update(Connection connection,Garage garageModel) throws SQLException, ClassNotFoundException {
        return CrudUtil.executeUpdate(connection,"UPDATE service_provider SET phone_number=?,email=?,garage_name=?,owner_name=?,profile_pic_ref=? WHERE id=?",
@@ -103,6 +96,80 @@ public class GarageController {
 
     public boolean addSupportTicker(Connection connection, SpSupportTicket supportTicket) throws SQLException, ClassNotFoundException {
        return CrudUtil.executeUpdate(connection,"insert into sp_support_ticket (service_provider_id, status, title, description) values (?,?,?,?)",Integer.parseInt(supportTicket.getServiceProId()), "pending",supportTicket.getTitle(),supportTicket.getDescription());
+    }
+
+    public boolean updateContactNumber(Connection connection, String newContactNumber, String garageId) throws SQLException, ClassNotFoundException {
+       return CrudUtil.executeUpdate(connection,"UPDATE service_provider set phone_number=? where id=?",newContactNumber,garageId);
+    }
+
+    public boolean addSupportTickerTechnician(Connection connection, SpSupportTicket supportTicket) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate(connection,"insert into technician_support_ticket (technician_id, status, title, description) values (?,?,?,?)",Integer.parseInt(supportTicket.getServiceProId()), "pending",supportTicket.getTitle(),supportTicket.getDescription());
+    }
+
+    public JsonObject getEarnings(Connection connection, String searchId) throws SQLException, ClassNotFoundException {
+        String dalyEarning="0";
+        String dalyEarningCard="0";
+        String monthlyEarning="0";
+        String accountNumber="0";
+
+        ResultSet dalyCashEarnings = CrudUtil.executeQuery(connection, "SELECT SUM(requested_amount) AS total_requested_amount\n" +
+                "FROM service_request\n" +
+                "WHERE assigned_service_provider_id = ?\n" +
+                "  AND accepted_timestamp >= NOW() - INTERVAL 1 DAY",searchId);
+
+        ResultSet monthlyEarnings = CrudUtil.executeQuery(connection, "SELECT SUM(requested_amount) AS total_requested_amount\n" +
+                "FROM service_request\n" +
+                "WHERE assigned_service_provider_id = ?\n" +
+                "  AND accepted_timestamp >= NOW() - INTERVAL 30 DAY",searchId);
+
+        ResultSet dalyCardEarnings = CrudUtil.executeQuery(connection, "SELECT SUM(requested_amount) AS total_requested_amount\n" +
+                "FROM service_request\n" +
+                "WHERE assigned_service_provider_id = ?\n" +
+                "  AND accepted_timestamp >= NOW() - INTERVAL 30 DAY AND paid_amount = 1.00",searchId);
+
+        ResultSet result = CrudUtil.executeQuery(connection, "select account_num from bank_account where service_provider_id=?", searchId);
+
+        if (result.next()) {
+            accountNumber=result.getString(1);
+        }
+
+        if (dalyCashEarnings.next()) {
+            dalyEarning=(dalyCashEarnings.getDouble(1)==0)? "LKR 00.00" : "LKR "+dalyCashEarnings.getInt(1);
+        }
+
+        if (monthlyEarnings.next()) {
+            monthlyEarning=(monthlyEarnings.getDouble(1)==0)? "LKR 00.00" : "LKR "+monthlyEarnings.getDouble(1);
+        }
+
+        if (dalyCardEarnings.next()) {
+            dalyEarningCard=(dalyCardEarnings.getDouble(1)==0)? "LKR 00.00" : "LKR "+dalyCardEarnings.getDouble(1);
+        }
+
+        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+        objectBuilder.add("dalyEarning",dalyEarning);
+        objectBuilder.add("monthlyEarning",monthlyEarning);
+        objectBuilder.add("dalyEarningCard",dalyEarningCard);
+        objectBuilder.add("accountNumber",accountNumber);
+
+        return objectBuilder.build();
+    }
+
+    public boolean addBankDetails(Connection connection, BankDetail bankDetails) throws SQLException, ClassNotFoundException {
+       boolean b = isExistsBankDetails(connection,bankDetails);
+        if (b) {
+            // update
+
+           return CrudUtil.executeUpdate(connection,"UPDATE bank_account set account_num=?,name=?,bank=?,branch=? WHERE service_provider_id=?",bankDetails.getAccountNumber(),
+                   bankDetails.getName(),bankDetails.getBank(),bankDetails.getBranch(),Integer.parseInt(bankDetails.getServiceProviderId()));
+        }else {
+            //insert
+           return CrudUtil.executeUpdate(connection,"insert into bank_account (account_num,name,bank,branch,service_provider_id) values(?,?,?,?,?)",bankDetails.getAccountNumber(),bankDetails.getName(),bankDetails.getBank(),bankDetails.getBranch(),Integer.parseInt(bankDetails.getServiceProviderId()));
+        }
+    }
+
+    private boolean isExistsBankDetails(Connection connection, BankDetail bankDetails) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeQuery(connection, "Select id from bank_account where service_provider_id=?",Integer.parseInt(bankDetails.getServiceProviderId())).next();
+
     }
 }
 
