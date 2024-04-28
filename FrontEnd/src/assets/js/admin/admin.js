@@ -1311,18 +1311,20 @@ function showServiceProviders() {
                     var datai = res.data[i];
                     if (datai.verify == "Yes") {
                         var row = tableBody.insertRow();
-                        row.insertCell(0).textContent = datai.id || '-';
-                        row.insertCell(1).textContent = datai.garageName || '--';
-                        row.insertCell(2).textContent = datai.phoneNumber || '-';
-                        row.insertCell(3).textContent = datai.comRequests || '0';
-                        row.insertCell(4).textContent = datai.supTickets || '0';
-                        row.insertCell(5).textContent = datai.type || '-';
-                        row.cells[5].style.display = 'none';
-                        row.addEventListener('click', function () {
-                            var id = this.cells[0].textContent;
-                            showSPprof(id);
+                        // row.insertCell(0).textContent = datai.id || '-';
+                        row.insertCell(0).textContent = datai.garageName || '--';
+                        row.insertCell(1).textContent = datai.phoneNumber || '-';
+                        row.insertCell(2).textContent = datai.comRequests || '0';
+                        row.insertCell(3).textContent = datai.supTickets || '0';
+                        row.insertCell(4).textContent = datai.type || '-';
+                        row.cells[4].style.display = 'none';
+                        row.setAttribute('data-sp-id', datai.id);
 
-                        })
+                        row.addEventListener('click', function () {
+                            // Get the customer ID from the clicked row
+                            var spid = this.getAttribute('data-sp-id');
+                            showSPprof(spid);
+                        });
                     }
 
 
@@ -1467,419 +1469,545 @@ function showSPprof(spid) {
         url: API_URL + "/Admin/SPlist?option=getSPbyid&id=" + spid,
         method: "GET",
         success: function (res) {
-            datai = res.data;
-            title.innerHTML = `Servie Provider > G${spid.padStart(3, '0')}`;
-            $("#load-container").hide();
 
-            document.getElementById("id").innerHTML = datai.id;
-            document.getElementById("gname").innerHTML = datai.garageName || '-';
-            document.getElementById("oname").innerHTML = datai.owner_name || '-';
-            document.getElementById("pnum").innerHTML = datai.phoneNumber || '-';
-            document.getElementById("spemail").innerHTML = datai.email || '-';
-            console.log(datai.email);
+            showSPAnalytics(res, spid);
 
-            // set locaton link
-            var locationpoints = datai.location.split(",");
-            var link = `https://www.google.com/maps/search/?api=1&query=${locationpoints[0]},${locationpoints[1]}`;
-
-            document.getElementById("location").setAttribute("href", link);
-            document.getElementById("compservice").innerHTML = datai.comRequests || '0';
-
-            // format date
-            var dateTime = new Date(datai.Date);
-            var formattedDate = dateTime.toLocaleDateString();
-            document.getElementById("date").innerHTML = formattedDate || '0';
-
-            var name = datai.owner_name;
-            // View support Tickets
-            if (datai.supTickets > 0) {
-
-                // Remove created ticket cards
-                var ticketList = document.querySelectorAll(".spSuppotTicketcard");
-                console.log(ticketList);
-                if (ticketList.length > 0) {
-                    ticketList.forEach(function (ticket) {
-                        ticket.remove();
-                    });
-                }
-
-                // request ticket details from backend
-                $.ajax({
-                    url: API_URL + "/SPSupportTicket",
-                    method: "GET",
-                    success: function (tres) {
-                        console.log(tres);
-                        if (tres.status == 200) {
-
-
-                            for (var i = 0; i < tres.data.length; i++) {
-                                (function () {
-                                    var sdatai = tres.data[i];
-                                    if (sdatai.SPid == spid) {
-                                        console.log("inside if");
-
-                                        var temp = document.getElementById("spsupportTicketTemplate");
-                                        var clone = temp.content.cloneNode(true);
-                                        clone.querySelector(".spSuppotTicketcard h1").textContent = `ST-${String(sdatai.ticketId).padStart(3, '0')}`;
-                                        console.log(sdatai.ticketId);
-                                        var dateTime = new Date(sdatai.created_time);
-                                        var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
-                                        clone.querySelector(".spSuppotTicketcard .row .date p").textContent = formattedDate;
-
-                                        // Update ticket title
-                                        clone.querySelector(".spSuppotTicketcard .row .title p").textContent = sdatai.title;
-
-                                        // Change status button
-                                        var status = sdatai.status;
-                                        var sbutton = clone.querySelector(".spSuppotTicketcard .solveButton button");
-
-                                        if (status.toLowerCase() == "pending") {
-                                            sbutton.classList.add("pending");
-                                            sbutton.textContent = "Pending";
-                                        }
-                                        else if (status.toLowerCase() == "solved") {
-                                            sbutton.classList.add("solved");
-                                            sbutton.textContent = "Solved";
-                                        }
-                                        else {
-                                            sbutton.classList.add("on_review");
-                                            sbutton.textContent = "On Review";
-                                        }
-
-                                        clone.querySelector(".spSuppotTicketcard").addEventListener('click', function () {
-                                            showsupportTicket(sdatai.ticketId, name, "SP");
-
-
-                                        });
-                                        document.getElementById("spno_support_tickets").style.display = "none";
-                                        document.getElementById("spsupport_ticket_list").style.display = "block";
-                                        document.getElementById("spsupport_ticket_list").appendChild(clone);
-                                        console.log("appended");
-                                    }
-                                })();
-
-
-                            }
-                            $("#load-container").hide();
-                        }
-                    }
-                })
-                $("#load-container").hide();
-            }
-            var editButton = document.createElement("button");
-            editButton.id = "editProfileButton";
-            editButton.className = "button";
-
-            editButton.innerHTML = '<span class="material-symbols-outlined"> edit </span>Edit ';
-
-            // Append edit button to the container
-            var buttonContainer = document.querySelector(".spbuttonDiv #editButtonContainer");
-            buttonContainer.innerHTML = ''; // Clear previous button
-            buttonContainer.appendChild(editButton);
-
-            // Save button
-            var saveButton = document.createElement("button");
-            saveButton.id = "saveProfileButton";
-            saveButton.className = "button";
-
-            saveButton.innerHTML = '<span class="material-symbols-outlined" style="margin-right: 1vh; vertical-align: bottom;"> save </span>Save';
-            saveButton.style.display = "none";
-
-            // Append edit button to the container
-            buttonContainer.appendChild(saveButton);
-
-            // Delete Button
-            var deleteButton = document.createElement("button");
-            deleteButton.id = "deletebutton";
-            deleteButton.className = "deleteButton";
-
-            deleteButton.innerHTML = '<span class="material-symbols-outlined"> delete </span>Delete';
-            deleteButton.classList.add("button");
-
-
-            // Append edit button to the container
-            var deletebuttonContainer = document.querySelector(".spbuttonDiv #deleteButtonContainer");
-            deletebuttonContainer.innerHTML = ''; // Clear previous button
-            deletebuttonContainer.appendChild(deleteButton);
-
-            // Add event listener to the edit button
-            editButton.addEventListener("click", function () {
-
-                var form = document.getElementById("speditProfileForm");
-                form.style.display = "block";
-                document.getElementById("spprofile").style.display = "none";
-
-                var form = document.getElementById("speditProfileForm");
-                form.style.display = "block";
-                document.getElementById("spprofile").style.display = "none";
-
-                // Display save button
-                saveButton.style.display = "block";
-                editButton.style.display = "none";
-
-                // Disable delete button
-                deletebutton.disabled = true;
-                deletebutton.style.backgroundColor = "#6f102e";
-
-
-
-
-                document.querySelector("#speditProfileForm #cid").innerHTML = datai.id;
-
-                document.querySelector("#speditProfileForm #gname").value = datai.garageName;
-                document.querySelector("#speditProfileForm #oname").value = datai.owner_name;
-                document.querySelector("#speditProfileForm #email").value = datai.email;
-                document.querySelector("#speditProfileForm #cnum").value = datai.phoneNumber;
-
-                document.querySelector("#speditProfileForm #tech").innerHTML = datai.id;
-
-                saveButton.addEventListener("click", function () {
-                    messagebox.style.display = "block";
-                    messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
-                    messagetext.innerHTML = "Updating Profile...";
-                    messagebutton.style.display = "none";
-                    // Retrieve the updated values from the form fields
-                    var Id = document.querySelector("#speditProfileForm #cid").innerHTML;
-                    var gname = document.querySelector("#speditProfileForm #gname").value;
-                    var oname = document.querySelector("#speditProfileForm #oname").value;
-                    var email = document.querySelector("#speditProfileForm #email").value;
-                    var cnum = document.querySelector("#speditProfileForm #cnum").value;
-
-
-
-                    // Prepare the data to send via AJAX
-                    var data = {
-                        spId: Id,
-                        garage: gname,
-                        owner: oname,
-                        email: email,
-                        cnum: cnum,
-                        option: "updateDetails"
-                    };
-                    console.log(JSON.stringify(data))
-
-
-                    console.log(JSON.stringify(data));
-                    // Send an AJAX request to update the profile
-                    $.ajax({
-                        url: API_URL + '/Admin/SPlist',
-                        method: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify(data),
-                        success: function (response) {
-
-                            messageimg.setAttribute("src", "../../assets/img/Tick.png");
-                            messagetext.innerHTML = "Update Successful";
-                            messagebutton.style.display = "none";
-                            setTimeout(function () {
-                                messagebox.style.display = "none";
-                            }, 1500);
-                            document.getElementById("speditProfileForm").style.display = "none";
-                            document.getElementById("spprofile").style.display = "block";
-                            showSPprof(spid);
-                            deletebutton.disabled = false;
-                            deletebutton.style.backgroundColor = "#c41950";
-
-                            // Change to save button
-                            saveButton.style.display = "none";
-                            editButton.style.display = "block";
-                        },
-                        error: function (error) {
-
-                            messageimg.setAttribute("src", "../../assets/img/exclamation.png");
-                            messagetext.innerHTML = "Something went wrong. Try Again";
-                            messagebutton.style.display = "none";
-                            setTimeout(function () {
-                                messagebox.style.display = "none";
-                            }, 1500);
-                            document.getElementById("speditProfileForm").style.display = "none";
-                            document.getElementById("spprofile").style.display = "block";
-                            showSPprof(spid);
-                            deletebutton.disabled = false;
-                            deletebutton.style.backgroundColor = "#c41950";
-
-                            // Change to save button
-                            saveButton.style.display = "none";
-                            editButton.style.display = "block";
-                            // Handle error response
-                            console.error('Failed to update profile:', error);
-                        }
-                    });
-                });
-            });
-
-            deleteButton.addEventListener("click", function () {
-                messagebox.style.display = "block";
-                messageimg.setAttribute("src", "../../assets/img/delete.png");
-                messageimg.style.width = "13vh";
-                messagetext.innerHTML = "Are you sure you want to delete this user?";
-
-                var yesButton = document.createElement("button");
-                yesButton.id = "yesButton";
-                yesButton.className = "button";
-                yesButton.innerHTML = "Yes";
-                document.getElementById("proccessingBoxButtons").appendChild(yesButton);
-
-                var NoBUtton = document.createElement("button");
-                NoBUtton.id = "nobutton";
-                NoBUtton.className = "button";
-                NoBUtton.innerHTML = "No";
-                NoBUtton.addEventListener("click", function () {
-                    messagebox.style.display = "none";
-                    messagebutton.innerHTML = '';
-
-                });
-                document.getElementById("proccessingBoxButtons").appendChild(NoBUtton);
-
-                yesButton.addEventListener("click", function () {
-                    messagetext.innerHTML = "Please Wait..."
-                    messagebox.style.display = "block"
-                    messagebutton.style.display = "none";
-                    messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
-
-                    $.ajax({
-                        url: API_URL + "/Admin/SPlist?id=" + spid,
-                        method: "DELETE",
-                        success: function (res) {
-                            messagetext.innerHTML = "Service Provider Deleted Successfully";
-                            messageimg.setAttribute("src", "../../assets/img/Tick.png")
-                            messagebutton.style.display = "none";
-                            setTimeout(function () {
-                                messagebox.style.display = "none";
-                            }, 1500);
-                            showServiceProviders();
-                        },
-                        error: function (error) {
-                            messageimg.setAttribute("src", "../../assets/img/exclamation.png");
-                            messagetext.innerHTML = "Something went wrong. Try Again";
-                            messagebutton.style.display = "none";
-                            setTimeout(function () {
-                                messagebox.style.display = "none";
-                            }, 1500);
-                        }
-
-                    })
-                });
-
-            });
         }
 
 
-        // for (var i = 0; i < res.data.length; i++) {
 
-        //     if (res.data[i].id == spid) {
-
-        //         title.innerHTML = `Servie Provider > G${spid.padStart(3, '0')}`;
-
-
-        //         document.getElementById("id").innerHTML = datai.id;
-        //         document.getElementById("gname").innerHTML = datai.garageName || '-';
-        //         document.getElementById("oname").innerHTML = datai.owner_name || '-';
-        //         document.getElementById("pnum").innerHTML = datai.phoneNumber || '-';
-        //         document.getElementById("email").innerHTML = datai.email || '-';
-
-        //         // set locaton link
-        //         var locationpoints = datai.location.split(",");
-        //         var link = `https://www.google.com/maps/search/?api=1&query=${locationpoints[0]},${locationpoints[1]}`;
-
-        //         document.getElementById("location").setAttribute("href", link);
-        //         document.getElementById("compservice").innerHTML = datai.comRequests || '0';
-
-        //         // format date
-        //         var dateTime = new Date(datai.Date);
-        //         var formattedDate = dateTime.toLocaleDateString();
-        //         document.getElementById("date").innerHTML = datai.formattedDate || '0';
-
-        //         var name = datai.owner_name;
-        //         // View support Tickets
-        //         if (datai.supTickets > 0) {
-
-        //             // Remove created ticket cards
-        //             var ticketList = document.querySelectorAll(".spSuppotTicketcard");
-        //             console.log(ticketList);
-        //             if (ticketList.length > 0) {
-        //                 ticketList.forEach(function (ticket) {
-        //                     ticket.remove();
-        //                 });
-        //             }
-
-        //             // request ticket details from backend
-        //             $.ajax({
-        //                 url: API_URL + "/SPSupportTicket",
-        //                 method: "GET",
-        //                 success: function (tres) {
-        //                     console.log(tres);
-        //                     if (tres.status == 200) {
-
-
-        //                         for (var i = 0; i < tres.data.length; i++) {
-        //                             (function () {
-        //                                 var sdatai = tres.data[i];
-        //                                 if (sdatai.SPid == spid) {
-        //                                     console.log("inside if");
-
-        //                                     var temp = document.getElementById("spsupportTicketTemplate");
-        //                                     var clone = temp.content.cloneNode(true);
-        //                                     clone.querySelector(".spSuppotTicketcard h1").textContent = `ST-${String(sdatai.ticketId).padStart(3, '0')}`;
-        //                                     console.log(sdatai.ticketId);
-        //                                     var dateTime = new Date(sdatai.created_time);
-        //                                     var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
-        //                                     clone.querySelector(".spSuppotTicketcard .row .date p").textContent = formattedDate;
-
-        //                                     // Update ticket title
-        //                                     clone.querySelector(".spSuppotTicketcard .row .title p").textContent = sdatai.title;
-
-        //                                     // Change status button
-        //                                     var status = sdatai.status;
-        //                                     var sbutton = clone.querySelector(".spSuppotTicketcard .solveButton button");
-
-        //                                     if (status.toLowerCase() == "pending") {
-        //                                         sbutton.classList.add("pending");
-        //                                         sbutton.textContent = "Pending";
-        //                                     }
-        //                                     else if (status.toLowerCase() == "solved") {
-        //                                         sbutton.classList.add("solved");
-        //                                         sbutton.textContent = "Solved";
-        //                                     }
-        //                                     else {
-        //                                         sbutton.classList.add("on_review");
-        //                                         sbutton.textContent = "On Review";
-        //                                     }
-
-        //                                     clone.querySelector(".spSuppotTicketcard").addEventListener('click', function () {
-        //                                         showsupportTicket(tres, sdatai.ticketId, name);
-        //                                         console.log(tres, sdatai.ticketId, name);
-
-        //                                     });
-        //                                     document.getElementById("spno_support_tickets").style.display = "none";
-        //                                     document.getElementById("spsupport_ticket_list").style.display = "block";
-        //                                     document.getElementById("spsupport_ticket_list").appendChild(clone);
-        //                                     console.log("appended");
-        //                                 }
-        //                             })();
-
-
-        //                         }
-        //                         $("#load-container").hide();
-        //                     }
-        //                     else {
-        //                         console.log("error");
-        //                     }
-        //                 }
-        //             })
-
-        //         }
-        //         else {
-        //             $("#load-container").hide();
-        //             document.getElementById("spno_support_tickets").style.display = "block";
-        //             document.getElementById("spsupport_ticket_list").style.display = "none";
-
-        //         }
-        //     }
-
-        // }
     })
 
+}
+
+function showSPAnalytics(res, spid) {
+    var profile = res.data.profile;
+    var tickets = res.data.tickets;
+    var location = res.data.locations;
+    var Rating = res.data.rating;
+    datai = res.data;
+    title.innerHTML = `Servie Provider > ${profile.garageName}`;
+    $("#load-container").hide();
+
+
+    // document.getElementById("id").innerHTML = datai.id;
+    document.getElementById("gname").innerHTML = profile.garageName || '-';
+    document.getElementById("oname").innerHTML = profile.owner_name || '-';
+    document.getElementById("pnum").innerHTML = profile.phoneNumber || '-';
+    document.getElementById("spemail").innerHTML = profile.email || '-';
+    document.getElementById("tech").innerHTML = profile.technicians || '0';
+    document.getElementById("avgres").innerHTML = profile.avgrResponce + " min" || '0 min';
+    document.getElementById("avgcom").innerHTML = profile.avgcomplete + " min" || '0 min';
+
+
+    // set locaton link
+    // var locationpoints = datai.location.split(",");
+    // var link = `https://www.google.com/maps/search/?api=1&query=${locationpoints[0]},${locationpoints[1]}`;
+
+    // document.getElementById("location").setAttribute("href", link);
+    // document.getElementById("compservice").innerHTML = datai.comRequests || '0';
+
+    // // format date
+    // var dateTime = new Date(datai.Date);
+    // var formattedDate = dateTime.toLocaleDateString();
+    // document.getElementById("date").innerHTML = formattedDate || '0';
+
+    var name = profile.owner_name;
+    // View support Tickets
+    if (profile.supTickets > 0) {
+
+        // Remove created ticket cards
+        // var ticketList = document.querySelectorAll(".SuppotTicketcard");
+
+        // if (ticketList.length > 0) {
+        //     ticketList.forEach(function (ticket) {
+        //         ticket.remove();
+        //     });
+        // }
+
+        // // request ticket details from backend
+        // $.ajax({
+        //     url: API_URL + "/customerSupport",
+        //     method: "GET",
+        //     success: function (res) {
+
+        //         if (res.status == 200) {
+
+
+        //             for (var i = 0; i < res.data.length; i++) {
+        //                 (function () {
+        //                     var datai = res.data[i];
+        //                     if (datai.customerID == customerId) {
+
+
+        //                         var temp = document.getElementById("supportTicketTemplate");
+        //                         var clone = temp.content.cloneNode(true);
+        //                         clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${String(datai.ticketId).padStart(3, '0')}`;
+
+        //                         var dateTime = new Date(datai.created_time);
+        //                         var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
+        //                         clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
+
+        //                         // Update ticket title
+        //                         clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
+
+        //                         // Change status button
+        //                         var status = datai.status;
+        //                         var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
+
+        //                         if (status.toLowerCase() == "pending") {
+        //                             sbutton.classList.add("pending");
+        //                             sbutton.textContent = "Pending";
+        //                         }
+        //                         else if (status.toLowerCase() == "solved") {
+        //                             sbutton.classList.add("solved");
+        //                             sbutton.textContent = "Solved";
+        //                         }
+        //                         else {
+        //                             sbutton.classList.add("on_review");
+        //                             sbutton.textContent = "On Review";
+        //                         }
+
+        //                         clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
+        //                             showsupportTicket(datai.ticketId, name, "cus");
+
+
+        //                         });
+        //                         document.getElementById("no_support_tickets").style.display = "none";
+        //                         document.getElementById("support_ticket_list").style.display = "block";
+        //                         document.getElementById("support_ticket_list").appendChild(clone);
+        //                     }
+        //                 })();
+
+
+        //             }
+        //             $("#load-container").hide();
+        //         }
+        //         else {
+        //             console.log("error");
+        //         }
+        //     }
+        // })
+
+
+        // Verifications                  
+        // supportTickets.forEach(function (entry) {
+        //     var temp = document.getElementById("customerComtemplate");
+        //     var clone = temp.content.cloneNode(true);
+        //     var pElement = clone.querySelector("p");
+        //     if (pElement) {
+        //         pElement.textContent = `H - ${entry.ticketId}`;
+        //         clone.addEventListener('click', function () {
+        //             showsupportTicket(entry.ticketId, profile.fname + " " + profile.lname, "cus");
+        //         });
+        //         document.querySelector(".table").appendChild(clone);
+        //     }
+
+
+        // });
+
+        document.querySelector(".spCWindow").innerHTML = `<template id="spComtemplate">
+                        <div class="spComcards">
+                          <p>Garage</p>
+                          <span class="spcomstatus">Solved Tickets 8</span>
+                        </div>
+                        
+                      </template>`;
+        var complains = document.getElementById("spPendingTickets");
+
+        var complaintTemplate = document.querySelector("#spComtemplate");
+        if (complains.querySelector(".spComcards") != null) {
+            complains.querySelector(".spComcards").remove();
+        }
+
+        for (var i = 0; i < tickets.length; i++) {
+            var datai = tickets[i];
+            var pcontent = `H${String(datai.ticketId).padStart(3, '0')}`;
+            var spancontent = datai.status || 'No status';
+            var clone = complaintTemplate.content.cloneNode(true);
+
+            clone.querySelector("p").innerHTML = pcontent;
+            clone.querySelector("span").innerHTML = `${spancontent}`;
+            clone.querySelector(".spComcards").addEventListener("click", function (ticketId) {
+                return function () {
+                    showsupportTicket(ticketId, profile.fname + " " + profile.lname, "SP");
+                };
+            }(datai.ticketId)); // Immediately invoked function to capture ticketId
+
+            document.querySelector(".spCWindow").appendChild(clone);
+
+        }
+
+
+
+
+    }
+    else {
+        $("#load-container").hide();
+        document.querySelector("#spPendingTickets").style.display = "none";
+
+    }
+    var editButton = document.createElement("button");
+    editButton.id = "spditProfileButton";
+    editButton.className = "button";
+
+    editButton.innerHTML = '<span class="material-symbols-outlined"> edit </span>Edit ';
+
+    // Append edit button to the container
+    var buttonContainer = document.querySelector(".spbuttonDiv #speditButtonContainer");
+    buttonContainer.innerHTML = ''; // Clear previous button
+    buttonContainer.appendChild(editButton);
+
+    // Save button
+    var saveButton = document.createElement("button");
+    saveButton.id = "saveProfileButton";
+    saveButton.className = "button";
+
+    saveButton.innerHTML = '<span class="material-symbols-outlined" style="margin-right: 1vh; vertical-align: bottom;"> save </span>Save';
+    saveButton.style.display = "none";
+
+    // Append edit button to the container
+    buttonContainer.appendChild(saveButton);
+
+    // Delete Button
+    var deleteButton = document.createElement("button");
+    deleteButton.id = "spdeletebutton";
+    deleteButton.className = "deleteButton";
+
+    deleteButton.innerHTML = '<span class="material-symbols-outlined"> delete </span>Delete';
+    deleteButton.classList.add("button");
+
+
+    // Append edit button to the container
+    var deletebuttonContainer = document.querySelector(".spbuttonDiv #spdeleteButtonContainer");
+    deletebuttonContainer.innerHTML = ''; // Clear previous button
+    deletebuttonContainer.appendChild(deleteButton);
+
+    // Add event listener to the edit button
+    editButton.addEventListener("click", function () {
+
+        var form = document.getElementById("speditProfileForm");
+        form.style.display = "block";
+        document.getElementById("spprofile").style.display = "none";
+
+        var form = document.getElementById("speditProfileForm");
+        form.style.display = "block";
+        document.getElementById("spprofile").style.display = "none";
+
+        // Display save button
+        saveButton.style.display = "block";
+        editButton.style.display = "none";
+
+        // Disable delete button
+        deletebutton.disabled = true;
+        deletebutton.style.backgroundColor = "#6f102e";
+
+
+
+
+        // document.querySelector("#speditProfileForm #cid").innerHTML = datai.id;
+
+        document.querySelector("#speditProfileForm #gname").value = profile.garageName;
+        document.querySelector("#speditProfileForm #oname").value = profile.owner_name;
+        document.querySelector("#speditProfileForm #email").value = profile.email;
+        document.querySelector("#speditProfileForm #cnum").value = profile.phoneNumber;
+
+        document.querySelector("#speditProfileForm #tech").innerHTML = profile.tech || '0';
+        document.querySelector("#speditProfileForm #avgres").innerHTML = profile.avgrResponce + " min" || '0 min';
+
+        document.querySelector("#speditProfileForm #avgcom").innerHTML = profile.avgcomplete + " min" || '0 min';
+
+
+        saveButton.addEventListener("click", function () {
+            messagebox.style.display = "block";
+            messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
+            messagetext.innerHTML = "Updating Profile...";
+            messagebutton.style.display = "none";
+            // Retrieve the updated values from the form fields
+            // var Id = document.querySelector("#speditProfileForm #cid").innerHTML;
+            var gname = document.querySelector("#speditProfileForm #gname").value;
+            var oname = document.querySelector("#speditProfileForm #oname").value;
+            var email = document.querySelector("#speditProfileForm #email").value;
+            var cnum = document.querySelector("#speditProfileForm #cnum").value;
+
+
+
+            // Prepare the data to send via AJAX
+            var data = {
+                spId: spid,
+                garage: gname,
+                owner: oname,
+                email: email,
+                cnum: cnum,
+                option: "updateDetails"
+            };
+            console.log(JSON.stringify(data))
+
+
+            console.log(JSON.stringify(data));
+            // Send an AJAX request to update the profile
+            $.ajax({
+                url: API_URL + '/Admin/SPlist',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function (response) {
+                    if (response.status == 200) {
+                        messageimg.setAttribute("src", "../../assets/img/Tick.png");
+                        messagetext.innerHTML = "Update Successful";
+                        messagebutton.style.display = "none";
+                        setTimeout(function () {
+                            messagebox.style.display = "none";
+                        }, 1500);
+                        document.getElementById("speditProfileForm").style.display = "none";
+                        document.getElementById("spprofile").style.display = "block";
+                        showSPprof(spid);
+                        deletebutton.disabled = false;
+                        deletebutton.style.backgroundColor = "#c41950";
+
+                        // Change to save button
+                        saveButton.style.display = "none";
+                        editButton.style.display = "block";
+                    }
+                    else {
+                        messageimg.setAttribute("src", "../../assets/img/exclamation.png");
+                        messagetext.innerHTML = "Something went wrong. Try Again";
+                        messagebutton.style.display = "none";
+                        setTimeout(function () {
+                            messagebox.style.display = "none";
+                        }, 1500);
+                        document.getElementById("speditProfileForm").style.display = "none";
+                        document.getElementById("spprofile").style.display = "block";
+                        showSPprof(spid);
+                        deletebutton.disabled = false;
+                        deletebutton.style.backgroundColor = "#c41950";
+
+                        // Change to save button
+                        saveButton.style.display = "none";
+                        editButton.style.display = "block";
+                        // Handle error response
+                        console.error('Failed to update profile:', error);
+                    }
+                },
+                error: function (error) {
+
+                    messageimg.setAttribute("src", "../../assets/img/exclamation.png");
+                    messagetext.innerHTML = "Something went wrong. Try Again";
+                    messagebutton.style.display = "none";
+                    setTimeout(function () {
+                        messagebox.style.display = "none";
+                    }, 1500);
+                    document.getElementById("speditProfileForm").style.display = "none";
+                    document.getElementById("spprofile").style.display = "block";
+                    showSPprof(spid);
+                    deletebutton.disabled = false;
+                    deletebutton.style.backgroundColor = "#c41950";
+
+                    // Change to save button
+                    saveButton.style.display = "none";
+                    editButton.style.display = "block";
+                    // Handle error response
+                    console.error('Failed to update profile:', error);
+                }
+            });
+        });
+    });
+
+    deleteButton.addEventListener("click", function () {
+        messagebox.style.display = "block";
+        messageimg.setAttribute("src", "../../assets/img/delete.png");
+        messageimg.style.width = "13vh";
+        messagetext.innerHTML = "Are you sure you want to delete this user?";
+
+        var yesButton = document.createElement("button");
+        yesButton.id = "yesButton";
+        yesButton.className = "button";
+        yesButton.innerHTML = "Yes";
+        document.getElementById("proccessingBoxButtons").appendChild(yesButton);
+
+        var NoBUtton = document.createElement("button");
+        NoBUtton.id = "nobutton";
+        NoBUtton.className = "button";
+        NoBUtton.innerHTML = "No";
+        NoBUtton.addEventListener("click", function () {
+            messagebox.style.display = "none";
+            messagebutton.innerHTML = '';
+
+        });
+        document.getElementById("proccessingBoxButtons").appendChild(NoBUtton);
+        messagebutton.style.display = "block";
+
+        yesButton.addEventListener("click", function () {
+            messagetext.innerHTML = "Please Wait..."
+            messagebox.style.display = "block"
+            messagebutton.style.display = "none";
+            messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
+
+            $.ajax({
+                url: API_URL + "/Admin/SPlist?id=" + spid,
+                method: "DELETE",
+                success: function (res) {
+                    messagetext.innerHTML = "Service Provider Deleted Successfully";
+                    messageimg.setAttribute("src", "../../assets/img/Tick.png")
+                    messagebutton.style.display = "none";
+                    setTimeout(function () {
+                        messagebox.style.display = "none";
+                    }, 1500);
+                    showServiceProviders();
+                },
+                error: function (error) {
+                    messageimg.setAttribute("src", "../../assets/img/exclamation.png");
+                    messagetext.innerHTML = "Something went wrong. Try Again";
+                    messagebutton.style.display = "none";
+                    setTimeout(function () {
+                        messagebox.style.display = "none";
+                    }, 1500);
+                }
+
+            })
+        });
+
+    });
+
+    // Analytics
+    // map-----------------------------------
+
+    // document.querySelector('#spmapcontainer').innerHTML = `<div id="spRequestmap" class="map"></div>`
+    var setview = profile.location.split(",");
+
+    var container = L.DomUtil.get('map');
+    if (container != null) {
+        container._leaflet_id = null;
+    }
+
+    var map = L.map("spRequestmap").setView([parseFloat(setview[0]), parseFloat(setview[1])], 12);
+    if (location.length != 0) {
+        const ServiceRequestsCordinatesArray = location.map(locationString => {
+            const matches = locationString.match(/latitude=(-?\d+\.\d+), longitude=(-?\d+\.\d+)/);
+            if (matches) {
+                return `${matches[1]},${matches[2]}`;
+            }
+        });
+
+        var ServiceRequestsCordinates = ServiceRequestsCordinatesArray.map(function (location) {
+            var coordinates = location.split(',');
+            return [parseFloat(coordinates[0]), parseFloat(coordinates[1])];
+        });
+
+
+
+
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution:
+                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        }).addTo(map);
+
+        console.log(ServiceRequestsCordinates);
+        console.log(ServiceRequestsCordinatesArray);
+        console.log(calculateMedianLocation(ServiceRequestsCordinatesArray));
+        console.log(location);
+
+
+        ServiceRequestsCordinates.forEach(function (location) {
+
+            L.marker(location)
+                .addTo(map)
+                .bindPopup("Service Request Location");
+        });
+    }
+
+
+
+    // Request Status------------------------------------------
+
+    // document.querySelector(".requestgraph").innerHTML = '<canvas id="srpieChart" style="width: 100%"></canvas>'
+    // var status = ["Completed Services", "Cancelled Services"];
+    // var count = [0, 0];
+    // requestStatus.forEach(function (entry) {
+    //     if (entry.status == "Complete") {
+    //         count[0] = entry.count;
+    //     }
+    //     else {
+    //         count[1] = entry.count;
+    //     }
+    // });
+    // document.querySelector(".requestChart h1").innerHTML = "Total Service Requests " + (Number(count[0]) + Number(count[1]));
+
+    // var barColors = ["#54bebe", "#c80064"]
+
+    // new Chart("srpieChart", {
+    //     type: "pie",
+    //     data: {
+    //         labels: status,
+    //         datasets: [{
+    //             backgroundColor: barColors,
+    //             data: count,
+    //             borderWidth: 0
+    //         }]
+    //     },
+    //     options: {
+    //         maintainAspectRatio: false,
+    //         plugins: {
+    //             legend: {
+
+
+    //                 labels: {
+    //                     color: "white"
+    //                 }
+    //             }
+    //         },
+    //         title: {
+    //             display: true,
+    //             text: "World Wide Wine Production"
+    //         }
+    //     }
+    // });
+
+
+    // // Rating------------------------------------------
+    var ratingCounts = Rating.map(item => ({ rating: parseInt(item.rating), count: parseInt(item.count) }));
+    var rating = ratingCounts.map(item => item.rating);
+    var halfcount = ratingCounts.map(item => item.count);
+
+
+    var total = 0;
+    var count = [0, 0, 0, 0, 0, 0];
+    for (i = 0; i <= 5; i++) {
+        if (rating.includes(i)) {
+            count[i] = halfcount[rating.indexOf(i)];
+            total += halfcount[rating.indexOf(i)];
+        }
+    }
+
+    var percentageRatings = []
+    count.forEach(function (entry) {
+        if (entry == 0) {
+            percentageRatings.push({ percentage: '0%' });
+        }
+        else {
+            percentageRatings.push({ percentage: `${(entry / total) * 100}%` });
+        }
+    });
+
+    console.log(rating);
+    console.log(halfcount);
+    console.log(percentageRatings);
+    console.log(count);
+
+
+    document.querySelector("#spratings .bar-5").style.width = percentageRatings[5].percentage;
+    document.querySelector("#spratings .bar-4").style.width = percentageRatings[4].percentage;
+    document.querySelector("#spratings .bar-3").style.width = percentageRatings[3].percentage;
+    document.querySelector("#spratings .bar-2").style.width = percentageRatings[2].percentage;
+    document.querySelector("#spratings .bar-1").style.width = percentageRatings[1].percentage;
+
+
+    document.querySelector("#spratings .text-5 div").innerHTML = count[5] || '0';
+    document.querySelector("#spratings .text-4 div").innerHTML = count[4] || '0';
+    document.querySelector("#spratings .text-3 div").innerHTML = count[3] || '0';
+    document.querySelector("#spratings .text-2 div").innerHTML = count[2] || '0';
+    document.querySelector("#spratings .text-1 div").innerHTML = count[1] || '0';
 }
 
 function showcsmember() {

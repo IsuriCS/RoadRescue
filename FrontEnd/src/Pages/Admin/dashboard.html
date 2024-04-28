@@ -681,7 +681,7 @@
             <table id="SPList">
               <thead>
                 <tr>
-                  <th>ID</th>
+               
                   <th>Name</th>
                   <th>Phone Number</th>
                   <th>Completed services</th>
@@ -705,12 +705,7 @@
               <div id="spprofile">
                 <img src="../../assets/img/pic.png" alt="" />
                 <!-- Detail form +******************************************************************** -->
-                <div class="row">
-                  <div class="tag">
-                    <h1>ID :</h1>
-                  </div>
-                  <div class="detail"><p id="id"></p></div>
-                </div>
+                
                 <div class="row">
                   <div class="tag">
                     <h1>Garage Name :</h1>
@@ -741,18 +736,30 @@
                   </div>
                   <div class="detail"><p id="tech"></p></div>
                 </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Avarage Responce Time :</h1>
+                  </div>
+                  <div class="detail"><p id="avgres"></p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Avarage Service Completion Time :</h1>
+                  </div>
+                  <div class="detail"><p id="avgcom"></p></div>
+                </div>
               </div>
 
               <div id="speditProfileForm" style="display: none">
                 <img src="../../assets/img/pic.png" alt="" />
                 <span class="material-symbols-outlined">photo_camera</span>
                 <!-- Detail form +******************************************************************** -->
-                <div class="row">
+                <!-- <div class="row">
                   <div class="tag">
                     <h1>ID :</h1>
                   </div>
                   <div class="detail"><p id="cid"></p></div>
-                </div>
+                </div> -->
                 <div class="row">
                   <div class="tag">
                     <h1>Garage Name :</h1>
@@ -783,12 +790,24 @@
                   </div>
                   <div class="detail"><p id="tech"></p></div>
                 </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Avarage Responce Time :</h1>
+                  </div>
+                  <div class="detail"><p id="avgres"></p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Avarage Service Completion Time :</h1>
+                  </div>
+                  <div class="detail"><p id="avgcom"></p></div>
+                </div>
               </div>
 
               <!-- *********************Buttons**************************************************** -->
               <div class="spbuttonDiv">
-                <div id="editButtonContainer"></div>
-                <div id="deleteButtonContainer"></div>
+                <div id="speditButtonContainer"></div>
+                <div id="spdeleteButtonContainer"></div>
                 <!-- <div id="serviceHistoryButton"></div> -->
               </div>
               <!-- *********************Buttons**************************************************** -->
@@ -808,11 +827,26 @@
                 <span class="material-symbols-outlined"> delete </span>Delete
                 Profile
               </button> -->
+
+              <div id="spPendingTickets" >
+                  <div id="spticketoutline">
+                    <h3>Complaints</h3>
+                    <div class="spCWindow">
+                      <template id="spComtemplate">
+                        <div class="spComcards">
+                          <p>Garage</p>
+                          <span class="spcomstatus">Solved Tickets 8</span>
+                        </div>
+                        
+                      </template>
+                    </div>
+                  </div>
+                </div>
             </div>
 
             <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
             <div class="rightSide">
-              <div class="row">
+              <!-- <div class="row">
                 <div class="tag">
                   <h1>Location :</h1>
                 </div>
@@ -857,7 +891,99 @@
                     </div>
                   </template>
                 </div>
-              </div>
+              </div> -->
+              <div class="firstRow">
+                  <div id="sprequestmapdiv" class="spProfilemapContainer">
+                    <h1>Service Request Destribution</h1>
+                    <div id="spmapcontainer">
+                      <div id="spRequestmap" class="map"></div>
+                    </div>
+                    
+                  </div>
+
+                  <!-- <div class="requestChart">
+                    <h1>Total Service Requests</h1>
+                    <div class="graph requestgraph">
+                      <canvas id="srpieChart" style="width: 100%"></canvas>
+                    </div>
+                  </div> -->
+                </div>
+
+                <div class="ratings">
+                  <div id="spratings">
+                    <h1>Ratings for Service providers</h1>
+                    <div class="ratingrow">
+                      <div class="starRow">
+                        <div class="side">
+                          <div>5 star</div>
+                        </div>
+                        <div class="middle">
+                          <div class="bar-container">
+                            <div class="bar-5"></div>
+                          </div>
+                        </div>
+                        <div class="side right text-5">
+                          <div></div>
+                        </div>
+                      </div>
+
+                      <div class="starRow">
+                        <div class="side">
+                          <div>4 star</div>
+                        </div>
+                        <div class="middle">
+                          <div class="bar-container">
+                            <div class="bar-4"></div>
+                          </div>
+                        </div>
+                        <div class="side right text-4">
+                          <div></div>
+                        </div>
+                      </div>
+
+                      <div class="starRow">
+                        <div class="side">
+                          <div>3 star</div>
+                        </div>
+                        <div class="middle">
+                          <div class="bar-container">
+                            <div class="bar-3"></div>
+                          </div>
+                        </div>
+                        <div class="side right text-3">
+                          <div></div>
+                        </div>
+                      </div>
+                      <div class="starRow">
+                        <div class="side">
+                          <div>2 star</div>
+                        </div>
+                        <div class="middle">
+                          <div class="bar-container">
+                            <div class="bar-2"></div>
+                          </div>
+                        </div>
+                        <div class="side right text-2">
+                          <div></div>
+                        </div>
+                      </div>
+                      <div class="starRow">
+                        <div class="side">
+                          <div>1 star</div>
+                        </div>
+                        <div class="middle">
+                          <div class="bar-container">
+                            <div class="bar-1"></div>
+                          </div>
+                        </div>
+                        <div class="side right text-1">
+                          <div></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
             </div>
           </div>
         </div>

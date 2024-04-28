@@ -1,6 +1,7 @@
 package servlet;
 
 
+import controllers.AdminController.SPSupportTicketContraller;
 import controllers.AdminController.UserDataController;
 
 import javax.annotation.Resource;
@@ -25,6 +26,7 @@ public class AdminSPListServlet extends HttpServlet{
     DataSource ds;
 
     UserDataController userDataController=new UserDataController();
+    SPSupportTicketContraller spSupportTicketContraller= new SPSupportTicketContraller();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -39,11 +41,12 @@ public class AdminSPListServlet extends HttpServlet{
             case "getallsp":
                 try {
                     connection = ds.getConnection();
-                    JsonArray allServiceP = userDataController.getServiceProviderList(connection);
+                    JsonArray profile = userDataController.getServiceProviderList(connection);
+
                     JsonObjectBuilder response = Json.createObjectBuilder();
                     response.add("status", 200);
                     response.add("message", "Done");
-                    response.add("data", allServiceP);
+                    response.add("data", profile);
                     writer.print(response.build());
                 } catch (SQLException throwables) {
                     JsonObjectBuilder response = Json.createObjectBuilder();
@@ -76,11 +79,20 @@ public class AdminSPListServlet extends HttpServlet{
                 String id = req.getParameter("id");
                 try {
                     connection = ds.getConnection();
-                    JsonObject spdetail = userDataController.getSpyid(connection,id);
+                    JsonObject profile = userDataController.getSpyid(connection,id);
+                    JsonArray tickets = spSupportTicketContraller.getSpSupportTicket(connection,id);
+                    JsonArray locations = userDataController.getrequestLocationsSP(connection,id);
+                    JsonArray ratings=userDataController.getratingstoSP(connection,id);
+                    JsonObjectBuilder data = Json.createObjectBuilder();
+
+                    data.add("profile",profile);
+                    data.add("locations",locations);
+                    data.add("rating",ratings);
+                    data.add("tickets",tickets);
                     JsonObjectBuilder response = Json.createObjectBuilder();
                     response.add("status", 200);
                     response.add("message", "Done");
-                    response.add("data", spdetail);
+                    response.add("data", data.build());
                     writer.print(response.build());
                 } catch (SQLException throwables) {
                     JsonObjectBuilder response = Json.createObjectBuilder();
@@ -130,8 +142,6 @@ public class AdminSPListServlet extends HttpServlet{
             option = jsonObject.getString("option");
             switch (option){
                 case "updateDetails":
-
-
                     garage = jsonObject.getString("garage");
                     owner = jsonObject.getString("owner");
                     contactNumber = jsonObject.getString("cnum");
@@ -177,21 +187,18 @@ public class AdminSPListServlet extends HttpServlet{
 
                 case "getSPById":
 
-
                     id = jsonObject.getString("spId");
-
-
 
                     try {
                         Connection connection = ds.getConnection();
 
-                        JsonObject result = userDataController.getSpyid(connection,id);
+                        JsonObject profile = userDataController.getSpyid(connection,id);
 
                         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                         resp.setStatus(HttpServletResponse.SC_OK);
                         objectBuilder.add("status", 201);
                         objectBuilder.add("message", "Get Service Provider by id.");
-                        objectBuilder.add("data", result);
+                        objectBuilder.add("data", profile);
                         writer.print(objectBuilder.build());
 //                System.out.println("end send response");
 

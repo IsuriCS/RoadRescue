@@ -320,7 +320,8 @@ input:focus {
   cursor: pointer;
 }
 
-#PendingTickets {
+#PendingTickets,
+#spPendingTickets {
   background-color: #162645;
   border-radius: 2vh;
   /* border: white solid 3px; */
@@ -331,16 +332,19 @@ input:focus {
   width: 26vw;
   padding: 1vh;
 }
-#PendingTickets #ticketoutline {
+#PendingTickets #ticketoutline,
+#spPendingTickets #spticketoutline {
   overflow: auto;
   height: inherit;
 }
-#ticketoutline h3 {
+#ticketoutline h3,
+#spticketoutline h3 {
   margin: 1vh;
   color: white;
   text-align: center;
 }
-.cutomerCWindow div {
+.cutomerCWindow div,
+.spCWindow div {
   display: flex;
   flex-direction: row;
   background-color: #3b4966;
@@ -349,22 +353,26 @@ input:focus {
   margin: 1vw;
   padding: 0 1vw;
 }
-.cutomerCWindow #customerComcards:hover {
+.cutomerCWindow #customerComcards:hover,
+.spCWindow #spComcards:hover {
   background-color: #728ab0;
   cursor: pointer;
 }
 
 /* *******************Hover box********************* */
-.customerComcards {
+.customerComcards,
+.spComcards {
   position: relative;
   display: inline-block;
   border-bottom: 1px dotted black;
 }
-.customerComcards:hover {
+.customerComcards:hover,
+.spComcards:hover {
   cursor: pointer;
 }
 
-.customerComcards .comstatus {
+.customerComcards .comstatus,
+.spComcards .spcomstatus {
   visibility: hidden;
 
   background-color: black;
@@ -382,10 +390,12 @@ input:focus {
   padding: 1vh;
 }
 
-.customerComcards:hover .comstatus {
+.customerComcards:hover .comstatus,
+.spComcards:hover .spcomstatus {
   visibility: visible;
 }
-.customerComcards .comstatus::after {
+.customerComcards .comstatus::after,
+.spComcards .spcomstatus::after {
   content: " ";
   position: absolute;
   top: 100%; /* At the bottom of the tooltip */
@@ -489,7 +499,7 @@ input:focus {
 .csSuppotTicketcard .solveButton .on_review {
   background-color: #1caf09;
 } */
-#cusprof .rightSide h1 {
+.rightSide h1 {
   font-size: 3vh;
 }
 #cusprof .rightSide {
@@ -507,6 +517,9 @@ input:focus {
 }
 .cusProfilemapContainer {
   width: 22vw;
+}
+.spProfilemapContainer {
+  width: 100%;
 }
 .requestgraph {
   padding: 2vh;
