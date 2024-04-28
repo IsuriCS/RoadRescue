@@ -27,6 +27,7 @@ function showDashboard() {
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
+    document.querySelector("#techDropdown").classList.remove("dropDownActive");
 
     // document.querySelector("#GarageDropDown").classList.remove("submenuActive");
     // document.querySelector("#MPDropDown").classList.remove("submenuActive");
@@ -46,6 +47,8 @@ function showDashboard() {
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
+    document.querySelector("#technitian").style.display = "none";
+    document.querySelector("#techprof").style.display = "none";
 
     document.addEventListener("DOMContentLoaded", function () {
         // **************DashBoard-Recent moment bar chat*******************
@@ -422,6 +425,7 @@ function showcus() {
     document.querySelector("#customerDropdown").classList.add("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
+    document.querySelector("#techDropdown").classList.remove("dropDownActive");
 
     // document.querySelector("#GarageDropDown").classList.remove("submenuActive");
     // document.querySelector("#MPDropDown").classList.remove("submenuActive");
@@ -444,7 +448,8 @@ function showcus() {
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
-
+    document.querySelector("#technitian").style.display = "none";
+    document.querySelector("#techprof").style.display = "none";
 
 
     $("#load-container").show();
@@ -525,7 +530,8 @@ function showprof(customerId) {
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
-
+    document.querySelector("#technitian").style.display = "none";
+    document.querySelector("#techprof").style.display = "none";
     document.getElementById("editProfileForm").style.display = "none";
     document.getElementById("profile").style.display = "block";
     // Update the title
@@ -1064,7 +1070,8 @@ function showsupportTicket(ticketId, name, type) {
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
-
+    document.querySelector("#technitian").style.display = "none";
+    document.querySelector("#techprof").style.display = "none";
 
     // Update the title
     var ttitle = document.querySelector("#SupportTicketDatail .topRow h1");
@@ -1271,6 +1278,7 @@ function showServiceProviders() {
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#servicePDropdown").classList.add("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
+    document.querySelector("#techDropdown").classList.remove("dropDownActive");
 
     // document.querySelector("#GarageDropDown").classList.add("submenuActive");
     // document.querySelector("#MPDropDown").classList.remove("submenuActive");
@@ -1290,7 +1298,8 @@ function showServiceProviders() {
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
-
+    document.querySelector("#technitian").style.display = "none";
+    document.querySelector("#techprof").style.display = "none";
 
 
     var garage = document.getElementById("garages");
@@ -1461,7 +1470,8 @@ function showSPprof(spid) {
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
-
+    document.querySelector("#technitian").style.display = "none";
+    document.querySelector("#techprof").style.display = "none";
     // Update the title
     var title = document.querySelector("#GarageProf .topRow h1");
 
@@ -1699,23 +1709,23 @@ function showSPAnalytics(res, spid) {
         editButton.style.display = "none";
 
         // Disable delete button
-        deletebutton.disabled = true;
-        deletebutton.style.backgroundColor = "#6f102e";
+        deleteButton.disabled = true;
+        deleteButton.style.backgroundColor = "#6f102e";
 
 
 
 
         // document.querySelector("#speditProfileForm #cid").innerHTML = datai.id;
 
-        document.querySelector("#speditProfileForm #gname").value = profile.garageName;
-        document.querySelector("#speditProfileForm #oname").value = profile.owner_name;
-        document.querySelector("#speditProfileForm #email").value = profile.email;
-        document.querySelector("#speditProfileForm #cnum").value = profile.phoneNumber;
+        document.querySelector("#speditProfileForm #spgname").value = profile.garageName;
+        document.querySelector("#speditProfileForm #sponame").value = profile.owner_name;
+        document.querySelector("#speditProfileForm #speemail").value = profile.email;
+        document.querySelector("#speditProfileForm #spcnum").value = profile.phoneNumber;
 
-        document.querySelector("#speditProfileForm #tech").innerHTML = profile.tech || '0';
-        document.querySelector("#speditProfileForm #avgres").innerHTML = profile.avgrResponce + " min" || '0 min';
+        document.querySelector("#speditProfileForm #spetech").innerHTML = profile.tech || '0';
+        document.querySelector("#speditProfileForm #spavgres").innerHTML = profile.avgrResponce + " min" || '0 min';
 
-        document.querySelector("#speditProfileForm #avgcom").innerHTML = profile.avgcomplete + " min" || '0 min';
+        document.querySelector("#speditProfileForm #spavgcom").innerHTML = profile.avgcomplete + " min" || '0 min';
 
 
         saveButton.addEventListener("click", function () {
@@ -1725,10 +1735,10 @@ function showSPAnalytics(res, spid) {
             messagebutton.style.display = "none";
             // Retrieve the updated values from the form fields
             // var Id = document.querySelector("#speditProfileForm #cid").innerHTML;
-            var gname = document.querySelector("#speditProfileForm #gname").value;
-            var oname = document.querySelector("#speditProfileForm #oname").value;
-            var email = document.querySelector("#speditProfileForm #email").value;
-            var cnum = document.querySelector("#speditProfileForm #cnum").value;
+            var gname = document.querySelector("#speditProfileForm #spgname").value;
+            var oname = document.querySelector("#speditProfileForm #sponame").value;
+            var email = document.querySelector("#speditProfileForm #speemail").value;
+            var cnum = document.querySelector("#speditProfileForm #spcnum").value;
 
 
 
@@ -1752,7 +1762,7 @@ function showSPAnalytics(res, spid) {
                 contentType: 'application/json',
                 data: JSON.stringify(data),
                 success: function (response) {
-                    if (response.status == 200) {
+                    if (response.status == 201) {
                         messageimg.setAttribute("src", "../../assets/img/Tick.png");
                         messagetext.innerHTML = "Update Successful";
                         messagebutton.style.display = "none";
@@ -1762,8 +1772,8 @@ function showSPAnalytics(res, spid) {
                         document.getElementById("speditProfileForm").style.display = "none";
                         document.getElementById("spprofile").style.display = "block";
                         showSPprof(spid);
-                        deletebutton.disabled = false;
-                        deletebutton.style.backgroundColor = "#c41950";
+                        deleteButton.disabled = false;
+                        deleteButton.style.backgroundColor = "#c41950";
 
                         // Change to save button
                         saveButton.style.display = "none";
@@ -1779,8 +1789,8 @@ function showSPAnalytics(res, spid) {
                         document.getElementById("speditProfileForm").style.display = "none";
                         document.getElementById("spprofile").style.display = "block";
                         showSPprof(spid);
-                        deletebutton.disabled = false;
-                        deletebutton.style.backgroundColor = "#c41950";
+                        deleteButton.disabled = false;
+                        deleteButton.style.backgroundColor = "#c41950";
 
                         // Change to save button
                         saveButton.style.display = "none";
@@ -1800,8 +1810,8 @@ function showSPAnalytics(res, spid) {
                     document.getElementById("speditProfileForm").style.display = "none";
                     document.getElementById("spprofile").style.display = "block";
                     showSPprof(spid);
-                    deletebutton.disabled = false;
-                    deletebutton.style.backgroundColor = "#c41950";
+                    deleteButton.disabled = false;
+                    deleteButton.style.backgroundColor = "#c41950";
 
                     // Change to save button
                     saveButton.style.display = "none";
@@ -2010,6 +2020,683 @@ function showSPAnalytics(res, spid) {
     document.querySelector("#spratings .text-1 div").innerHTML = count[1] || '0';
 }
 
+function showTechnicians() {
+    document.querySelector("#dashboardLink").classList.remove("active");
+    document.querySelector("#UsersLink").classList.add("active");
+    document.querySelector("#profileLink").classList.remove("active");
+    document.querySelector("#verificationLink").classList.remove("active");
+    document.querySelector("#ReportLink").classList.remove("active");
+
+    document.querySelector("#customerDropdown").classList.remove("dropDownActive");
+    document.querySelector("#techDropdown").classList.add("dropDownActive");
+    document.querySelector("#csDropdown").classList.remove("dropDownActive");
+    document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
+
+    // document.querySelector("#GarageDropDown").classList.remove("submenuActive");
+    // document.querySelector("#MPDropDown").classList.remove("submenuActive");
+
+
+
+    document.querySelector("#dashboard").style.display = "none";
+    document.querySelector("#userCus").style.display = "none";
+    document.querySelector("#cusprof").style.display = "none";
+    document.querySelector("#csmember").style.display = "none";
+    document.querySelector("#csprof").style.display = "none";
+    // document.querySelector("#garageOwners").style.display = "none";
+    document.querySelector("#GarageProf").style.display = "none";
+    // document.querySelector("#maintainancePersonnel").style.display = "none";
+    // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
+    document.querySelector("#verification").style.display = "none";
+    document.querySelector("#reports").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
+    document.querySelector("#serviceProviders").style.display = "none";
+    document.querySelector("#technitian").style.display = "block";
+    document.querySelector("#techprof").style.display = "none";
+
+
+    $("#load-container").show();
+    $("#TechnicianList tbody").empty();
+
+    $.ajax({
+        url: API_URL + "/Admin/technician?option=getalltech",
+        method: "GET",
+        success: function (res) {
+
+            if (res.status == 200) {
+                $("#load-container").hide();
+
+                var tableBody = document.querySelector("#TechnicianList tbody");
+
+                // Start from index 1 to skip the first item in the JSON array
+                for (var i = 0; i < res.data.length; i++) {
+                    var datai = res.data[i];
+                    var row = tableBody.insertRow();
+                    row.insertCell(0).textContent = datai.id || '';
+                    row.insertCell(1).textContent = datai.f_name + " " + datai.l_name || '--';
+                    row.insertCell(2).textContent = datai.garageName || '';
+                    row.insertCell(3).textContent = datai.phoneNumber || '0';
+                    row.insertCell(4).textContent = datai.tasks || '0';
+
+                    row.setAttribute('data-tech-id', datai.id);
+
+                    row.addEventListener('click', function () {
+
+                        var techId = this.getAttribute('data-tech-id');
+                        showTechprof(techId);
+                    });
+                }
+
+            }
+            else {
+                console.log("error");
+            }
+        }
+    });
+
+    // Search Customer
+    document.getElementById("searchTechnitian").addEventListener("input", function () {
+        var searchValue = this.value.toUpperCase();
+        var table = document.getElementById("TechnicianList");
+        var tr = table.getElementsByTagName("tr");
+        for (var i = 0; i < tr.length; i++) {
+            var td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                var textValue = td.textContent || td.innerText;
+                if (textValue.toUpperCase().indexOf(searchValue) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+    );
+}
+function showTechprof(techId) {
+    $("#load-container").show();
+    document.querySelector("#dashboard").style.display = "none";
+    document.querySelector("#userCus").style.display = "none";
+    document.querySelector("#cusprof").style.display = "none";
+    document.querySelector("#csmember").style.display = "none";
+    document.querySelector("#csprof").style.display = "none";
+    // document.querySelector("#garageOwners").style.display = "none";
+    document.querySelector("#GarageProf").style.display = "none";
+    // document.querySelector("#maintainancePersonnel").style.display = "none";
+    // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+    document.querySelector("#adminProfile").style.display = "none";
+    document.querySelector("#verification").style.display = "none";
+    document.querySelector("#reports").style.display = "none";
+    document.querySelector("#SupportTicketDatail").style.display = "none";
+    document.querySelector("#serviceProviders").style.display = "none";
+    document.querySelector("#technitian").style.display = "none";
+    document.querySelector("#techprof").style.display = "block";
+    document.getElementById("editProfileForm").style.display = "none";
+    document.getElementById("profile").style.display = "none";
+    // Update the title
+
+
+    $.ajax({
+        url: API_URL + "/Admin/technician?option=getTechbyid&id=" + techId,
+        method: "GET",
+        contentType: 'application/json',
+
+        success: function (res) {
+
+            if (res.status == 200) {
+                $("#load-container").hide();
+                TechnicianAnalytics(res, techId);
+            }
+            else {
+                console.log("error");
+            }
+        }
+    });
+
+}
+
+
+function TechnicianAnalytics(res, techId) {
+
+
+    var profile = res.data.profile;
+    var expertise = res.data.analytics.expertice;
+    var servicehistory = res.data.analytics.activity;
+
+    var title = document.querySelector("#techprof .topRow h1");
+    title.innerHTML = `Technician > ${profile.f_name} ${profile.l_name}`;
+    document.getElementById("techid").innerHTML = profile.id;
+    document.getElementById("techfname").innerHTML = profile.f_name || '-';
+    document.getElementById("techlname").innerHTML = profile.l_name || '-';
+    document.getElementById("techgarage").innerHTML = profile.garageName || '-';
+    document.getElementById("techemail").innerHTML = profile.email || '-';
+    document.getElementById("techcnum").innerHTML = profile.phoneNumber || '-';
+    document.getElementById("techservices").innerHTML = profile.tasks || '0';
+
+    var ex = ""
+    expertise.forEach(function (entry) {
+        ex += entry + "<br/>";
+    });
+    document.getElementById("techExpertice").innerHTML = ex || '-';
+
+    // Show Support Tickets and profile data
+    // if (supportTickets.length > 0) {
+
+    //     // Remove created ticket cards
+    //     // var ticketList = document.querySelectorAll(".SuppotTicketcard");
+
+    //     // if (ticketList.length > 0) {
+    //     //     ticketList.forEach(function (ticket) {
+    //     //         ticket.remove();
+    //     //     });
+    //     // }
+
+    //     // // request ticket details from backend
+    //     // $.ajax({
+    //     //     url: API_URL + "/customerSupport",
+    //     //     method: "GET",
+    //     //     success: function (res) {
+
+    //     //         if (res.status == 200) {
+
+
+    //     //             for (var i = 0; i < res.data.length; i++) {
+    //     //                 (function () {
+    //     //                     var datai = res.data[i];
+    //     //                     if (datai.customerID == customerId) {
+
+
+    //     //                         var temp = document.getElementById("supportTicketTemplate");
+    //     //                         var clone = temp.content.cloneNode(true);
+    //     //                         clone.querySelector(".SuppotTicketcard h1").textContent = `ST-${String(datai.ticketId).padStart(3, '0')}`;
+
+    //     //                         var dateTime = new Date(datai.created_time);
+    //     //                         var formattedDate = dateTime.toLocaleDateString(); // Format the date as per locale
+    //     //                         clone.querySelector(".SuppotTicketcard .row .date p").textContent = formattedDate;
+
+    //     //                         // Update ticket title
+    //     //                         clone.querySelector(".SuppotTicketcard .row .title p").textContent = datai.title;
+
+    //     //                         // Change status button
+    //     //                         var status = datai.status;
+    //     //                         var sbutton = clone.querySelector(".SuppotTicketcard .solveButton button");
+
+    //     //                         if (status.toLowerCase() == "pending") {
+    //     //                             sbutton.classList.add("pending");
+    //     //                             sbutton.textContent = "Pending";
+    //     //                         }
+    //     //                         else if (status.toLowerCase() == "solved") {
+    //     //                             sbutton.classList.add("solved");
+    //     //                             sbutton.textContent = "Solved";
+    //     //                         }
+    //     //                         else {
+    //     //                             sbutton.classList.add("on_review");
+    //     //                             sbutton.textContent = "On Review";
+    //     //                         }
+
+    //     //                         clone.querySelector(".SuppotTicketcard").addEventListener('click', function () {
+    //     //                             showsupportTicket(datai.ticketId, name, "cus");
+
+
+    //     //                         });
+    //     //                         document.getElementById("no_support_tickets").style.display = "none";
+    //     //                         document.getElementById("support_ticket_list").style.display = "block";
+    //     //                         document.getElementById("support_ticket_list").appendChild(clone);
+    //     //                     }
+    //     //                 })();
+
+
+    //     //             }
+    //     //             $("#load-container").hide();
+    //     //         }
+    //     //         else {
+    //     //             console.log("error");
+    //     //         }
+    //     //     }
+    //     // })
+
+
+    //     // Verifications                  
+    //     // supportTickets.forEach(function (entry) {
+    //     //     var temp = document.getElementById("customerComtemplate");
+    //     //     var clone = temp.content.cloneNode(true);
+    //     //     var pElement = clone.querySelector("p");
+    //     //     if (pElement) {
+    //     //         pElement.textContent = `H - ${entry.ticketId}`;
+    //     //         clone.addEventListener('click', function () {
+    //     //             showsupportTicket(entry.ticketId, profile.fname + " " + profile.lname, "cus");
+    //     //         });
+    //     //         document.querySelector(".table").appendChild(clone);
+    //     //     }
+
+
+    //     // });
+
+    //     document.querySelector(".cutomerCWindow").innerHTML = `<template id="customerComtemplate">
+    //                     <div class="customerComcards">
+    //                       <p>Garage</p>
+    //                       <span class="comstatus">Solved Tickets 8</span>
+    //                     </div>
+
+    //                   </template>`;
+    //     var complains = document.getElementById("PendingTickets");
+
+    //     var complaintTemplate = document.querySelector("#customerComtemplate");
+    //     if (complains.querySelector(".customerComcards") != null) {
+    //         complains.querySelector(".customerComcards").remove();
+    //     }
+
+    //     for (var i = 0; i < supportTickets.length; i++) {
+    //         var datai = supportTickets[i];
+    //         var pcontent = `H${String(datai.ticketId).padStart(3, '0')}`;
+    //         var spancontent = datai.status || 'No status';
+    //         var clone = complaintTemplate.content.cloneNode(true);
+
+    //         clone.querySelector("p").innerHTML = pcontent;
+    //         clone.querySelector("span").innerHTML = `${spancontent}`;
+    //         clone.querySelector(".customerComcards").addEventListener("click", function (ticketId) {
+    //             return function () {
+    //                 showsupportTicket(ticketId, profile.fname + " " + profile.lname, "cus");
+    //             };
+    //         }(datai.ticketId)); // Immediately invoked function to capture ticketId
+
+    //         document.querySelector(".cutomerCWindow").appendChild(clone);
+
+    //     }
+
+
+
+
+    // }
+    // else {
+    //     $("#load-container").hide();
+    //     document.querySelector("#PendingTickets").style.display = "none";
+
+    // }
+
+    var editButton = document.createElement("button");
+    editButton.id = "teditProfileButton";
+    editButton.className = "button";
+    editButton.innerHTML = '<span class="material-symbols-outlined"> edit </span>Edit ';
+
+    // Append edit button to the container
+    var buttonContainer = document.getElementById("teditButtonContainer");
+    buttonContainer.innerHTML = ''; // Clear previous button
+    buttonContainer.appendChild(editButton);
+
+    // Save button
+    var saveButton = document.createElement("button");
+    saveButton.id = "tsaveProfileButton";
+    saveButton.className = "button";
+    saveButton.innerHTML = '<span class="material-symbols-outlined" style="margin-right: 1vh; vertical-align: bottom;"> save </span>Save';
+    saveButton.style.display = "none";
+
+    // Append edit button to the container
+    buttonContainer.appendChild(saveButton);
+
+    // Delete Button
+    // var deleteButton = document.createElement("button");
+    // deleteButton.id = "deletebutton";
+    // deleteButton.className = "deleteButton";
+    // deleteButton.innerHTML = '<span class="material-symbols-outlined"> delete </span>Delete';
+    // deleteButton.classList.add("button");
+
+
+    // // Append edit button to the container
+    // var deletebuttonContainer = document.getElementById("deleteButtonContainer");
+    // deletebuttonContainer.innerHTML = ''; // Clear previous button
+    // deletebuttonContainer.appendChild(deleteButton);
+
+    // Add event listener to the edit button
+    editButton.addEventListener("click", function () {
+
+        var form = document.getElementById("techeditProfileForm");
+        form.style.display = "block";
+        document.getElementById("techprofile").style.display = "none";
+
+        // var form = document.getElementById("editProfileForm");
+        // form.style.display = "block";
+        // document.getElementById("profile").style.display = "none";
+
+        // Display save button
+        saveButton.style.display = "block";
+        editButton.style.display = "none";
+
+        // // Disable delete button
+        // deletebutton.disabled = true;
+        // deletebutton.style.backgroundColor = "#6f102e";
+
+
+
+
+        // document.querySelector("#editProfileForm #cid").innerHTML = datai.customerId;
+        var datai = profile;
+        document.querySelector("#techeditProfileForm #tfname").value = datai.f_name;
+        document.querySelector("#techeditProfileForm #tlname").value = datai.l_name;
+        document.querySelector("#techeditProfileForm #temail").value = datai.email;
+        document.querySelector("#techeditProfileForm #tcnum").value = datai.phoneNumber;
+        document.querySelector("#techeditProfileForm #tgarage").innerHTML = datai.garageName;
+        document.querySelector("#techeditProfileForm #tservices").innerHTML = datai.tasks;
+
+
+
+        saveButton.addEventListener("click", function () {
+            messagebox.style.display = "block";
+            messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
+            messagetext.innerHTML = "Updating Profile...";
+            messagebutton.style.display = "none";
+            // Retrieve the updated values from the form fields
+            // var customerId = document.querySelector("#editProfileForm #cid").innerHTML;
+            var fname = document.querySelector("#techeditProfileForm #tfname").value;
+            var lname = document.querySelector("#techeditProfileForm #tlname").value;
+            var email = document.querySelector("#techeditProfileForm #temail").value;
+            var cnum = document.querySelector("#techeditProfileForm #tcnum").value;
+
+            // Perform validation if needed
+
+            // Prepare the data to send via AJAX
+            var data = {
+                techId: techId,
+                fname: fname,
+                lname: lname,
+                email: email,
+                cnum: cnum,
+                option: "updateDetails"
+            };
+
+            console.log(JSON.stringify(data));
+
+            // Send an AJAX request to update the profile
+            $.ajax({
+                url: API_URL + '/Admin/technician',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function (response) {
+                    if (response.status == 201) {
+                        messageimg.setAttribute("src", "../../assets/img/Tick.png");
+                        messagetext.innerHTML = "Update Successful";
+                        messagebutton.style.display = "none";
+                        setTimeout(function () {
+                            messagebox.style.display = "none";
+                        }, 1500);
+                        document.getElementById("techeditProfileForm").style.display = "none";
+                        document.getElementById("techprofile").style.display = "block";
+                        showTechprof(techId);
+                        // deletebutton.disabled = false;
+                        // deletebutton.style.backgroundColor = "#c41950";
+
+                        // Change to save button
+                        saveButton.style.display = "none";
+                        editButton.style.display = "block";
+                    }
+
+
+
+
+                },
+                error: function (error) {
+
+                    messageimg.setAttribute("src", "../../assets/img/exclamation.png");
+                    messagetext.innerHTML = "Something went wrong. Try Again error";
+                    messagebutton.style.display = "none";
+                    setTimeout(function () {
+                        messagebox.style.display = "none";
+                    }, 1500);
+                    document.getElementById("techeditProfileForm").style.display = "none";
+                    document.getElementById("techprofile").style.display = "block";
+                    showTechprof(techId);
+                    // deletebutton.disabled = false;
+                    // deletebutton.style.backgroundColor = "#c41950";
+
+                    // Change to save button
+                    saveButton.style.display = "none";
+                    editButton.style.display = "block";
+                    // Handle error response
+                    console.log('Failed to update profile:', error);
+                }
+            });
+        });
+    });
+
+
+
+
+    // Analytics
+    // map-----------------------------------
+    // document.getElementById('mapcontainer').innerHTML = `<div id="customerRequestmap" class="map"></div>`
+    // const ServiceRequestsCordinatesArray = ServiceRequests.map(locationString => {
+    //     const matches = locationString.match(/latitude=(-?\d+\.\d+), longitude=(-?\d+\.\d+)/);
+    //     if (matches) {
+    //         return `${matches[1]},${matches[2]}`;
+    //     }
+    // });
+
+    // var ServiceRequestsCordinates = ServiceRequestsCordinatesArray.map(function (location) {
+    //     var coordinates = location.split(',');
+    //     return [parseFloat(coordinates[0]), parseFloat(coordinates[1])];
+    // });
+
+
+    // var container = L.DomUtil.get('map');
+    // if (container != null) {
+    //     container._leaflet_id = null;
+    // }
+
+    // var map = L.map("customerRequestmap").setView(calculateMedianLocation(ServiceRequestsCordinatesArray), 12);
+
+
+
+    // L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    //     attribution:
+    //         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    // }).addTo(map);
+
+
+
+    // ServiceRequestsCordinates.forEach(function (location) {
+
+    //     L.marker(location)
+    //         .addTo(map)
+    //         .bindPopup(location.name);
+    // });
+
+
+    // // Request Status------------------------------------------
+
+    // document.querySelector(".requestgraph").innerHTML = '<canvas id="srpieChart" style="width: 100%"></canvas>'
+    // var status = ["Completed Services", "Cancelled Services"];
+    // var count = [0, 0];
+    // requestStatus.forEach(function (entry) {
+    //     if (entry.status == "Complete") {
+    //         count[0] = entry.count;
+    //     }
+    //     else {
+    //         count[1] = entry.count;
+    //     }
+    // });
+    // document.querySelector(".requestChart h1").innerHTML = "Total Service Requests " + (Number(count[0]) + Number(count[1]));
+
+    // var barColors = ["#54bebe", "#c80064"]
+
+    // new Chart("srpieChart", {
+    //     type: "pie",
+    //     data: {
+    //         labels: status,
+    //         datasets: [{
+    //             backgroundColor: barColors,
+    //             data: count,
+    //             borderWidth: 0
+    //         }]
+    //     },
+    //     options: {
+    //         maintainAspectRatio: false,
+    //         plugins: {
+    //             legend: {
+
+
+    //                 labels: {
+    //                     color: "white"
+    //                 }
+    //             }
+    //         },
+    //         title: {
+    //             display: true,
+    //             text: "World Wide Wine Production"
+    //         }
+    //     }
+    // });
+
+
+    // // Rating------------------------------------------
+    // var ratingCounts = Rating.map(item => ({ rating: parseInt(item.rating), count: parseInt(item.count) }));
+    // var rating = ratingCounts.map(item => item.rating);
+    // var halfcount = ratingCounts.map(item => item.count);
+
+
+    // var total = 0;
+    // var count = [0, 0, 0, 0, 0, 0];
+    // for (i = 0; i <= 5; i++) {
+    //     if (rating.includes(i)) {
+    //         count[i] = halfcount[rating.indexOf(i)];
+    //         total += halfcount[rating.indexOf(i)];
+    //     }
+    // }
+
+    // var percentageRatings = []
+    // count.forEach(function (entry) {
+    //     if (entry == 0) {
+    //         percentageRatings.push({ percentage: '0%' });
+    //     }
+    //     else {
+    //         percentageRatings.push({ percentage: `${(entry / total) * 100}%` });
+    //     }
+    // });
+
+    // console.log(rating);
+    // console.log(halfcount);
+    // console.log(percentageRatings);
+    // console.log(count);
+
+
+    // document.querySelector(".bar-5").style.width = percentageRatings[5].percentage;
+    // document.querySelector(".bar-4").style.width = percentageRatings[4].percentage;
+    // document.querySelector(".bar-3").style.width = percentageRatings[3].percentage;
+    // document.querySelector(".bar-2").style.width = percentageRatings[2].percentage;
+    // document.querySelector(".bar-1").style.width = percentageRatings[1].percentage;
+
+
+    // document.querySelector(".text-5 div").innerHTML = count[0] || '0';
+    // document.querySelector(".text-4 div").innerHTML = count[1] || '0';
+    // document.querySelector(".text-3 div").innerHTML = count[2] || '0';
+    // document.querySelector(".text-2 div").innerHTML = count[3] || '0';
+    // document.querySelector(".text-1 div").innerHTML = count[4] || '0';
+
+
+    // monthly activities
+    // **************technitian-Registation Bar Chart*******************
+    // Get current year and month
+    var currentDate = new Date();
+    var currentYear = currentDate.getFullYear();
+    var currentMonth = currentDate.getMonth() + 1;
+    // Generate labels for the past six months
+    document.querySelector(".techgraph").innerHTML = '<canvas id="techComrequest" ></canvas>'
+    var labels = [];
+    for (var i = 0; i <= 5; i++) {
+        var month = currentMonth - i;
+        var year = currentYear;
+        if (month <= 0) {
+            month += 12;
+            year--;
+        }
+        labels.push(year + '-' + (month < 10 ? '0' + month : month));
+    }
+
+    // Initialize data array with zeros
+    var data = Array(6).fill(0);
+
+    // Aggregate data for the past six months
+    servicehistory.forEach(function (item) {
+        var year = parseInt(item.year);
+        var month = parseInt(item.month);
+        var index = (currentYear - year) * 12 + (currentMonth - month);
+        if (index >= 0 && index < 6) {
+            data[index] += parseInt(item.requests);
+        }
+    });
+    // servicehistory.forEach(function (item) {
+    //     labels.push(item.year + '-' + item.month);
+    //     data.push(parseInt(item.requests));
+    // });
+
+    // Create chart
+    // var ctx = document.getElementById('requestChart').getContext('2d');
+    new Chart("techComrequest", {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Service Requests',
+                data: data,
+                fill: true,
+                backgroundColor: "#54bebe",
+
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    ticks: {
+                        color: "white"
+                    }
+                },
+                y: {
+                    ticks: {
+                        color: "white"
+                    }
+                }
+            },
+            maintainAspectRatio: false,
+            plugins: { legend: { labels: { color: "white" } } },
+
+        }
+    });
+    // new Chart("techExpertice", {
+    //     type: "bar",
+    //     data: {
+    //         labels: monthsToShow,
+    //         datasets: [{
+    //             label: "Registations",
+    //             data: rdatafilter,
+    //             backgroundColor: "#54bebe"
+    //         }, {
+    //             label: "Account Deletions",
+    //             data: ddatafilter,
+    //             backgroundColor: "#c80064"
+    //         }]
+    //     },
+    //     options: {
+    //         maintainAspectRatio: false,
+    //         plugins: { legend: { labels: { color: "white" } } },
+    //         barThickness: 20,
+    //         scales: {
+    //             x: {
+    //                 ticks: {
+    //                     color: "white"
+    //                 }
+    //             },
+    //             y: {
+    //                 ticks: {
+    //                     color: "white"
+    //                 }
+    //             }
+    //         }
+    //     }
+    // });
+}
+
+
 function showcsmember() {
 
     document.querySelector("#dashboardLink").classList.remove("active");
@@ -2021,6 +2708,7 @@ function showcsmember() {
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#csDropdown").classList.add("dropDownActive");
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
+    document.querySelector("#techDropdown").classList.remove("dropDownActive");
 
     // document.querySelector("#GarageDropDown").classList.remove("submenuActive");
     // document.querySelector("#MPDropDown").classList.remove("submenuActive");
@@ -2041,7 +2729,8 @@ function showcsmember() {
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
-
+    document.querySelector("#technitian").style.display = "none";
+    document.querySelector("#techprof").style.display = "none";
 
 
     $("#load-container").show();
@@ -2119,7 +2808,8 @@ function showcsprof(csid) {
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
-
+    document.querySelector("#technitian").style.display = "none";
+    document.querySelector("#techprof").style.display = "none";
 
     // Update the title
     var title = document.querySelector("#csprof .topRow h1");
@@ -2669,6 +3359,7 @@ function showVerification() {
 
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
+    document.querySelector("#techDropdown").classList.remove("dropDownActive");
 
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
 
@@ -2691,7 +3382,8 @@ function showVerification() {
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
-
+    document.querySelector("#technitian").style.display = "none";
+    document.querySelector("#techprof").style.display = "none";
     $("#load-container").show();
     $("#verificationList tbody").empty();
 
@@ -2847,7 +3539,7 @@ function showReports() {
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
-
+    document.querySelector("#techDropdown").classList.remove("dropDownActive");
     document.querySelector("#dashboard").style.display = "none";
     document.querySelector("#userCus").style.display = "none";
     document.querySelector("#cusprof").style.display = "none";
@@ -2859,6 +3551,8 @@ function showReports() {
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#verification").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
+    document.querySelector("#technitian").style.display = "none";
+    document.querySelector("#techprof").style.display = "none";
     var customerCols;
     var spCols;
     var csmemberCols;
@@ -3019,7 +3713,8 @@ function showProfile() {
 
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
     document.querySelector("#csDropdown").classList.remove("dropDownActive");
-
+    document.querySelector("#techDropdown").classList.remove("dropDownActive");
+    document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
     // document.querySelector("#GarageDropDown").classList.remove("submenuActive");
     // document.querySelector("#MPDropDown").classList.remove("submenuActive");
 
@@ -3038,6 +3733,8 @@ function showProfile() {
     document.querySelector("#adminProfile").style.display = "block";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
+    document.querySelector("#technitian").style.display = "none";
+    document.querySelector("#techprof").style.display = "none";
 
 }
 

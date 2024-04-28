@@ -16,10 +16,12 @@
   top: 0;
   bottom: 0;
 }
-.deleteButton {
+.deleteButton,
+#spdeletebutton {
   background-color: #c41950;
 }
-.deleteButton:hover {
+.deleteButton:hover,
+#spdeletebutton {
   background-color: #911d42;
 }
 /* *****************DASH BOARD CARDS ****************************** */
@@ -261,7 +263,8 @@ input:focus {
 }
 .leftSide #editProfileForm .row div input,
 #speditProfileForm .row div input,
-#csmeditProfileForm .row div input {
+#csmeditProfileForm .row div input,
+#techeditProfileForm .row div input {
   background-color: #253555;
   border: none;
   border-bottom: white solid 1px;

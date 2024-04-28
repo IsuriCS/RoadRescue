@@ -109,26 +109,9 @@
                   onclick="showServiceProviders()"
                   >Service Providers</a
                 >
-                <!-- <ul id="spdrop" class="spdropdown-container hide">
-                  <li>
-                    <a
-                      id="GarageDropDown"
-                      href="#garageOwner"
-                      onclick="showGarageOwner()"
-                      class="submenu"
-                      >Garage Owner</a
-                    >
-                  </li>
-                  <li>
-                    <a
-                      id="MPDropDown"
-                      href="#maintainancePersonnel"
-                      class="submenu"
-                      onclick="showMaintainancePersonnel()"
-                      >Maintainance Personnel</a
-                    >
-                  </li>
-                </ul> -->
+              </li>
+              <li id="techDropdown">
+                <a href="#tech" onclick="showTechnicians()">Technicians</a>
               </li>
               <li id="csDropdown">
                 <a href="#csmember" onclick="showcsmember()"
@@ -764,43 +747,43 @@
                   <div class="tag">
                     <h1>Garage Name :</h1>
                   </div>
-                  <div class="detail"><input id="gname" type="text" /></div>
+                  <div class="detail"><input id="spgname" type="text" /></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Owner Name :</h1>
                   </div>
-                  <div class="detail"><input id="oname" type="text" /></div>
+                  <div class="detail"><input id="sponame" type="text" /></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Phone Number :</h1>
                   </div>
-                  <div class="detail"><input id="cnum" type="text" /></div>
+                  <div class="detail"><input id="spcnum" type="text" /></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Email :</h1>
                   </div>
-                  <div class="detail"><input id="email" type="text" /></div>
+                  <div class="detail"><input id="speemail" type="text" /></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Technicions :</h1>
                   </div>
-                  <div class="detail"><p id="tech"></p></div>
+                  <div class="detail"><p id="spetech"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Avarage Responce Time :</h1>
                   </div>
-                  <div class="detail"><p id="avgres"></p></div>
+                  <div class="detail"><p id="spavgres"></p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Avarage Service Completion Time :</h1>
                   </div>
-                  <div class="detail"><p id="avgcom"></p></div>
+                  <div class="detail"><p id="spavgcom"></p></div>
                 </div>
               </div>
 
@@ -988,6 +971,198 @@
           </div>
         </div>
 
+        <!-- ---------------------------------------Users------------------------------- -->
+        <!-- ---------------------------------------Technitian------------------------------- -->
+        <div id="technitian" style="display: none">
+          <div class="topRow">
+            <h1>Technicions</h1>
+            <div class="search">
+              <form>
+                <input
+                  type="text"
+                  placeholder="Search Technician"
+                  name="search"
+                  id="searchTechnitian"
+                />
+                <button onclick="searchCustomer()">
+                  <span class="material-symbols-outlined">search</span>
+                </button>
+              </form>
+            </div>
+          </div>
+          <div>
+            <table id="TechnicianList">
+              <thead>
+                <tr>
+                  <th>Member ID</th>
+                  <th>Name</th>
+                  <th>Garage Name</th>
+                  <th>Phone Number</th>
+                  
+                  <th style="width: 15%;">Completed Service Requests</th>
+
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ---------------------------------------Technician Profile------------------------------- -->
+        <div id="techprof" style="display: none">
+          <div class="topRow">
+            <h1 >Technitian> c001</h1>
+          </div>
+
+          <div class="profileContent">
+            <div class="leftSide">
+              <div id="techprofile">
+                <img src="../../assets/img/pic.png" alt="" />
+                <!-- Detail form +******************************************************************** -->
+                <div class="row">
+                  <div class="tag">
+                    <h1>ID :</h1>
+                  </div>
+                  <div class="detail"><p id="techid"></p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>First Name :</h1>
+                  </div>
+                  <div class="detail"><p id="techfname"></p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Last Name :</h1>
+                  </div>
+                  <div class="detail"><p id="techlname"></p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Garage Name :</h1>
+                  </div>
+                  <div class="detail"><p id="techgarage"></p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Phone Number :</h1>
+                  </div>
+                  <div class="detail"><p id="techcnum"></p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Email :</h1>
+                  </div>
+                  <div class="detail"><p id="techemail"></p></div>
+                </div>
+                <div class="row">
+                    <div class="tag">
+                      <h1>Completed Services :</h1>
+                    </div>
+                    <div class="detail"><p id="techservices"></p></div>
+                  </div>
+                
+              </div>
+
+              <div id="techeditProfileForm" style="display: none">
+                <img src="../../assets/img/pic.png" alt="" />
+                <span class="material-symbols-outlined"> photo_camera </span>
+                <!-- Detail form +******************************************************************** -->
+                <div class="row">
+                  <div class="tag">
+                    <h1>ID :</h1>
+                  </div>
+                  <div class="detail"><p id="cid"></p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>First Name :</h1>
+                  </div>
+                  <div class="detail"><input id="tfname" type="text" /></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Last Name :</h1>
+                  </div>
+                  <div class="detail"><input id="tlname" type="text" /></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Garage Name :</h1>
+                  </div>
+                  <div class="detail"><p id="tgarage"></p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Phone Number :</h1>
+                  </div>
+                  <div class="detail"><input id="tcnum" type="text" /></div>
+                </div>
+                <div class="row">
+                <div class="tag">
+                  <h1>Email :</h1>
+                </div>
+                <div class="detail"><input id="temail" type="text"></div>
+              </div>
+              <div class="row">
+                  <div class="tag">
+                    <h1>Completed Services :</h1>
+                  </div>
+                  <div class="detail"><p id="tservices"></p></div>
+                </div>
+              
+              </div>
+
+              <!-- *********************Buttons**************************************************** -->
+              <div class="tbuttonDiv">
+                <div id="teditButtonContainer"></div>
+              
+              </div>
+            </div>
+
+            <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
+            <div class="rightSide">
+              <div class="row" style="align-items: flex-start;">
+                    <div class="tag">
+                      <h1>Expertice Areas :</h1>
+                    </div>
+                    <div class="detail"><p id="techExpertice"></p></div>
+                  </div>
+
+              <div class="techcompletedRequests">
+                <h1>Completed Service Requests</h1>
+                <div class="graph techgraph"><canvas id="techComrequest"></canvas></div>
+              </div>
+              <!-- <div class="stsection">
+                <h1>Support Tickets</h1>
+                <h1 id="csno_support_tickets">No Support Tickets</h1>
+                <div id="cssupport_ticket_list" style="display: none">
+                  <template id="cssupportTicketTemplate">
+                    <div class="csSuppotTicketcard">
+                      <h1>ST-001</h1>
+                      <div class="row">
+                        <div class="tag">
+                          <h1>Date :</h1>
+                        </div>
+                        <div class="date"><p>2323.01.23</p></div>
+                      </div>
+                      <div class="row">
+                        <div class="tag">
+                          <h1>Title :</h1>
+                        </div>
+                        <div class="title"><p>Payment Issue</p></div>
+                      </div>
+                      <div class="solveButton">
+                        <button type="submit" class="button">Solved</button>
+                      </div>
+                    </div>
+                  </template>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
         <!-- ---------------------------------------Users------------------------------- -->
         <!-- ---------------------------------------Customer support------------------------------- -->
         <div id="csmember" style="display: none">

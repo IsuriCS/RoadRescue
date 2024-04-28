@@ -97,6 +97,31 @@ public class UserDataController {
         return SericeProviderArray.build();
     }
 
+    public JsonArray getTechnicianList(Connection connection) throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT t.*, sp.garage_name AS garage_name, COUNT(st.service_request_id) AS number_of_services_assigned FROM technician t LEFT JOIN service_technician st ON t.id = st.technician_id LEFT JOIN service_provider sp ON t.service_provider_id = sp.id GROUP BY t.id;");
+
+        JsonArrayBuilder technicianArray = Json.createArrayBuilder();
+        while (rst.next()) {
+            int id = rst.getInt("id");
+            String phoneNumber= rst.getString("phone_number");
+            String garageName= rst.getString("garage_name");
+            String f_name = rst.getString("f_name");
+            String l_name = rst.getString("l_name");
+            String tasks= rst.getString("number_of_services_assigned");
+
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("id", id);
+            objectBuilder.add("phoneNumber",phoneNumber);
+            objectBuilder.add("garageName",garageName);
+            objectBuilder.add("f_name", f_name);
+            objectBuilder.add("l_name", l_name);
+            objectBuilder.add("tasks",tasks);
+            technicianArray.add(objectBuilder.build());
+        }
+
+        return technicianArray.build();
+    }
+
     public JsonArray getCustomerSupportList(Connection connection) throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.executeQuery(connection, "SELECT csm.id AS member_id,csm.f_name as f_name, csm.l_name AS l_name,csm.phone_number AS phone_number,COUNT(t.id) AS tickets_solved FROM customer_support_member csm LEFT JOIN (SELECT customer_support_member_id AS id FROM customer_support_ticket UNION ALL SELECT customer_support_member_id AS id FROM sp_support_ticket) AS t ON csm.id = t.id GROUP BY csm.id, csm.f_name, csm.l_name, csm.phone_number");
         JsonArrayBuilder CustomerArray = Json.createArrayBuilder();
@@ -279,6 +304,42 @@ public class UserDataController {
 
     }
 
+    public JsonObject getTechnicianByid(Connection connection,String id) throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT t.*, sp.garage_name AS garage_name, COUNT(st.service_request_id) AS number_of_services_assigned FROM technician t LEFT JOIN service_technician st ON t.id = st.technician_id LEFT JOIN service_provider sp ON t.service_provider_id = sp.id where t.id=?",id);
+
+
+        if (rst.next()) {
+
+            String phoneNumber= rst.getString("phone_number");
+            String garageName= rst.getString("garage_name");
+            String f_name = rst.getString("f_name");
+            String l_name = rst.getString("l_name");
+            String email = rst.getString("email");
+            String available = rst.getString("status");
+            String tasks= rst.getString("number_of_services_assigned");
+
+
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("id", id);
+            objectBuilder.add("phoneNumber",phoneNumber);
+            objectBuilder.add("garageName",garageName);
+            objectBuilder.add("f_name", f_name);
+            objectBuilder.add("l_name", l_name);
+            objectBuilder.add("tasks",tasks);
+            objectBuilder.add("available",available);
+            if (email!=null){
+                objectBuilder.add("email",email);
+            }
+           else {
+               objectBuilder.add("email","-");
+            }
+            return objectBuilder.build();
+        }
+        else {
+            return null;
+        }
+
+    }
     public boolean verifySP(Connection connection, int id ) throws SQLException, ClassNotFoundException {
 
         boolean verificationResult= CrudUtil.executeUpdate(connection,"UPDATE service_provider SET Verified = 'Yes' WHERE id = ?" , id);
@@ -311,7 +372,11 @@ public class UserDataController {
         return updateResult;
     }
 
+    public boolean Updatetechnician(Connection connection, String id ,String fname,String lname,String contactnum,String email) throws SQLException, ClassNotFoundException {
 
+        boolean updateResult= CrudUtil.executeUpdate(connection,"UPDATE technician SET f_name=?,l_name=?,phone_number=?,email=? WHERE id = ?" ,fname,lname,contactnum,email, id);
+        return updateResult;
+    }
     public boolean cancelVerification(Connection connection,int id)throws SQLException, ClassNotFoundException {
 
         boolean cancleResult= CrudUtil.executeUpdate(connection,"DELETE FROM service_provider WHERE id = ?" , id);
@@ -453,6 +518,35 @@ public class UserDataController {
         return array.build();
 
 
+    }
+
+//    tecnitian Anallytics
+    public JsonObject gettechnitianActivities(Connection connection,String id)throws SQLException,ClassNotFoundException{
+        ResultSet expertice= CrudUtil.executeQuery(connection,"SELECT t.id AS technician_id, e.expertise AS expertise_area FROM technician t INNER JOIN technician_expertise te ON t.id = te.technician_id INNER JOIN expertise e ON te.expertise_id = e.id Where t.id=?",id);
+        ResultSet activities=CrudUtil.executeQuery(connection,"SELECT YEAR(sr.request_timestamp) AS year,MONTH(sr.request_timestamp) AS month,COUNT(*) AS number_of_service_requests FROM service_request sr INNER JOIN service_technician st ON sr.id = st.service_request_id WHERE st.technician_id = ? GROUP BY YEAR(sr.request_timestamp),MONTH(sr.request_timestamp);",id);
+
+        JsonObjectBuilder object=Json.createObjectBuilder();
+        JsonArrayBuilder experticeArray=Json.createArrayBuilder();
+        JsonArrayBuilder activityArray=Json.createArrayBuilder();
+        while (expertice.next()){
+            experticeArray.add(expertice.getString("expertise_area"));
+        }
+        while (activities.next()){
+            String year=activities.getString("year");
+            String month = activities.getString("month");
+            String requests=activities.getString("number_of_service_requests");
+
+            JsonObjectBuilder objectBuilder=Json.createObjectBuilder();
+            objectBuilder.add("year",year);
+            objectBuilder.add("month",month);
+            objectBuilder.add("requests",requests);
+            activityArray.add(objectBuilder.build());
+        }
+
+        object.add("expertice",experticeArray);
+        object.add("activity",activityArray);
+
+        return object.build();
     }
 
 }
