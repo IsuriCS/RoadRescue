@@ -78,6 +78,75 @@ public class LoginServlet extends HttpServlet {
 
                 break;
 
+
+            case "admin":
+
+                try {
+                    connection=ds.getConnection();
+                    boolean b = login.adminLogin(connection, searchId);
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    if (b) {
+                        String otp = generateOTP();
+                        smsApi(otp,searchId);
+                        response.add("status", 200);
+                        response.add("message", "OTP-"+otp);
+                    }else {
+                        response.add("status", 204);
+                        response.add("message", searchId+" this phone Number is not register.\nPlease first register our system.");
+                    }
+                    response.add("data", "");
+                    writer.print(response.build());
+                }catch (SQLException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "SQL Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "Class not fount Exception Error ");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                }
+
+
+                break;
+
+            case "customerSupport":
+                try {
+                    connection=ds.getConnection();
+                    String id = login.customerSupportLogin(connection, searchId);
+                    String otp = generateOTP();
+                    smsApi(otp,searchId);
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    response.add("status", 200);
+                    response.add("message", id+otp);
+                    response.add("data", "");
+                    writer.print(response.build());
+                } catch (SQLException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "SQL Exception Error");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder response = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    response.add("status", 500);
+                    response.add("message", "Class not fount Exception Error ");
+                    response.add("data", e.getLocalizedMessage());
+                    writer.print(response.build());
+                    e.printStackTrace();
+                }
+                break;
+
             case "registerSearch":
                 try {
                     connection=ds.getConnection();
@@ -120,9 +189,9 @@ public class LoginServlet extends HttpServlet {
             case "sentOtp":
 
                 try{
-                    System.out.println( "otp ekat awa utto" );
+
                     String otp = generateOTP();
-                    smsApi(otp,searchId);
+                   // smsApi(otp,searchId);
                     JsonObjectBuilder response = Json.createObjectBuilder();
                     response.add("status", 200);
                     response.add("message", "sent OTP");

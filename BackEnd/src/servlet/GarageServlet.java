@@ -351,6 +351,44 @@ public class GarageServlet extends HttpServlet {
                 writer.print(objectBuilder.build());
                 e.printStackTrace();
             }
+        }else if(option.equalsIgnoreCase("changeTechnicianPhoneNumber")){
+            try {
+                connection=ds.getConnection();
+                boolean b = garage.updateContactNumber(connection, newContactNumber, garageId);
+                if (b) {
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    objectBuilder.add("status", 200);
+                    objectBuilder.add("message", "Phone number updated");
+                    objectBuilder.add("data", "");
+                    writer.print(objectBuilder.build());
+                }else {
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    objectBuilder.add("status", 204);
+                    objectBuilder.add("message", "Update failed");
+                    objectBuilder.add("data", "");
+                    writer.print(objectBuilder.build());
+                }
+                connection.close();
+            } catch (SQLException e) {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                objectBuilder.add("status", 500);
+                objectBuilder.add("message", "SQL Exception Error.");
+                objectBuilder.add("data", e.getLocalizedMessage());
+                writer.print(objectBuilder.build());
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                objectBuilder.add("status", 500);
+                objectBuilder.add("message", "Class not fount Exception Error");
+                objectBuilder.add("data", e.getLocalizedMessage());
+                writer.print(objectBuilder.build());
+                e.printStackTrace();
+            }
+
         }else {
             try (Reader stringReader = new InputStreamReader(req.getInputStream())) {
                 JsonReader reader = Json.createReader(stringReader);

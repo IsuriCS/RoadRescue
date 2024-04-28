@@ -25,8 +25,8 @@ public class SMS {
             }
             System.out.println("111111111"+matcher.group(1));
             String url = "https://app.notify.lk/api/v1/send";
-            String userId = "27023";
-            String apiKey = "KG1x6UjgpV2LJZrQKxWh";
+            String userId = "27044";
+            String apiKey = "w0WiCEASUAEV2vfcZBlL";
             String senderId = "NotifyDEMO";
             String to = matcher.group(1);
             String message = "Code : "+otp+"\n Please use above Road Rescue Code/OPT to complete Your allocation\n\n.........********.........";

@@ -100,11 +100,14 @@ public class TechnicianServlet extends HttpServlet {
                 break;
             case "filterTechByIssue":
                 try {
-                    // split searchId to issueCategory and id
+                    System.out.println(searchId);
                     String[] parts = searchId.split("-");
 
                     String issueCategory = parts[0];
                     String id = parts[1];
+
+                    System.out.println(issueCategory);
+                    System.out.println(id);
 
                     connection = ds.getConnection();
 

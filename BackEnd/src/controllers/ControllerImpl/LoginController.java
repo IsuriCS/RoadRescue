@@ -43,4 +43,18 @@ public class LoginController {
             return false;
         }
     }
+
+    public boolean adminLogin(Connection connection, String phoneNumber) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeQuery(connection, "SELECT id admin where phone_number=?", phoneNumber).next();
+    }
+
+    public String customerSupportLogin(Connection connection, String csPhoneNumber) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT id customer_support_member where phone_number=?", csPhoneNumber);
+        if (resultSet.next()) {
+            return resultSet.getInt(1)+"-";
+        }else {
+            return "You not have in our system.\n Please contact +94763552600";
+        }
+
+    }
 }

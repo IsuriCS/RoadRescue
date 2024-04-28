@@ -10,10 +10,10 @@ import java.sql.SQLException;
 public class ServicesController {
 
     public JsonArray fetchService(Connection connection) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = CrudUtil.executeQuery(connection, "select ic.category,se.customer_id,se.description,se.approx_cost,TIME_FORMAT(TIME(CONVERT_TZ(se.request_timestamp, '+00:00', '+05:30')), '%h.%i %p'),se.indicator_1,se.indicator_2,se.indicator_3,se.indicator_4,se.indicator_5,se.indicator_6,se.id,se.location,sp.Verified\n" +
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "select ic.category,se.customer_id,se.description,se.approx_cost,TIME_FORMAT(TIME(CONVERT_TZ(se.request_timestamp, '+00:00', '+05:30')), '%h.%i %p'),se.indicator_1,se.indicator_2,se.indicator_3,se.indicator_4,se.indicator_5,se.indicator_6,se.id,se.location\n" +
                 "from service_request se\n" +
-                "right join issue_category ic on se.issue_category_id=ic.id\n" +
-                "right join service_provider sp on se.assigned_service_provider_id = sp.id\n" +
+                "join issue_category ic on se.issue_category_id=ic.id\n" +
+                "left join service_provider sp on se.assigned_service_provider_id = sp.id\n" +
                 "where  se.status=1 ORDER BY se.id DESC");
         JsonArrayBuilder services= Json.createArrayBuilder();
 
@@ -56,7 +56,7 @@ public class ServicesController {
             objectBuilder.add("indicatorLightStatus", indicatorLightStatus );
             objectBuilder.add("serviceRequestId", resultSet.getInt(12) );
             objectBuilder.add("serviceLocation", resultSet.getString(13) );
-            objectBuilder.add("verification", resultSet.getString(14) );
+            //objectBuilder.add("verification",(resultSet.getString(13)==null)? "No": resultSet.getString(13) );
             services.add(objectBuilder.build());
         }
         return services.build();
