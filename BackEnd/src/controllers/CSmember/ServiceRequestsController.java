@@ -33,7 +33,12 @@ public class ServiceRequestsController {
 
         return RecentRequestArrayBuilder.build();
     }
-}
+
+
+    public boolean RequestCancelation(Connection connection) throws SQLException, ClassNotFoundException {
+
+        return CrudUtil.executeUpdate(connection, "UPDATE road_rescue.service_request SET status = 7 WHERE status IN (2, 3, 4)");
+    }
 
 //    public boolean cancelRequest(Connection connection)throws SQLException, ClassNotFoundException {
 //
@@ -42,3 +47,4 @@ public class ServiceRequestsController {
 //
 //        return cancleRequest;
 //    }
+}

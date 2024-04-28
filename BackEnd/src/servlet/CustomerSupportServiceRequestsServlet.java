@@ -64,4 +64,43 @@ public class CustomerSupportServiceRequestsServlet extends HttpServlet{
             }
         }
     }
+
+    protected void doPUT(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
+        Connection connection = null;
+        try {
+            connection = ds.getConnection();
+            JsonArray serviceRequests = serviceRequestsController.getServiceRequests(connection);
+            JsonObjectBuilder response = Json.createObjectBuilder();
+            response.add("status", 200);
+            response.add("message", "Done");
+            response.add("data", serviceRequests);
+            writer.print(response.build());
+        } catch (SQLException e) {
+            JsonObjectBuilder response = Json.createObjectBuilder();
+            resp.setStatus(HttpServletResponse.SC_OK);
+            response.add("status", 500);
+            response.add("message", "SQLException");
+            response.add("data", e.getLocalizedMessage());
+            writer.print(response.build());
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            JsonObjectBuilder response = Json.createObjectBuilder();
+            resp.setStatus(HttpServletResponse.SC_OK);
+            response.add("status", 500);
+            response.add("message", "Class Not found");
+            response.add("data", e.getLocalizedMessage());
+            writer.print(response.build());
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
