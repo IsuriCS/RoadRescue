@@ -10,11 +10,11 @@ import java.sql.SQLException;
 public class ServicesController {
 
     public JsonArray fetchService(Connection connection) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = CrudUtil.executeQuery(connection, "select ic.category,se.customer_id,se.description,se.approx_cost,se.request_timestamp,se.indicator_1,se.indicator_2,se.indicator_3,se.indicator_4,se.indicator_5,se.indicator_6,se.id,se.location,sp.Verified\n" +
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "select ic.category,se.customer_id,se.description,se.approx_cost,TIME_FORMAT(TIME(CONVERT_TZ(se.request_timestamp, '+00:00', '+05:30')), '%h.%i %p'),se.indicator_1,se.indicator_2,se.indicator_3,se.indicator_4,se.indicator_5,se.indicator_6,se.id,se.location,sp.Verified\n" +
                 "from service_request se\n" +
                 "right join issue_category ic on se.issue_category_id=ic.id\n" +
                 "right join service_provider sp on se.assigned_service_provider_id = sp.id\n" +
-                "where  se.status=1");
+                "where  se.status=1 ORDER BY se.id DESC");
         JsonArrayBuilder services= Json.createArrayBuilder();
 
         while (resultSet.next()) {
