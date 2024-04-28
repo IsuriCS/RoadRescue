@@ -123,7 +123,7 @@ public class UserDataController {
     }
 
     public JsonArray getCustomerSupportList(Connection connection) throws SQLException, ClassNotFoundException {
-        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT csm.id AS member_id,csm.f_name as f_name, csm.l_name AS l_name,csm.phone_number AS phone_number,COUNT(t.id) AS tickets_solved FROM customer_support_member csm LEFT JOIN (SELECT customer_support_member_id AS id FROM customer_support_ticket UNION ALL SELECT customer_support_member_id AS id FROM sp_support_ticket) AS t ON csm.id = t.id GROUP BY csm.id, csm.f_name, csm.l_name, csm.phone_number");
+        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT csm.id AS member_id,csm.f_name as f_name,csm.email as email, csm.l_name AS l_name,csm.phone_number AS phone_number,COUNT(t.id) AS tickets_solved FROM customer_support_member csm LEFT JOIN (SELECT customer_support_member_id AS id FROM customer_support_ticket UNION ALL SELECT customer_support_member_id AS id FROM sp_support_ticket) AS t ON csm.id = t.id GROUP BY csm.id, csm.f_name, csm.l_name, csm.phone_number");
         JsonArrayBuilder CustomerArray = Json.createArrayBuilder();
         while (rst.next()) {
             String member_id = rst.getString("member_id");
@@ -131,6 +131,7 @@ public class UserDataController {
             String lname= rst.getString("l_name");
             String phone_number= rst.getString("phone_number");
             int tickets_solved = rst.getInt("tickets_solved");
+            String email=rst.getString("email");
 
 
 
@@ -140,6 +141,12 @@ public class UserDataController {
             objectBuilder.add("lname",lname);
             objectBuilder.add("phone_number",phone_number);
             objectBuilder.add("tickets_solved", tickets_solved);
+            if(email!=null){
+                objectBuilder.add("email",email);
+            }
+            else {
+                objectBuilder.add("email","-");
+            }
 
 
             CustomerArray.add(objectBuilder.build());
@@ -276,7 +283,7 @@ public class UserDataController {
     }
 
     public JsonObject getCSMbyid(Connection connection,String id) throws SQLException, ClassNotFoundException {
-        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT csm.id AS member_id,csm.f_name as f_name, csm.l_name AS l_name,csm.phone_number AS phone_number,COUNT(t.id) AS tickets_solved FROM customer_support_member csm LEFT JOIN (SELECT customer_support_member_id AS id FROM customer_support_ticket UNION ALL SELECT customer_support_member_id AS id FROM sp_support_ticket) AS t ON csm.id = t.id WHERE csm.id=?",id);
+        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT csm.id AS member_id,csm.email AS email,csm.f_name as f_name, csm.l_name AS l_name,csm.phone_number AS phone_number,COUNT(t.id) AS tickets_solved FROM customer_support_member csm LEFT JOIN (SELECT customer_support_member_id AS id FROM customer_support_ticket UNION ALL SELECT customer_support_member_id AS id FROM sp_support_ticket) AS t ON csm.id = t.id WHERE csm.id=?",id);
 
         if (rst.next()) {
             String member_id = rst.getString("member_id");
@@ -284,6 +291,7 @@ public class UserDataController {
             String lname= rst.getString("l_name");
             String phone_number= rst.getString("phone_number");
             int tickets_solved = rst.getInt("tickets_solved");
+            String email=rst.getString("email");
 
 
 
@@ -293,6 +301,12 @@ public class UserDataController {
             objectBuilder.add("lname",lname);
             objectBuilder.add("phone_number",phone_number);
             objectBuilder.add("tickets_solved", tickets_solved);
+            if(email!=null){
+                objectBuilder.add("email",email);
+            }
+            else {
+                objectBuilder.add("email","-");
+            }
 
 
             return objectBuilder.build();
@@ -340,6 +354,13 @@ public class UserDataController {
         }
 
     }
+
+
+    public boolean addCSM(Connection connection ,String fname,String lname,String contactnum,String email) throws SQLException, ClassNotFoundException {
+
+        boolean updateResult= CrudUtil.executeUpdate(connection,"INSERT INTO customer_support_member SET f_name=?,l_name=?,phone_number=?,email=?" ,fname,lname,contactnum, email);
+        return updateResult;
+    }
     public boolean verifySP(Connection connection, int id ) throws SQLException, ClassNotFoundException {
 
         boolean verificationResult= CrudUtil.executeUpdate(connection,"UPDATE service_provider SET Verified = 'Yes' WHERE id = ?" , id);
@@ -366,9 +387,9 @@ public class UserDataController {
         return updateResult;
     }
 
-    public boolean UpdateCSM(Connection connection, String id ,String fname,String lname,String contactnum) throws SQLException, ClassNotFoundException {
+    public boolean UpdateCSM(Connection connection, String id ,String fname,String lname,String contactnum,String email) throws SQLException, ClassNotFoundException {
 
-        boolean updateResult= CrudUtil.executeUpdate(connection,"UPDATE customer_support_member SET f_name=?,l_name=?,phone_number=? WHERE id = ?" ,fname,lname,contactnum, id);
+        boolean updateResult= CrudUtil.executeUpdate(connection,"UPDATE customer_support_member SET f_name=?,l_name=?,phone_number=?,email=? WHERE id = ?" ,fname,lname,contactnum,email, id);
         return updateResult;
     }
 
@@ -549,4 +570,23 @@ public class UserDataController {
         return object.build();
     }
 
+
+//   CSM analytics
+    public JsonObject getCSMticketCount(Connection connection,String id)throws SQLException,ClassNotFoundException{
+        ResultSet resultSet=CrudUtil.executeQuery(connection,"SELECT status, COUNT(*) AS ticket_count FROM (SELECT status FROM customer_support_ticket WHERE customer_support_member_id = ? UNION ALL SELECT status FROM sp_support_ticket WHERE customer_support_member_id = ? UNION ALL SELECT status FROM technician_support_ticket WHERE customer_support_member_id = ?) AS all_tickets GROUP BY status;",id,id,id);
+
+        JsonObjectBuilder objectBuilder=Json.createObjectBuilder();
+        while (resultSet.next()){
+            String status=resultSet.getString("status");
+            String ticket_count=resultSet.getString("ticket_count");
+            if ("On Review".equals(status)) {
+                objectBuilder.add("onReview",ticket_count);
+            }
+            else{
+                objectBuilder.add(status,ticket_count);
+            }
+
+        }
+        return objectBuilder.build();
+    }
 }

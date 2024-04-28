@@ -17,11 +17,13 @@
   bottom: 0;
 }
 .deleteButton,
-#spdeletebutton {
+#spdeletebutton,
+#csdeletebutton {
   background-color: #c41950;
 }
 .deleteButton:hover,
-#spdeletebutton {
+#spdeletebutton:hover,
+#csdeletebutton:hover {
   background-color: #911d42;
 }
 /* *****************DASH BOARD CARDS ****************************** */
@@ -1013,4 +1015,31 @@ input {
   /* width: 15%; */
   height: 18px;
   background-color: #c80064;
+}
+
+/* *****************************Customer Support Member ************************************ */
+#csmember #CSMadd {
+  padding: 1vh;
+  font-size: 2vh;
+  margin-left: 17vw;
+  margin-top: 0;
+}
+
+#addCSM {
+  position: fixed;
+  background-color: #ffffff8a;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  display: flex;
+  left: 0;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+#addcsmform {
+  position: fixed;
+  left: 38vw;
+  top: 7vh;
 }
