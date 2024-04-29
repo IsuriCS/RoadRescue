@@ -514,16 +514,21 @@ function showcus() {
         var searchValue = this.value.toUpperCase();
         var table = document.getElementById("CustomerList");
         var tr = table.getElementsByTagName("tr");
+
         for (var i = 0; i < tr.length; i++) {
-            var td = tr[i].getElementsByTagName("td")[1];
+            var td = tr[i].getElementsByTagName("td")[0];
+            var tdn = tr[i].getElementsByTagName("td")[1];
             if (td) {
                 var textValue = td.textContent || td.innerText;
-                if (textValue.toUpperCase().indexOf(searchValue) > -1) {
+                var number = tdn.textContent || tdn.innerText;
+                if (textValue.toUpperCase().indexOf(searchValue) > -1 || number.toUpperCase().indexOf(searchValue) > -1) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";
                 }
             }
+
+
         }
     }
     );
@@ -1062,11 +1067,11 @@ function CustomerAnalytics(res, customerId) {
     document.querySelector(".bar-1").style.width = percentageRatings[1].percentage;
 
 
-    document.querySelector(".text-5 div").innerHTML = count[0] || '0';
-    document.querySelector(".text-4 div").innerHTML = count[1] || '0';
-    document.querySelector(".text-3 div").innerHTML = count[2] || '0';
-    document.querySelector(".text-2 div").innerHTML = count[3] || '0';
-    document.querySelector(".text-1 div").innerHTML = count[4] || '0';
+    document.querySelector(".text-5 div").innerHTML = count[5] || '0';
+    document.querySelector(".text-4 div").innerHTML = count[4] || '0';
+    document.querySelector(".text-3 div").innerHTML = count[3] || '0';
+    document.querySelector(".text-2 div").innerHTML = count[2] || '0';
+    document.querySelector(".text-1 div").innerHTML = count[1] || '0';
 
 }
 
@@ -1169,7 +1174,7 @@ function showsupportTicket(ticketId, name, type) {
                                     var clone = csmtemplate.content.cloneNode(true);
 
                                     clone.querySelector("p").innerHTML = pcontent;
-                                    clone.querySelector("span").innerHTML = `Solved Tickets ${spancontent}`;
+                                    clone.querySelector("span").innerHTML = `Solved Complaints ${spancontent}`;
                                     clone.querySelector(".csmcards").setAttribute("data-csmid", datai.CSid);
                                     clone.querySelector(".csmcards").addEventListener("click", function () {
                                         messagebox.style.display = "block";
@@ -1376,15 +1381,19 @@ function showServiceProviders() {
         var table = document.getElementById("SPList");
         var tr = table.getElementsByTagName("tr");
         for (var i = 0; i < tr.length; i++) {
-            var td = tr[i].getElementsByTagName("td")[1];
+            var td = tr[i].getElementsByTagName("td")[0];
+            var tdn = tr[i].getElementsByTagName("td")[1];
             if (td) {
                 var textValue = td.textContent || td.innerText;
-                if (textValue.toUpperCase().indexOf(searchValue) > -1) {
+                var number = tdn.textContent || tdn.innerText;
+                if (textValue.toUpperCase().indexOf(searchValue) > -1 || number.toUpperCase().indexOf(searchValue) > -1) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";
                 }
             }
+
+
         }
     }
     );
@@ -2121,15 +2130,19 @@ function showTechnicians() {
         var table = document.getElementById("TechnicianList");
         var tr = table.getElementsByTagName("tr");
         for (var i = 0; i < tr.length; i++) {
-            var td = tr[i].getElementsByTagName("td")[1];
+            var td = tr[i].getElementsByTagName("td")[0];
+            var tdn = tr[i].getElementsByTagName("td")[1];
             if (td) {
                 var textValue = td.textContent || td.innerText;
-                if (textValue.toUpperCase().indexOf(searchValue) > -1) {
+                var number = tdn.textContent || tdn.innerText;
+                if (textValue.toUpperCase().indexOf(searchValue) > -1 || number.toUpperCase().indexOf(searchValue) > -1) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";
                 }
             }
+
+
         }
     }
     );
@@ -2484,136 +2497,6 @@ function TechnicianAnalytics(res, techId) {
 
 
 
-    // Analytics
-    // map-----------------------------------
-    // document.getElementById('mapcontainer').innerHTML = `<div id="customerRequestmap" class="map"></div>`
-    // const ServiceRequestsCordinatesArray = ServiceRequests.map(locationString => {
-    //     const matches = locationString.match(/latitude=(-?\d+\.\d+), longitude=(-?\d+\.\d+)/);
-    //     if (matches) {
-    //         return `${matches[1]},${matches[2]}`;
-    //     }
-    // });
-
-    // var ServiceRequestsCordinates = ServiceRequestsCordinatesArray.map(function (location) {
-    //     var coordinates = location.split(',');
-    //     return [parseFloat(coordinates[0]), parseFloat(coordinates[1])];
-    // });
-
-
-    // var container = L.DomUtil.get('map');
-    // if (container != null) {
-    //     container._leaflet_id = null;
-    // }
-
-    // var map = L.map("customerRequestmap").setView(calculateMedianLocation(ServiceRequestsCordinatesArray), 12);
-
-
-
-    // L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    //     attribution:
-    //         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    // }).addTo(map);
-
-
-
-    // ServiceRequestsCordinates.forEach(function (location) {
-
-    //     L.marker(location)
-    //         .addTo(map)
-    //         .bindPopup(location.name);
-    // });
-
-
-    // // Request Status------------------------------------------
-
-    // document.querySelector(".requestgraph").innerHTML = '<canvas id="srpieChart" style="width: 100%"></canvas>'
-    // var status = ["Completed Services", "Cancelled Services"];
-    // var count = [0, 0];
-    // requestStatus.forEach(function (entry) {
-    //     if (entry.status == "Complete") {
-    //         count[0] = entry.count;
-    //     }
-    //     else {
-    //         count[1] = entry.count;
-    //     }
-    // });
-    // document.querySelector(".requestChart h1").innerHTML = "Total Service Requests " + (Number(count[0]) + Number(count[1]));
-
-    // var barColors = ["#54bebe", "#c80064"]
-
-    // new Chart("srpieChart", {
-    //     type: "pie",
-    //     data: {
-    //         labels: status,
-    //         datasets: [{
-    //             backgroundColor: barColors,
-    //             data: count,
-    //             borderWidth: 0
-    //         }]
-    //     },
-    //     options: {
-    //         maintainAspectRatio: false,
-    //         plugins: {
-    //             legend: {
-
-
-    //                 labels: {
-    //                     color: "white"
-    //                 }
-    //             }
-    //         },
-    //         title: {
-    //             display: true,
-    //             text: "World Wide Wine Production"
-    //         }
-    //     }
-    // });
-
-
-    // // Rating------------------------------------------
-    // var ratingCounts = Rating.map(item => ({ rating: parseInt(item.rating), count: parseInt(item.count) }));
-    // var rating = ratingCounts.map(item => item.rating);
-    // var halfcount = ratingCounts.map(item => item.count);
-
-
-    // var total = 0;
-    // var count = [0, 0, 0, 0, 0, 0];
-    // for (i = 0; i <= 5; i++) {
-    //     if (rating.includes(i)) {
-    //         count[i] = halfcount[rating.indexOf(i)];
-    //         total += halfcount[rating.indexOf(i)];
-    //     }
-    // }
-
-    // var percentageRatings = []
-    // count.forEach(function (entry) {
-    //     if (entry == 0) {
-    //         percentageRatings.push({ percentage: '0%' });
-    //     }
-    //     else {
-    //         percentageRatings.push({ percentage: `${(entry / total) * 100}%` });
-    //     }
-    // });
-
-    // console.log(rating);
-    // console.log(halfcount);
-    // console.log(percentageRatings);
-    // console.log(count);
-
-
-    // document.querySelector(".bar-5").style.width = percentageRatings[5].percentage;
-    // document.querySelector(".bar-4").style.width = percentageRatings[4].percentage;
-    // document.querySelector(".bar-3").style.width = percentageRatings[3].percentage;
-    // document.querySelector(".bar-2").style.width = percentageRatings[2].percentage;
-    // document.querySelector(".bar-1").style.width = percentageRatings[1].percentage;
-
-
-    // document.querySelector(".text-5 div").innerHTML = count[0] || '0';
-    // document.querySelector(".text-4 div").innerHTML = count[1] || '0';
-    // document.querySelector(".text-3 div").innerHTML = count[2] || '0';
-    // document.querySelector(".text-2 div").innerHTML = count[3] || '0';
-    // document.querySelector(".text-1 div").innerHTML = count[4] || '0';
-
 
     // monthly activities
     // **************technitian-Registation Bar Chart*******************
@@ -2857,81 +2740,86 @@ function showcsmember() {
         var table = document.getElementById("CSupportList");
         var tr = table.getElementsByTagName("tr");
         for (var i = 0; i < tr.length; i++) {
-            var td = tr[i].getElementsByTagName("td")[1];
+            var td = tr[i].getElementsByTagName("td")[0];
+            var tdn = tr[i].getElementsByTagName("td")[1];
             if (td) {
                 var textValue = td.textContent || td.innerText;
-                if (textValue.toUpperCase().indexOf(searchValue) > -1) {
+                var number = tdn.textContent || tdn.innerText;
+                if (textValue.toUpperCase().indexOf(searchValue) > -1 || number.toUpperCase().indexOf(searchValue) > -1) {
                     tr[i].style.display = "";
                 } else {
                     tr[i].style.display = "none";
                 }
             }
+
+
         }
     }
     );
 
-    document.getElementById("CSMadd").addEventListener("click", function () {
-
-        document.getElementById("firstName").value.innerHTML = "";
-        document.getElementById("lastName").value.innerHTML = "";
-        document.getElementById("regemail").value.innerHTML = "";
-        document.getElementById("phone").value.innerHTML = "";
-        document.querySelector("#addCSM").style.display = "block";
-        document.querySelector("#registercsm").addEventListener("click", function () {
-            messagebox.style.display = "block";
-            messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
-            messagetext.innerHTML = "Adding Customer Support Member...";
-            messagebutton.style.display = "none";
-            var fname = document.getElementById("firstName").value;
-            var lname = document.getElementById("lastName").value;
-            var emailc = document.getElementById("regemail").value;
-            var cnum = document.getElementById("phone").value;
-            var phoneNumber = formatPhoneNumber(cnum);
-            console.log(phoneNumber);
-            var datacsm = {
-                fname: fname,
-                lname: lname,
-                email: emailc,
-                cnum: phoneNumber,
-                option: "addCSM"
-            };
-
-
-            console.log(JSON.stringify(datacsm));
-            $.ajax({
-                url: API_URL + "/Admin/CustomerSupportList",
-                method: "PUT",
-                contentType: 'application/json',
-                data: JSON.stringify(datacsm),
-                success: function (res) {
-
-                    if (res.status == 200) {
-                        messagebox.style.display = "block";
-                        messageimg.setAttribute("src", "../../assets/img/Tick.png");
-                        messagetext.innerHTML = "Customer Support Member Added Successfully";
-                        messagebutton.style.display = "none";
-                        setTimeout(function () {
-                            messagebox.style.display = "none";
-                        }, 1500);
-                        document.querySelector("#addCSM").style.display = "none";
-                        showcsmember();
-                    }
-                    else {
-                        messagebox.style.display = "block";
-                        messageimg.setAttribute("src", "../../assets/img/exclamation.png");
-                        messagetext.innerHTML = "Something went wrong. Try Again";
-                        messagebutton.style.display = "none";
-                        setTimeout(function () {
-                            messagebox.style.display = "none";
-                        }, 1500);
-                        showcsmember();
-                    }
-                }
-            });
-        });
-    });
 
 }
+
+document.getElementById("CSMadd").addEventListener("click", function () {
+
+    document.getElementById("firstName").value.innerHTML = "";
+    document.getElementById("lastName").value.innerHTML = "";
+    document.getElementById("regemail").value.innerHTML = "";
+    document.getElementById("phone").value.innerHTML = "";
+    document.querySelector("#addCSM").style.display = "block";
+    document.querySelector("#registercsm").addEventListener("click", function () {
+        messagebox.style.display = "block";
+        messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
+        messagetext.innerHTML = "Adding Customer Support Member...";
+        messagebutton.style.display = "none";
+        var fname = document.getElementById("firstName").value;
+        var lname = document.getElementById("lastName").value;
+        var emailc = document.getElementById("regemail").value;
+        var cnum = document.getElementById("phone").value;
+        var phoneNumber = formatPhoneNumber(cnum);
+        console.log(phoneNumber);
+        var datacsm = {
+            fname: fname,
+            lname: lname,
+            email: emailc,
+            cnum: phoneNumber,
+            option: "addCSM"
+        };
+
+
+        console.log(JSON.stringify(datacsm));
+        $.ajax({
+            url: API_URL + "/Admin/CustomerSupportList",
+            method: "PUT",
+            contentType: 'application/json',
+            data: JSON.stringify(datacsm),
+            success: function (res) {
+
+                if (res.status == 200) {
+                    messagebox.style.display = "block";
+                    messageimg.setAttribute("src", "../../assets/img/Tick.png");
+                    messagetext.innerHTML = "Customer Support Member Added Successfully";
+                    messagebutton.style.display = "none";
+                    setTimeout(function () {
+                        messagebox.style.display = "none";
+                    }, 1500);
+                    document.querySelector("#addCSM").style.display = "none";
+                    showcsmember();
+                }
+                else {
+                    messagebox.style.display = "block";
+                    messageimg.setAttribute("src", "../../assets/img/exclamation.png");
+                    messagetext.innerHTML = "Something went wrong. Try Again";
+                    messagebutton.style.display = "none";
+                    setTimeout(function () {
+                        messagebox.style.display = "none";
+                    }, 1500);
+                    showcsmember();
+                }
+            }
+        });
+    });
+});
 
 function showcsprof(csid) {
     $("#load-container").show();
@@ -3439,6 +3327,7 @@ function csmAnalytics(res, csid) {
     });
 
     deleteButton.addEventListener("click", function () {
+        document.getElementById("proccessingBoxButtons").innerHTML = "";
         messagebox.style.display = "block";
         messageimg.setAttribute("src", "../../assets/img/delete.png");
         messageimg.style.width = "13vh";
@@ -3468,7 +3357,7 @@ function csmAnalytics(res, csid) {
             messageimg.setAttribute("src", "../../assets/img//Gear-0.3s-200px.gif");
 
             $.ajax({
-                url: API_URL + '/Admin/CustomerSupportList?id=' + csmId,
+                url: API_URL + '/Admin/CustomerSupportList?id=' + csid,
                 method: "DELETE",
                 success: function (res) {
                     messagetext.innerHTML = "Customer Support Member Deleted Successfully";

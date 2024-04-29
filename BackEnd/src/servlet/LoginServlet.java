@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+
 import static utils.OTP.generateOTP;
 import static utils.SMS.smsApi;
 
@@ -83,6 +84,7 @@ public class LoginServlet extends HttpServlet {
 
                 try {
                     connection=ds.getConnection();
+
                     boolean b = login.adminLogin(connection, searchId);
                     JsonObjectBuilder response = Json.createObjectBuilder();
                     if (b) {
