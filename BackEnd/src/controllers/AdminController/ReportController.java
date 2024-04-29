@@ -87,21 +87,52 @@ public class ReportController {
         return resultArrayBuilder.build();
     }
 
-    public JsonArray getHighDemandServicebyMounth(Connection connection,String mounth)throws SQLException,ClassNotFoundException{
-        ResultSet resultSet=CrudUtil.executeQuery(connection,"SELECT e.expertise,COUNT(st.service_request_id) AS request_count FROM expertise e LEFT JOIN technician_expertise te ON e.id = te.expertise_id LEFT JOIN service_technician st ON te.technician_id = st.technician_id LEFT JOIN (SELECT COUNT(*) AS total_requests_count FROM service_request) AS total_requests ON 1=1 WHERE st.service_request_id IN (SELECT id FROM service_request WHERE request_timestamp >= DATE_SUB(CURRENT_DATE(), INTERVAL ? MONTH)) GROUP BY e.expertise;",mounth);
+    public JsonArray getHighDemandServicebyMounth(Connection connection)throws SQLException,ClassNotFoundException{
+        ResultSet resultSet=CrudUtil.executeQuery(connection,"SELECT e.expertise,YEAR(sr.request_timestamp) AS request_year,MONTH(sr.request_timestamp) AS request_month, COUNT(sr.id) AS request_count FROM expertise e LEFT JOIN technician_expertise te ON e.id = te.expertise_id LEFT JOIN service_technician st ON te.technician_id = st.technician_id LEFT JOIN service_request sr ON st.service_request_id = sr.id GROUP BY e.expertise,YEAR(sr.request_timestamp),MONTH(sr.request_timestamp);");
 
         JsonArrayBuilder demandArray = Json.createArrayBuilder();
         while (resultSet.next()){
             String expertice=resultSet.getString("expertise");
-            int count = resultSet.getInt("request_count");
+            String year= resultSet.getString("request_year");
+            String month= resultSet.getString("request_month");
+            String count=resultSet.getString("request_count");
 
+            if(year==null || month==null){
+                continue;
+            }
             JsonObjectBuilder objectBuilder=Json.createObjectBuilder();
             objectBuilder.add("expertise",expertice);
-            objectBuilder.add("request_count",count);
+            objectBuilder.add("year",year);
+            objectBuilder.add("month",month);
+            objectBuilder.add("count",count);
 
             demandArray.add(objectBuilder.build());
         }
 
         return demandArray.build();
     }
+
+    public JsonArray getIssueCount(Connection connection)throws SQLException,ClassNotFoundException{
+        ResultSet resultSet=CrudUtil.executeQuery(connection,"SELECT ic.category,YEAR(sr.request_timestamp) AS request_year,MONTH(sr.request_timestamp) AS request_month,COUNT(sr.id) AS request_count FROM issue_category ic JOIN service_request sr ON ic.id = sr.issue_category_id GROUP BY ic.category,YEAR(sr.request_timestamp),MONTH(sr.request_timestamp);");
+
+        JsonArrayBuilder issueArray = Json.createArrayBuilder();
+        while (resultSet.next()){
+            String issue=resultSet.getString("category");
+            String year= resultSet.getString("request_year");
+            String month= resultSet.getString("request_month");
+            String count=resultSet.getString("request_count");
+
+            JsonObjectBuilder objectBuilder=Json.createObjectBuilder();
+            objectBuilder.add("issue",issue);
+            objectBuilder.add("year",year);
+            objectBuilder.add("month",month);
+            objectBuilder.add("count",count);
+
+            issueArray.add(objectBuilder.build());
+        }
+
+        return issueArray.build();
+    }
+
+
 }

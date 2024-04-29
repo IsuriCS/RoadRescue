@@ -37,7 +37,7 @@ function formatPhoneNumber(phoneNumber) {
 function showDashboard() {
     document.querySelector("#dashboardLink").classList.add("active");
     document.querySelector("#UsersLink").classList.remove("active");
-    document.querySelector("#verificationLink").classList.remove("active");
+    // document.querySelector("#verificationLink").classList.remove("active");
     document.querySelector("#profileLink").classList.remove("active");
     document.querySelector("#ReportLink").classList.remove("active");
 
@@ -61,7 +61,7 @@ function showDashboard() {
     // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#reports").style.display = "none";
-    document.querySelector("#verification").style.display = "none";
+    // document.querySelector("#verification").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#technitian").style.display = "none";
@@ -437,7 +437,7 @@ function showcus() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
     document.querySelector("#profileLink").classList.remove("active");
-    document.querySelector("#verificationLink").classList.remove("active");
+    // document.querySelector("#verificationLink").classList.remove("active");
     document.querySelector("#ReportLink").classList.remove("active");
 
     document.querySelector("#customerDropdown").classList.add("dropDownActive");
@@ -461,7 +461,7 @@ function showcus() {
     // document.querySelector("#maintainancePersonnel").style.display = "none";
     // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#adminProfile").style.display = "none";
-    document.querySelector("#verification").style.display = "none";
+    // document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
@@ -544,7 +544,7 @@ function showprof(customerId) {
     // document.querySelector("#maintainancePersonnel").style.display = "none";
     // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#adminProfile").style.display = "none";
-    document.querySelector("#verification").style.display = "none";
+    // document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
@@ -1085,7 +1085,7 @@ function showsupportTicket(ticketId, name, type) {
     // document.querySelector("#maintainancePersonnel").style.display = "none";
     // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#adminProfile").style.display = "none";
-    document.querySelector("#verification").style.display = "none";
+    // document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
     document.querySelector("#technitian").style.display = "none";
@@ -1292,7 +1292,7 @@ function showServiceProviders() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
     document.querySelector("#profileLink").classList.remove("active");
-    document.querySelector("#verificationLink").classList.remove("active");
+    // document.querySelector("#verificationLink").classList.remove("active");
     document.querySelector("#ReportLink").classList.remove("active");
 
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
@@ -1315,7 +1315,7 @@ function showServiceProviders() {
     // document.querySelector("#maintainancePersonnel").style.display = "none";
     // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#adminProfile").style.display = "none";
-    document.querySelector("#verification").style.display = "none";
+    // document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#technitian").style.display = "none";
@@ -1485,7 +1485,7 @@ function showSPprof(spid) {
     // document.querySelector("#maintainancePersonnel").style.display = "none";
 
     // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
-    document.querySelector("#verification").style.display = "none";
+    // document.querySelector("#verification").style.display = "none";
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
@@ -2045,7 +2045,7 @@ function showTechnicians() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
     document.querySelector("#profileLink").classList.remove("active");
-    document.querySelector("#verificationLink").classList.remove("active");
+    // document.querySelector("#verificationLink").classList.remove("active");
     document.querySelector("#ReportLink").classList.remove("active");
 
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
@@ -2068,7 +2068,7 @@ function showTechnicians() {
     // document.querySelector("#maintainancePersonnel").style.display = "none";
     // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#adminProfile").style.display = "none";
-    document.querySelector("#verification").style.display = "none";
+    // document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
@@ -2146,7 +2146,7 @@ function showTechprof(techId) {
     // document.querySelector("#maintainancePersonnel").style.display = "none";
     // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#adminProfile").style.display = "none";
-    document.querySelector("#verification").style.display = "none";
+    // document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
@@ -2781,7 +2781,7 @@ function showcsmember() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.add("active");
     document.querySelector("#profileLink").classList.remove("active");
-    document.querySelector("#verificationLink").classList.remove("active");
+    // document.querySelector("#verificationLink").classList.remove("active");
     document.querySelector("#ReportLink").classList.remove("active");
 
     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
@@ -2804,7 +2804,7 @@ function showcsmember() {
     // document.querySelector("#maintainancePersonnel").style.display = "none";
     // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
     document.querySelector("#adminProfile").style.display = "none";
-    document.querySelector("#verification").style.display = "none";
+    // document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
@@ -2944,7 +2944,7 @@ function showcsprof(csid) {
     document.querySelector("#GarageProf").style.display = "none";
     // document.querySelector("#maintainancePersonnel").style.display = "none";
     // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
-    document.querySelector("#verification").style.display = "none";
+    // document.querySelector("#verification").style.display = "none";
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#serviceProviders").style.display = "none";
@@ -3531,190 +3531,190 @@ function csmAnalytics(res, csid) {
 
 }
 
-function showVerification() {
-    document.querySelector("#dashboardLink").classList.remove("active");
-    document.querySelector("#UsersLink").classList.remove("active");
-    document.querySelector("#profileLink").classList.remove("active");
-    document.querySelector("#verificationLink").classList.add("active");
-    document.querySelector("#ReportLink").classList.remove("active");
+// function showVerification() {
+//     document.querySelector("#dashboardLink").classList.remove("active");
+//     document.querySelector("#UsersLink").classList.remove("active");
+//     document.querySelector("#profileLink").classList.remove("active");
+//     document.querySelector("#verificationLink").classList.add("active");
+//     document.querySelector("#ReportLink").classList.remove("active");
 
-    document.querySelector("#customerDropdown").classList.remove("dropDownActive");
-    document.querySelector("#csDropdown").classList.remove("dropDownActive");
-    document.querySelector("#techDropdown").classList.remove("dropDownActive");
+//     document.querySelector("#customerDropdown").classList.remove("dropDownActive");
+//     document.querySelector("#csDropdown").classList.remove("dropDownActive");
+//     document.querySelector("#techDropdown").classList.remove("dropDownActive");
 
-    document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
-
-
-    // document.querySelector("#GarageDropDown").classList.remove("submenuActive");
-    // document.querySelector("#MPDropDown").classList.remove("submenuActive");
+//     document.querySelector("#servicePDropdown").classList.remove("dropDownActive");
 
 
-    document.querySelector("#dashboard").style.display = "none";
-    document.querySelector("#userCus").style.display = "none";
-    document.querySelector("#cusprof").style.display = "none";
-    document.querySelector("#csmember").style.display = "none";
-    document.querySelector("#csprof").style.display = "none";
-    // document.querySelector("#garageOwners").style.display = "none";
-    document.querySelector("#GarageProf").style.display = "none";
-    // document.querySelector("#maintainancePersonnel").style.display = "none";
-    // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
-    document.querySelector("#adminProfile").style.display = "none";
-    document.querySelector("#verification").style.display = "block";
-    document.querySelector("#reports").style.display = "none";
-    document.querySelector("#SupportTicketDatail").style.display = "none";
-    document.querySelector("#serviceProviders").style.display = "none";
-    document.querySelector("#technitian").style.display = "none";
-    document.querySelector("#techprof").style.display = "none";
-    document.querySelector("#Reportcontent").style.display = "none";
-    $("#load-container").show();
-    $("#verificationList tbody").empty();
-
-    $.ajax({
-        url: API_URL + "/Admin/SPlist?option=getallsp",
-        method: "GET",
-        success: function (res) {
-
-            if (res.status == 200) {
-                $("#load-container").hide();
-
-                var tableBody = document.querySelector("#verificationList tbody");
-                var nodata = document.querySelector("#nodata");
-                // Start from index 1 to skip the first item in the JSON array
-                for (var i = 0; i < res.data.length; i++) {
-
-                    var datai = res.data[i];
-                    if (datai.verify == "No") {
-                        var row = tableBody.insertRow();
-                        row.insertCell(0).textContent = datai.garageName || '-';
-                        row.insertCell(1).textContent = datai.phoneNumber || '-';
-                        if (datai.type == "Garage") {
-                            row.insertCell(2).textContent = "Garage" || '-';
-                        }
-                        else {
-                            row.insertCell(2).textContent = "Maintainance Personnel" || '-';
-                        }
+//     // document.querySelector("#GarageDropDown").classList.remove("submenuActive");
+//     // document.querySelector("#MPDropDown").classList.remove("submenuActive");
 
 
+//     document.querySelector("#dashboard").style.display = "none";
+//     document.querySelector("#userCus").style.display = "none";
+//     document.querySelector("#cusprof").style.display = "none";
+//     document.querySelector("#csmember").style.display = "none";
+//     document.querySelector("#csprof").style.display = "none";
+//     // document.querySelector("#garageOwners").style.display = "none";
+//     document.querySelector("#GarageProf").style.display = "none";
+//     // document.querySelector("#maintainancePersonnel").style.display = "none";
+//     // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
+//     document.querySelector("#adminProfile").style.display = "none";
+//     document.querySelector("#verification").style.display = "block";
+//     document.querySelector("#reports").style.display = "none";
+//     document.querySelector("#SupportTicketDatail").style.display = "none";
+//     document.querySelector("#serviceProviders").style.display = "none";
+//     document.querySelector("#technitian").style.display = "none";
+//     document.querySelector("#techprof").style.display = "none";
+//     document.querySelector("#Reportcontent").style.display = "none";
+//     $("#load-container").show();
+//     $("#verificationList tbody").empty();
 
+//     $.ajax({
+//         url: API_URL + "/Admin/SPlist?option=getallsp",
+//         method: "GET",
+//         success: function (res) {
 
-                        // Add buttons
-                        var viewButtonCell = row.insertCell(3);
-                        var viewButton = document.createElement("button");
-                        viewButton.type = "button";
-                        viewButton.className = "verifyBu locView";
-                        viewButton.textContent = "View";
-                        var locationpoints = datai.location.split(",");
-                        var link = `https://www.google.com/maps/search/?api=1&query=${locationpoints[0]},${locationpoints[1]}`;
+//             if (res.status == 200) {
+//                 $("#load-container").hide();
 
-                        viewButton.setAttribute("onclick", "window.open('" + link + "', '_blank')");
-                        viewButtonCell.appendChild(viewButton);
+//                 var tableBody = document.querySelector("#verificationList tbody");
+//                 var nodata = document.querySelector("#nodata");
+//                 // Start from index 1 to skip the first item in the JSON array
+//                 for (var i = 0; i < res.data.length; i++) {
 
-                        var actionButtonCell = row.insertCell(4);
-                        var verifyButton = document.createElement("button");
-                        verifyButton.type = "button";
-                        verifyButton.className = "verifyBu verify";
-                        verifyButton.textContent = "Verify";
-
-                        actionButtonCell.appendChild(verifyButton);
-
-                        var cancelButton = document.createElement("button");
-                        cancelButton.type = "button";
-                        cancelButton.className = "verifyBu cancle";
-                        cancelButton.textContent = "Cancel";
-                        actionButtonCell.appendChild(cancelButton);
-
-
-                        (function (verifyButton, cancelButton, row, datai) {
-
-                            verifyButton.addEventListener('click', function () {
-                                messagetext.innerHTML = "Please Wait..."
-                                messagebox.style.display = "block"
-                                messagebutton.style.display = "none";
-                                datai.verify = "Yes";
-                                const data = {
-                                    id: datai.id,
-                                    verify: "Yes",
-                                    option: "verify"
-                                }
-
-                                $.ajax({
-                                    url: API_URL + "/Admin/SPlist",
-                                    method: "PUT",
-
-                                    contentType: "application/json",
-                                    data: JSON.stringify(data),
-                                    success: function (res) {
-                                        if (res.status == 200) {
-                                            messagebutton.style.display = "none";
-                                            messagetext.innerHTML = "Verification Successfull"
-                                            messageimg.setAttribute("src", "../../assets/img/Tick.png")
-                                            row.remove();
-                                            setTimeout(function () {
-                                                messagebox.style.display = "none";
-                                            }, 1500);
-                                        } else {
-                                            console.log("error");
-                                        }
-                                    }
-                                });
-                            });
-                            cancelButton.addEventListener('click', function () {
-                                messagetext.innerHTML = "Please Wait..."
-                                messagebox.style.display = "block"
-                                messagebutton.style.display = "none";
-                                $.ajax({
-                                    url: API_URL + "/Admin/SPlist?id=" + datai.id,
-                                    method: "DELETE",
-                                    contentType: "application/json",
-                                    success: function (res) {
-                                        if (res.status == 200) {
-                                            messagebutton.style.display = "none";
-                                            messagetext.innerHTML = "Cancle Verification Successfull"
-                                            messageimg.setAttribute("src", "../../assets/img/Tick.png")
-                                            row.remove();
-                                            setTimeout(function () {
-                                                messagebox.style.display = "none";
-                                            }, 1000);
-                                        } else {
-                                            console.log("error");
-                                        }
-                                    }
-                                });
-                            });
-
-                            if (tableBody.rows.length == 0) {
-                                document.querySelector("#verificationList").innerHTML = '';
-                                nodata.style.display = "block";
-                            }
-                        })(verifyButton, cancelButton, row, datai);
+//                     var datai = res.data[i];
+//                     if (datai.verify == "No") {
+//                         var row = tableBody.insertRow();
+//                         row.insertCell(0).textContent = datai.garageName || '-';
+//                         row.insertCell(1).textContent = datai.phoneNumber || '-';
+//                         if (datai.type == "Garage") {
+//                             row.insertCell(2).textContent = "Garage" || '-';
+//                         }
+//                         else {
+//                             row.insertCell(2).textContent = "Maintainance Personnel" || '-';
+//                         }
 
 
 
 
-                    }
+//                         // Add buttons
+//                         var viewButtonCell = row.insertCell(3);
+//                         var viewButton = document.createElement("button");
+//                         viewButton.type = "button";
+//                         viewButton.className = "verifyBu locView";
+//                         viewButton.textContent = "View";
+//                         var locationpoints = datai.location.split(",");
+//                         var link = `https://www.google.com/maps/search/?api=1&query=${locationpoints[0]},${locationpoints[1]}`;
 
-                }
+//                         viewButton.setAttribute("onclick", "window.open('" + link + "', '_blank')");
+//                         viewButtonCell.appendChild(viewButton);
 
-                if (tableBody.rows.length == 0) {
-                    document.querySelector("#verificationList").innerHTML = '';
-                    nodata.style.display = "block";
-                }
+//                         var actionButtonCell = row.insertCell(4);
+//                         var verifyButton = document.createElement("button");
+//                         verifyButton.type = "button";
+//                         verifyButton.className = "verifyBu verify";
+//                         verifyButton.textContent = "Verify";
+
+//                         actionButtonCell.appendChild(verifyButton);
+
+//                         var cancelButton = document.createElement("button");
+//                         cancelButton.type = "button";
+//                         cancelButton.className = "verifyBu cancle";
+//                         cancelButton.textContent = "Cancel";
+//                         actionButtonCell.appendChild(cancelButton);
 
 
-            }
-            else {
-                console.log("error");
-            }
-        }
-    });
+//                         (function (verifyButton, cancelButton, row, datai) {
 
-}
+//                             verifyButton.addEventListener('click', function () {
+//                                 messagetext.innerHTML = "Please Wait..."
+//                                 messagebox.style.display = "block"
+//                                 messagebutton.style.display = "none";
+//                                 datai.verify = "Yes";
+//                                 const data = {
+//                                     id: datai.id,
+//                                     verify: "Yes",
+//                                     option: "verify"
+//                                 }
+
+//                                 $.ajax({
+//                                     url: API_URL + "/Admin/SPlist",
+//                                     method: "PUT",
+
+//                                     contentType: "application/json",
+//                                     data: JSON.stringify(data),
+//                                     success: function (res) {
+//                                         if (res.status == 200) {
+//                                             messagebutton.style.display = "none";
+//                                             messagetext.innerHTML = "Verification Successfull"
+//                                             messageimg.setAttribute("src", "../../assets/img/Tick.png")
+//                                             row.remove();
+//                                             setTimeout(function () {
+//                                                 messagebox.style.display = "none";
+//                                             }, 1500);
+//                                         } else {
+//                                             console.log("error");
+//                                         }
+//                                     }
+//                                 });
+//                             });
+//                             cancelButton.addEventListener('click', function () {
+//                                 messagetext.innerHTML = "Please Wait..."
+//                                 messagebox.style.display = "block"
+//                                 messagebutton.style.display = "none";
+//                                 $.ajax({
+//                                     url: API_URL + "/Admin/SPlist?id=" + datai.id,
+//                                     method: "DELETE",
+//                                     contentType: "application/json",
+//                                     success: function (res) {
+//                                         if (res.status == 200) {
+//                                             messagebutton.style.display = "none";
+//                                             messagetext.innerHTML = "Cancle Verification Successfull"
+//                                             messageimg.setAttribute("src", "../../assets/img/Tick.png")
+//                                             row.remove();
+//                                             setTimeout(function () {
+//                                                 messagebox.style.display = "none";
+//                                             }, 1000);
+//                                         } else {
+//                                             console.log("error");
+//                                         }
+//                                     }
+//                                 });
+//                             });
+
+//                             if (tableBody.rows.length == 0) {
+//                                 document.querySelector("#verificationList").innerHTML = '';
+//                                 nodata.style.display = "block";
+//                             }
+//                         })(verifyButton, cancelButton, row, datai);
+
+
+
+
+//                     }
+
+//                 }
+
+//                 if (tableBody.rows.length == 0) {
+//                     document.querySelector("#verificationList").innerHTML = '';
+//                     nodata.style.display = "block";
+//                 }
+
+
+//             }
+//             else {
+//                 console.log("error");
+//             }
+//         }
+//     });
+
+// }
 
 function showReports() {
     $("#load-container").show();
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.remove("active");
-    document.querySelector("#verificationLink").classList.remove("active");
+    // document.querySelector("#verificationLink").classList.remove("active");
     document.querySelector("#profileLink").classList.remove("active");
     document.querySelector("#ReportLink").classList.add("active");
 
@@ -3731,7 +3731,7 @@ function showReports() {
     document.querySelector("#adminProfile").style.display = "none";
     document.querySelector("#reports").style.display = "block";
     document.querySelector("#serviceProviders").style.display = "none";
-    document.querySelector("#verification").style.display = "none";
+    // document.querySelector("#verification").style.display = "none";
     document.querySelector("#SupportTicketDatail").style.display = "none";
     document.querySelector("#technitian").style.display = "none";
     document.querySelector("#techprof").style.display = "none";
@@ -3744,27 +3744,130 @@ function showReports() {
 
     $("#load-container").hide();
 
-    // $.ajax({
-    //     url: API_URL + "/Report",
-    //     method: "GET",
-    //     success: function (res) {
+    $.ajax({
+        url: API_URL + "/Report",
+        method: "GET",
+        success: function (res) {
 
-    //         if (res.status == 200) {
-    //             $("#load-container").hide();
-    //             customerCols = res.data[0];
-    //             spCols = res.data[1];
-    //             csmemberCols = res.data[2];
-    //             supportTicketCols = res.data[3];
-    //             paymentCols = res.data[4];
+            if (res.status == 200) {
+                $("#load-container").hide();
+                var demand = res.data.Demand;
+                var Issue = res.data.Issue;
 
 
+                // Expertice Area
+                const currentMonthData = demand.filter(
+                    (item) => item.year === "2024" && item.month === "4"
+                );
+                // document.querySelector(".reportserviceRequests #experticeyear").value = "2024";
+                // document.querySelector(".reportserviceRequests #experticeMonth").value = "4";
+                // Extracting expertise areas and counts
+                const expertiseLabels = currentMonthData.map((item) => item.expertise);
+                const countData = currentMonthData.map((item) => parseInt(item.count));
+                var barColors = ["#54bebe", "#76c8c8", "#badbdb", "#dedad2", "#df979e", "#d7658b", "#c80064"]
+                console.log(countData);
+                // Creating a pie chart
+                const ctx = document.getElementById("reportpieChart").getContext("2d");
+                const pieChart = new Chart(ctx, {
+                    type: "pie",
+                    data: {
+                        labels: expertiseLabels,
+                        datasets: [
+                            {
+                                data: countData,
+                                backgroundColor: barColors,
+                                borderWidth: 0,
 
-    //         }
-    //         else {
-    //             console.log("error");
-    //         }
-    //     }
-    // });
+                            },
+                        ],
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        responsive: true,
+
+                        plugins: {
+                            legend: {
+
+                                position: 'right',
+                                labels: {
+                                    color: "white"
+                                }
+                            }
+                        },
+                    },
+                });
+
+
+                const currentMonthDataissue = Issue.filter(
+                    (item) => item.year === "2024" && item.month === "4"
+                );
+                // document.querySelector(".reportserviceRequests #experticeyear").value = "2024";
+                // document.querySelector(".reportserviceRequests #experticeMonth").value = "4";
+                // Extracting expertise areas and counts
+                const issueLabels = currentMonthDataissue.map((item) => item.issue);
+                const issuecount = currentMonthDataissue.map((item) => parseInt(item.count));
+                var barColors = ["#54bebe", "#76c8c8", "#badbdb", "#dedad2", "#df979e", "#d7658b", "#c80064"]
+                console.log(countData);
+                // Creating a pie chart
+                const ctx1 = document.getElementById("issuepieChart").getContext("2d");
+                const pieChartissue = new Chart(ctx1, {
+                    type: "pie",
+                    data: {
+                        labels: issueLabels,
+                        datasets: [
+                            {
+                                data: issuecount,
+                                backgroundColor: barColors,
+                                borderWidth: 0,
+
+                            },
+                        ],
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        responsive: true,
+
+                        plugins: {
+                            legend: {
+
+                                position: 'right',
+                                labels: {
+                                    color: "white"
+                                }
+                            }
+                        },
+                    },
+                });
+
+
+                document.querySelector("#previewissueReport").addEventListener("click", function () {
+                    var queryParams = "?option=PreviewIssueReport";
+                    window.open("Report.html" + queryParams);
+                });
+
+                document.querySelector("#downloadissueReport").addEventListener("click", function () {
+                    var queryParams = "?option=DownloadIssueReport";
+                    window.open("Report.html" + queryParams);
+
+                });
+
+                document.querySelector("#previewserviceRequestsReport").addEventListener("click", function () {
+                    var queryParams = "?option=previewserviceRequestsReport";
+                    window.open("Report.html" + queryParams);
+                });
+
+                document.querySelector("#downloadserviceRequestsReport").addEventListener("click", function () {
+                    var queryParams = "?option=downloadserviceRequestsReport";
+                    window.open("Report.html" + queryParams);
+
+                });
+
+            }
+            else {
+                console.log("error");
+            }
+        }
+    });
 
     // var areabuttonArray = document.querySelectorAll(".reportArea .areaButtons div button");
 
@@ -3892,33 +3995,33 @@ function showReports() {
     var months = [];
 
 
-    for (var i = 0; i < 5; i++) {
-        var monthIndex = (currentMonth - i) % 12;
+    // for (var i = 0; i < 5; i++) {
+    //     var monthIndex = (currentMonth - i) % 12;
 
-        if (monthIndex < 0) {
-            monthIndex += 12;
-            currentYear -= 1;
-        }
-        months.unshift(`${xValues[monthIndex]}`);
+    //     if (monthIndex < 0) {
+    //         monthIndex += 12;
+    //         currentYear -= 1;
+    //     }
+    //     months.unshift(`${xValues[monthIndex]}`);
 
-        monthsToShow.unshift(`${xValues[monthIndex]} ${currentYear}`);
-    }
+    //     monthsToShow.unshift(`${xValues[monthIndex]} ${currentYear}`);
+    // }
 
-    var rdatafilter = [];
-    var ddatafilter = [];
-    // var onlinefilter = [];
-    // var cashfilter = [];
-    var i = 0;
-    months.forEach(function (month) {
-        var mindex = xValues.indexOf(month);
+    // var rdatafilter = [];
+    // var ddatafilter = [];
+    // // var onlinefilter = [];
+    // // var cashfilter = [];
+    // var i = 0;
+    // months.forEach(function (month) {
+    //     var mindex = xValues.indexOf(month);
 
-        rdatafilter[i] = rdata[mindex];
-        ddatafilter[i] = ddata[mindex];
-        // onlinefilter[i] = online[mindex];
-        // cashfilter[i] = cash[mindex];
+    //     rdatafilter[i] = rdata[mindex];
+    //     ddatafilter[i] = ddata[mindex];
+    // onlinefilter[i] = online[mindex];
+    // cashfilter[i] = cash[mindex];
 
-        i++;
-    });
+    //     i++;
+    // });
 
     // var monthlyProfit = [];
     // onlinefilter.forEach(function (value) {
@@ -3928,45 +4031,45 @@ function showReports() {
 
     // **************DashBoard-Registation Bar Chart*******************
 
-    new Chart("barchatRecent", {
-        type: "bar",
-        data: {
-            labels: monthsToShow,
-            datasets: [{
-                label: "Registations",
-                data: rdatafilter,
-                backgroundColor: "#54bebe"
-            }, {
-                label: "Account Deletions",
-                data: ddatafilter,
-                backgroundColor: "#c80064"
-            }]
-        },
-        options: {
-            maintainAspectRatio: false,
-            plugins: { legend: { labels: { color: "white" } } },
-            barThickness: 20,
-            scales: {
-                x: {
-                    ticks: {
-                        color: "white"
-                    }
-                },
-                y: {
-                    ticks: {
-                        color: "white"
-                    }
-                }
-            }
-        }
-    });
+    // new Chart("barchatRecent", {
+    //     type: "bar",
+    //     data: {
+    //         labels: monthsToShow,
+    //         datasets: [{
+    //             label: "Registations",
+    //             data: rdatafilter,
+    //             backgroundColor: "#54bebe"
+    //         }, {
+    //             label: "Account Deletions",
+    //             data: ddatafilter,
+    //             backgroundColor: "#c80064"
+    //         }]
+    //     },
+    //     options: {
+    //         maintainAspectRatio: false,
+    //         plugins: { legend: { labels: { color: "white" } } },
+    //         barThickness: 20,
+    //         scales: {
+    //             x: {
+    //                 ticks: {
+    //                     color: "white"
+    //                 }
+    //             },
+    //             y: {
+    //                 ticks: {
+    //                     color: "white"
+    //                 }
+    //             }
+    //         }
+    //     }
+    // });
 
 }
 
 function showProfile() {
     document.querySelector("#dashboardLink").classList.remove("active");
     document.querySelector("#UsersLink").classList.remove("active");
-    document.querySelector("#verificationLink").classList.remove("active");
+    // document.querySelector("#verificationLink").classList.remove("active");
     document.querySelector("#profileLink").classList.add("active");
     document.querySelector("#ReportLink").classList.remove("active");
 
@@ -3987,7 +4090,7 @@ function showProfile() {
     document.querySelector("#GarageProf").style.display = "none";
     // document.querySelector("#maintainancePersonnel").style.display = "none";
     // document.querySelector("#MaintainacePersonnelProf").style.display = "none";
-    document.querySelector("#verification").style.display = "none";
+    // document.querySelector("#verification").style.display = "none";
     document.querySelector("#reports").style.display = "none";
     document.querySelector("#adminProfile").style.display = "block";
     document.querySelector("#SupportTicketDatail").style.display = "none";
@@ -4392,10 +4495,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 }
                             }
                         },
-                        title: {
-                            display: true,
-                            text: "World Wide Wine Production"
-                        }
+
                     }
                 });
 
