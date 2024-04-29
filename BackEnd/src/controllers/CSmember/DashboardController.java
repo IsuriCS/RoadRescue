@@ -10,7 +10,7 @@ public class DashboardController {
 
 
     public JsonArray getRecentReports(Connection connection) throws SQLException, ClassNotFoundException {
-        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT * FROM road_rescue.service_request ORDER BY request_timestamp limit 10");
+        ResultSet rst = CrudUtil.executeQuery(connection, "SELECT * FROM road_rescue.service_request WHERE status = 5 ORDER BY request_timestamp limit 5");
 
         JsonArrayBuilder RecentRequestArrayBuilder = Json.createArrayBuilder();
 

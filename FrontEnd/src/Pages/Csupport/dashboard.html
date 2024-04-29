@@ -25,6 +25,25 @@
   </head>
 
   <body>
+    <div id="messageBox" style="display: none">
+      <div class="overlay"></div>
+      <div id="proccessing_boxes">
+        <div id="icon">
+          <img
+            src="../../assets/img/GearWhite.gif
+      "
+            alt=""
+          />
+        </div>
+        <div id="Text">
+          <p>Verification Successfull</p>
+        </div>
+        <div id="proccessingBoxButtons">
+
+        </div>
+      </div>
+    </div>
+
 
     <!-- <div id="load-container">
       <img src="../../assets/img/Gear-0.3s-200px.gif" alt="">
@@ -258,7 +277,7 @@
                 <th>Reported By</th>
                 <th>Report title</th>
                 <th>Reported Date</th>
-                <th>Accepted Date</th>
+                <!-- <th>Accepted Date</th> -->
                 <th>Status</th>
               </tr>
               </thead>
@@ -446,11 +465,11 @@
               <p id="Detail">Date :</p>
               <p id="Date">a</p>
             </div>
-            <div>
+            <!-- <div>
               <p id="Detail">Assigned Customer Support ID :</p>
-              <p id="CustomerSupportMemberID">b</p>
+              <p id="CustomerSupportMemberID">b</p> -->
               <!-- <button id="assignbtn" style="display: hide;">Assign Customer Support Member</button> -->
-            </div>
+            <!-- </div> -->
             <div>
               <p id="Detail">Customer ID:</p>
               <p id="customerID">b</p>
@@ -468,8 +487,8 @@
               <p id="Description">b</p>
             </div>
 
-            <p style="margin: 1vh; margin-left: 0">Solution:</p>
-            <textarea style="border-radius: 12px"></textarea>
+            <p id ="Response" style="margin: 1vh; margin-left: 0">Solution:</p>
+            <textarea id = "response" style="border-radius: 12px"></textarea>
           </div>
           </div>
 
@@ -1026,6 +1045,7 @@
               <table id = "serviceRequests">
                 <thead>
                 <tr>
+                  <th>Request ID</th>
                   <th>Customer ID</th>
                   <th>Location</th>
                   <th>Issue</th>
@@ -1036,11 +1056,12 @@
               </thead>
               <tbody>
                 <tr>
-                  <th></th>
-                  <th><button type  ="button" class = "ServiceRequestLocation">View Location</button></th>
-                  <th></th>
-                  <th></th>
-                  <th><button type = "button" class = "ServiceRequestCancel">Cancel</th>
+                  <td></td>
+                  <td></td>
+                  <td><button type  ="button" class = "ServiceRequestLocation">View Location</button></td>
+                  <td></td>
+                  <td></td>
+                  <td><button type = "button" class = "ServiceRequestCancel">Cancel</button></td>
                 </tr> 
               </tbody>
              

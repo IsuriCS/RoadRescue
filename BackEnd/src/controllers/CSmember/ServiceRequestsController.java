@@ -17,11 +17,13 @@ public class ServiceRequestsController {
         JsonArrayBuilder RecentRequestArrayBuilder = Json.createArrayBuilder();
 
         while (rst.next()) {
+            int request_id = rst.getInt("id");
             int id = rst.getInt("customer_id");
             String location = rst.getString("location");
             String issue = rst.getString("issue_category_id");
             int status = rst.getInt("status");
             JsonObjectBuilder RecentServices = Json.createObjectBuilder();
+            RecentServices.add("RequestID" ,request_id);
             RecentServices.add("CustomerID", id);
             RecentServices.add("location", location);
             RecentServices.add("issue", issue);
@@ -35,9 +37,13 @@ public class ServiceRequestsController {
     }
 
 
-    public boolean RequestCancelation(Connection connection) throws SQLException, ClassNotFoundException {
+    public JsonArray RequestCancelation(Connection connection ,String requestid) throws SQLException, ClassNotFoundException {
 
-        return CrudUtil.executeUpdate(connection, "UPDATE road_rescue.service_request SET status = 7 WHERE status IN (2, 3, 4)");
+        boolean updateResult = CrudUtil.executeUpdate(connection, "UPDATE road_rescue.service_request SET status = 7 WHERE status = 2 OR status = 3 OR status = 4 AND id = ?" , Integer.parseInt(requestid));
+
+
+        JsonArrayBuilder responseBuilder = Json.createArrayBuilder();
+        return responseBuilder.build();
     }
 
 //    public boolean cancelRequest(Connection connection)throws SQLException, ClassNotFoundException {

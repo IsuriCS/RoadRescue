@@ -18,7 +18,8 @@ import java.util.Date;
 
 public class CustomerSupportTicketController {
     public boolean update(Connection connection, int ticketId, String solution) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeUpdate(connection,"UPDATE support_ticket SET status=?, solution=? WHERE ticket_id=?","closed", solution, ticketId);
+        String status = "solved";
+        return CrudUtil.executeUpdate(connection,"UPDATE customer_support_ticket SET status=?, solution=? WHERE id=?",status, solution, ticketId);
     }
 
     public boolean add(Connection connection, SupportTicket supportTicket, CustomerSupportTicketModels customerSupportTicket) throws SQLException, ClassNotFoundException, ParseException {

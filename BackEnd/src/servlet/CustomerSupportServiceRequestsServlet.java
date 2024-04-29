@@ -18,7 +18,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 @WebServlet(urlPatterns = "/CSMember/customerSupportServiceRequests")
-
 public class CustomerSupportServiceRequestsServlet extends HttpServlet{
 
     ServiceRequestsController serviceRequestsController = new ServiceRequestsController();
@@ -65,17 +64,30 @@ public class CustomerSupportServiceRequestsServlet extends HttpServlet{
         }
     }
 
-    protected void doPUT(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPost(req, resp);
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String requestid = req.getParameter("RequestId");
+
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
         Connection connection = null;
+
+
+        System.out.println(requestid);
+
         try {
             connection = ds.getConnection();
-            JsonArray serviceRequests = serviceRequestsController.getServiceRequests(connection);
+            JsonArray RequestCancel = serviceRequestsController.RequestCancelation(connection,requestid);
             JsonObjectBuilder response = Json.createObjectBuilder();
             response.add("status", 200);
             response.add("message", "Done");
-            response.add("data", serviceRequests);
+            response.add("data", RequestCancel);
             writer.print(response.build());
         } catch (SQLException e) {
             JsonObjectBuilder response = Json.createObjectBuilder();
@@ -93,14 +105,11 @@ public class CustomerSupportServiceRequestsServlet extends HttpServlet{
             response.add("data", e.getLocalizedMessage());
             writer.print(response.build());
             e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doDelete(req, resp);
     }
 }

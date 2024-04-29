@@ -233,7 +233,7 @@ public class CustomerSupportServlet extends HttpServlet {
                 }
                 break;
             case "solveTicket":
-                ticketid = jsonObject.getString("ticketId");
+                ticketid = jsonObject.getString("ticketID");
                 solution = jsonObject.getString("solution");
 
                 customerSupportTicketController = new CustomerSupportTicketController();
@@ -285,12 +285,11 @@ public class CustomerSupportServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        JsonReader reader = Json.createReader(req.getReader());
-        JsonObject jsonObject = reader.readObject();
-        int ticketId = jsonObject.getInt("supportTicketId");
-        String solution  = jsonObject.getString("solution");
+        String ticketid = req.getParameter("ticketID");
+        String solution = req.getParameter("solution");
 
-        System.out.println("Ticket id : " + ticketId);
+
+        System.out.println("Ticket id : " + ticketid);
         System.out.println("Solution" + solution);
 
         PrintWriter writer = resp.getWriter();
@@ -298,7 +297,7 @@ public class CustomerSupportServlet extends HttpServlet {
 
         try {
             Connection connection = ds.getConnection();
-            boolean result = cusSupportTicket.update(connection, ticketId,solution);
+            boolean result = cusSupportTicket.update(connection, Integer.parseInt(ticketid),solution);
 
             if (result) {
                 JsonObjectBuilder objectBuilder = Json.createObjectBuilder();

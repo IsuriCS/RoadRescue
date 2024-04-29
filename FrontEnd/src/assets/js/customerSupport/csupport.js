@@ -1,5 +1,10 @@
-var API_URL = "http://localhost:8082/roadRescueBackend";
+var API_URL = "http://localhost:8082/RoadRescue";
 // var API_URL = "http://localhost:8080/roadRescue";
+
+var messagebox = document.querySelector("#messageBox");
+var messageimg = document.querySelector("#messageBox #proccessing_boxes #icon img");
+var messagetext = document.querySelector("#messageBox #proccessing_boxes #Text p");
+var messagebutton = document.getElementById("proccessingBoxButtons");
 
 
 
@@ -116,7 +121,7 @@ $.ajax({
                 // var dateTime = new Date(datai.Atimestamp);
                 // var formattedDate = dateTime.toLocaleDateString();
                 // row.insertCell(3).textContent = formattedDate || '_';
-                row.insertCell(3).textContent = datai.Atimestamp || '_';
+               // row.insertCell(3).textContent = datai.Atimestamp || '_';
                 let ST;
                 if(datai.status==1){
                     ST="Pending.Not accepted by a garage";
@@ -136,7 +141,7 @@ $.ajax({
                     ST="Error";
                 }
 
-                row.insertCell(4).textContent = ST || '_';
+                row.insertCell(3).textContent = ST || '_';
 
 
 
@@ -891,17 +896,19 @@ $.ajax({
 
                 var datai = res.data[i];
                 var row = tableBody.insertRow();
-                row.insertCell(0).textContent = datai.CustomerID || '-';
+                row.insertCell(0).textContent = datai.RequestID || '-';
+                row.insertCell(1).textContent = datai.CustomerID || '-';
                 //row.insertCell(1).textContent = datai.location || '--';
 
               //Add the button
-                var viewButtonCell = row.insertCell(1);
+                var viewButtonCell = row.insertCell(2);
                 var viewButton = document.createElement("button");
                 viewButton.type = "button";
                 viewButton.className = "ServiceRequestLocation";
                 viewButton.textContent = "View Location";
                 var locationPoints = datai.location.match(/latitude=(-?\d+(\.\d+)?), longitude=(-?\d+(\.\d+)?)/);
 
+                row.setAttribute("request-id", datai.RequestID);
                 if (locationPoints && locationPoints.length >= 5) {
                     var latitude = parseFloat(locationPoints[1]);
                     var longitude = parseFloat(locationPoints[3]);
@@ -935,7 +942,7 @@ $.ajax({
                 }else{
                     ISSUE = "Other";
                 }
-                row.insertCell(2).textContent = ISSUE || '-';
+                row.insertCell(3).textContent = ISSUE || '-';
 
                 let ST;
                 if(datai.status==1){
@@ -955,11 +962,54 @@ $.ajax({
                 }else{
                     ST="Error";
                 }
-                row.insertCell(3).textContent = ST || '_';
+                row.insertCell(4).textContent = ST || '_';
 
 
+                  //Add the button cancle
+                  
+                  var cancelButton = document.createElement("button");
+                  cancelButton.type = "button";
+                  cancelButton.className = "ServiceRequestCancel";
+                  cancelButton.textContent = "Cancel";
+                  var actionButtonCell = row.insertCell(5);
+                  actionButtonCell.appendChild(cancelButton);
             
+                    cancelButton.addEventListener("click", function() {
+                        //messagetext.innerHTML = "Please Wait..."
+                       // messagebox.style.display = "block"
+                       // messagebutton.style.display = "none";
 
+                        
+
+                        $.ajax({
+                            
+                            url: API_URL + "/CSMember/customerSupportServiceRequests?RequestId="+ this.getAttribute("request-id"),
+                            method: "PUT",
+                            success: function (res) {
+                                if (res.status == 200) {
+                                    console.log(row.getAttribute("request-id"));
+                                    messagebutton.style.display = "none";
+                                    messagetext.innerHTML = "Cancelation Successfull..."
+                                    messageimg.setAttribute("src", "../../assets/img/Tick.png")
+                                    row.remove();
+                                    setTimeout(function () {
+                                        messagebox.style.display = "none";
+                                    }, 1000);
+                                } else {
+                                    console.log("error");
+                                }
+                        }
+          
+
+                        });
+                    });
+
+                    if (tableBody.rows.length == 0) {
+                        document.querySelector("#serviceRequests").innerHTML = '';
+                        nodata.style.display = "block";
+                    }
+                
+                (cancelButton, row, datai);
             }
 
         }
@@ -1121,3 +1171,38 @@ function toggleDropdown() {
 //     });
 // });
 
+$("#SolutionBtn").click(function () {
+    var solutionId = $("#ticketID").text()
+    var date = $("#Date").val()
+   // var assignCustomerSupport = $("#solicitationTicketAssingCustId").val()
+    var ticketOwnerId = $("#customerID").val()
+    var ticketOwner = $("#customerName").val()
+    var supportDesc = $("#Description").val()
+    var custSolution = $("#response").val()
+
+    console.log(String(solutionId))
+    console.log(custSolution)
+    if (custSolution == "") {
+        alert("Please enter a solution");
+        return;
+    }else{
+        $.ajax({
+            url: API_URL + `/customerSupport?ticketID=`+solutionId+`&solution=` + custSolution,
+            method: "PUT",
+            contentType: "application/json",
+            success: function (res) {
+                if (res.status === 200) {
+                    $("#SolutionBtn").prop("disabled", true);
+                    $("#SolutionBtn").css("background-color" ,"lightblue");
+                    $("#SolutionBtn").text("Solved");
+                    alert(res.message);
+
+                } else {
+                    alert(res.data);
+                }
+            }, error: function (ob, textStatus, error) {
+                alert(textStatus);
+            }
+        });
+    }
+});
