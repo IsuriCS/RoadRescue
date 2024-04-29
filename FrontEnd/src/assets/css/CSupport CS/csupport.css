@@ -437,31 +437,40 @@ input:focus {
 
   /* **********************************Customer support profile view******************************************** */
 
- #csProfile > .left{
-    border-right: white solid;
-    width: 40%;
-    padding-left: 5vw;
-    float: left;
-    
-  
- }
 
-#csProfile > .right{
-
-  width: 53%;
-  float: right;
-  margin-top: 60px;
-  margin-left: 3px;
-  
-  
-   
+#csProfile .profileContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-#csProfile > .left img{
-
-  width : 80%
+#csProfile .profileContent .middle_View {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1vh;
+  width: 30vw;
 }
 
+#csProfile .profileContent .middle_View .row {
+  width: 30vw;
+}
+
+#csProfile .buttonDiv {
+  display: flex;
+  justify-content:center;
+}
+#csProfile .buttonDiv .button {
+  margin: 1vh;
+}
+
+#csProfile .profileContent img {
+  width: 10vw;
+  align-items: center;
+  /* padding-left: 7vw; */
+}
 
 
 /* **********************************FAQ******************************************** */
