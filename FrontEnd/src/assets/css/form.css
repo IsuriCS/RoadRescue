@@ -97,7 +97,7 @@ main {
 }
 
 #phone,
-#nic,
+#regemail,
 #opt,
 #garageName,
 #category {
@@ -112,7 +112,7 @@ main {
 #phone,
 #garageName,
 #category,
-#nic {
+#regemail {
   margin-top: 40px;
 }
 

@@ -1,6 +1,7 @@
 package servlet;
 
 import controllers.AdminController.UserDataController;
+import controllers.ControllerImpl.CustomerSupportTicketController;
 import models.TechnicianModel;
 
 
@@ -27,6 +28,7 @@ public class AdminCustomerListServlet extends HttpServlet{
     DataSource ds;
 
     UserDataController userDataController=new UserDataController();
+    CustomerSupportTicketController customerSupportTicketController=new CustomerSupportTicketController();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
@@ -83,18 +85,15 @@ public class AdminCustomerListServlet extends HttpServlet{
             JsonObject jsonObject = reader.readObject();
 
             option = jsonObject.getString("option");
+
+
             switch (option){
                 case "updateDetails":
-
-
                         fName = jsonObject.getString("fname");
                         lName = jsonObject.getString("lname");
                         contactNumber = jsonObject.getString("cnum");
                         id = jsonObject.getString("customerId");
                         email = jsonObject.getString("email");
-
-
-
                     try {
                         Connection connection = ds.getConnection();
 
@@ -128,15 +127,11 @@ public class AdminCustomerListServlet extends HttpServlet{
                         writer.print(objectBuilder.build());
                         e.printStackTrace();
                     }
-                break;
+                    break;
+
 
                 case "getCustomerById":
-
-
                         id = jsonObject.getString("customerId");
-
-
-
                     try {
                         Connection connection = ds.getConnection();
 
@@ -169,6 +164,52 @@ public class AdminCustomerListServlet extends HttpServlet{
                         e.printStackTrace();
                     }
                     break;
+
+                case "getProfile":
+                    id = jsonObject.getString("customerId");
+                    try {
+                        Connection connection = ds.getConnection();
+                        JsonObjectBuilder dataobject = Json.createObjectBuilder();
+                        JsonObject customerDetails = userDataController.getCoustomerbyID(connection,id);
+                        JsonArray requestLocations = userDataController.getrequestLocationsCustomer(connection,id);
+                        JsonArray requstStatus=userDataController.getrequeststatusCustomer(connection,id);
+                        JsonArray ratings=userDataController.getratingsbycustomer(connection,id);
+                        JsonArray supportTickets=customerSupportTicketController.getAllSupportTicketOrderByStatus(connection,id);
+
+                        dataobject.add("profile",customerDetails);
+                        dataobject.add("requestLocations",requestLocations);
+                        dataobject.add("requestStatus",requstStatus);
+                        dataobject.add("ratings",ratings);
+                        dataobject.add("complaints",supportTickets);
+
+                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                        resp.setStatus(HttpServletResponse.SC_OK);
+                        objectBuilder.add("status", 201);
+                        objectBuilder.add("message", "Get customer profile by id.");
+                        objectBuilder.add("data", dataobject.build());
+                        writer.print(objectBuilder.build());
+//                System.out.println("end send response");
+
+                        connection.close();
+                    } catch (SQLException e) {
+                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                        resp.setStatus(HttpServletResponse.SC_OK);
+                        objectBuilder.add("status", 500);
+                        objectBuilder.add("message", "SQL Exception Error.");
+                        objectBuilder.add("data", e.getLocalizedMessage());
+                        writer.print(objectBuilder.build());
+                        e.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                        resp.setStatus(HttpServletResponse.SC_OK);
+                        objectBuilder.add("status", 500);
+                        objectBuilder.add("message", "Class not fount Exception Error");
+                        objectBuilder.add("data", e.getLocalizedMessage());
+                        writer.print(objectBuilder.build());
+                        e.printStackTrace();
+                    }
+                    break;
+
             }
 
         }
