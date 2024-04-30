@@ -155,25 +155,6 @@ public class UserDataController {
         return CustomerArray.build();
     }
 
-    public JsonObject getAdmin(Connection connection) throws SQLException,ClassNotFoundException{
-        ResultSet resultSet=CrudUtil.executeQuery(connection,"Select * from admin");
-        if (resultSet.next()){
-            String fname= resultSet.getString("f_name");
-            String lname=resultSet.getString("l_name");
-            String phonenumber=resultSet.getString("phone_number");
-            String email= resultSet.getString("email");
-
-            JsonObjectBuilder jsonObjectBuilder=Json.createObjectBuilder();
-            jsonObjectBuilder.add("fname",fname);
-            jsonObjectBuilder.add("lname",lname);
-            jsonObjectBuilder.add("phone_number",phonenumber);
-            jsonObjectBuilder.add("email",email);
-            return jsonObjectBuilder.build();
-        }
-        else {
-            return null;
-        }
-    }
     public JsonObject getCoustomerbyID(Connection connection, String id) throws SQLException, ClassNotFoundException {
         ResultSet rst = CrudUtil.executeQuery(connection, "SELECT c.reg_timestamp AS time ,c.id AS customerid,c.f_name AS fname,c.l_name As lname,c.email AS email, CONCAT(c.f_name, ' ', c.l_name) AS full_name, c.phone_number AS phone_number, COALESCE(sr.num_service_requests, 0) AS num_service_requests, COALESCE(st.num_support_tickets, 0) AS num_support_tickets FROM customer c LEFT JOIN ( SELECT customer_id, COUNT(*) AS num_service_requests FROM service_request GROUP BY customer_id ) sr ON c.id = sr.customer_id LEFT JOIN ( SELECT customer_id, COUNT(*) AS num_support_tickets FROM customer_support_ticket GROUP BY customer_id ) st ON c.id = st.customer_id where id=?", id);
 
@@ -417,11 +398,6 @@ public class UserDataController {
         boolean updateResult= CrudUtil.executeUpdate(connection,"UPDATE technician SET f_name=?,l_name=?,phone_number=?,email=? WHERE id = ?" ,fname,lname,contactnum,email, id);
         return updateResult;
     }
-
-//    public boolean UpdateAdmin(Connection connection,String fname,String lname,String email,String phone) throws SQLException,ClassNotFoundException{
-//        ResultSet resultSet=CrudUtil.executeUpdate(connection,"UPDATE admin SET f_name=?,l_name=?,email=? WHERE phone_number = ?" ,fname,lname,email,phone);
-//        return resultSet;
-//    }
     public boolean cancelVerification(Connection connection,int id)throws SQLException, ClassNotFoundException {
 
         boolean cancleResult= CrudUtil.executeUpdate(connection,"DELETE FROM service_provider WHERE id = ?" , id);

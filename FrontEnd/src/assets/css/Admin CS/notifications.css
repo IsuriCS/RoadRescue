@@ -43,7 +43,7 @@
   flex-direction: row;
   gap: 5vh;
   margin-bottom: 4vh;
-  /* margin-left: 17vw; */
+  margin-left: 17vw;
 }
 
 #proccessingBoxButtons button {
