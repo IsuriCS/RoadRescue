@@ -1043,3 +1043,32 @@ input {
   left: 38vw;
   top: 7vh;
 }
+#reports .graph {
+  width: 32vw;
+  height: 30vh;
+}
+#reports div h1 {
+  font-size: 3vh;
+}
+#reports > div {
+  display: flex;
+  gap: 4vh;
+  justify-content: center;
+}
+.reportissueCatogory,
+.reportserviceRequests {
+  display: flex;
+  flex-direction: column;
+}
+.reportissueCatogory div,
+.reportserviceRequests div {
+  display: flex;
+  margin: 1vh;
+  justify-content: space-between;
+}
+
+#reports button {
+  background-color: #253555;
+  border-style: none;
+  color: white;
+}

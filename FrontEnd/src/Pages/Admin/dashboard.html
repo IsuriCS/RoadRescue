@@ -56,12 +56,7 @@
       </div>
 
       <div class="navActions">
-        <a href="notification.html" style="margin-right: 2.5vw">
-          <img
-            class="notificationAlert icons"
-            src="../../assets/img/notifications.svg"
-          />
-        </a>
+        
         <a href="../../index.html">
           <h3>LOG OUT</h3>
         </a>
@@ -122,7 +117,7 @@
               </li>
             </ul>
           </li>
-          <li>
+          <!-- <li>
             <a
               id="verificationLink"
               href="#verification"
@@ -131,7 +126,7 @@
               ><span class="material-symbols-outlined"> check_circle </span>
               Verification
             </a>
-          </li>
+          </li> -->
           <li>
             <a
               id="ReportLink"
@@ -185,7 +180,7 @@
               <a class="button">
                 <span class="material-symbols-outlined"> report </span>
                 <h2 id="reportCount">0</h2>
-                <p>Report and Support Tickets</p></a
+                <p>Total Complaints</p></a
               >
             </div>
 
@@ -1341,7 +1336,7 @@
                   type="tel"
                   required
                 />
-                <input id="regemail" placeholder="Email" type="text" required />
+                <input id="regemail" placeholder="Email" type="email" required />
 
                 <button id="registercsm" type="submit">Register</button>
               </form>
@@ -1351,7 +1346,7 @@
 
         <!-- ---------------------------------------Verifications------------------------------- -->
         <!-- ---------------------------------------Verifications------------------------------- -->
-        <div id="verification" style="display: none">
+        <!-- <div id="verification" style="display: none">
           <div class="topRow">
             <h1>Verify Service Providers</h1>
             <div class="search">
@@ -1418,11 +1413,12 @@
               </tbody>
             </table>
           </div>
-        </div>
+        </div> -->
 
         <!-- ---------------------------------------Reports------------------------------- -->
         <!-- ---------------------------------------Reports------------------------------- -->
         <div id="reports" style="display: none">
+          <h1>Reports</h1>
           <!-- <div class="topRow">
             <h1>Report</h1>
             <div class="inputFileds">
@@ -1531,20 +1527,55 @@
               </div>
             </div>
           </div> -->
-                <div class="reportserviceRequests">
-                    <h1>Total Service Requests</h1>
-                    <div class="graph requestgraph">
-                      <canvas id="srpieChart" style="width: 100%"></canvas>
+                <div>
+                  <div class="reportserviceRequests">
+                    <div>
+                       <h1>Total Service Requests</h1>
+                      <div>
+                            <button id="previewserviceRequestsReport"><span class="material-symbols-outlined">
+                              visibility
+                              </span></button>
+                            <button id="downloadserviceRequestsReport"><span class="material-symbols-outlined">
+                                download
+                                </span></button>
+                          </div>
+                    </div>
+                   
+
+                    <div class="graph requestgraph" id="experticereport">
+                      <canvas id="reportpieChart" style="width: 100%"></canvas>
                     </div>
                   </div>
-          <div class="ButtonsRow">
+
+
+                      <div class="reportissueCatogory">
+                        <div>
+                          <h1>Total Service Requests</h1>
+                          <div>
+                            <button id="previewissueReport"><span class="material-symbols-outlined">
+                              visibility
+                              </span></button>
+                            <button id="downloadissueReport"><span class="material-symbols-outlined">
+                                download
+                                </span></button>
+                          </div>
+                        </div>    
+                        <div class="graph requestgraph" id="issuereport">
+                      
+
+                          <canvas id="issuepieChart" style="width: 100%"></canvas>
+                        </div>
+                      </div>
+                </div>
+          
+          <!-- <div class="ButtonsRow">
             <button class="button preview" id="previewBtn">
               <span class="material-symbols-outlined"> preview </span>Preview
             </button>
             <button class="button download" id="downloadBtn">
               <span class="material-symbols-outlined"> download </span>Download
             </button>
-          </div>
+          </div> -->
         </div>
         <!-- ---------------------------------------Reports Template------------------------------- -->
         <div id="Reportcontent" style="display: none;">
@@ -1576,8 +1607,8 @@
               </header>
               <main>
                 <div style="width: 75%; margin-bottom: 35px">
-                  <div class="graph">
-                    <canvas id="barchatRecent"></canvas>
+                  <div class="graphdivofreport">
+                    <canvas id="graphdivofreport"></canvas>
                   </div>
                 </div>
                 <table>
@@ -1698,7 +1729,7 @@
               </div> -->
             </div>
           </div>
-          <div class="buttonDiv">
+          <!-- <div class="buttonDiv">
             <button type="submit" class="button">
               <span class="material-symbols-outlined"> edit </span>Change
               Password
@@ -1706,7 +1737,7 @@
             <button type="submit" class="button">
               <span class="material-symbols-outlined"> edit </span>Edit Profile
             </button>
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- **************************FOOTER********************** -->
