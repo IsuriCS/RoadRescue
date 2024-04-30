@@ -24,7 +24,6 @@ public class CustomerSupportTicketController {
 
     public boolean add(Connection connection, SupportTicket supportTicket, CustomerSupportTicketModels customerSupportTicket) throws SQLException, ClassNotFoundException, ParseException {
 
-        // Custommergen or cs Report thanedi hadena support ticket eka
 
         Timestamp timestamp = dateConvert(supportTicket.getTimestamp());
 
@@ -36,7 +35,7 @@ public class CustomerSupportTicketController {
 
         if (boolValue1 && boolValue2) {
 
-            //methana table deken ekkata hari data watune nathi nm data watuna table data eka remove karanna mathaka athuwa
+
 
             return true;
         } else {

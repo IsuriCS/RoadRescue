@@ -16,13 +16,177 @@
   bottom: 0;
 }
 
+/* **************************Dashboard Cards************************* */
+#dashboard > div {
+  margin-bottom: 3vh;
+}
+.content .content-box #displayCards {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+}
 
+#displayCards a {
+  background-color: #728ab0;
+  width: 30vw;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
+  font-size: inherit;
+  color: white;
+  font-weight: 600;
+  border-radius: 30px;
+  border: none;
+  /* text-align: center; */
+  padding: 2vh 1vh 1vh 3vh;
+  /* text-align: center; */
+  padding: 2vh 1vh 1vh 3vh;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 1vh;
+  align-items: flex-start;
+  margin: 1vh;
+  cursor: unset;
+}
+
+#displayCards .button span {
+  color: #000;
+  background-color: white;
+  border-radius: 60px;
+  font-size: 6vh;
+  font-size: 6vh;
+  padding: 1vh;
+}
+
+#displayCards .button h2 {
+  margin-top: 1vh;
+  margin-bottom: 0;
+  color: #151d48;
+}
+
+#displayCards .button h2 {
+  margin-top: 1vh;
+  margin-bottom: 0;
+  color: #151d48;
+}
+#displayCards .button p {
+  margin-top: 1vh;
+  font-size: 2.5vh;
+  font-size: 2.5vh;
+}
+
+
+/* **************************performance Cards************************* */
+#dashboard > div {
+  margin-bottom: 3vh;
+}
+.content .content-box #PerformanceCards {
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+}
+
+#PerformanceCards a {
+  background-color: #728ab0;
+  width: 30vw;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(37, 27, 90, 0.311);
+  font-size: inherit;
+  color: white;
+  font-weight: 600;
+  border-radius: 30px;
+  border: none;
+  /* text-align: center; */
+  padding: 2vh 1vh 1vh 3vh;
+  /* text-align: center; */
+  padding: 2vh 1vh 1vh 3vh;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 1vh;
+  align-items: flex-start;
+  margin: 1vh;
+  cursor: unset;
+}
+
+#PerformanceCards .button span {
+  color: #000;
+  background-color: white;
+  border-radius: 60px;
+  font-size: 6vh;
+  font-size: 6vh;
+  padding: 1vh;
+}
+
+#PerformanceCards .button h2 {
+  margin-top: 1vh;
+  margin-bottom: 0;
+  color: #151d48;
+}
+
+#PerformanceCards .button h2 {
+  margin-top: 1vh;
+  margin-bottom: 0;
+  color: #151d48;
+}
+#PerformanceCards .button p {
+  margin-top: 1vh;
+  font-size: 2.5vh;
+  font-size: 2.5vh;
+}
   
   /* **********************************Dash Board  Recent reports table ********************************************* */
-  
+
   .ReportsSection table {
     margin: 1vh;
   }
+
+  /* ******************************Dashboard Request Services************ */
+
+  .ServiceRequests .ServiceRequestLocation {
+    display:flex;
+    align-items: center;
+    text-align: -internal-center;
+    margin-left: 25%;
+    justify-content: center;
+    background-color:gold;
+    font-size: 2.3vh;
+    border-radius: 2vh;
+    padding: 1vh;
+    text-decoration: none;
+    border: none;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 3px 3px rgba(37, 27, 90, 0.311);
+    
+  }
+  .ServiceRequests .ServiceRequestCancel{
+    display:flex;
+    align-items: center;
+    text-align: -internal-center;
+    margin-left: 25%;
+    justify-content: center;
+    background-color:#eb1212;
+    font-size: 2.3vh;
+    border-radius: 2vh;
+    padding: 1vh;
+    text-decoration: none;
+    border: none;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 3px 3px rgba(37, 27, 90, 0.311);
+  }
+
+
+ 
   
 /* **********************************Customer page search box ********************************************* */
 .topRow {
@@ -210,26 +374,26 @@ input:focus {
   background-color: #1caf09;
 }
 /* *********************************Support Ticket Page ****************************** */
-#SupportTicketDatail .info {
+#SupportTicketDetail .info {
   display: flex;
   flex-direction: column;
   margin-left: 1.5vw;
 }
-#SupportTicketDatail .info div {
+#SupportTicketDetail .info div {
   display: flex;
   flex-direction: row;
 }
-#SupportTicketDatail .info div #Detail {
+#SupportTicketDetail .info div #Detail {
   margin-right: 2vw;
   width: 14%;
 }
 
-#SupportTicketDatail .info textarea {
+#SupportTicketDetail .info textarea {
   height: 10vh;
   font-size: 2.5vh;
   border: none;
 }
-#SupportTicketDatail .info div button {
+#SupportTicketDetail .info div button {
   width: 8vw;
   /* padding: 1vh; */
   font-size: 2vh;
@@ -240,35 +404,120 @@ input:focus {
   margin: 1vh;
   margin-left: 5vw;
 }
-#SupportTicketDatail .info .disabledText {
+#SupportTicketDetail .info .disabledText {
   color: white;
 }
+
+#SupportTicketDetail .topRow button{
+  font-size: 2.5vh;
+  padding: 2vh;
+  border-radius: 2vh;
+  margin-top: 3vh;
+  font-size: large;
+  font-weight: 600;
+  text-decoration: none;
+  color: white;
+  border-radius: 2vh;
+  background: #23a6f0;
+  display: inline-flex;
+  padding: 2vh 2vw;
+  align-items: center;
+  gap: 1vw;
+  border-style: none;
+  width: inherit;
+  justify-content: center;
+  cursor: pointer;
+}
+
+
+
+
 
 
 
   /* **********************************Customer support profile view******************************************** */
 
- #csProfile > .left{
-    border-right: white solid;
-    width: 40%;
-    padding-left: 5vw;
-    float: left;
-    
-  
- }
 
-#csProfile > .right{
-
-  width: 53%;
-  float: right;
-  margin-top: 60px;
-  margin-left: 3px;
-  
-  
-   
+#csProfile .profileContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-#csProfile > .left img{
-
-  width : 80%
+#csProfile .profileContent .middle_View {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1vh;
+  width: 30vw;
 }
+
+#csProfile .profileContent .middle_View .row {
+  width: 30vw;
+}
+
+#csProfile .buttonDiv {
+  display: flex;
+  justify-content:center;
+}
+#csProfile .buttonDiv .button {
+  margin: 1vh;
+}
+
+#csProfile .profileContent img {
+  width: 10vw;
+  align-items: center;
+  /* padding-left: 7vw; */
+}
+
+
+/* **********************************FAQ******************************************** */
+
+/* #FAQ textarea {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+#FAQ input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+#FAQ .CurrentFAQ .edit{
+  background-color:#23a6f0;
+  align-self: flex-end;
+  font-size: 2.3vh;
+  border-radius: 2vh;
+  padding: 1vh;
+  width: 5vw;
+  text-decoration: none;
+  border: none;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 3px 3px rgba(37, 27, 90, 0.311);
+}
+
+
+#FAQ .CurrentFAQ .delete{
+  background-color:#eb1212;
+  align-self: flex-end;
+  font-size: 2.3vh;
+  border-radius: 2vh;
+  padding: 1vh;
+  width: 5vw;
+  text-decoration: none;
+  border: none;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 3px 3px rgba(37, 27, 90, 0.311);
+}
+ */

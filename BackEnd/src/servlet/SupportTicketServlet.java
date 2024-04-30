@@ -3,7 +3,7 @@ package servlet;
 import controllers.AdminController.SPSupportTicketContraller;
 import controllers.AdminController.UserDataController;
 import controllers.AdminController.dashboardCards;
-import controllers.CSmember.DashboardContraller;
+import controllers.CSmember.DashboardController;
 import controllers.ControllerImpl.CustomerSupportTicketController;
 import models.TechnicianModel;
 

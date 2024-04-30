@@ -18,7 +18,8 @@ import java.util.Date;
 
 public class CustomerSupportTicketController {
     public boolean update(Connection connection, int ticketId, String solution) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeUpdate(connection,"UPDATE support_ticket SET status=?, solution=? WHERE ticket_id=?","closed", solution, ticketId);
+        String status = "solved";
+        return CrudUtil.executeUpdate(connection,"UPDATE customer_support_ticket SET status=?, solution=? WHERE id=?",status, solution, ticketId);
     }
 
     public boolean add(Connection connection, SupportTicket supportTicket, CustomerSupportTicketModels customerSupportTicket) throws SQLException, ClassNotFoundException, ParseException {
@@ -69,6 +70,7 @@ public class CustomerSupportTicketController {
             String created_time =resultSet.getString(6);
             int customerId= resultSet.getInt(7);
             String solution = resultSet.getString(8);
+
 
 
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
