@@ -10,10 +10,11 @@ import java.sql.SQLException;
 public class ServicesController {
 
     public JsonArray fetchService(Connection connection) throws SQLException, ClassNotFoundException {
-        ResultSet resultSet = CrudUtil.executeQuery(connection, "select ic.category,se.customer_id,se.description,se.approx_cost,se.request_timestamp,se.indicator_1,se.indicator_2,se.indicator_3,se.indicator_4,se.indicator_5,se.indicator_6,se.id\n" +
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "select ic.category,se.customer_id,se.description,se.approx_cost,TIME_FORMAT(TIME(CONVERT_TZ(se.request_timestamp, '+00:00', '+05:30')), '%h.%i %p'),se.indicator_1,se.indicator_2,se.indicator_3,se.indicator_4,se.indicator_5,se.indicator_6,se.id,se.location\n" +
                 "from service_request se\n" +
-                "right join issue_category ic on se.issue_category_id=ic.id\n" +
-                "where  se.status=1;");
+                "join issue_category ic on se.issue_category_id=ic.id\n" +
+                "left join service_provider sp on se.assigned_service_provider_id = sp.id\n" +
+                "where  se.status=1 ORDER BY se.id DESC");
         JsonArrayBuilder services= Json.createArrayBuilder();
 
         while (resultSet.next()) {
@@ -51,9 +52,11 @@ public class ServicesController {
             objectBuilder.add("customerContactNumber",customContactNumber);
             objectBuilder.add("description",resultSet.getString(3));
             objectBuilder.add("approx_cost",resultSet.getDouble(4));
-            objectBuilder.add("requestTimeStamp",  resultSet.getTime(5).toString());
+            objectBuilder.add("requestTimeStamp",  resultSet.getString(5));
             objectBuilder.add("indicatorLightStatus", indicatorLightStatus );
             objectBuilder.add("serviceRequestId", resultSet.getInt(12) );
+            objectBuilder.add("serviceLocation", resultSet.getString(13) );
+            //objectBuilder.add("verification",(resultSet.getString(13)==null)? "No": resultSet.getString(13) );
             services.add(objectBuilder.build());
         }
         return services.build();
@@ -72,7 +75,6 @@ public class ServicesController {
     }
 
     public boolean assignTechnicianForService(Connection connection, String serviceId, String serviceProviderId, String technicianId) throws SQLException, ClassNotFoundException {
-        System.out.println("3");
         boolean result1 = CrudUtil.executeUpdate(connection, "update service_request set\n" +
                 "                           status=2,assigned_service_provider_id=?,accepted_timestamp=CONVERT_TZ(CURRENT_TIMESTAMP,'+00:00', '+05:30')\n" +
                 "where id=?",Integer.parseInt(serviceProviderId),Integer.parseInt(serviceId));
@@ -83,7 +85,34 @@ public class ServicesController {
     }
 
     public boolean add(Connection connection,int serviceRequestId,int technicianId) throws SQLException, ClassNotFoundException {
-        System.out.println("4");
        return CrudUtil.executeUpdate(connection,"INSERT INTO service_technician (technician_id,service_request_id) values(?,?)",technicianId,serviceRequestId);
     }
+
+    public boolean updateStatusAndAmount(Connection connection, int serviceId, double amount) throws SQLException, ClassNotFoundException {
+        return     CrudUtil.executeUpdate(connection,"Update service_request set status=3,updated_at=CONVERT_TZ(CURRENT_TIMESTAMP,'+00:00', '+05:30'),requested_amount=? where id=?",amount,serviceId);
+    }
+
+    public String checkForCardPayment(Connection connection, String serviceId) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "Select paid_amount from service_request where id=?", Integer.parseInt(serviceId));
+        if (resultSet.next()){
+            int value=(int) resultSet.getDouble(1);
+            if (value==1){
+                if (updateStatus(connection,serviceId)) {
+                    return "Payment successful";
+                }else {
+                    return "failed";
+                }
+            }else if (value==0){
+                return "Payment not successful.\n Try again later.";
+            }
+        }else {
+            return "Not found";
+        }
+        return "";
+    }
+
+    private boolean updateStatus(Connection connection, String serviceId) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate(connection,"Update service_request set updated_at=CONVERT_TZ(CURRENT_TIMESTAMP,'+00:00', '+05:30') where id=?",serviceId);
+    }
 }
+
