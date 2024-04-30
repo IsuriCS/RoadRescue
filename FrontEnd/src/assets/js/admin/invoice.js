@@ -68,7 +68,27 @@ function issueReport() {
                         },
                     },
                 });
+                var table = document.createElement("table");
+                var thead = table.createTHead();
+                var tbody = table.createTBody();
+                var row = thead.insertRow();
 
+
+                ["Expertise", "Count"].forEach(function (value) {
+                    var th = document.createElement("th");
+                    th.textContent = value;
+                    row.appendChild(th);
+                });
+
+
+                currentMonthDataissue.forEach(function (rowData) {
+                    var row = tbody.insertRow();
+                    row.insertCell(0).textContent = rowData.issue || '';
+                    row.insertCell(1).textContent = rowData.count || '';
+                });
+
+
+                document.querySelector("#table").innerHTML = table.outerHTML;
 
             }
 
@@ -101,7 +121,7 @@ function ServiceRequestReport() {
                 // Creating a pie chart
                 document.querySelector(".graph").innerHTML = `<canvas id="barchatRecent"></canvas>`
                 new Chart("barchatRecent", {
-                    type: "pie",
+                    type: "bar",
                     data: {
                         labels: expertiseLabels,
                         datasets: [
@@ -126,8 +146,42 @@ function ServiceRequestReport() {
                                 }
                             }
                         },
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: "white"
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    color: "white"
+                                }
+                            }
+                        }
                     },
                 });
+
+                var table = document.createElement("table");
+                var thead = table.createTHead();
+                var tbody = table.createTBody();
+                var row = thead.insertRow();
+
+
+                ["Expertise", "Count"].forEach(function (value) {
+                    var th = document.createElement("th");
+                    th.textContent = value;
+                    row.appendChild(th);
+                });
+
+
+                currentMonthData.forEach(function (rowData) {
+                    var row = tbody.insertRow();
+                    row.insertCell(0).textContent = rowData.expertise || '';
+                    row.insertCell(1).textContent = rowData.count || '';
+                });
+
+
+                document.querySelector("#table").innerHTML = table.outerHTML;
             }
         }
     });

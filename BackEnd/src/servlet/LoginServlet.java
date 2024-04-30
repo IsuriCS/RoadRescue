@@ -33,6 +33,8 @@ public class LoginServlet extends HttpServlet {
         String option = req.getParameter("option");
         String searchId = req.getParameter("searchId");
 
+        System.out.println(searchId);
+
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
         Connection connection = null;
@@ -85,6 +87,9 @@ public class LoginServlet extends HttpServlet {
                 try {
                     connection=ds.getConnection();
 
+//                    String resultnum = String.format("+%s",searchId);
+
+//                    System.out.println(resultnum);
                     boolean b = login.adminLogin(connection, searchId);
                     JsonObjectBuilder response = Json.createObjectBuilder();
                     if (b) {

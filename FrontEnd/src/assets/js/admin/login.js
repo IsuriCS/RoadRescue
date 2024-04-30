@@ -14,6 +14,10 @@ function sendOTP() {
 
                 alert("OTP sent successfully");
             }
+            else {
+                alert("Phone number does not exist");
+
+            }
         }
     });
 }

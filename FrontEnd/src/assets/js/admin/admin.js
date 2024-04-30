@@ -3658,7 +3658,7 @@ function showReports() {
                 // Creating a pie chart
                 const ctx = document.getElementById("reportpieChart").getContext("2d");
                 const pieChart = new Chart(ctx, {
-                    type: "pie",
+                    type: "bar",
                     data: {
                         labels: expertiseLabels,
                         datasets: [
@@ -3683,6 +3683,18 @@ function showReports() {
                                 }
                             }
                         },
+                        scales: {
+                            x: {
+                                ticks: {
+                                    color: "white"
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    color: "white"
+                                }
+                            }
+                        }
                     },
                 });
 
