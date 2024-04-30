@@ -35,6 +35,7 @@ public class CSSPListServlet extends HttpServlet {
         try {
             connection = ds.getConnection();
             JsonArray allServiceP = userDataController.getServiceProviderList(connection);
+
             JsonObjectBuilder response = Json.createObjectBuilder();
             response.add("status",200);
             response.add("message","Done");

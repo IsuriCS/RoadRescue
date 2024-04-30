@@ -77,4 +77,27 @@ public class SupportMemberController {
     }
 
 
+    public JsonObject getCustomerSupportProfile(Connection connection, int id) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT * FROM customer_support_member WHERE id=?", id);
+
+        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+
+        if (resultSet.next()) {
+            int id1 = resultSet.getInt(1);
+            String f_name = resultSet.getString(2);
+            String phone_number = resultSet.getString(3);
+            String reg_timestamp = resultSet.getString(4);
+            String l_name = resultSet.getString(5);
+
+            objectBuilder.add("id", id1);
+            objectBuilder.add("f_name", f_name);
+            objectBuilder.add("phone_number", phone_number);
+            objectBuilder.add("reg_timestamp", reg_timestamp);
+            objectBuilder.add("l_name", l_name);
+        }
+
+        return objectBuilder.build();
+
+
+    }
 }

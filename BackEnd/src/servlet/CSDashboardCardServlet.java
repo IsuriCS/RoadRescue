@@ -1,6 +1,7 @@
 package servlet;
 
 import controllers.CSmember.DashboardCardsController;
+import controllers.AdminController.UserDataController;
 
 import javax.annotation.Resource;
 import javax.json.*;
@@ -21,8 +22,10 @@ public class CSDashboardCardServlet extends HttpServlet{
     @Resource(name = "java:comp/env/roadRescue")
     DataSource ds;
 
+    UserDataController userDataController=new UserDataController();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
         Connection connection = null;
@@ -30,9 +33,12 @@ public class CSDashboardCardServlet extends HttpServlet{
             connection = ds.getConnection();
             DashboardCardsController controller = new DashboardCardsController();
             JsonArray numofTickets= DashboardCardsController.GetCountsForCards(connection);
+            JsonObject profile=userDataController.getCSMbyid(connection,id);
+
 
             JsonObjectBuilder dataBuilder = Json.createObjectBuilder();
             dataBuilder.add("analyticsData", numofTickets);
+            dataBuilder.add("profile",profile);
 
             JsonObjectBuilder response = Json.createObjectBuilder();
             response.add("status",200);

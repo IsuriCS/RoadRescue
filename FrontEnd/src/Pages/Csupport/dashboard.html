@@ -30,8 +30,7 @@
       <div id="proccessing_boxes">
         <div id="icon">
           <img
-            src="../../assets/img/GearWhite.gif
-      "
+            src="../../assets/img/GearWhite.gif"
             alt=""
           />
         </div>
@@ -45,9 +44,9 @@
     </div>
 
 
-    <!-- <div id="load-container">
+    <div id="load-container" style="display: none;">
       <img src="../../assets/img/Gear-0.3s-200px.gif" alt="">
-    </div> -->
+    </div>
 
 
     <!-- ***************************************HEADER************************************ -->
@@ -57,12 +56,12 @@
       </div>
 
       <div class="navActions">
-        <a href="notification.html" style="margin-right: 2.5vw">
+        <!-- <a href="notification.html" style="margin-right: 2.5vw">
           <img
             class="notificationAlert icons"
             src="../../assets/img/notifications.svg"
           />
-        </a>
+        </a> -->
         <a href="../../index.html">
           <h3>LOG OUT</h3>
         </a>
@@ -123,7 +122,7 @@
                     onclick="showTicket()"
                     >
                     <span class="material-symbols-outlined"> receipt_long </span>
-                    Support Ticket
+                   Complaints
                     </a>
                 </li>
 
@@ -169,7 +168,7 @@
               <span class="material-symbols-outlined">
                 report
               </span>
-              <h2 id="allTicketNum">0</h2>
+              <h2 id="allTicketNum">10</h2>
               <p>All Complains</p></a
             >
             
@@ -177,7 +176,7 @@
                 <span class="material-symbols-outlined">
                   fact_check
                   </span>
-              <h2 id="SolvedTicketNum">0</h2>
+              <h2 id="SolvedTicketNum">5</h2>
               <p>Solved Complains</p></a
             >
 
@@ -186,7 +185,7 @@
                 <span class="material-symbols-outlined">
                   pending
                 </span>
-              <h2 id="PendingTicketNum">0</h2>
+              <h2 id="PendingTicketNum">3</h2>
               <p>Pending Complains</p></a
             >
 
@@ -194,7 +193,7 @@
               <span class="material-symbols-outlined">
                 rate_review
                 </span>
-              <h2 id="OnReviewTicketNum">0</h2>
+              <h2 id="OnReviewTicketNum">2</h2>
               <p>On Review Complains</p>
             </a>
             </div>
@@ -202,7 +201,8 @@
 
 
 
-            <h1>Performances</h1>
+            <h1 style="
+            margin-top: 6vh";>Performances</h1>
 
             <!-- ********************************Display Own Performance******************** -->
           <div id  = "PerformanceCards">
@@ -210,7 +210,7 @@
               <span class="material-symbols-outlined">
                 report
               </span>
-              <h2 id="allPTicketNum">0</h2>
+              <h2 id="allPTicketNum">3</h2>
               <p>All Complains</p></a
             >
             
@@ -218,7 +218,7 @@
                 <span class="material-symbols-outlined">
                   fact_check
                   </span>
-              <h2 id="SolvedPTicketNum">0</h2>
+              <h2 id="SolvedPTicketNum">1</h2>
               <p>Solved Complains</p></a
             >
 
@@ -227,7 +227,7 @@
                 <span class="material-symbols-outlined">
                   pending
                 </span>
-              <h2 id="PendingPTicketNum">0</h2>
+              <h2 id="PendingPTicketNum">2</h2>
               <p>Pending Complains</p></a
             >
 
@@ -270,7 +270,7 @@
            
             <!-- **************************Report Section****************************** -->
            <div class="ReportsSection">
-            <h1>Recent Reports</h1>
+            <h1>Recently Completed Tasks</h1>
             <table id="RecentReportSection">
               <thead>
               <tr>
@@ -474,6 +474,11 @@
               <p id="Detail">Customer ID:</p>
               <p id="customerID">b</p>
             </div>
+            <!-- <div>
+              <p id="Detail">Phone Number:</p>
+              <p id="phone_number">b</p>
+            </div> -->
+
             <div>
               <p id="Detail">Customer Name :</p>
               <p id="customerName">b</p>
@@ -618,12 +623,12 @@
                   </div>
                   <div class="detail"><p id="email"></p></div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                   <div class="tag">
                     <h1>Technicions :</h1>
                   </div>
                   <div class="detail"><p id="tech"></p></div>
-                </div>
+                </div> -->
 
                 <!-- *********************Buttons**************************************************** -->
                 <!-- <button type="submit" class="button">
@@ -1153,26 +1158,21 @@
                   <div class="tag">
                     <h1>First Name :</h1>
                   </div>
-                  <div class="detail"><p>Isuri</p></div>
+                  <div class="detail"><p id="fNameCustomerSupport">Sapna</p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Last Name :</h1>
                   </div>
-                  <div class="detail"><p>Chsthurika</p></div>
+                  <div class="detail"><p id="lNameCustomerSupport">Nethmini</p></div>
                 </div>
                 <div class="row">
                   <div class="tag">
                     <h1>Phone Number :</h1>
                   </div>
-                  <div class="detail"><p>0768658568</p></div>
+                  <div class="detail"><p id="contactNumberSP">+94761816604</p></div>
                 </div>
-                <div class="row">
-                  <div class="tag">
-                    <h1>Email :</h1>
-                  </div>
-                  <div class="detail"><p>isurics@gmail.com</p></div>
-                </div>
+                
   
                 <!-- *********************Buttons**************************************************** -->
                 <!-- <button type="submit" class="button">

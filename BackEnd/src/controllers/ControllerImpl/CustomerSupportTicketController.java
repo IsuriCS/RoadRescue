@@ -72,6 +72,7 @@ public class CustomerSupportTicketController {
             String solution = resultSet.getString(8);
 
 
+
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
             objectBuilder.add("ticketId",id);
             objectBuilder.add("status",status);
