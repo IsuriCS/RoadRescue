@@ -18,7 +18,8 @@ import java.util.Date;
 
 public class CustomerSupportTicketController {
     public boolean update(Connection connection, int ticketId, String solution) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeUpdate(connection,"UPDATE support_ticket SET status=?, solution=? WHERE ticket_id=?","closed", solution, ticketId);
+        String status = "solved";
+        return CrudUtil.executeUpdate(connection,"UPDATE customer_support_ticket SET status=?, solution=? WHERE id=?",status, solution, ticketId);
     }
 
     public boolean add(Connection connection, SupportTicket supportTicket, CustomerSupportTicketModels customerSupportTicket) throws SQLException, ClassNotFoundException, ParseException {
@@ -69,6 +70,38 @@ public class CustomerSupportTicketController {
             String created_time =resultSet.getString(6);
             int customerId= resultSet.getInt(7);
             String solution = resultSet.getString(8);
+
+
+
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("ticketId",id);
+            objectBuilder.add("status",status);
+            objectBuilder.add("description",description);
+            objectBuilder.add("title",title);
+            objectBuilder.add("customer_support_member_id",customer_support_member_id);
+            objectBuilder.add("created_time",created_time);
+            objectBuilder.add("customerID",customerId);
+            objectBuilder.add("solution",solution);
+            SupportTickets.add(objectBuilder.build());
+        }
+        return SupportTickets.build();
+    }
+
+    public JsonArray getAllSupportTicketOrderByStatus(Connection connection,String cusid) throws SQLException, ClassNotFoundException {
+        ResultSet resultSet = CrudUtil.executeQuery(connection, "SELECT * FROM customer_support_ticket WHERE customer_id=? and(status IN ('Pending', 'On Review')OR (status = 'Solved' AND created_time >= DATE_SUB(NOW(), INTERVAL 3 MONTH))) ORDER BY FIELD(status, 'Pending', 'On Review', 'Solved'), created_time DESC;",cusid);
+
+        JsonArrayBuilder SupportTickets = Json.createArrayBuilder();
+
+        while (resultSet.next()){
+            int id=resultSet.getInt("id");
+
+            String status =resultSet.getString("status");
+            String description =resultSet.getString("description");
+            String title =resultSet.getString("title");
+            int customer_support_member_id =resultSet.getInt("customer_support_member_id");
+            String created_time =resultSet.getString("created_time");
+            int customerId= resultSet.getInt("customer_id");
+            String solution = resultSet.getString("solution");
 
 
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();

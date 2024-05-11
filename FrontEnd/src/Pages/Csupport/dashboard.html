@@ -25,10 +25,28 @@
   </head>
 
   <body>
+    <div id="messageBox" style="display: none">
+      <div class="overlay"></div>
+      <div id="proccessing_boxes">
+        <div id="icon">
+          <img
+            src="../../assets/img/GearWhite.gif"
+            alt=""
+          />
+        </div>
+        <div id="Text">
+          <p>Verification Successfull</p>
+        </div>
+        <div id="proccessingBoxButtons">
 
-    <!-- <div id="load-container">
+        </div>
+      </div>
+    </div>
+
+
+    <div id="load-container" style="display: none;">
       <img src="../../assets/img/Gear-0.3s-200px.gif" alt="">
-    </div> -->
+    </div>
 
 
     <!-- ***************************************HEADER************************************ -->
@@ -38,12 +56,12 @@
       </div>
 
       <div class="navActions">
-        <a href="notification.html" style="margin-right: 2.5vw">
+        <!-- <a href="notification.html" style="margin-right: 2.5vw">
           <img
             class="notificationAlert icons"
             src="../../assets/img/notifications.svg"
           />
-        </a>
+        </a> -->
         <a href="../../index.html">
           <h3>LOG OUT</h3>
         </a>
@@ -99,14 +117,30 @@
                 <li>
                     <a 
                     id = "TicketLink"
-                    href="#ticket" 
+                    href="#TicketReports"
                     class="sideNavLink"
                     onclick="showTicket()"
                     >
                     <span class="material-symbols-outlined"> receipt_long </span>
-                    Support Ticket
+                   Complaints
                     </a>
                 </li>
+
+
+                <li>
+                  <a
+                  id = "ServiceRequestsLink"
+                  href = "#ServiceRequests"
+                  class = "sideNavLink"
+                  onclick = "showServiceRequests()"
+                  >
+                  <span class="material-symbols-outlined">
+                    manage_accounts
+                    </span>Service Requests
+                </a>
+                </li>
+
+           
 
                 <li id="profileLink">
                     <a href="#csProfile"
@@ -126,57 +160,142 @@
           <!-- ---------------------------------------Dash Board------------------------------- -->
           <!-- ---------------------------------------Dash Board------------------------------- -->
           <div id="dashboard">
-          
+            <h1>Overall Analytics</h1>
+
+            <!-- ********************************Dispaly Cards******************** -->
+          <div id  = "displayCards">
+            <a  class="button">
+              <span class="material-symbols-outlined">
+                report
+              </span>
+              <h2 id="allTicketNum">10</h2>
+              <p>All Complains</p></a
+            >
+            
+            <a  class="button">
+                <span class="material-symbols-outlined">
+                  fact_check
+                  </span>
+              <h2 id="SolvedTicketNum">5</h2>
+              <p>Solved Complains</p></a
+            >
+
+
+            <a  class="button">
+                <span class="material-symbols-outlined">
+                  pending
+                </span>
+              <h2 id="PendingTicketNum">3</h2>
+              <p>Pending Complains</p></a
+            >
+
+            <a  class="button">
+              <span class="material-symbols-outlined">
+                rate_review
+                </span>
+              <h2 id="OnReviewTicketNum">2</h2>
+              <p>On Review Complains</p>
+            </a>
+            </div>
+
+
+
+
+            <h1 style="
+            margin-top: 6vh";>Performances</h1>
+
+            <!-- ********************************Display Own Performance******************** -->
+          <div id  = "PerformanceCards">
+            <a  class="button">
+              <span class="material-symbols-outlined">
+                report
+              </span>
+              <h2 id="allPTicketNum">3</h2>
+              <p>All Complains</p></a
+            >
+            
+            <a  class="button">
+                <span class="material-symbols-outlined">
+                  fact_check
+                  </span>
+              <h2 id="SolvedPTicketNum">1</h2>
+              <p>Solved Complains</p></a
+            >
+
+
+            <a  class="button">
+                <span class="material-symbols-outlined">
+                  pending
+                </span>
+              <h2 id="PendingPTicketNum">2</h2>
+              <p>Pending Complains</p></a
+            >
+
+            <a  class="button">
+              <span class="material-symbols-outlined">
+                rate_review
+                </span>
+              <h2 id="OnReviewPTicketNum">0</h2>
+              <p>On Review Complains</p>
+            </a>
+
+          </div>
+            
            
 
-            <!-- **************************Report Section****************************** -->
-           <div class = "ServieRequests">
+            <!-- **************************Service Requests****************************** -->
+            <!-- <div class = "ServiceRequests">
             <h1>Service Requests</h1>
-            <table>
+            <table id = "serviceRequests">
+              <thead>
               <tr>
                 <th>Customer ID</th>
                 <th>Location</th>
                 <th>Issue</th>
                 <th>Status</th>
               </tr>
-              <tr>
-                <td>C001</td>
-                <td>Online Payment Issue</td>
-                <td>Colombo</td>
-                <td>
-                  <button class = "button">Request Accepted</button>
-                
-                
-              </td>
-              </tr>
+            </thead>
+            <tbody>  -->
+             <!-- <tr>
+                <th></th>
+                <th><button type  ="button" class = "ServiceRequestLocation">View Location</button></th>
+                <th></th>
+                <th></th>
+              </tr>--> 
+            <!-- </tbody>
+           
             </table>
-           </div>
+           </div> -->
            
            
-           
-            <div class="ReportsSection">
-              <h1>Recent Reports</h1>
-              <table>
-                <tr>
-                  <th>Reported By</th>
-                  <th>Report title</th>
-                  <th>Reported Date</th>
-                  <th>Status</th>
-                </tr>
-                <tr>
-                  <td>A.A.Luvis</td>
-                  <td>Payment Issue</td>
-                  <td>2021/09/12</td>
-                  <td>pending</td>
-                </tr>
-                <tr>
-                  <td>Lucas</td>
-                  <td>Registration issue</td>
-                  <td>2021/09/12</td>
-                  <td>pending</td>
-                </tr>
-              </table>
-            </div>
+            <!-- **************************Report Section****************************** -->
+           <div class="ReportsSection">
+            <h1>Recently Completed Tasks</h1>
+            <table id="RecentReportSection">
+              <thead>
+              <tr>
+                <th>Reported By</th>
+                <th>Report title</th>
+                <th>Reported Date</th>
+                <!-- <th>Accepted Date</th> -->
+                <th>Status</th>
+              </tr>
+              </thead>
+              <tbody></tbody>
+              <!-- <tr>
+                <td>A.A.Luvis</td>
+                <td>Payment Issue</td>
+                <td>2021/09/12</td>
+                <td>pending</td>
+              </tr>
+              <tr>
+                <td>P.L.Ari</td>
+                <td>Registration issue</td>
+                <td>2021/09/12</td>
+                <td>pending</td>
+              </tr> -->
+            </table>
+          </div>
           </div>
 
           <!-- ---------------------------------------Users------------------------------- -->
@@ -202,7 +321,7 @@
                         <th>Name</th>
                         <th>Phone Number</th>
                         <th>Service Requests</th>
-                        <th>Support Tickets</th>
+                        <th>Complains</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -289,25 +408,17 @@
                   <div class="tag">
                     <h1>Email :</h1>
                   </div>
-                  <div class="detail"><p id="email">sandeepa@gmail.com</p></div>
+                  <div class="detail"><p id="cstEmail">sandeepa@gmail.com</p></div>
                 </div>
 
-                <!-- *********************Buttons**************************************************** -->
-                <button type="submit" class="button">
-                  <span class="material-symbols-outlined"> edit </span>Edit
-                  Profile
-                </button>
-                <button type="submit" class="button">
-                  <span class="material-symbols-outlined"> delete </span>Delete
-                  Profile
-                </button>
+                
               </div>
 
               <!-- +++++++++++++++++++ Right side+++++++++++++++++++++++++++++++++++++++ -->
               <div class="rightSide">
                 <div class="stsection">
-                  <h1>Support Tickets</h1>
-                  <h1 id="no_support_tickets"> No Support Tickets</h1>
+                  <h1>Complains</h1>
+                  <h1 id="no_support_tickets"> No Complains</h1>
                   <div id="support_ticket_list" style="display:none;">
                     <template id="supportTicketTemplate">
                     <div class="SuppotTicketcard">
@@ -339,45 +450,50 @@
 
 
            <!-- ---------------------------------------Support ticket Detail view------------------------------- -->
-           <div id="SupportTicketDatail" style="display: none">
+           <div id="SupportTicketDetail" style="display: none">
             <div class="topRow">
             <h1>Reports > 001</h1>
-            <button id="button" style="display: block;">Set Solved</button>
+            <button id="SolutionBtn" >Set Solved</button>
           </div>
 
           <div class="info">
             <div>
-              <p id="Detail">ID :</p>
+              <p id="Detail">Ticket ID :</p>
               <p id="ticketID">a</p>
             </div>
             <div>
               <p id="Detail">Date :</p>
               <p id="Date">a</p>
             </div>
-            <div>
+            <!-- <div>
               <p id="Detail">Assigned Customer Support ID :</p>
-              <p id="CustomerSupportID">b</p>
+              <p id="CustomerSupportMemberID">b</p> -->
               <!-- <button id="assignbtn" style="display: hide;">Assign Customer Support Member</button> -->
-            </div>
+            <!-- </div> -->
             <div>
-              <p id="Detail">Ticket Owner ID:</p>
-              <p id="userID">b</p>
+              <p id="Detail">Customer ID:</p>
+              <p id="customerID">b</p>
             </div>
+            <!-- <div>
+              <p id="Detail">Phone Number:</p>
+              <p id="phone_number">b</p>
+            </div> -->
+
             <div>
-              <p id="Detail">Ticket Owner :</p>
-              <p id="userName">b</p>
+              <p id="Detail">Customer Name :</p>
+              <p id="customerName">b</p>
             </div>
             <div>
               <p id="Detail">Title :</p>
-              <p id="title">b</p>
+              <p id="topic">b</p>
             </div>
             <div>
               <p id="Detail">Description :</p>
-              <p id="description">b</p>
+              <p id="Description">b</p>
             </div>
 
-            <p style="margin: 1vh; margin-left: 0">Solution:</p>
-            <textarea style="border-radius: 12px"></textarea>
+            <p id ="Response" style="margin: 1vh; margin-left: 0">Solution:</p>
+            <textarea id = "response" style="border-radius: 12px"></textarea>
           </div>
           </div>
 
@@ -399,12 +515,12 @@
             </form>
         </div>
             </div>
-            <div>
+            <!-- <div> -->
               <!-- <input type="checkbox" id="allsp" name="allap"><label for="allsp">All</label> -->
-              <input type="checkbox" id="garages" name="garages" checked ><label for="garages" >Garages</label>
+              <!-- <input type="checkbox" id="garages" name="garages" checked ><label for="garages" >Garages</label>
               <input type="checkbox" id="maintainancep" name="maintainancep" checked ><label for="maintainancep">Maintainance Personnel</label>
-            
-            </div>
+             -->
+            <!-- </div> -->
             <div>
               <table id="SPList">
                 <thead>
@@ -413,7 +529,7 @@
                     <th>Name</th>
                     <th>Phone Number</th>
                     <th>Completed services</th>
-                    <th>Support Tickets</th>
+                    <th>Complains</th>
                     <th style="display: none;">type</th>
                   </tr>
                 </thead>
@@ -507,22 +623,22 @@
                   </div>
                   <div class="detail"><p id="email"></p></div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                   <div class="tag">
                     <h1>Technicions :</h1>
                   </div>
                   <div class="detail"><p id="tech"></p></div>
-                </div>
+                </div> -->
 
                 <!-- *********************Buttons**************************************************** -->
                 <!-- <button type="submit" class="button">
                   <span class="material-symbols-outlined"> edit </span>Edit
                   Profile
                 </button> -->
-                <button type="submit" class="button">
+                <!-- <button type="submit" class="button">
                   <span class="material-symbols-outlined"> history </span
                   >Service History
-                </button>
+                </button> -->
                 <!-- <button type="submit" class="button">
                   <span class="material-symbols-outlined"> ac_unit </span>Freeze
                   Profile
@@ -554,8 +670,8 @@
                   <div class="detail"><p id="date"></p></div>
                 </div>
                 <div class="spstsection">
-                  <h1>Support Tickets</h1>
-                  <h1 id="spno_support_tickets"> No Support Tickets</h1>
+                  <h1>Complains</h1>
+                  <h1 id="spno_support_tickets"> No Complains</h1>
                   <div id="spsupport_ticket_list" style="display:none;">
                     <template id="spsupportTicketTemplate">
                     <div class="spSuppotTicketcard">
@@ -742,7 +858,7 @@
 
 
            <!-- ----------------------------support ticket--------------------------------- -->
-          <div id = "ticket" style="display: none;">
+          <!-- <div id = "ticket" style="display: none;">
           <h1>Support Ticket</h1>
 
           <div class="info">
@@ -789,12 +905,177 @@
             </div>
 
       
+          </div> -->
+
+          <!-- -------------------------Ticket Table -------------------------------- -->
+          <div id="TicketReports" style="display: none">
+            <div class="topRow">
+              <h1>Complains</h1>
+              <div class="search">
+            <form>
+                <input type="text" placeholder="Search Support Ticket" name="search" id="searchCSTicket">
+                <button onclick="searchCSTicket()">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </form>
+        </div>
+      </div>
+
+        <div class="ReportsSection">
+        <table id="TicketList">
+          <thead>
+          <tr>
+            <th>Ticket ID</th>
+            <th>Customer ID</th>
+            <th>Phone Number</th>
+            <th>Description</th>
+            <th>Created Time</th>
+            <th>Status</th>
+          </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        </div>
+            </div>
+          
+
+
+
+             <!-- ---------------------------------------Support ticket Detail view------------------------------- -->
+          <div id="SupportTicketDetails" style="display: none">
+            <div class="topRow">
+            <h1>Reports > 001</h1>
+            <button id="button" style="display: block;">Set Solved</button>
           </div>
 
+          <div class="info">
+            <div>
+              <p id="Detail">Ticket ID :</p>
+              <p id="tecketDetailViewId">a</p>
+            </div>
+            <div>
+              <p id="Detail">Date :</p>
+              <p id="supportTickerDetailViewDate">a</p>
+            </div>
+            <div>
+              <p id="Detail">Assigned Customer Support ID :</p>
+              <p id="CustomerSupportMemberID">b</p>
+              <button id="assignbtn" style="display: hide;">Assign Customer Support Member</button>
+            </div>
+            <div>
+              <p id="Detail">Customer ID:</p>
+              <p id="customerID">b</p>
+            </div>
+            <div>
+              <p id="Detail">Customer Name:</p>
+              <p id="customerName">b</p>
+            </div>
+            <div>
+              <p id="Detail">Title :</p>
+              <p id="topic">b</p>
+            </div>
+            <div>
+              <p id="Detail">Description :</p>
+              <p id="Description">b</p>
+            </div>
 
+            <p style="margin: 1vh; margin-left: 0">Solution:</p>
+            <textarea style="border-radius: 12px"></textarea>
+          </div>
+          </div>
+
+          <!-- ---------------------------------------FAQ------------------------------- -->
+            <!-- <div id="FAQ"  style ="display:none">
+                <h1>System > Edit FAQ</h1>
+
+                <input type="text" placeholder="newQuestion">
+                <textarea name="answer" id="answer" placeholder="newAnswer"></textarea>
+                <button id="button" onclick="addFAQ" >Add</button>
+
+                <div class = "CurrentFAQ" >
+                  <h1>Current FAQ</h1>
+                  <table id = "FAQList">
+                    <thead>
+                      <tr>
+                        <th>Question</th>
+                        <th>Answer</th>
+                        <th style="width: 30%"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>How can you make a complain?</td>
+                        <td>You can make a support ticket</td>
+                        <td>
+                          <button type="button" class="edit faq">Edit</button>
+                          <button type="button" class="delete faq">Delete</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Do you need to share your location?</td>
+                        <td>Yes, After you log in to Road Rescue or request for the service we will automatically track your location to provide you better and faster service.</td>
+                        <td>
+                          <button type="button" class="edit faq">Edit</button>
+                          <button type="button" class="delete faq">Delete</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Can you track technician location?</td>
+                        <td>Yes, After a service peovider accepts your request you can trac their location.</td>
+                        <td>
+                          <button type="button" class="edit faq">Edit</button>
+                          <button type="button" class="delete faq">Delete</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Can you choose service provider near you?</td>
+                        <td>Yes, After you log in to the system you will see nearby garage list. Then you can select service provider you want and send service request them.</td>
+                        <td>
+                          <button type="button" class="edit faq">Edit</button>
+                          <button type="button" class="delete faq">Delete</button>
+                        </td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                
+                </div>
+               
+            </div> -->
+        
+<!--  -------------------Service Request Cancelation--------------------------------------- -->
+            <div id="ServiceRequests" style="display: none">
+            <div class = "ServiceRequests">
+              <h1>Service Requests</h1>
+              <table id = "serviceRequests">
+                <thead>
+                <tr>
+                  <th>Request ID</th>
+                  <th>Customer ID</th>
+                  <th>Location</th>
+                  <th>Issue</th>
+                  <th>Status</th>
+                  <th style = "width : 30%" ></th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td><button type  ="button" class = "ServiceRequestLocation">View Location</button></td>
+                  <td></td>
+                  <td></td>
+                  <td><button type = "button" class = "ServiceRequestCancel">Cancel</button></td>
+                </tr> 
+              </tbody>
+             
+              </table>
+             </div>
+            </div>
 
           <!-- -------------------------------profile----------------------------------- -->
-          <div id = "csProfile" style = "display: none;">
+          <!-- <div id = "csProfile" style = "display: none;">
             <h1>Profile</h1>
             
             
@@ -847,24 +1128,74 @@
                   <p>sapnanethmini@gmail.com</p>
                 </div>
               </div>
-            
-<!-- 
+            </div>
+
             <div class ="editbutton">
               <button type = "submit" class="button">Edit profile</button>
             </div> -->
 
-            <button type="submit" class="button">
+            <!-- <button type="submit" class="button">
               <span class="material-symbols-outlined"> edit </span>Edit
               Profile
-            </button>
-            <button type="submit" class="button">
+            </button> -->
+            <!-- <button type="submit" class="button">
               <span class="material-symbols-outlined"> delete </span>Delete
               Profile
-            </button>
-          </div>
-        </div>
-        <!-- check-->
+            </button> -->
+          <!-- </div>  -->
 
+          <div id="csProfile" style="display: none">
+            <div class="topRow">
+              <h1>Profile</h1>
+            </div>
+  
+            <div class="profileContent">
+              <div class="middle_View">
+                <img src="../../assets/img/pic.png" alt="" />
+                <!-- Detail form +******************************************************************** -->
+  
+                <div class="row">
+                  <div class="tag">
+                    <h1>First Name :</h1>
+                  </div>
+                  <div class="detail"><p id="fNameCustomerSupport">Sapna</p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Last Name :</h1>
+                  </div>
+                  <div class="detail"><p id="lNameCustomerSupport">Nethmini</p></div>
+                </div>
+                <div class="row">
+                  <div class="tag">
+                    <h1>Phone Number :</h1>
+                  </div>
+                  <div class="detail"><p id="contactNumberSP">+94761816604</p></div>
+                </div>
+                
+  
+                <!-- *********************Buttons**************************************************** -->
+                <!-- <button type="submit" class="button">
+                    <span class="material-symbols-outlined"> edit </span>Edit
+                    Profile
+                  </button>
+                  <button type="submit" class="button">
+                    <span class="material-symbols-outlined"> delete </span>Delete
+                    Profile
+                  </button>
+                </div> -->
+              </div>
+            </div>
+            <div class="buttonDiv">
+              <!-- <button type="submit" class="button">
+                <span class="material-symbols-outlined"> edit </span>Change
+                Password
+              </button> -->
+              <!-- <button type="submit" class="button">
+                <span class="material-symbols-outlined"> edit </span>Edit Profile
+              </button> -->
+            </div>
+          </div>
           </div>
           </div>
 

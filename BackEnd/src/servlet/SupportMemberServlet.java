@@ -42,11 +42,87 @@ public class SupportMemberServlet extends HttpServlet {
         System.out.println("Call  me");
         PrintWriter writer = resp.getWriter();
 
+
+        System.out.println("Call  me");
+
+
         String option = req.getParameter("option");
         String id = req.getParameter("if");
 
         if (option.equalsIgnoreCase("getData")){
 
+            try {
+                Connection connection=ds.getConnection();
+                JsonObject customerSupportProfile = cusSupportMember.getCustomerSupportProfile(connection, Integer.parseInt(id));
+                JsonObjectBuilder response = Json.createObjectBuilder();
+                response.add("status",200);
+                response.add("message","Successfully get all details.");
+                response.add("data",customerSupportProfile);
+                writer.print(response.build());
+                connection.close();
+            } catch (SQLException e) {
+                JsonObjectBuilder response = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                response.add("status",500);
+                response.add("message","SQLException");
+                response.add("data",e.getLocalizedMessage());
+                writer.print(response.build());
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                JsonObjectBuilder response = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                response.add("status",500);
+                response.add("message","ClassNotFoundException");
+                response.add("data",e.getLocalizedMessage());
+                writer.print(response.build());
+                e.printStackTrace();
+            }
+
+
+        }else {
+            try {
+                Connection connection = ds.getConnection();
+
+                JsonReader reader = Json.createReader(req.getReader());
+                JsonObject jsonObject = reader.readObject();
+
+                String contactNum = jsonObject.getString("contactNum");
+                JsonObject getCustomerSupportMemberByContact = cusSupportMember.getCustomerSupportMemberByContact(connection , contactNum);
+                JsonObjectBuilder response = Json.createObjectBuilder();
+                response.add("status",200);
+                response.add("message","Successfully get all details.");
+                response.add("data",getCustomerSupportMemberByContact);
+                writer.print(response.build());
+                connection.close();
+            } catch (SQLException e) {
+                JsonObjectBuilder response = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                response.add("status",500);
+                response.add("message","SQLException");
+                response.add("data",e.getLocalizedMessage());
+                writer.print(response.build());
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                JsonObjectBuilder response = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                response.add("status",500);
+                response.add("message","ClassNotFoundException");
+                response.add("data",e.getLocalizedMessage());
+                writer.print(response.build());
+                e.printStackTrace();
+       }
+}
+
+
+
+
+        /*try {
+            Connection connection = ds.getConnection();
+>>>>>>> 10e6bf659b373b31b3c90700a76febefe895faf3
+
+        if (option.equalsIgnoreCase("getData")){
+
+<<<<<<< HEAD
 
 
 
@@ -83,6 +159,33 @@ public class SupportMemberServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
+=======
+            String contactNum = jsonObject.getString("contactNum");
+            JsonObject getCustomerSupportMemberByContact = cusSupportMember.getCustomerSupportMemberByContact(connection , contactNum);
+            JsonObjectBuilder response = Json.createObjectBuilder();
+            response.add("status",200);
+            response.add("message","Successfully get all details.");
+            response.add("data",getCustomerSupportMemberByContact);
+            writer.print(response.build());
+            connection.close();
+        } catch (SQLException e) {
+            JsonObjectBuilder response = Json.createObjectBuilder();
+            resp.setStatus(HttpServletResponse.SC_OK);
+            response.add("status",500);
+            response.add("message","SQLException");
+            response.add("data",e.getLocalizedMessage());
+            writer.print(response.build());
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            JsonObjectBuilder response = Json.createObjectBuilder();
+            resp.setStatus(HttpServletResponse.SC_OK);
+            response.add("status",500);
+            response.add("message","ClassNotFoundException");
+            response.add("data",e.getLocalizedMessage());
+            writer.print(response.build());
+            e.printStackTrace();
+        }*/
+
 
 
 

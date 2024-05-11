@@ -16,10 +16,14 @@
   top: 0;
   bottom: 0;
 }
-.deleteButton {
+.deleteButton,
+#spdeletebutton,
+#csdeletebutton {
   background-color: #c41950;
 }
-.deleteButton:hover {
+.deleteButton:hover,
+#spdeletebutton:hover,
+#csdeletebutton:hover {
   background-color: #911d42;
 }
 /* *****************DASH BOARD CARDS ****************************** */
@@ -243,7 +247,7 @@ input:focus {
 }
 .leftSide {
   border-right: white solid;
-  width: 45%;
+  width: 36%;
   padding-left: 5vw;
 }
 .leftSide img {
@@ -261,7 +265,8 @@ input:focus {
 }
 .leftSide #editProfileForm .row div input,
 #speditProfileForm .row div input,
-#csmeditProfileForm .row div input {
+#csmeditProfileForm .row div input,
+#techeditProfileForm .row div input {
   background-color: #253555;
   border: none;
   border-bottom: white solid 1px;
@@ -275,7 +280,7 @@ input:focus {
   margin: 1vh;
 }
 .row .tag {
-  width: 25%;
+  width: 30%;
   margin: 1vh;
 }
 .row .tag h1 {
@@ -293,7 +298,7 @@ input:focus {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 4vh;
 }
 .leftSide .buttonDiv .button,
@@ -317,6 +322,100 @@ input:focus {
   border-style: none;
   width: inherit;
   justify-content: center;
+  cursor: pointer;
+}
+
+#PendingTickets,
+#spPendingTickets {
+  background-color: #162645;
+  border-radius: 2vh;
+  /* border: white solid 3px; */
+  position: relative;
+  /* top: 23vh; */
+  /* right: 16vw; */
+  height: 30vh;
+  width: 26vw;
+  padding: 1vh;
+}
+#PendingTickets #ticketoutline,
+#spPendingTickets #spticketoutline {
+  overflow: auto;
+  height: inherit;
+}
+#ticketoutline h3,
+#spticketoutline h3 {
+  margin: 1vh;
+  color: white;
+  text-align: center;
+}
+.cutomerCWindow div,
+.spCWindow div {
+  display: flex;
+  flex-direction: row;
+  background-color: #3b4966;
+  border-radius: 3vh;
+  justify-content: space-between;
+  margin: 1vw;
+  padding: 0 1vw;
+}
+.cutomerCWindow #customerComcards:hover,
+.spCWindow #spComcards:hover {
+  background-color: #728ab0;
+  cursor: pointer;
+}
+
+/* *******************Hover box********************* */
+.customerComcards,
+.spComcards {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+.customerComcards:hover,
+.spComcards:hover {
+  cursor: pointer;
+}
+
+.customerComcards .comstatus,
+.spComcards .spcomstatus {
+  visibility: hidden;
+
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  /* padding: 5px 0; */
+  border-radius: 6px;
+  position: absolute;
+  z-index: 3;
+  width: 120px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+  font-size: 2vh;
+  padding: 1vh;
+}
+
+.customerComcards:hover .comstatus,
+.spComcards:hover .spcomstatus {
+  visibility: visible;
+}
+.customerComcards .comstatus::after,
+.spComcards .spcomstatus::after {
+  content: " ";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+#dashboard h1 {
+  font-size: 3.5vh;
+}
+.table #cards:hover {
+  background-color: #728ab0;
   cursor: pointer;
 }
 #cusprof button {
@@ -343,16 +442,17 @@ input:focus {
 
   text-decoration: none;
 }
-.rightSide .SuppotTicketcard .row,
-.rightSide .spSuppotTicketcard .row,
-.rightSide .csSuppotTicketcard .row {
-  margin: 0;
-}
+
 .rightSide {
   display: flex;
   flex-direction: column;
   padding-left: 5vh;
   width: 45%;
+}
+/* .rightSide .SuppotTicketcard .row,
+.rightSide .spSuppotTicketcard .row,
+.rightSide .csSuppotTicketcard .row {
+  margin: 0;
 }
 .rightSide .stsection #no_support_tickets,
 .rightSide .spstsection #spno_support_tickets,
@@ -403,7 +503,48 @@ input:focus {
 .spSuppotTicketcard .solveButton .on_review,
 .csSuppotTicketcard .solveButton .on_review {
   background-color: #1caf09;
+} */
+.rightSide h1 {
+  font-size: 3vh;
 }
+#cusprof .rightSide {
+  padding-left: 1vw;
+  width: 55%;
+}
+
+.rightSide .firstRow {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 1vh;
+  align-items: flex-start;
+}
+.cusProfilemapContainer {
+  width: 22vw;
+}
+.spProfilemapContainer {
+  width: 100%;
+}
+.requestgraph {
+  padding: 2vh;
+  width: 19vw;
+  height: 37vh;
+}
+.requestChart {
+  position: absolute;
+  width: 18vw;
+  right: 6vw;
+}
+
+#cusprof .ratings {
+  margin-top: 5vh;
+}
+
+#cusprof .ratingrow {
+  padding: 2vh;
+}
+
 /* *********************************Support Ticket Page ****************************** */
 #SupportTicketDatail .topRow button {
   font-size: 2.5vh;
@@ -805,5 +946,129 @@ input {
 }
 /* ********************************************sp profile View***************************************** */
 #GarageProf #location {
+  color: white;
+}
+
+/* ************************ Rating Score Cards************************* */
+.ratingrow {
+  display: flex;
+  flex-direction: column;
+}
+.starRow {
+  display: flex;
+  flex-direction: row;
+}
+.side {
+  float: left;
+  width: 15%;
+  margin-top: 10px;
+}
+
+.middle {
+  float: left;
+  width: 70%;
+  margin-top: 10px;
+}
+
+/* Place text to the right */
+.right {
+  text-align: right;
+}
+
+/* Clear floats after the columns */
+.ratingrow:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The bar container */
+.bar-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+  color: white;
+}
+
+/* Individual bars */
+.bar-5 {
+  /* width: 60%; */
+  height: 18px;
+  background-color: #54bebe;
+}
+.bar-4 {
+  /* width: 30%; */
+  height: 18px;
+  background-color: #76c8c8;
+}
+.bar-3 {
+  /* width: 10%; */
+  height: 18px;
+  background-color: #df979e;
+}
+.bar-2 {
+  /* width: 4%; */
+  height: 18px;
+  background-color: #d7658b;
+}
+.bar-1 {
+  /* width: 15%; */
+  height: 18px;
+  background-color: #c80064;
+}
+
+/* *****************************Customer Support Member ************************************ */
+#csmember #CSMadd {
+  padding: 1vh;
+  font-size: 2vh;
+  margin-left: 17vw;
+  margin-top: 0;
+}
+
+#addCSM {
+  position: fixed;
+  background-color: #ffffff8a;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  display: flex;
+  left: 0;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+#addcsmform {
+  position: fixed;
+  left: 38vw;
+  top: 7vh;
+}
+#reports .graph {
+  width: 32vw;
+  height: 30vh;
+}
+#reports div h1 {
+  font-size: 3vh;
+}
+#reports > div {
+  display: flex;
+  gap: 4vh;
+  justify-content: center;
+}
+.reportissueCatogory,
+.reportserviceRequests {
+  display: flex;
+  flex-direction: column;
+}
+.reportissueCatogory div,
+.reportserviceRequests div {
+  display: flex;
+  margin: 1vh;
+  justify-content: space-between;
+}
+
+#reports button {
+  background-color: #253555;
+  border-style: none;
   color: white;
 }

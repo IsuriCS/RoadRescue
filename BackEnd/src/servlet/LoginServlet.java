@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+
 import static utils.OTP.generateOTP;
 import static utils.SMS.smsApi;
 
@@ -31,6 +32,8 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String option = req.getParameter("option");
         String searchId = req.getParameter("searchId");
+
+
 
         PrintWriter writer = resp.getWriter();
         resp.setContentType("application/json");
@@ -83,6 +86,7 @@ public class LoginServlet extends HttpServlet {
 
                 try {
                     connection=ds.getConnection();
+
                     boolean b = login.adminLogin(connection, searchId);
                     JsonObjectBuilder response = Json.createObjectBuilder();
                     if (b) {

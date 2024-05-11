@@ -87,14 +87,14 @@ public class AdminCustomerSupportListServlet extends HttpServlet{
                     lName = jsonObject.getString("lname");
                     contactNumber = jsonObject.getString("cnum");
                     id = jsonObject.getString("csmId");
-//                    email = jsonObject.getString("email");
+                    email = jsonObject.getString("email");
 
 
 
                     try {
                         Connection connection = ds.getConnection();
 
-                        boolean result = userDataController.UpdateCSM(connection,id,fName,lName,contactNumber);
+                        boolean result = userDataController.UpdateCSM(connection,id,fName,lName,contactNumber,email);
 
                         if (result) {
                             System.out.println("start send response");
@@ -132,12 +132,16 @@ public class AdminCustomerSupportListServlet extends HttpServlet{
                         Connection connection = ds.getConnection();
 
                         JsonObject result = userDataController.getCSMbyid(connection,id);
+                        JsonObject ticketCount=userDataController.getCSMticketCount(connection,id);
 
+                        JsonObjectBuilder data=Json.createObjectBuilder();
+                        data.add("profile",result);
+                        data.add("ticketCount",ticketCount);
                         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                         resp.setStatus(HttpServletResponse.SC_OK);
                         objectBuilder.add("status", 201);
                         objectBuilder.add("message", "Get csm by id.");
-                        objectBuilder.add("data", result);
+                        objectBuilder.add("data", data.build());
                         writer.print(objectBuilder.build());
 //                System.out.println("end send response");
 
@@ -168,6 +172,70 @@ public class AdminCustomerSupportListServlet extends HttpServlet{
 
 
     }
+
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String fName;
+        String lName;
+        String contactNumber;
+
+        String email;
+        String option;
+
+        try (Reader stringReader = new InputStreamReader(req.getInputStream())) {
+            JsonReader reader = Json.createReader(stringReader);
+            JsonObject jsonObject = reader.readObject();
+
+            option = jsonObject.getString("option");
+
+        PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
+
+        switch (option) {
+            case "addCSM":
+                fName = jsonObject.getString("fname");
+                lName = jsonObject.getString("lname");
+                contactNumber = jsonObject.getString("cnum");
+
+                email = jsonObject.getString("email");
+                try {
+                    Connection connection = ds.getConnection();
+                    boolean addCSMResult = userDataController.addCSM(connection,fName,lName,contactNumber,email);
+                    if (addCSMResult) {
+                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                        resp.setStatus(HttpServletResponse.SC_OK);
+                        objectBuilder.add("status", 200);
+                        objectBuilder.add("message", "CSM register succussfull");
+                        objectBuilder.add("data", "");
+                        writer.print(objectBuilder.build());
+                    } else {
+                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                        resp.setStatus(HttpServletResponse.SC_OK);
+                        objectBuilder.add("status", 400);
+                        objectBuilder.add("message", "SP verification Failed");
+                        objectBuilder.add("data", "");
+                        writer.print(objectBuilder.build());
+                    }
+                    connection.close();
+                } catch (SQLException e) {
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    objectBuilder.add("status", 500);
+                    objectBuilder.add("message", "SQL Exception Error.");
+                    objectBuilder.add("data", e.getLocalizedMessage());
+                    writer.print(objectBuilder.build());
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    objectBuilder.add("status", 500);
+                    objectBuilder.add("message", "Class not fount Exception Error");
+                    objectBuilder.add("data", e.getLocalizedMessage());
+                    writer.print(objectBuilder.build());
+                    e.printStackTrace();
+                }
+        }   }
+    }
+
 
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");

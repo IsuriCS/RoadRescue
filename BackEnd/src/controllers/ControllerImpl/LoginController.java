@@ -45,7 +45,9 @@ public class LoginController {
     }
 
     public boolean adminLogin(Connection connection, String phoneNumber) throws SQLException, ClassNotFoundException {
+
         return CrudUtil.executeQuery(connection, "SELECT id admin where phone_number=?", phoneNumber).next();
+
     }
 
     public String customerSupportLogin(Connection connection, String csPhoneNumber) throws SQLException, ClassNotFoundException {

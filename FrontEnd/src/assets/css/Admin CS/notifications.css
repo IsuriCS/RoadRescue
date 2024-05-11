@@ -43,10 +43,12 @@
   flex-direction: row;
   gap: 5vh;
   margin-bottom: 4vh;
+  /* margin-left: 17vw; */
 }
 
 #proccessingBoxButtons button {
   width: auto;
+  margin: 1vw;
   /* height: 10vh;
   font-size: 3vh; */
   /* background-color: #253555;

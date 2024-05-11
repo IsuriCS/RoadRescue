@@ -1,6 +1,5 @@
 package servlet;
 
-
 import controllers.AdminController.SPSupportTicketContraller;
 import controllers.AdminController.UserDataController;
 
@@ -20,13 +19,13 @@ import java.io.Reader;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet(urlPatterns = "/Admin/SPlist")
-public class AdminSPListServlet extends HttpServlet{
+@WebServlet(urlPatterns = "/Admin/technician")
+public class AdminTechnicianServlet extends HttpServlet {
     @Resource(name = "java:comp/env/roadRescue")
     DataSource ds;
 
     UserDataController userDataController=new UserDataController();
-    SPSupportTicketContraller spSupportTicketContraller= new SPSupportTicketContraller();
+//    SPSupportTicketContraller spSupportTicketContraller= new SPSupportTicketContraller();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -38,10 +37,10 @@ public class AdminSPListServlet extends HttpServlet{
         PrintWriter writer = resp.getWriter();
 
         switch (option) {
-            case "getallsp":
+            case "getalltech":
                 try {
                     connection = ds.getConnection();
-                    JsonArray profile = userDataController.getServiceProviderList(connection);
+                    JsonArray profile = userDataController.getTechnicianList(connection);
 
                     JsonObjectBuilder response = Json.createObjectBuilder();
                     response.add("status", 200);
@@ -75,20 +74,17 @@ public class AdminSPListServlet extends HttpServlet{
 
                 }
                 break;
-            case "getSPbyid":
+            case "getTechbyid":
                 String id = req.getParameter("id");
                 try {
                     connection = ds.getConnection();
-                    JsonObject profile = userDataController.getSpyid(connection,id);
-                    JsonArray tickets = spSupportTicketContraller.getSpSupportTicket(connection,id);
-                    JsonArray locations = userDataController.getrequestLocationsSP(connection,id);
-                    JsonArray ratings=userDataController.getratingstoSP(connection,id);
+                    JsonObject profile = userDataController.getTechnicianByid(connection,id);
+                    JsonObject analytics=userDataController.gettechnitianActivities(connection,id);
                     JsonObjectBuilder data = Json.createObjectBuilder();
 
                     data.add("profile",profile);
-                    data.add("locations",locations);
-                    data.add("rating",ratings);
-                    data.add("tickets",tickets);
+                    data.add("analytics",analytics);
+
                     JsonObjectBuilder response = Json.createObjectBuilder();
                     response.add("status", 200);
                     response.add("message", "Done");
@@ -126,8 +122,8 @@ public class AdminSPListServlet extends HttpServlet{
 
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String garage;
-        String owner;
+        String fname;
+        String lname;
         String contactNumber;
         String id;
         String email;
@@ -142,10 +138,10 @@ public class AdminSPListServlet extends HttpServlet{
             option = jsonObject.getString("option");
             switch (option){
                 case "updateDetails":
-                    garage = jsonObject.getString("garage");
-                    owner = jsonObject.getString("owner");
+                    fname = jsonObject.getString("fname");
+                    lname = jsonObject.getString("lname");
                     contactNumber = jsonObject.getString("cnum");
-                    id = jsonObject.getString("spId");
+                    id = jsonObject.getString("techId");
                     email = jsonObject.getString("email");
 
 
@@ -153,7 +149,7 @@ public class AdminSPListServlet extends HttpServlet{
                     try {
                         Connection connection = ds.getConnection();
 
-                        boolean result = userDataController.UpdateServiceProvider(connection,id,garage,owner,email,contactNumber);
+                        boolean result = userDataController.Updatetechnician(connection,id,fname,lname,contactNumber,email);
 
                         if (result) {
                             System.out.println("start send response");
@@ -163,7 +159,7 @@ public class AdminSPListServlet extends HttpServlet{
                             objectBuilder.add("message", "Service Provider profile update successfull.");
                             objectBuilder.add("data","");
                             writer.print(objectBuilder.build());
-//                System.out.println("end send response");
+                System.out.println("end send response");
                         }
                         connection.close();
                     } catch (SQLException e) {
@@ -185,14 +181,14 @@ public class AdminSPListServlet extends HttpServlet{
                     }
                     break;
 
-                case "getSPById":
+                case "getTechById":
 
-                    id = jsonObject.getString("spId");
+                    id = jsonObject.getString("techId");
 
                     try {
                         Connection connection = ds.getConnection();
 
-                        JsonObject profile = userDataController.getSpyid(connection,id);
+                        JsonObject profile = userDataController.getTechnicianByid(connection,id);
 
                         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                         resp.setStatus(HttpServletResponse.SC_OK);
@@ -229,116 +225,7 @@ public class AdminSPListServlet extends HttpServlet{
 
 
     }
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id;
-        String verify;
-        String option;
-
-        try (Reader stringReader = new InputStreamReader(req.getInputStream())) {
-            JsonReader reader = Json.createReader(stringReader);
-            JsonObject jsonObject = reader.readObject();
-
-            id = jsonObject.getInt("id");
-            verify = jsonObject.getString("verify");
-            option = jsonObject.getString("option");
-
-        }
 
 
-
-
-        PrintWriter writer = resp.getWriter();
-        resp.setContentType("application/json");
-
-        switch (option){
-            case "verify":
-                try{
-                    Connection connection = ds.getConnection();
-                    boolean verificationResult = userDataController.verifySP(connection,id);
-                    if (verificationResult){
-                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                        resp.setStatus(HttpServletResponse.SC_OK);
-                        objectBuilder.add("status", 200);
-                        objectBuilder.add("message", "SP verification succussfull");
-                        objectBuilder.add("data", "");
-                        writer.print(objectBuilder.build());
-                    }else {
-                        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                        resp.setStatus(HttpServletResponse.SC_OK);
-                        objectBuilder.add("status", 400);
-                        objectBuilder.add("message", "SP verification Failed");
-                        objectBuilder.add("data", "");
-                        writer.print(objectBuilder.build());
-                    }
-                    connection.close();
-                } catch (SQLException e) {
-                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                    resp.setStatus(HttpServletResponse.SC_OK);
-                    objectBuilder.add("status", 500);
-                    objectBuilder.add("message", "SQL Exception Error.");
-                    objectBuilder.add("data", e.getLocalizedMessage());
-                    writer.print(objectBuilder.build());
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                    resp.setStatus(HttpServletResponse.SC_OK);
-                    objectBuilder.add("status", 500);
-                    objectBuilder.add("message", "Class not fount Exception Error");
-                    objectBuilder.add("data", e.getLocalizedMessage());
-                    writer.print(objectBuilder.build());
-                    e.printStackTrace();
-                }
-        }
-    }
-
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Extract the id parameter from the request URL
-        String idParam = req.getParameter("id");
-        resp.setContentType("application/json");
-        PrintWriter writer = resp.getWriter();
-
-
-            try {
-                Connection connection = ds.getConnection();
-                int id = Integer.parseInt(idParam);
-
-                boolean deletionResult = userDataController.cancelVerification(connection,id);
-
-                if (deletionResult) {
-
-                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                    resp.setStatus(HttpServletResponse.SC_OK);
-                    objectBuilder.add("status", 200);
-                    objectBuilder.add("message", "Verification cancel successfull.");
-                    writer.print(objectBuilder.build());
-                } else {
-
-                    JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                    resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    objectBuilder.add("status", 400);
-                    objectBuilder.add("message", "Verification cancel fail.");
-                    writer.print(objectBuilder.build());
-                }
-                connection.close();
-            } catch (SQLException e) {
-                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                resp.setStatus(HttpServletResponse.SC_OK);
-                objectBuilder.add("status", 500);
-                objectBuilder.add("message", "SQL Exception Error.");
-                objectBuilder.add("data", e.getLocalizedMessage());
-                writer.print(objectBuilder.build());
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                resp.setStatus(HttpServletResponse.SC_OK);
-                objectBuilder.add("status", 500);
-                objectBuilder.add("message", "Class not found Exception Error.");
-                objectBuilder.add("data", e.getLocalizedMessage());
-                writer.print(objectBuilder.build());
-                e.printStackTrace();
-            }
-
-    }
 
 }
