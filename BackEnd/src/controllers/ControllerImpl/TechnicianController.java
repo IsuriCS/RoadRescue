@@ -295,4 +295,12 @@ public class TechnicianController {
         return new int[]{mechanicalIssue,electricalIssues,engineProblems,fuelIssues,exhaustIssues,coolingProblems,other};
 
     }
+
+    public boolean updateTechnicianContactNumber(Connection connection, String newContactNumber, String technicianId) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate(connection, "UPDATE technician set phone_number=? where id=?", newContactNumber, Integer.parseInt(technicianId));
+    }
+
+    public boolean changeStatus(Connection connection, String status, String id) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate(connection, "UPDATE technician set status=? where id=?", Integer.parseInt(status), Integer.parseInt(id));
+    }
 }

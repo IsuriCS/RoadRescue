@@ -129,7 +129,7 @@ public class LoginServlet extends HttpServlet {
                     smsApi(otp,searchId);
                     JsonObjectBuilder response = Json.createObjectBuilder();
                     response.add("status", 200);
-                    response.add("message", id+otp);
+                    response.add("message", id+otp);//1-458963
                     response.add("data", "");
                     writer.print(response.build());
                 } catch (SQLException e) {

@@ -238,6 +238,7 @@ public class TechnicianServlet extends HttpServlet {
         protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
             String fName;
+            String serviceProviderId;
             String lName;
             String contactNumber;
             int techStatus;
@@ -247,6 +248,7 @@ public class TechnicianServlet extends HttpServlet {
                 JsonReader reader = Json.createReader(stringReader);
                 JsonObject jsonObject = reader.readObject();
 
+                serviceProviderId = jsonObject.getString("serviceProviderId");
                 fName = jsonObject.getString("techFirstName");
                 lName = jsonObject.getString("techLastName");
                 contactNumber = jsonObject.getString("techContactNumber");
@@ -268,7 +270,7 @@ public class TechnicianServlet extends HttpServlet {
 
             try {
                 Connection connection = ds.getConnection();
-                TechnicianModel technicianModel = new TechnicianModel(fName, lName, contactNumber, expertiseAreasList, techStatus, 1);
+                TechnicianModel technicianModel = new TechnicianModel(fName, lName, contactNumber, expertiseAreasList, techStatus, Integer.parseInt(serviceProviderId));
 
                 boolean result = technician.add(connection, technicianModel);
 

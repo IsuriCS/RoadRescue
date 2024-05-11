@@ -1,6 +1,7 @@
 package servlet;
 
 import controllers.ControllerImpl.GarageController;
+import controllers.ControllerImpl.TechnicianController;
 import models.Garage;
 import models.SpSupportTicket;
 
@@ -26,6 +27,7 @@ public class GarageServlet extends HttpServlet {
     DataSource ds;
 
     GarageController garage = new GarageController();
+    TechnicianController technician = new TechnicianController();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -354,7 +356,7 @@ public class GarageServlet extends HttpServlet {
         }else if(option.equalsIgnoreCase("changeTechnicianPhoneNumber")){
             try {
                 connection=ds.getConnection();
-                boolean b = garage.updateContactNumber(connection, newContactNumber, garageId);
+                boolean b = technician.updateTechnicianContactNumber(connection, newContactNumber, garageId);
                 if (b) {
                     JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
                     resp.setStatus(HttpServletResponse.SC_OK);

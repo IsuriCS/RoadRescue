@@ -1,0 +1,33 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="roadRescueBackend">
+    <output-path>$PROJECT_DIR$/build/classes/artifacts/roadRescueBackend</output-path>
+    <root id="archive" name="roadRescueBackend.war">
+      <element id="javaee-facet-resources" facet="BackEnd/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/BackEnd/lib/mysql-connector-java-5.1.49.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/BackEnd/lib/jjwt-0.9.1.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/BackEnd/lib/javax.transaction.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/BackEnd/lib/javax.servlet.jsp.jstl.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/BackEnd/lib/javax.servlet.jsp.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/BackEnd/lib/javax.servlet.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/BackEnd/lib/javax.resource.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/BackEnd/lib/javax.persistence.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/BackEnd/lib/javax.json-api-1.1.4.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/BackEnd/lib/javax.jms.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/BackEnd/lib/javax.json-1.1.4.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/BackEnd/lib/javax.ejb.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/BackEnd/lib/javax.annotation.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/BackEnd/lib/jackson-databind-2.15.2.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/BackEnd/lib/jackson-core-2.15.2.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/BackEnd/lib/jackson-annotations-2.15.2.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/BackEnd/lib/gson-2.8.2.jar" />
+          <element id="library" level="application_server_libraries" name="Tomcat 8.5.93" />
+        </element>
+        <element id="directory" name="classes">
+          <element id="module-output" name="BackEnd" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
