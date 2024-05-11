@@ -1,14 +1,17 @@
 package servlet;
 
 
-import controllers.ControllerImpl.CustomerSupportController;
 import controllers.ControllerImpl.SupportMemberController;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import models.SupportMemberModels;
 import models.SupportMember;
+import models.SupportMemberModels;
+
 import javax.annotation.Resource;
-import javax.json.*;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,37 +42,52 @@ public class SupportMemberServlet extends HttpServlet {
         System.out.println("Call  me");
         PrintWriter writer = resp.getWriter();
 
-        try {
-            Connection connection = ds.getConnection();
+        String option = req.getParameter("option");
+        String id = req.getParameter("if");
 
-            JsonReader reader = Json.createReader(req.getReader());
-            JsonObject jsonObject = reader.readObject();
+        if (option.equalsIgnoreCase("getData")){
 
-            String contactNum = jsonObject.getString("contactNum");
-            JsonObject getCustomerSupportMemberByContact = cusSupportMember.getCustomerSupportMemberByContact(connection , contactNum);
-            JsonObjectBuilder response = Json.createObjectBuilder();
-            response.add("status",200);
-            response.add("message","Successfully get all details.");
-            response.add("data",getCustomerSupportMemberByContact);
-            writer.print(response.build());
-            connection.close();
-        } catch (SQLException e) {
-            JsonObjectBuilder response = Json.createObjectBuilder();
-            resp.setStatus(HttpServletResponse.SC_OK);
-            response.add("status",500);
-            response.add("message","SQLException");
-            response.add("data",e.getLocalizedMessage());
-            writer.print(response.build());
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            JsonObjectBuilder response = Json.createObjectBuilder();
-            resp.setStatus(HttpServletResponse.SC_OK);
-            response.add("status",500);
-            response.add("message","ClassNotFoundException");
-            response.add("data",e.getLocalizedMessage());
-            writer.print(response.build());
-            e.printStackTrace();
+
+
+
+        }else {
+            try {
+                Connection connection = ds.getConnection();
+
+                JsonReader reader = Json.createReader(req.getReader());
+                JsonObject jsonObject = reader.readObject();
+
+                String contactNum = jsonObject.getString("contactNum");
+                JsonObject getCustomerSupportMemberByContact = cusSupportMember.getCustomerSupportMemberByContact(connection , contactNum);
+                JsonObjectBuilder response = Json.createObjectBuilder();
+                response.add("status",200);
+                response.add("message","Successfully get all details.");
+                response.add("data",getCustomerSupportMemberByContact);
+                writer.print(response.build());
+                connection.close();
+            } catch (SQLException e) {
+                JsonObjectBuilder response = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                response.add("status",500);
+                response.add("message","SQLException");
+                response.add("data",e.getLocalizedMessage());
+                writer.print(response.build());
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                JsonObjectBuilder response = Json.createObjectBuilder();
+                resp.setStatus(HttpServletResponse.SC_OK);
+                response.add("status",500);
+                response.add("message","ClassNotFoundException");
+                response.add("data",e.getLocalizedMessage());
+                writer.print(response.build());
+                e.printStackTrace();
+            }
         }
+
+
+
+
+
 
     }
 
@@ -196,9 +214,6 @@ public class SupportMemberServlet extends HttpServlet {
                 break;
             default:break;
         }
-
-
-
     }
 
     @Override

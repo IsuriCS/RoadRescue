@@ -114,5 +114,9 @@ public class ServicesController {
     private boolean updateStatus(Connection connection, String serviceId) throws SQLException, ClassNotFoundException {
         return CrudUtil.executeUpdate(connection,"Update service_request set updated_at=CONVERT_TZ(CURRENT_TIMESTAMP,'+00:00', '+05:30') where id=?",serviceId);
     }
+
+    public boolean cancelRequest(Connection connection, String status, String id) throws SQLException, ClassNotFoundException {
+       return  CrudUtil.executeUpdate(connection,"UPDATE service_request set status=6 where id=?",Integer.parseInt(id));
+    }
 }
 

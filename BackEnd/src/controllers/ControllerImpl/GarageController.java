@@ -171,5 +171,9 @@ public class GarageController {
         return CrudUtil.executeQuery(connection, "Select id from bank_account where service_provider_id=?",Integer.parseInt(bankDetails.getServiceProviderId())).next();
 
     }
+
+    public boolean changeStatus(Connection connection, String status, String id) throws SQLException, ClassNotFoundException {
+       return CrudUtil.executeUpdate(connection, "UPDATE service_provider set status=? where id=?", status, Integer.parseInt(id));
+    }
 }
 
